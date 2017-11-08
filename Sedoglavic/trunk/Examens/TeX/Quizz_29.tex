@@ -1,0 +1,19 @@
+Consid\'erons le code suivant~:
+\begin{verbatim}
+int tab[100] ;
+int i, j, *p, *q, *copy, *tmp ; 
+i=10 ; j = 91 ;
+p = tab+i ; 
+q = tab+j ; 
+copy = (int *) malloc(q-p); 
+if (copy) 
+  for (tmp = copy; p < q; *(tmp++) = *(p++)) ; 
+\end{verbatim}
+On souhaite faire une copie des cellules d'indice~$10$ \`a~$90$ du
+tableau.
+\par
+Expliquer pourquoi ce code n'est pas correct.
+\ifcorrection
+Il n'y a pas assez d'espace allou\'ee~: le param\`etre de
+\verb+malloc+ aurait du \^etre \verb+(q-p) * sizeof(int)+. 
+\fi

@@ -1,0 +1,456 @@
+%------------------------------------------------------------------------------
+\section{Listes cha\^\i{}n\'ees}
+\label{sec:ListesChaines}\index{Listes cha\^\i{}n\'ees}
+Une  liste  cha\^\i{}n\'ee est   constitu\'ee de cellules d'un type
+\texttt{struct} contenant~:
+\begin{itemize}
+\item un pointeur/l'adresse sur/de la cellule suivante~;
+\item des champs d'informations.
+\end{itemize}
+On peut ainsi d\'efinir une cellule par le type suivant~:
+\begin{verbatim}
+typedef struct cellule{
+  struct cellule *suivante ;
+  type_1 el_1 ;
+    .... 
+  type_n el_n ;
+} cellule ;
+\end{verbatim}
+Ceci fait,   il     nous  reste  \`a   d\'efinir    les  manipulations
+\'el\'ementaires associ\'ee \`a une liste~; il nous faut des fonctions 
+qui permettent~:
+\begin{itemize}
+\item de cr\'eer d'une cellule~;
+\item d'ins\'erer une cellule dans la liste~;
+\item de supprimer une cellule de la liste~;
+\item de d\'etruire d'une cellule~;
+\end{itemize}
+Pour cr\'eer une cellule, il faut allouer de l'espace m\'emoire~:
+\begin{verbatim}
+cellule * CreerCellule(type_1 data_1, ... type_n data_n){
+
+  cellule * cell = (cellule *) malloc(sizeof(cellule)) ;
+
+  cell->suivante = NULL   ; /* la cellule nouvellement cr\'ee
+                             * ne pointe sur rien             */
+  cell->el_1     = data_1 ;
+     ....
+  cell->el_n     = data_n ;
+
+  return cell ;
+}
+\end{verbatim}
+Cette fonction cr\'ee (et remplit) une cellule. Remarquez que l'espace
+m\'emoire allou\'e gr\^ace  \`a la fonction  \texttt{malloc} n'est pas
+d\'etruit    \`a   la   fin de    la   fonction  \texttt{CreerCellule}
+contrairement  \`a l'ensemble  des   variables et  arguments de  cette
+fonctions.  Pour  \'eviter d'encombrer  la   m\'emoire, il nous   faut
+disposer d'une fonction permettant de  d\'etruire une cellule. Pour ce
+faire, on   utilise  la   fonction  \texttt{free} de   la    librairie
+standrard~:
+\begin{verbatim}
+void DetruireCellule( cellule * cell) {
+  free( (void *) cell) ;
+}
+\end{verbatim}
+Pour ins\'erer une cellule  dans  une liste cha\^\i{}n\'ee  apr\`es la
+cellule \verb+cell_courante+, il suffit d'utiliser le code~:
+\begin{verbatim}
+void InsererCellule( cellule * cell_a_inserer, 
+                     cellule * cell_courante){
+  cell_a_inserer -> suivante = cell_courante -> suivante ;
+  cell_courante -> suivante = cell_a_inserer ;
+}
+\end{verbatim}
+De m\^eme,    pour  extraire une  cellule  apr\`es  une  cellule  (ici
+qualifi\'ee de m\`ere), on peut utiliser le code~:
+\begin{verbatim}
+cellule * ExtraireCellule (cellule * cell_mere){
+  cellule * tmp ;
+  tmp = cell_mere->suivante ;
+  cell_mere -> suivante = tmp -> suivante ;
+  return tmp ;
+}
+\end{verbatim}
+\begin{exercice}[Manipulations \'el\'ementaires]
+  Construire un  crible   d'\'Eratosth\`ene  \`a l'aide   d'une  liste
+  cha\^\i{}n\'ee  qui  au d\'epart   stockera  l'ensemble  des nombres
+  inf\'erieurs \`a un entier saisi au clavier.
+  \par
+  Apr\`es une \'etape   de     construction, il   faudra     consid\'erer
+  successivement  les \'el\'ements  de  la   liste  et supprimer   les
+  multiples.
+  \par
+  Pour   finir, l'ensemble  des  nombres   premiers  est afficher  \`a
+  l'\'ecran.
+  \subparagraph{Imp\'eratif~:}  
+  on  prendra  soin     de  d\'etruire les   cellules     de  la liste
+  cha\^\i{}n\'ee associ\'ees \`a des nombres compos\'es.
+  \ifcorrection%
+  \begin{correction}
+  \input{Verbatim/ListeChaineeEratosthene.c.verb}%
+  \end{correction}
+  \fi%
+\end{exercice}
+\begin{exercice}[Distribution de fr\'equence des lettres d'un texte]
+  \'Etant  donn\'ee un texte cod\'e  suivant  un standard ISO (dans la
+  suite ce sera le  standard~$8859$ cf.\ \verb+man iso_8859_1+), on se
+  propose  dans cet exercice de     d\'eterminer la fr\'equences   des
+  caract\`eres le composant.
+  \par
+  Par exemple, si l'on saisi au clavier (azerty) la phrase~:
+  \par
+  \centerline{Longtemps, je me suis couch\'e de bonne heure.}
+  \par
+  et  qu'on  la stocke dans  un fichier  texte, on  obtient le fichier
+  compos\'e d'entiers cod\'es sur~$8$ bits~:
+  $$
+  \begin{tabular}{lllllllllll}
+    76 & 111 & 110 & 103 & 116 & 101 & 109 & 112 & 115 & 32 & 106 \\
+    101 & 32 & 109 & 101 & 32 & 115 &  117 & 105 & 115 & 32 & 99  \\
+    111 & 117 & 99 & 104 & 233 & 32 & 100 & 101 &  32 & 98 & 111  \\
+    110 & 110 & 101 & 32 & 104 & 101 & 117 & 114 & 101 & 46
+  \end{tabular}
+  $$
+  Pour faire  l'analyse de fr\'equence des lettres  de ce texte, on
+  peut proc\'eder comme suit~:
+  \begin{itemize}
+  \item construire  une   liste   cha\^\i{}n\'ee dont   les   cellules
+    contiennent deux informations~: une lettre et sa fr\'equence~;
+  \item parcourir le texte lettre par lettre et pour chacune~;
+    \begin{itemize}
+    \item v\'erifier si elle se trouve d\'ej\`a dans la liste~; 
+    \item si oui, incr\'ementer la fr\'equence.
+      \par
+      si non, cr\'eer et ins\'erer la nouvelle cellule correspondante~;
+    \end{itemize}
+  \item pour finir, on parcours la liste afin de calculer les fr\'equences.
+  \end{itemize}
+  \par\medskip
+  Construisez un  programme prenant en  entr\'ee deux noms de fichiers
+  \verb+foo.txt+   et   \verb+bar.res+~;  ce  programme     calcule la
+  distribution de fr\'equence du  texte contenu dans \verb+foo.txt+ et
+  sauve le r\'esultat dans le fichier \verb+bar.res+.
+  
+  \subparagraph{Indications~:}%
+  vous  pouvez utilisez le  manuel unix comme   texte (\verb+man gcc > foo.txt+) %
+  ou t\'el\'echarger un texte depuis la toile.
+  \ifcorrection%
+  \begin{correction}
+  \input{Verbatim/TextCalculFrequence.c.verb}%
+  \end{correction}
+  \fi%
+\end{exercice}
+\begin{exercice}[Calcul de l'entropie d'un texte]
+  Soit un  alphabet~$\mathcal{S}$ munie d'une variable al\'eatoire~$X$
+  de probabilit\'e de r\'ealisation~$P(X=s)$. Dans notre cas, pour une
+  lettre~$s$ d'un  texte,  la   probabilit\'e~$P(X=s)$  n'est   que la
+  fr\'equence  d'apparition de cette   lettre.  On appelle  quantit\'e
+  d'information du symbole~$s$ de~${\mathcal{S}}$ le nombre~:
+  $$
+  I(s) = - \frac{\log P(X=s)}{\log 2}.
+  $$
+  Ainsi,  plus l'utilisation    d'une  lettre est rare,  plus   la
+  quantit\'e d'information associ\'ee est grande.
+  \par\medskip
+  \begin{definition}[C.E.~Shannon 1940] --- 
+    On appelle \emph{entropie}  de la source~$\mathcal{S}$ munie d'une
+    variable    al\'eatoire~$X$    et   de    la    probabilit\'e   de
+    r\'ealisation~$P$   la  quantit\'e   moyenne d'information     par
+    symbole~:
+    $$
+    H(X) = \sum_{s\in\mathcal{S}} P(X=s)I(s).
+    $$
+  \end{definition}  
+  \par\medskip
+  En  utilisant la notion d'entropie de  source, on fait l'hypoth\`ese
+  que toutes les lettres d'un texte  sont ind\'ependantes les unes des
+  autres i.e. il est aussi probable d'avoir un~e apr\`es un~l qu'un~z.
+  \par\medskip
+  Ce n'est g\'en\'eralement pas le cas~: l'occurrence une lettre d\'epend fortement
+  des   lettres voisines. Pour  estimer l'entropie   dans  ce  cas, on
+  utilise la fr\'equence --- non plus des  lettres de~$S$ --- mais des
+  groupes de lettres~${m_{1}\ldots m_{d}}$ avec~$m_{i}$ dans~$S$.
+  \par
+  Comme  une  lettres  d\'epend  peu  des  lettres \'eloign\'ees~:  la
+  suite~${H(m_{1}\cdots   m_{d})/d}$  converge rapidement  lorsque~$d$
+  tends vers l'infini.
+  \begin{definition} --- L'entropie d'un texte est la limite
+    $$
+    \lim_{d\rightarrow \infty} \frac{H(m_{1}\cdots   m_{d})}{d}.
+    $$
+   \end{definition}
+  \paragraph{Questions~:}
+  \begin{enumerate}
+  \item Modifier votre programme afin de calculer l'entropie de source
+    d'un texte  (la source \'etant  dans ce cas l'ensemble des lettres
+    distinctes composant le texte).
+  \item Modifier  votre programme afin   de  calculer l'entropie  d'un
+    texte.
+  \end{enumerate}
+
+  \ifcorrection%
+  \begin{correction}
+  \input{Verbatim/TextCalculEntropie.c.verb}%
+  \end{correction}
+  \fi%
+  
+  \subparagraph{Indications~:}%
+  On  dispose d'une fonction  \verb+log+ d\'efinie dans \verb+math.h+. 
+  Pour l'utiliser, il   faut  indiquer  au compilateur   la   librairie
+  correspondante par l'instruction \verb+ gcc foo.c -lm+.
+  \par
+  Pour  calculer  l'entropie  d'un   texte,  il est  int\'eressant  de
+  modifier le typage  des cellules de  notre liste cha\^\i{}n\'ee~: on
+  peut remplacer le caract\`ere par une cha\^\i{}ne de caract\`eres et
+  profiter   de    l'ordre lexicographique   induit   par la  commande
+  \verb+stcmp+.
+  
+  \paragraph{Remarque~:}
+  L'implantation que   nous  venons  de terminer   \'etant   naive, sa
+  complexit\'e --- i.e.\ le nombre d'op\'erations n\'ecessaires --- est
+  grande~: elle  est  quadratique dans la  taille de   l'entr\'ee.  En
+  utilisant une table de hachage, on peut  effectuer la m\^eme t\^ache
+  avec une complexit\'e lin\'eaire en la taille de l'entr\'ee.
+\end{exercice}
+%------------------------------------------------------------------------------
+\section{Taquinons les files}
+\label{sec:TaquinFile}
+Dans cette section, nous souhaitons construire un programme permettant
+par une recherche exhaustive de r\'esoudre le probl\`eme du taquin.
+Pour ce faire, nous allons utiliser la notion de \textit{file}.
+\subsection{Implantation d'une file gard\'ee}
+\label{sec:file}
+Une cellule est compos\'ee d'une structure \texttt{state} de type
+\texttt{position\_t} (qui sera d\'ecrit dans la
+section~\ref{sec:taquin}) et d'un pointeur nomm\'e \texttt{next} sur
+une autre cellule.
+\par
+Une file gard\'ee est constitu\'ee de~$2$ pointeurs~; le premier de
+ces pointeurs a pour identificateur \texttt{tail} et pointe sur une
+cellule qualifi\'ee de \textit{queue} de file. Le second a pour
+identificateur \texttt{head} et pointe sur une cellule qualifi\'ee de
+\textit{t\^ete} de file. Une file est vide lorsque les pointeurs
+\texttt{tail} et \texttt{head} pointent sur \texttt{NULL}.
+\paragraph{Fonctions de manipulation de la file.}
+La file peut \^etre manipul\'ee gr\^ace aux fonctions suivantes dont
+on donne le prototype~:
+\begin{itemize}
+\item \verb?void initfile(struct file_t *)? initialise une file
+  d\'ej\`a d\'efinie comme \'etant vide~;
+\item \verb?struct cellule_t * creercellule(struct position_t *)?
+  construit une cellule en allouant la m\'emoire n\'ecessaire, en
+  affectant \texttt{next} \`a \texttt{NULL} et en copiant les
+  informations fournies par le param\`etre dans le champs
+  \texttt{state}~;
+\item \verb?int estvide(struct file_t *)? retourne~$1$ si la file est
+  vide,~$0$ sinon~;
+\item \verb?void ajouter(struct file_t *, struct cellule_t *)?
+  ins\`ere une cellule~A dans la file.  Si la file est vide les
+  pointeurs \texttt{tail} et \texttt{head} pointent sur la cellule~A.
+  Sinon, le pointeur \texttt{next} de la cellule~A pointe vers la
+  cellule point\'ee par \texttt{tail} et ce dernier pointeur est
+  modifi\'e afin de pointer sur la cellule~A~;
+  \item \verb?struct position_t * examiner(struct file_t *)? retourne un
+  pointeur sur la position stock\'ee en t\^ete de la file~;
+\item \verb?void supprimer(struct file_t *)? supprime la cellule de
+  t\^ete de la file.  Si la file n'a qu'une cellule, on la supprime et
+  on fait pointer la t\^ete et la queue sur \texttt{NULL}. Sinon, on
+  parcours la file pour placer la t\^ete sur l'avant derni\`ere
+  cellule et on supprime la derni\`ere cellule.
+\end{itemize}
+
+\paragraph{Questions.}
+\begin{enumerate}
+\item Donnez la d\'eclaration des types \texttt{cellule\_t} et
+  \texttt{file\_t} d\'ecrits ci-dessus.
+\item Donnez les d\'efinitions des fonctions d\'ecrites ci-dessus.
+\end{enumerate}
+
+\subsection{Jeu de taquin}
+\label{sec:taquin}
+Un jeu de taquin est constitu\'e d'une grille de~$9$ cases contenant
+des \textit{jetons} i.e.\ les entiers de~$0$ \`a~$8$~:
+\begin{center}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    3 & 7 & 4 \\ \hline 
+    0 & 1 & 8 \\ \hline 
+    2 & 5 & 6 \\ \hline 
+  \end{tabular}
+\end{center}
+L'entier~$0$ correspond \`a une case vide qui peut \^etre
+\textit{d\'eplac\'ee} en l'\'echangeant avec une case voisine. Ainsi,
+en d\'epla\c{c}ant la case vide vers la droite dans la position
+ci-dessus, on obtient la position~:
+\begin{center}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    3 & 7 & 4 \\ \hline 
+    1 & 0 & 8 \\ \hline 
+    2 & 5 & 6 \\ \hline 
+  \end{tabular}
+\end{center}
+Le d\'eplacement en diagonale n'est pas autoris\'e.  L'objectif du jeu
+est de parvenir \`a la position suivante (que l'on qualifie de
+\textit{gagnante})~:
+\begin{center}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    1 & 2 & 3 \\ \hline 
+    4 & 5 & 6 \\ \hline 
+    7 & 8 & 0 \\ \hline 
+  \end{tabular}
+\end{center}
+\paragraph{Codage du jeu.}
+Pour continuer, il nous faut pr\'eciser ce que l'on entend par
+\textit{position}. Une position est une structure de type
+\texttt{position\_t} qui contient les champs suivants~:
+\begin{itemize}
+\item un tableau bidimensionnel \texttt{grille} repr\'esentant la
+  grille dont chaque case peut contenir un entier et donc un jeton.
+  Par convention on pose que la case correspondant \`a
+  \texttt{grille[i][j]} est \`a l'intersection de la~${(i+1)}$i\`eme
+  ligne et de la~${(j+1)}$i\`eme colonne~;
+\item un pointeur \texttt{solution} pointant sur une cha\^\i{}ne de
+  caract\`eres. Notons qu'en cours d'ex\'ecution, cette cha\^\i{}ne
+  est uniquement constitu\'ee des caract\`eres 'h', 'b', 'g' et~'d'.
+  Ces caract\`eres repr\'esentent chacun un d\'eplacement ('h' pour
+  haut, etc.)~;
+\item un tableau \texttt{casevide} de deux cellules contenant les
+  coordonn\'ees de la case vide. Ainsi si \texttt{casevide} est~${\{0,1\}}$ la
+  case vide se trouve \`a l'intersection de la premi\`ere ligne et de
+  la seconde colonne.
+\end{itemize}
+\paragraph{Fonctions de manipulation.}
+Pour manipuler une position, on a besoin des fonctions suivantes~:
+\begin{itemize}
+\item \verb?int gagne(struct position_t *)? retourne~$1$ si la
+  position est gagnante et~$0$ sinon~;
+%\item \verb?int sontegales(struct position_t *, struct position_t *)? %
+%  retourne~$1$ si la premi\`ere position pass\'ee en param\`etre est
+%  \'egale \`a la seconde et~$0$ sinon (deux positions sont \'egales
+%  si, et seulement si, les grilles sont les m\^emes)~;
+\item \verb?char * concat(char *, char)? prend en entr\'ee un d\'ebut
+  de solution (disons \verb?"db"?), un d\'eplacement (\verb?'h'?) et
+  retourne un pointeur sur la nouvelle solution ainsi form\'ee
+  (\verb?"dbh"?) pour laquelle de la m\'emoire aura \'et\'e
+  r\'eserv\'ee (l'ancienne solution n'est pas modifi\'ee)~;
+\item \verb?char * deplacementpossible(int *)? qui \'etant donn\'ee
+  la case vide (dans la premi\`ere position d\'ecrite dans cette
+  section par exemple) retourne une cha\^\i{}ne de caract\`eres
+  regroupant l'ensemble des d\'eplacements possibles (\verb?"hdb"?).
+  Pour faire simple, cette fonction peut recenser par des
+  conditionnelles l'ensemble des cas possibles~;
+\item \verb?struct position_t nouvelleposition(struct position_t, char)? % 
+  retourne une nouvelle position d\'etermin\'ee par l'ancienne
+  position et le d\'eplacement pass\'e en param\`etre (tous les
+  champs de la nouvelle position doivent \^etre r\'eactualis\'es et
+  l'ancienne position n'est pas affect\'ee).
+\end{itemize}
+\par\medskip
+Pour r\'esoudre le probl\`eme du taquin on propose d'utiliser
+l'algorithme suivant~:
+\begin{enumerate}
+\item Construisez une cellule \`a partir de la position initiale et
+  ajouter la dans une file vide.
+\item Examiner la position de t\^ete de la file. Si elle est gagnante,
+  aller \`a l'\'etape~4. Sinon, aller \`a l'\'etape~3.
+\item D\'eterminer l'ensemble des d\'eplacements possibles. Pour
+  chacun d'entre eux, cr\'eer une nouvelle position associ\'ee \`a ce
+  d\'eplacement et une nouvelle cellule contenant cette derni\`ere~;
+  ajouter cette cellule \`a la file.
+\item C'est fini. Il ne reste qu'\`a afficher la solution trouv\'ee.
+\end{enumerate}
+\paragraph{Questions.}
+\begin{enumerate}
+\item Donnez la d\'eclaration du type \texttt{position\_t}.
+\item Donnez les d\'efinitions des~$3$ fonctions de manipulation
+  d\'ecrites ci-dessus.
+\item Donnez la d\'efinition de la fonction %
+  \verb?char * solve(struct position_t);? qui r\'esoud le probl\`eme
+  du taquin.
+\end{enumerate}
+%--------------------------------------------------------------------------------
+\section{Arbres}
+\label{sec:Arbres}\index{Arbres}
+
+\begin{exercice}[Codage de Huffman]
+  L'objectif de ces travaux pratiques est de comprimer un texte \`a
+  l'aide du codage de Huffman. Ceci n\'ecessite trois \'etapes~:
+  \begin{enumerate}
+  \item Calcul des distributions de fr\'equence du texte~;
+  \item Construction du code de Huffman correspondant~;
+  \item Codage du texte.
+  \end{enumerate}
+  Pour chaque \'etape, on vous demande de construire des fonctions
+  r\'ealisant la t\^ache correspondante. Pour finir, vous construirez
+  un programme qui permet de saisir un texte sur l'entr\'ee standard,
+  retourne le texte cod\'ee sur la sortie standard et le code de
+  Huffman sur la sortie d'erreur (pour faire simple \`a d\'efaut
+  d'\^etre \'el\'egant).
+
+  \paragraph{Calcul des distributions de fr\'equences du texte.}
+  Tout d'abord, donnez la d\'efinition d'une fonction qui construit
+  une liste contenant l'ensemble des lettres utilis\'ees dans le texte
+  ainsi que la fr\'equence d'occurrence de ces lettres.
+  \par
+  Une \emph{distribution de fr\'equence} est une application de la
+  forme~:
+  $$
+  \begin{array}{ccccc}
+  f\ :& S& \longrightarrow& [0,1]& \subset R \\
+       & x& \longrightarrow& f(x) 
+  \end{array} \quad
+  \textup{avec}\quad \sum_{x \in S} f(x)=1.
+  $$
+\par
+  Dans notre cas la fr\'equence d'une lettre dans un texte est le
+  nombre d'occurrences de cette lettre divis\'ee par le nombre total
+  de lettres.
+  \paragraph{Construction du code de Huffman.}
+  L'algorithme de Huffman construit un arbre binaire qui permet
+  d'obtenir un codage optimal d'un texte.
+  \subparagraph{Initialisation.}  Pour commencer, on part d'une
+  for\^et d'arbres binaires form\'es chacun d'une seule feuille.
+  Chaque feuille, contient une lettre et la fr\'equence
+  correspondante. Les fonctions de la section pr\'ec\'edente ---
+  convenablement modifi\'ee --- fournissent cette for\^et cod\'ee par
+  une liste.
+  
+  \subparagraph{It\'eration.}  Ensuite, on fusionne deux arbres dont
+  la fr\'equence est minimale. Cette op\'eration consiste \`a
+  construire un nouvel arbre binaire qui a pour fils gauche l'arbre
+  ayant la plus petite fr\'equence et l'autre pour fils droit. La
+  fr\'equence associ\'ee \`a l'arbre ainsi obtenu est la somme des
+  fr\'equences de ces sous arbres.
+  
+  \subparagraph{Arr\^et.} Notre processus se termine lorsqu'il ne
+  reste plus qu'un arbre dans notre for\^et.  
+
+  \paragraph{Codage du texte.} 
+  
+  Nous disposons \`a pr\'esent d'un arbre repr\'esentant un code de
+  Huffman associ\'e \`a un texte de d\'epart~; chacune de ses feuilles
+  correspond \`a une lettre de texte. Pour obtenir le code
+  correspondant, on applique un algorithme de parcours d'arbre en
+  profondeur qui associe une suite de bits \`a une feuilles \`a partir
+  de sa position dans l'arbre~:
+  \begin{itemize}
+  \item \`a chaque bifurcation vers la gauche, on ajoute au codage de
+    la lettre le bit~$0$~;
+  \item \`a chaque bifurcation vers la droite, on ajoute au codage de
+    la lettre le bit~$1$.
+  \end{itemize}
+  
+  L'id\'ee du codage repose sur le fait que les lettres les plus
+  r\'ep\'et\'ees dans le texte sont proches de la racine par
+  construction de notre arbre et sont donc cod\'ees par le processus
+  ci-dessus sur un moins grand nombre de bits que leurs cons\oe{}urs.
+  
+  Pour finir, vous pouvez par exemple construire une fonction qui
+  prend en entr\'ee un arbre de Huffman et retourne une table
+  associant la lettre et son codage binaire optimal~; puis un
+  programme qui compresse notre texte.
+\end{exercice}
+

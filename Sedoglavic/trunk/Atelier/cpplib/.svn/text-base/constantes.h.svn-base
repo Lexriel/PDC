@@ -1,0 +1,15 @@
+// $Id$
+
+#ifndef constantesH
+#define constantesH
+//---------------------------------------------------------------------------
+
+namespace pensar_digital
+{
+    namespace cpplib
+    {
+        extern const int ID_INEXISTENTE;
+    }   // namespace cpplib
+}       // namespace pensar_digital
+
+#endif

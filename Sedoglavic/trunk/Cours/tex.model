@@ -1,0 +1,26 @@
+\documentclass[11pt]{beamer}
+%\documentclass[11pt,handout]{beamer}
+\usetheme[left]{Goettingen}
+\usefonttheme{structurebold}
+\usepackage[french]{babel}
+\usepackage{svn-multi}
+%------------------------------------------------------------------------------
+% Use a small font for the verbatim environment
+\makeatletter  % makes '@' an ordinary character
+\renewcommand{\verbatim@font}{%
+  \ttfamily\footnotesize\catcode`\<=\active\catcode`\>=\active%
+}
+\makeatother   % makes '@' a special symbol again
+%------------------------------------------------------------------------------
+\input{../Stuff/macro}
+\input{../Stuff/environment}
+%------------------------------------------------------------------------------
+% XX should be substitute by Makefiles
+\input{XX_title}
+\input{CourseName}
+\begin{document}
+\frame{\titlepage}
+\input{XX}
+\end{document}
+%------------------------------------------------------------------------------
+% That's all folks

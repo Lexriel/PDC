@@ -1,0 +1,6 @@
+TP2 PDC
+Benjamin Digeon
+
+Avancement :
+
+Indentation => DoneCommentaires => DoneUne accolade dans un commentaire doit etre ignoree. => DoneAucune modification ne doit etre faite sur une ligne commencant par une directive de cpp => Done– Aucune modification ne doit etre faite a l’interieur des chaınes de caracteres litterales => DoneErreur => Seulement en fin de formatage si le commentaire n'est pas fermé.

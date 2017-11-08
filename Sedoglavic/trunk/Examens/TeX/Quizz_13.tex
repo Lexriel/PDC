@@ -1,0 +1,81 @@
+Consid\'erons le code~C suivant:
+\begin{verbatim}
+      #include <stdio.h>
+      #include <string.h>
+      #include <stdlib.h>
+      char* remplace(char c, int i) {
+          /* C'est ici que l'on veut ins\'erer la ligne */
+          str[i] = c;
+          return str;
+      }
+      int main(void){
+          char* chaine = remplace(' ', 2); 
+          chaine = remplace('n', 0); chaine = remplace('o', 1);
+          printf("%s\n", chaine);
+          return 0;
+      }
+\end{verbatim}
+On souhaite que ce code affiche la cha\^\i{}ne de caract\`eres
+\begin{verbatim}
+cassandre % gcc Quizz_13.c && ./a.out
+no fun
+\end{verbatim}
+Pour ce faire, on consid\`ere~$4$ possibilit\'es pour chacune des
+lignes suivantes que l'on suppose \'ecrites \`a la place du
+commentaire %
+\verb+/* C'est ici que l'on veut ins\'erer la ligne */+.
+\begin{enumerate}
+\item \verb+char str[] = { 'C',' ',' ','f','u','n',0 } ;+
+\item \verb+char str[] = "C  fun" ;+
+\item \verb+char *str = (char *) malloc(7*sizeof(char)); strncpy(str, "C  fun",7);+
+\item \verb+static char str[] = { 'C',' ',' ','f','u','n',0 } ;+.
+\end{enumerate}
+Dans chaque cas, indiquez
+\begin{enumerate}
+\item si le programme compile,
+\item s'il provoque une
+  erreur ou un r\'esultat ind\'etermin\'e en cours d'ex\'ecution et
+\item le r\'esultat de l'affichage.
+\end{enumerate}
+Justifier vos r\'eponses.
+\paragraph{Remarques~:}
+La fonction
+\begin{verbatim}
+#include <string.h>
+char *strncpy (char *dest, const char *src, int n);
+\end{verbatim}
+copie la cha\^\i{}ne point\'ee par \verb+src+ (y compris le caract\`ere \verb+`\0'+
+final) dans la cha\^\i{}ne point\'ee par dest. Les deux cha\^\i{}nes
+ne doivent pas se chevaucher. La cha\^\i{}ne \verb+dest+ doit \^etre assez
+grande pour accueillir la copie.
+
+Dans le cas o\`u la longueur \verb+src+ est inf\'erieure \`a n, la fin de dest
+sera remplie avec des caract\`eres nuls.
+
+La fonction strncpy() renvoient un pointeur sur la cha\^\i{}ne
+destination dest.
+
+\ifcorrection
+Le programme compile dans les quatres cas.
+\begin{enumerate}
+\item \verb+char str[] = { 'C',' ',' ','f','u','n' } ;+ str \'etant une variable
+  automatique i.e.\ d\'efinie sur la pile, le compilateur le signale
+  (warning) et le r\'esultat de l'affichage est plus que loufoque~: le
+  tableau str, bien qu'associ\'e \`a une adresse, n'est pas un
+  pointeur et l'emplacement m\'emoire de ce tableau peut \^etre
+  occup\'e par autre chose (les variables et param\`etres de l'appel
+  \`a printf).
+\item C'est un peu mieux car cette fois, c'est l'adresse que l'on
+  stocke dans \verb+str+. Mais l'affichage produit sera \verb+Co fun+.
+\item \verb+char *str = (char *) malloc(7*sizeof(char)); strncpy(str, "C  fun");+
+  Cette fois, on n'utilise plus une variable automatique (on utilise
+  le tas) mais un autre espace m\'emoire est utilis\'e \`a chaque
+  appel de la fonction \verb+remplace+. Le r\'esultat de l'affichage est
+  donc~\verb+Co fun+.
+\item \verb+static char str[] = "C fun";+.  
+  C'est le bon affichage.  Le code compile sans provoquer de message
+  (str est ici une variable static donc de port\'ee locale \`a la
+  proc\'edure remplace mais n'est pas automatique i.e.\ d\'efinie sur
+  la pile) 
+\end{enumerate}
+\fi

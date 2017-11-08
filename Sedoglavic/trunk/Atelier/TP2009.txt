@@ -1,0 +1,232 @@
+
+Agostino (pas d'EXAM)
+
+Ayar 
+     pp 100% avec pourtant un gros bug dans ./pp <
+     	~/Enseignement/PDC/trunk/Examens/C/ChiffrementDeCesar.c 
+     mcu 50 % (ne marche pas ./mcolrm 2 <  mcolrm.c)
+     qs pas de rendu
+     grep      25 %  (avec Noufli) le makefile ne compile pas (pas de liens avec
+     les .o) pas de fichier source pour mgrep.
+
+     7.5 (en étant large)
+     
+
+Baguette
+	pp 100 %
+	mcu 50% beaucoup d'erreur (de conception (mcolrm ne prend qu'un argument),
+		de programmation, un bug dans readln (%./mcolrm 3 < mcolrm.c)
+	qs    50% n'est pas conforme au prototype donn\'e, le code ne
+	compile pas (size_el au lieu de sizeel mais marche une fois le
+	code corrig\'e par mes soins.
+	grep 0% le projet n'est pas termin\'e (le makefile ne compile pas).
+
+	Pour conclure, un 12.5 tr\'es g\'en\'ereux
+
+Bourgeois
+	pp 100% (malgres des bug, c'est pas mal)
+	mcu 25%       (troublant, un makefile avec pp, des executables
+	dans le .tar). Les fichiers (mcolrm, etc) ne partage pas
+	readl. le code ne marche pas.
+	qs  0% pas de rendu 
+	grep 0 % pas de rendu 
+
+	7.5  (courrier de PC concernant le d\'ec\`es de son p\`ere).
+
+Ciucanu
+	pp 100% (toujours la m\^eme erreur avec les commentaires)
+	mcu 100% (ca roule)
+	qs  100% (sans pb)
+	grep 100% (le grep marchotte bien) espoir % ./mongrep inc < mongrep.c
+**ERROR**:ligne de plus de 80 caractÃ©res interdites
+
+	15
+
+Clement
+	pp 100% (bien, pas de bug detecte sur le jeu d'exemple)
+	mcu 100% (a part un petit probleme dans le makefile (pas de
+	compilation de tous les executables).
+	qs 50 % (il n'y a pas de quicksort generique)
+	grep PAS de rendu
+
+	7.5 (pas de rendu de grep) Dommage voir s'il n'a pas rendu
+	avec quelqu'un d'autre
+
+Concheri
+	pp 0 % ne compile meme pas
+	mcu 75% pas mal de probleme avec les pointeurs espoir % ./mcolrm  2 5 < mcolrm.c
+	provoque une erreur de segmentation
+	qs 0% pas de rendu 
+	grep pas de rendu
+
+	5  (et c'est genereux)
+
+Dervaux (F)
+	pp 0% ne compile pas.  Ecrit des fonctions imbriqu\'ees~!!!!
+	mcu 100% pas de pb
+	qs 100% (avec Dervaux M)
+	grep 100% (avec Dervaux M) (du bon boulot)
+
+	12.5 
+
+Dervaux (M)
+	pp  100 % Un makefile avec des r\`egles implicites (qui ne marche pas
+	car le fichier est pp-i.c et pas pp.c) mais du code qui marche
+	sans bug sur le jeu d'exemple
+	mcu 100% pas de pb
+	qs 100% (avec Dervaux F)
+	grep 100% (avec Dervaux F) (du bon boulot)
+
+	15 
+
+Desquiens
+	pp 100% pas de pb
+	mcu 50% mais probleme de comprehension avec le mcolrm
+	et un bug (un gros un code deja vu ailleurs)
+	qs 50 % un quick sort qui compile mais qui ne marche pas
+	grep 25% un projet incomprehensible sans aucun commentaire 
+
+	7.5 
+
+Destombes
+	pp 25 % ne compile pas avec des fonctions imbriqu\'ees
+	(presque les meme que Dervaux (F))
+	mcu 100% pas de pb
+	qs 100% pas de pb (a peine un RAND_MAX redefini)
+	grep (avec Mastio)
+	seul l'automate est fait (et c'est pas mal)
+	     50 %
+
+	    14 
+
+Donnez
+	pp 100% pas de pb
+	mcu  75% correct mais     (il manque la moiti\'e du Makefile)
+	qs 25% pas de quicksort generique
+	grep pas de rendu de projet grep
+	
+	7.5 
+
+Dufosset
+	pp 100% (un petit bug en fin de traitement)
+	mcu 50 % (le makefile ne marche pas) c'est un mcolrm avec 1
+	seul argument (pas de respect des consignes) avec un plus 
+	un bug en fin de traitement
+	qs  25 % la meme erreur que Baguette (meme code) mais 
+	pas de remarque sur le travail en binome
+	grep 50 % meme code que Destombes
+	
+	10 (car je retombe sur des codes que j'ai deja corrige)
+
+Facon
+	pp 50% (ca bug  grave)
+	mcu 50% (le makefile ne fonctionne pas) 
+	quand je le refait, le code ne compile pas
+	qs 0% (pas de rendu)
+	grep 25 % (avec Gombart) rien ne marche et je n'arrive pas
+	a le faire marcher.
+
+	5 (bien qu'il sache programmer, le rendu est inutilisable)
+
+Gombart:
+	pp 75 % (le fameux bug des commentaires que l'on trouve dans
+	d'autres codes)
+	mcu 25 % ne compile pas
+	qs pas de rendu
+	grep (avec Facon)
+	
+	7.5 (dommage que le grep soit aussi moche)
+
+Hottois
+	pp pas de rendu
+	mcu 100%
+	qs 75% (pas mal mais utilisation superflu de memcpy)
+	grep 50% un grep minimaliste a moiti\'e fait (avec Mourglia)
+	
+	10 
+
+Herbelin
+	pp (pas de make)  (en plus une copie avec fonction imbriqu\'e
+	mcu 100% (pas de pb) sauf une erreur (que je vois souvent) a
+	la fin
+	qs (fait en svn :-) mais ne compile pas avec d'enorme pb de C 
+int Tab[TABSIZE] ;
+void
+quicksort(unsigned int size, int(*compar)(void *, void *))
+{
+  void *montant, *descendant, *ref;
+  montant = tab[0];
+
+  grep pas de rendu 
+
+  7.5 
+
+Martel
+	pp (pas de make) mais un code pas mal qui tourne 100%
+	mcu maque les fichiers d'entete (peut rien faire) 0 %
+	qs marchotte (mais pas facile de tester)  50 %
+	grep pas de rendu 0% 
+
+	7.5
+
+Mastio
+	pp 100% aucun probl\'eme
+	mcu 100% aucun pb
+	qs (un petit pb msort ligne 20 avc strcmp qui n'est pas
+	encapsul\'e) je n'arrive pas a faire marcher le final  (bien
+	que je ne veux trier qu'une phrase) 75 %
+	grep (avec Destombes)
+	seul l'automate est fait (et c'est pas mal)
+	     50 %
+
+	     15 (bon boulot)
+
+Maupain
+	pp (ouverture de fichier en dur (fopen) mais sinon c'est bien
+	100%	
+	mcu (tres curieux makefile et mauvaise habitude de mettre des
+	*.o et des executables dans les archives) mais 100%
+	qs 100% 
+	pas de grep
+	
+	12.5
+
+Membre
+	pp 100%
+	mcu 100%
+	qs pas de rendu 
+	grep pas de rendu 
+
+	8.75
+
+Mourglia
+	pp 100%  (sale habitude de nommer tar.gz un tar non compresse)
+	mcu 100% 
+	qs pas de rendu 
+	grep 50% un grep minimaliste a moiti\'e fait (avec Hottois)
+
+	11.25
+
+Noufli
+	pp 75 (bug sur les commentaires d\'ej\`a vu  ailleurs)
+	mcu (foutage de gueule le fichier est celui d'AYAR) 
+	grep 25% (avec ayar)
+
+	7.5
+
+Schoner
+	pp 100 (bien que bugge sur l'indentation)
+	mcu 100 % (bien que le makefile soit mauvais)
+	pas de qs ni de grep 
+
+	7.5
+
+Vignon
+	pp 100  (bien qu'un peu bugge)
+	mcu 50 (trop de bug)
+	qs pas de rendu
+	mgrep 50 (incomplet mais meilleurs que 50%)
+	
+	10.5 
+
+	

@@ -1,0 +1,56 @@
+Exercice 13
+-----------
+
+Le code retour.c renvoie un code retour qui vaut 7, 256 ou 257 selon les portions décommentées-commentées.
+Dans le terminal, exécuter les commandes suivantes :
+$ gcc -o retour retour.c
+$ ./retour
+$ echo $?
+Le terminal affiche 0 si on retour 256, et 1 si on retourne 257.
+Le terminal ne récupère donc que des valeurs entières codées sur 8 octets (arrivé à 2^8 on revient à 0).
+
+Exercice 14
+-----------
+On appelle stdin l'entrée standard et stdout la sortie standard. Il s'agit tout simplement de ce que l'on tape dans le terminal (stdin) ou de ce que l'on y affiche (stdout). Il existe également stderr pour les erreurs, qui tout comme stdout, les affiche dans le terminal.
+La fonction getchar récupère un caractère rentré sur stdin.
+La fonction putchar affiche le caractère en paramètre sur stdout.
+Les définitions de ces deux fonctions se trouvent dans la bibliothèque stdio.h, d'où la nécessité d'inclure la directive "#include <stdio.h>" au préprocesseur au début du programme. 
+Le code InOut.c prend un caractère sur l’entrée standard et qui l’envoie sur la sortie standard.
+Dans le terminal, exécuter les commandes suivantes, puis rentrer un caractère :
+$ gcc -o InOut InOut.c
+$ ./InOut
+
+Exercice 15
+-----------
+Le code codageCesar.c permet de prendre un texte clair sur l'entrée standard et retourne sur la sortie standard un texte chiffré où l'on a remplacé chaque lettre l par le caractère résultat de l'opération l^'*'. '*' est la clé du chiffrement.
+Dans le terminal, exécuter les commandes suivantes :
+$ gcc -o codageCesar codageCesar.c
+$ ./codageCesar < message.txt
+On peut sauver le message codé affiché à l'écran dans messageCode.txt avec par exemple :
+$ ./codageCesar < message.txt > messageCode.txt
+Il est possible de considérer un fichier en argument et non en redirection.
+Ci-joint une deuxième version, utilisant un fichier en argument, qui permet de faire la même chose que codageCesar.c. Cette dernière est plus complexe que la première, et est codée sur codageCesar2.c.
+Cette version faisant appel à un argument, le main contient désormais des paramètres les utilisant (nous reverrons cela en TD et TP un peu plus tard). Pour lire le contenu du fichier, on pointe sur son adresse mémoire avec un pointeur (nous verrons également cela plus tard) et on utilisera une fonction équivalence à getchar mais pour les fichiers: fgetc. Pour finir, tout fichier ouvert doit être fermé (avec fclose).
+Dans le terminal, exécuter les commandes suivantes :
+$ gcc -o codageCesar2 codageCesar2.c
+$ ./codageCesar2 message.txt
+On peut sauver le message codé affiché à l'écran dans messageCode2.txt avec par exemple :
+$ ./codageCesar2 message.txt > messageCode2.txt
+
+Exercice 16
+-----------
+On connaît la clé de chiffrement, il suffit d'utiliser le code précédent pour déchiffrer le fichier.
+En fait, pour cette méthode, on retombe sur le message initial si on applique deux fois le cryptage. Cela vient du fait que l'opération "ou exclusif" est involutive.
+Dans le terminal, exécuter les commandes suivantes :
+$ ./codageCesar < crypto.txt > asciiArt.txt
+Et on obtient un magnifique dessin :D (même si on ne sait pas vraiment ce que c'est).
+
+Exercice 17
+-----------
+Le code preprocesseur.c permet de prendre un code c sur l'entrée standard et retourne sur la sortie standard ce même code privé de ses commentaires.
+Dans le terminal, exécuter les commandes suivantes :
+$ gcc -o preprocesseur preprocesseur.c
+$ ./preprocesseur < testPreprocesseur.txt
+Les commentaires sont bien supprimés, le seul "problème" de ce code est la gestion des retour chariots selon que le commentaire supprimé supprime une ligne entière ou juste une partie (c'est un détail).
+Cet exercice permet de donner une idée de comment commencer à coder un pretty printer. Cependant c'est long et loin d'être passionnant (remplir un switch, rajouter des états...).
+

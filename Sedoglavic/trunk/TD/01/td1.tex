@@ -1,0 +1,173 @@
+%\documentclass[licence,solution]{controle}
+\documentclass[licence]{controle}
+\matiere{Pratique du~C}
+\genre{Fiche de TD 1}
+\commentaire{Interpr\'eteur de commandes}
+
+\usepackage{epsfig}
+
+\newcommand{\B}[1]{\overline{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% graphismes
+%
+
+%\pssilent
+
+\newlength{\longDSfig}
+
+\def\normalDSfig{0.7}
+\def\petiteDSfig{0.5}
+\def\tinyDSfig{0.42}
+\def\petiteXpixDSfig{0.9}
+\def\smallDSfig{0.4}
+
+\newcommand{\DSfig}[2]
+{ \settowidth{\longDSfig}{\epsfig{figure=#1}}%
+  \setlength{\longDSfig}{#2\longDSfig}%
+  \ifthenelse{\lengthtest{\longDSfig > \linewidth}}%
+    {\setlength{\longDSfig}{\linewidth}}%
+    {\setlength{\longDSfig}{\longDSfig}}%
+  \epsfig{figure=#1,width=\longDSfig}}
+
+% the end
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Expressions r\'eguli\`eres et m\'eta-caract\`eres}
+\begin{question}
+Utilisez la commande \texttt{ls} pour r\'ealiser l'exercice suivant.
+\begin{enumerate} \item Lister les entr\'ees du r\'epertoire \texttt{/usr/bin} dont le
+  nom commence par la lettre \texttt{m}. 
+\item Lister les entr\'ees du r\'epertoire \texttt{/usr/bin} dont le
+  nom commence par la lettre \texttt{m} et comporte exactement 3
+  caract\`eres.  
+\item Lister les entr\'ees du r\'epertoire \texttt{/usr/bin} dont le
+  nom commence par la lettre \texttt{m} et comporte au moins 3
+  caract\`eres.  
+\item Lister les entr\'ees du r\'epertoire \texttt{/usr/bin} dont le
+  nom commence par la lettre \texttt{m} et comporte une extension
+  (suffixe suivant un \texttt{.}) non vide. 
+\item Lister les entr\'ees du r\'epertoire \texttt{/usr/bin} dont le
+  nom commence par la lettre \texttt{m} ou \texttt{j}. 
+\item Lister les entr\'ees du r\'epertoire \texttt{/usr/bin} dont le
+  nom commence par la lettre \texttt{m} et comporte une lettre
+  majuscule. 
+\item Lister les noms de fichiers  comportant une \'etoile \texttt{*}
+\item Lister les entr\'ees du r\'epertoire \texttt{/usr/bin} dont le nom
+  commence par la lettre \texttt{m} et ne comporte pas de lettre
+  majuscule.
+\end{enumerate}
+\end{question}
+\begin{solution}
+
+\end{solution}
+Il n'est pas possible de traiter la derni\`ere question avec la
+commande \texttt{ls} et les m\'eta-caract\`eres. Il faudrait donc soit
+pouvoir utiliser une autre commande, soit prendre le r\'esultat de 
+\texttt{ls} pour finir de le traiter avec une autre commande.
+\section{Les redirections}
+\begin{question}
+Dans cet exercice, nous allons utiliser les redirections coupl\'ees \`a
+d'autres commandes : \texttt{find}, \texttt{grep}, \texttt{cut},
+\texttt{tr} et \texttt{sort}.
+\begin{enumerate}
+%%Interet le pipe
+\item Listez les entr\'ees du r\'epertoire \texttt{/usr/bin} dont le nom
+  commence par la lettre \texttt{m} et comporte au moins une lettre
+  majuscule ! (Avec la commande \texttt{grep}).
+%%Interet grep -v et tjs le pipe
+\item En vous servant de la question pr\'ec\'edente, r\'ealisez la derni\`ere
+  question de l'exercice 1.
+\end{enumerate}
+\end{question}
+
+\begin{question}
+La commande \texttt{ls -l} permet d'afficher l'ensemble des informations
+sur les fichiers d'un r\'epertoire.
+\begin{verbatim}
+total 104K
+-rw-r--r--  1 dumont  west  234 Sep 28 11:33 td1.aux
+-rw-r--r--  1 dumont  west 6.2K Sep 28 11:33 td1.dvi
+-rw-r--r--  1 dumont  west 7.1K Sep 28 11:33 td1.log
+-rw-r--r--  1 dumont  west 3.7K Sep 28 12:01 td1.tex
+\end{verbatim}
+\begin{enumerate}
+%%Interet pipe + cut
+\item Listez uniquement le nom des propri\'etaires des fichiers se
+  trouvant dans un r\'epertoire (on se servira de l'exemple ci-dessus).
+%%Interet pipe + tr + cut + les pieges a la con avec des espaces
+\item Même question mais en listant cette fois-ci, le mois de la
+  derni\`ere modification de ces fichiers. Attention il y a un pi\`ege !
+%%Interet les redirections et les probl\`emes avec les redirections
+%%   (effacement du fichier)
+\item Sauvegardez le resultat de la derni\`ere commande dans un fichier
+  et tri\'e le nom des propri\'etaires dans l'ordre alphabetique et
+  sauvegardez le r\'esultat \`a nouveau dans ce même fichier.
+\end{enumerate}
+\end{question}
+
+\begin{question}
+  Nous allons illustrer la commande \texttt{find} ainsi que certains
+  points du cours.
+\begin{enumerate}
+\item Que fait la  commande \verb?ps aux | grep $USER?
+\item Que fait la  commande \verb?cat /etc/passwd | cut -d: -f1 | sort > ~/res?
+%%Interet find et la substitution des meta caracteres
+\item Lister tous les fichiers de votre r\'epertoire personnel et de ces
+  sous r\'epertoires qui commence par la lettre \texttt{m}. Attention \`a la
+  substitution des m\'eta-caract\`eres.
+\item Que fait la  commande \verb?find . -name tmp -type d ! -empty?
+\item Que fait la  commande \verb?find /usr/include -name ``*a*b*'' -exec ls -l?
+\end{enumerate}
+\end{question}
+\end{document}
+%%%%%%%%%%%%%%%%%%%%% PART 3
+\begin{itemize}
+\item Le shell ne conna\^\i{}t que les cha\^\i{}nes de caract\`eres ; 
+\item Les valeurs enti\`eres sont stock\'ees comme des cha\^\i{}nes de
+  caract\`eres ; 
+\item Affectation : \texttt{nom-var=<chaine>} La variable \texttt{nom-var}
+  reçoit la valeur de la cha\^\i{}ne de caract\`eres ; 
+\item Attention, pas d'espace s\'eparateur autour du \texttt{=}
+\item La valeur de la variable de nom \texttt{nom-var} est d\'esign\'ee
+  par \texttt{nom-var}. L'interpr\'eteur/le shell substitue \`a chaque
+  occurrence de \texttt{nom-var} la valeur (cha\^\i{}ne de caract\`eres)
+  de la variable identifi\'ee par \texttt{nom-var}.
+\item Exemples : 
+\begin{verbatim}
+% a="hello"
+% b="Unix"
+% c=a 
+% d=b 
+% echo $a $b $c $d
+hello Unix a b       
+
+% a=pwd
+% b=`$a`
+% echo $a $b
+pwd /home/phm 
+ 
+% a=`ls`
+% echo $a
+TP1 sujet.ps sujet.tex  
+
+% `ls`
+sh: TP1: command not found     
+
+% date
+Sun Sep 27 00:04:23 CEST 1998      
+% `date`
+sh: Sun: command not found
+\end{verbatim}
+\end{itemize}
+
+
+
+
+
+

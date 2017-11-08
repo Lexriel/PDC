@@ -1,0 +1,30 @@
+Presence d'un README
+
+La pr\'esence d'un fichier de test est un plus.
+	Vous pourriez mettre dans le readme ce que fait votre programme et ce que vous avez implant\'e plut\^ot que de me laisser tout lire pour le deviner.
+	Donc comme on ne sait pas ce que vous attendez comme specification de votre code, l'utilisateur se construit sa propre specification que votre code a peu de chance de remplir.
+
+Des accents dans le code qui rende sa lecture difficile.
+Plus de commentaires expliquant ce qui se passe seraient les bienvenus.
+
+Le resultat est plut\^ot pas mal.
+	l'indentation est bien prise en compte
+	les commentaires sont bien g\'eres.
+	les ; sont bien pris en compte mais pas dans le for.
+
+L'utilisation de votre variable verrou rend le code difficile.
+Vous prenez une difficult\'e algorithmique (bien faire l'automate) pour la transposer dans le code. Ce n'est pas un choix judicieux.
+
+Un petit d\'efaut marrant, votre code sort print f si on lui donne printf.
+C'est un artefact de votre gestion du int. 
+
+Globalement, c'est du bon boulot. Vous \^etes bien \`a niveau sur le langage.
+Je pense qu'il vous faut investir dans la phase de conception de votre code.
+
+
+Les remarques ci-dessus sont sommaires.
+L'objectif principale est de vous incitez \`a pers\'ev\'erer en \'enum\'erant ce qui visiblement pose probl\`eme.
+Nous pourrons en discuter demain en TP.
+Bon courage et bonne continuation.
+
+AS

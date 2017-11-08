@@ -1,0 +1,210 @@
+\section{Recherche par fonction de hachage}
+\label{sec:FonctionHachage}
+Pour commencer, fixons arbitrairement deux proportions~:
+\begin{verbatim}
+/* on choisit un nombre premier */
+#define n 131
+/* on choisit un multiple */
+#define m 4
+\end{verbatim}
+On se propose de coder un carnet d'adresse par une table (d'au
+plus~${m \times n}$ entr\'ees) et pour ce faire on d\'esire construire un
+tableau dont chaque \'el\'ement (aussi appel\'e cellule) donne acc\`es
+\`a trois champs~:
+\begin{itemize}
+\item un nom (d'au plus~$30$ caract\`eres) que l'on consid\`ere \^etre
+  la clef de la table~;
+\item un num\'ero de t\'el\'ephone (cod\'e par un entier non
+  sign\'e)~;
+\item un entier initialis\'e \`a~$-2$ et dont l'usage sera explicit\'e
+  par la suite.
+\end{itemize}
+\paragraph{Fonction de hachage}
+Le hachage est une m\'ethode de recherche dans une table. On utilise
+une fonction~$h$ de l'ensemble des clefs dans un intervalle d'indice.
+Pour une clef~$x$, l'entier~$h(x)$ est l'indice de la cellule qui
+contient~$x$ dans la table.  
+\par
+Pour construire~$h$, on choisit un nombre premier~$n$ (diviseur de la
+taille de la table) et un entier positif~$b$ (puissance de~$2$ pour des
+raisons arithm\'etiques)~; dans cet exercice~${n=131}$ et~${b=128}$.
+Ces entiers permettent de construire une fonction~$h$ qui \`a partir
+d'une cha\^\i{}ne~$x$ de longueur~$\ell$ retourne un entier~:
+\begin{equation}
+  \label{eq:Hachage}
+  h~:\quad x \rightarrow \bigl( x[0]+x[1]\cdot b + \cdots + 
+x[\ell-1]\cdot b^{\ell-1}\bigr)\ \textup{mod}\ n.
+\end{equation}
+(mod d\'esigne le reste de la division euclidienne e.g.~${10 = 3 \textup{mod} 7}$.)
+\paragraph{Recherche dans la table}
+Pour toute clef~$x$, la  fonction~$h$ donne une entr\'ee possible dans
+les~$n$ premi\`eres cellules la table. Deux cas se pr\'esentent alors~:
+\begin{itemize}
+\item  soit la   clef contenue  dans  la  cellule   d'indice~$h(x)$ est
+  bien~$x$~;
+\item   soit   ce  n'est   pas le   cas.    Cette  situation  est  une
+  \emph{collision}~:    il    existe   une    autre   clef~$x'$  telle
+  que~${h(x')=h(x)}$.  Dans ce cas, on  utilise le troisi\`eme  champs
+  pour indiquer l'indice~$i_{1}$  de la cellule candidate \`a contenir  la clef~$x$. Si on
+  ne trouve pas  la   valeur cherch\'ee  \`a  cet indice,   alors  une
+  nouvelle    collision  est  rencontr\'ee   et  on   peut utiliser le
+  troisi\`eme champs de la cellule d'indice~$i_{1}$ pour pointer sur une autre cellule,
+  etc.
+\end{itemize}
+La figure suivante donne un exemple de cette structure de donn\'ee~:
+\par
+\begin{center}
+\begin{tabular}{cccc}
+indice & nom & t\'el & collision \\
+0 & Sandrine & 2345 & -1 \\
+1 & & & -2 \\
+2 & Marianne & 3556 & -1 \\
+3 & & & -2 \\
+4 & B\'eatrice & 4234 & 131 \\ 
+5 & & & -2\\
+\multicolumn{3}{c}{$\cdots$} \\
+131 & Anne & 4333 & 430 \\
+\multicolumn{3}{c}{$\cdots$} \\
+430 & La\"etitia & 3205 & -1 \\
+\end{tabular}
+\end{center}
+La valeur~$-1$ indique qu'il n'y a pas de  collision et la valeur~$-2$
+que la cellule est vide. 
+\paragraph{Questions.}
+\begin{enumerate}
+\item Donnez la d\'eclaration d'un type permettant de repr\'esenter
+  une cellule et la d\'efinition du tableau global codant la table.
+\item Donnez  le code d'une   fonction  de hachage~$h$ qui  prend   en
+  entr\'ee  une cha\^\i{}ne de  caract\`eres et qui retourne un entier
+  donn\'e par la formule~(\ref{eq:Hachage}).
+\item Donnez le code d'une fonction de recherche qui prend en argument
+  une cha\^\i{}ne de  caract\`eres   et qui  retourne  un num\'ero  de
+  t\'el\'ephone.
+\item Donnez le code d'une fonction  d'insertion qui prend en argument
+  une  cha\^\i{}ne de caract\`eres et  un num\'ero de t\'el\'ephone et
+  qui ins\`ere ces informations dans la table. On peut supposer
+  disposer d'une variable globale~:
+\begin{verbatim}
+static int emptycell = n ;
+\end{verbatim}
+ indiquant la premi\`ere cellule vide en dehors des indices dans l'image de
+ la fonction de hachage.
+\end{enumerate}
+\ifcorrection
+\begin{correction}
+  \begin{enumerate}
+  \item 
+\begin{verbatim}
+#define N 131
+#define B 128
+#define TABSIZE 4*N
+struct cell_m
+{
+char nom[30] ;
+unsigned int num_tel ;
+int collision ;
+} ;
+
+struct cell_m table[TABSIZE] ;
+\end{verbatim}
+  \item 
+\begin{verbatim}
+int
+h
+(char *nom)
+{
+int res = 0 ;
+int pow = 1 ;
+int ind = 0 ;
+while(nom[ind])
+{
+  res +=nom[ind]* pow ;
+  pow *= b ;
+  ind++ ;
+}
+return res % N
+}
+\end{verbatim}
+  \item 
+\begin{verbatim}
+/* on se donne une fonction auxiliare */
+int
+strcmp
+(char *s1,char *s2)
+{
+    char c1, c2;
+    char v;
+
+    do 
+    {
+        c1 = *s1++;
+        c2 = *s2++;
+       v = c1 - c2;
+    } while ((v == 0) && (c1 != '\0'));
+
+    return v;
+
+}
+
+#define TELINCONNU -3
+
+int
+recherche
+(char * nom)
+{
+  int indice ;
+  indice = h(nom) ;
+  
+  while(1)
+  {
+    if (!strcmp(nom,table[indice].nom)
+      return table[indice].num_tel ;
+    if (table[indice].collision=-2 ||
+        table[indice].collision=-1)
+      return TELINCONNU
+    indice = table[indice].collision ;
+  }
+
+  return TELINCONNU ;
+
+}
+\end{verbatim}
+  \item 
+\begin{verbatim}
+static int emptycell = n ;
+void 
+insertion
+(char *nom, unsigned int tel)
+{
+  int indice,nextindice,i ;
+   indice = h(nom) ;
+   nextindice = indice ;
+
+   while(1)
+   {
+     if (indice> m*n)
+        return ; /* plus de place dans la table erreur */
+
+     /* si on tombe dans une cellule vide */
+     if(table[indice].collision==-2)
+     {
+       for(i=0;nom[i];i++)
+          table[indice].nom[i]=nom[i] ;
+      
+       table[indice].num_tel = tel ;
+       table[indice].collision = - 1 ;
+       return ;
+     }
+
+    /* si on tombe sur une cellule sans collision */
+    if(table[indice].collision==-1)
+      table[indice].collision= emptycell++ ;
+   
+    indice = table[indice].collision;
+   }
+   return ;
+}
+\end{verbatim}
+  \end{enumerate}
+\end{correction}
+\fi

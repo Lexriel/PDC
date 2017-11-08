@@ -1,0 +1,348 @@
+% stfs.tex
+%                                       Philippe Marquet --- <marquet@lifl.fr>
+%                                       11 Jul 1997
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% $Id$
+% $Log$
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%  
+% stfs : Search Though FileS
+% Projet Unix -- Licence d'informatique
+%
+% A coupler avec un projet de C de réécriture d'une commande à la grep
+% 
+\documentclass[a4paper]{article}
+\usepackage{a4wide}
+\usepackage{french}
+\usepackage{psfig}
+\usepackage{graphicx}
+\Usepackage{theorem}
+\usepackage{phm}
+\usepackage{multirow}
+
+\title{
+  \vspace*{-2cm}
+  \psfig{figure=/home/west/marquet/tex/ps/logo_ustl.epsf,height=2cm}
+  %%
+  \textbf{Licence d'informatique \hfill Module de C/Unix 
+    \\ Projet C \texttt{igrep}
+    }
+}
+\author{Jean-Luc \textsc{Levaire}}
+\date{Décembre 1997}%Projet, \today}
+
+\begin{document}
+\sloppy
+\maketitle
+
+La commande \cmd{igrep} (\emph{indexed grep}) proposée ici est
+inspirée de la commande \cmd{grep} existant sur la plupart des
+systèmes Unix. Sa principale particularité est qu'elle utilisera le
+fichier d'index créé par la commande \cmd{stfsindex} du projet Unix
+afin de minimiser son espace de recherche.
+
+La commande \cmd{igrep} sera développée en C-ANSI, de fa\c con {\em modulaire}. 
+
+%%-------------------------------------------------------------------------
+\subsection*{Reconnaissance du langage associé à une expression rationnelle}
+%%-------------------------------------------------------------------------
+
+La commande \cmd{grep} imprime les lignes, appartenant à un ensemble de
+fichiers, qui contiennent un certain motif. Le motif recherché est
+donné dans la ligne de commande sous la forme d'un argument
+représentant une expression rationnelle. La commande \cmd{igrep} doit
+elle aussi reconnaître le langage associé à une expression rationnelle
+pour effectuer la recherche du motif.
+
+Pour toute expression rationnelle, il est existe un unique (au nom des
+états près) automate fini déterministe minimal reconnaissant le
+langage associé. La construction d'un tel automate passe par trois
+phases:
+\begin{enumerate}
+\item construction de l'arbre de syntaxe abstraite correspondant à
+  l'expression rationnelle;
+\item construction d'un automate fini déterministe à partir de cet arbre;
+\item minimisation de l'automate déterministe;
+\end{enumerate}
+
+%%-------------------------------------------------------------------------
+\subsection*{Construction de l'arbre correspondant à l'expression}
+%%-------------------------------------------------------------------------
+
+La grammaire des expressions rationnelles utilisées par la commande
+\cmd{igrep} est donnée Fig.~\ref{grammaire}. C'est une version
+légérement simplifiée de celle utilisée par \cmd{grep}. La
+construction de l'arbre de syntaxe abstraite à partir d'une expression
+se fait par une analyse récursive descendante, dont le principe est
+illustré Fig~\ref{arbre} pour une grammaire simplifiée. 
+
+\begin{figure}
+{\normalsize
+\begin{verbatim}
+expression ::= expression-concatenation '|' expression | expression-concatenation
+expression-concatenation ::= expression-repetition expression-concatenation |
+                             expression-repetition
+expression-repetition ::= expression-simple '*' | expression-simple
+expression-simple ::= '(' expression ')' | car-non-speciaux | intervalle
+car-non-speciaux ::= tout caractere sauf '|', '*', '[', ']', '.' |
+                     '\|' | '\*' | '\[' | '\]' | '\.'
+intervalle ::= '.' | '[' liste ']' | '[^' liste ']' | '[' liste '-]' | '[^' liste '-]'
+liste ::= non-moins liste1 
+liste1 ::= non-fermant liste1
+non-moins ::= tout caractere sauf '-'
+non-fermant ::= tout caractere sauf ']'
+\end{verbatim}
+}
+\caption{Grammaire des expressions rationnelles de \cmd{igrep} \label{grammaire}}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+        \leavevmode
+        \includegraphics[width=\textwidth]{ast.idraw}
+\end{center}
+\caption{Construction de l'arbre \label{arbre}}
+\end{figure}
+
+%%-------------------------------------------------------------------------
+\subsection*{Construction de l'automate déterministe}
+%%-------------------------------------------------------------------------
+
+Les algorithmes présentés dans la suite fonctionnent sur l'arbre de
+syntaxe abstraite construit précédemment, auquel on a ajouté un n\oe ud 
+racine ($root$) ayant pour fils droit un symbole de fin n'appartenant pas à
+l'alphabet de départ (voir Fig.~\ref{arbre}), et pour fils gauche
+l'ast originel.  Pour construire un automate déterministe à partir de
+cet arbre, il faut calculer pour chaque n\oe ud $n$ les trois
+ensembles $premier(n)$, $dernier(n)$, $suivant(n)$, et la fonction
+$nul(n)$ définis à la figure Fig.~\ref{fonctions}. Ces ensembles et
+cette fonction peuvent se calculer en réalisant un parcours de l'arbre
+en profondeur d'abord.
+
+\begin{figure}[htbp]
+  \begin{center}
+    \[
+    \begin{array}[h]{|c|c|c|c|}
+\hline
+\mbox{N\oe ud } n & premier(n) & dernier(n) & nul(n) \\
+\hline
+n \mbox{ est une feuille} & \emptyset & \emptyset & \mbox{\bf True} \\
+\mbox{étiquettée } \epsilon & & & \\
+\hline
+n \mbox{ est une feuille} & {i} & {i} & \mbox{\bf False} \\
+\mbox{étiquettée } i & & & \\
+\hline
+\begin{array}{c}
+\begin{picture}(40,40)(-20,-17)
+\put(-15,-10){\circle{12}}
+\put(15,-10){\circle{12}}
+\put(0,15){\circle{12}}
+\put(-19,-11){$c_1$}
+\put(11,-11){$c_2$}
+\put(-2,13){$\mid$}
+\put(-15,13){$n$}
+\put(-11.9,-4.86){\line(3,5){8.81}}
+\put(11.9,-4.86){\line(-3,5){8.81}}
+\end{picture}
+\end{array}
+&  premier(c_1) \cup premier(c_2) & dernier(c_1) \cup dernier(c_2) &
+nul(c_1) \mbox{\bf  ou } nul(c_2) \\
+\hline
+\begin{array}{c}
+\begin{picture}(40,40)(-20,-17)
+\put(-15,-10){\circle{12}}
+\put(15,-10){\circle{12}}
+\put(0,15){\circle{12}}
+\put(-19,-11){$c_1$}
+\put(11,-11){$c_2$}
+\put(-3,13){$\bullet$}
+\put(-15,13){$n$}
+\put(-11.9,-4.86){\line(3,5){8.81}}
+\put(11.9,-4.86){\line(-3,5){8.81}}
+\end{picture}
+\end{array}
+&  
+\begin{array}{c}
+\mbox{si } nul(c1) \mbox{ alors} \\ 
+premier(c_1) \cup premier(c_2) \\ 
+\mbox{sinon } premier(c_1) 
+\end{array}
+&
+\begin{array}{c}
+\mbox{si } nul(c2) \mbox{ alors} \\
+dernier(c_1) \cup dernier(c_2) \\
+\mbox{sinon } dernier(c_2) 
+\end{array}
+&
+nul(c_1) \mbox{\bf  and } nul(c_2)\\
+\hline
+\begin{picture}(40,40)(-20,-17)
+\put(0,-10){\circle{12}}
+\put(0,15){\circle{12}}
+\put(-4,-11){$c_1$}
+\put(-3,13){$\ast$}
+\put(-15,13){$n$}
+\put(0, -4){\line(0,1){13}}
+\end{picture}
+ & premier(c_1) & dernier(c_1) & \mbox{\bf True} \\
+\hline
+\end{array}
+\]
+ \end{center}
+
+Construction de la fonction $suivant$: Soit $n$ un n\oe  ud de l'arbre, 
+\begin{enumerate}
+\item si $n$ est un n\oe ud de concaténation avec $c_1$ pour fils
+  droit et $c_2$ pour fils gauche, et si $i$ appartient à
+  $dernier(c_1)$, alors tous les éléments de $premier(c_2)$ sont
+  dans $suivant(i)$;
+\item si $n$ est un n\oe ud de répétition, et si $i$ appartient à
+  $dernier(n)$, alors tous les éléments de $premier(n)$ sont dans $suivant(i)$;
+\end{enumerate}
+    \caption{Définition des fonctions $premier$, $dernier$, $nul$ et $suivant$.\label{fonctions}}
+  
+\end{figure}
+
+Pour obtenir l'automate déterministe à partir de ces ensembles, il
+reste à appliquer l'algorithme présenté Fig.~\ref{determ}. Cet
+algorithme construit un ensemble d'états $Detat$, chaque état
+représentant un ensemble de n\oe uds de l'arbre,  et une table de
+transition $Dtran$, représentant les transitions de l'automate. 
+Ainsi, si $Dtran[T, a] = U$, alors il y a une transition dans
+l'automate de l'état $T$ à l'état $U$ étiquettée par la lettre $a$.
+Les états de $Detat$ sont marqués pour indiquer qu'ils n'ont pas
+encore été examinés. L'état initial de l'automate est $premier(root)$,
+les états finaux sont tous les états contenant le n\oe ud représentant
+le symbole de fin.
+
+\begin{figure}[htbp]
+{\bf Initialement}, $Detat$ contient un seul état non marqué constitué des
+n\oe uds de $premier(root)$.
+
+{\bf Tant que} il reste un état $T$ non marqué dans $Detat$ {\bf
+  faire}
+\begin{itemize}
+\item marquer $T$;
+\item {\bf Pour} chaque lettre $a$ de l'alphabet {\bf faire}
+  \begin{itemize}
+  \item Soit $U$ l'ensemble des n\oe uds de l'arbre qui sont dans
+    $suivant(p)$, avec $p$ appartenant à $T$, et tel que $p$
+    représente la lettre $a$;
+  \item {\bf Si} $U$ n'est pas vide et n'appartient pas déjà à $Detat$,
+    {\bf alors} ajouter $U$ à $Detat$ (sans le marquer);
+  \item $Dtran[T, a] = U$;
+  \end{itemize}
+\end{itemize}
+
+\caption{Construction de l'automate déterministe. \label{determ}}
+    
+\end{figure}
+
+%%-------------------------------------------------------------------------
+\subsection*{Minimisation de l'automate}
+%%-------------------------------------------------------------------------
+
+La minimisation d'un automate déterministe $M$ s'effectue en
+partitionnant l'ensemble de ses états. Le calcul de cette partition
+$\Pi_{finale}$ se fait en appliquant itérativement l'algorithme de la
+figure~\ref{minim} sur la partition courante $\Pi$. Chaque application
+de cet algorithme à $\Pi$ calcule une nouvelle partition $\Pi_{new}$,
+et, lorsque $\Pi_{new} = \Pi$, on a trouvé la partition finale
+$\Pi_{finale} = \Pi_{new}$. Si $\Pi_{new} \neq \Pi$, on réitère
+l'algorithme de la figure~\ref{minim} en prenant $\Pi = \Pi_{new}$.
+Initialement, la partition $\Pi$ comporte deux groupes, le groupe des
+états acceptants (finaux), et les états non-acceptants.
+
+\begin{figure}[htbp]
+{\bf Pour} chaque groupe $G$ de $\Pi$ {\bf faire}
+\begin{itemize}
+\item Partitionner $G$ en sous-groupes, de sorte que 
+\begin{quote}
+deux états $s$ et $t$ de $G$ sont dans le même sous-groupe {\em si et
+  seulement si}, pour toute lettre $a$ de l'alphabet, les états $s$ et
+$t$ ont une transition par $a$ vers des états qui appartiennent au
+même groupe de $\Pi$;
+\end{quote}
+\item Remplacer $G$ dans $\Pi_{new}$ par l'ensemble des sous-groupes
+  calculés précédemment;
+\end{itemize}
+  \caption{Algorithme de partitionnement d'une partition $\Pi$.}
+  \label{minim}
+\end{figure}
+
+Chaque groupe d'états de $\Pi_{finale}$ représente en fait un état de
+l'automate minimal $M'$. Pour calculer les transitions de l'automate
+minimal, on choisit pour chaque groupe de $\Pi_{finale}$ un état {\em
+  représentant}. Les états de l'automate minimal seront les états
+représentants. Soit $s$ un état représentant, et supposons qu'il y a
+une transition par la lettre $a$ dans l'automate non minimal de $s$
+vers $t$. Soit $r$ le représentant du groupe de $t$, alors on a une
+transition dans l'automate minimal de $s$ vers $r$ par la lettre $a$.
+L'état initial de $M'$ sera le représentant du groupe contenant l'état
+initial de $M$, ses états finaux seront les représentants des groupes
+qui contiennent un état final de $M$. Il reste à supprimer les états
+morts (bouclant sur eux-mêmes pour toute lettre) non finaux, et les états
+non-atteignables depuis l'état initial.
+
+
+%%-------------------------------------------------------------------------
+\subsection*{Implémentation de la commande \cmd{igrep}}
+%%-------------------------------------------------------------------------
+
+La commande \cmd{igrep} a la syntaxe suivante:
+\begin{verbatim}
+igrep [-z] expression-rationnelle [-f liste-de-fichiers]
+\end{verbatim}
+La grammaire des expressions rationnelles est celle présentée
+précédemment. Sans l'option \verb?-f?, la commande \cmd{igrep}
+effectue la recherche des motifs dans les fichiers indexés par la
+commande \verb?stfsindex?. La liste de ces fichiers se trouve dans le
+fichier \verb?$HOME/.stfs.filenames?.%%$ 
+\cmd{igrep} utilise alors l'index pour optimiser sa recherche dans
+l'ensemble des fichiers indexés. Si l'option \verb?-f? est présente,
+\cmd{igrep} se comporte comme la commande \cmd{grep}, c'est-à-dire
+qu'elle parcourt les fichiers passés en paramètre en affichant les
+lignes qui contiennent un mot du langage de l'expression rationnelle.
+Si il n'y a aucun fichier dans \verb?liste-de-fichiers?, \cmd{igrep}
+lit sur son entrée standard.  Si l'option \texttt{-z} est présente,
+les fichiers compressés ou codés sont décompressés/décodés. Les
+utilitaires de décompression utilisés sont \cmd{uncompress} et
+\cmd{gunzip}.  L'utilitaire de décodage considéré est
+\cmd{uudecode}.
+
+%%-------------------------------------------------------------------------
+%%\subsection*{Réalisation}
+%%-------------------------------------------------------------------------
+
+%%\textbf{La première chose à faire est de relire plusieurs fois en
+%%  détail le présent sujet !}
+
+%%Vous devez rendre (sous une forme à définir avec votre enseignant de
+%%TD/TP) : 
+%%\begin{itemize}
+%%  \item un compte-rendu de projet décrivant les commandes développées,
+%%    les algorithmes mis en place et la structure des fichiers d'index ;
+%%  \item les sources shell des commandes développées ; 
+%%  \item un test de ce projet sous la forme de résultats d'exécution
+%%    des commandes. En particulier on comparera les temps d'exécution
+%%    de la commande \cmd{stfs} et d'une recherche directe par \cmd{grep}.
+%%\end{itemize}
+
+\end{document}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% eof
+%
+% Local Variables: 
+% mode: latex
+% TeX-master: nil
+% ispell-local-dictionary: "francais"
+% ispell-local-pdict: "~/.ispell_francais"
+% End: 
+
+ 
+% LocalWords:  stfs grep glipmse sh stfsindex login log uncompress gunzip d'ADN
+% LocalWords:  uudecode stfs.index stfs.filenames stfs.blocks stfs.info c-unix
+% LocalWords:  non-indexés stfs.log stfs.prohibit TD TP stfs.tex Jul Search phm
+% LocalWords:  Though FileS paper wide french psfig theorem ustl.epsf height Wu
+% LocalWords:  Udi Burra Gopal University of Arizona Tuscon AZ http pattern
+% LocalWords:  glimpse.cs.arizona.edu Quiet

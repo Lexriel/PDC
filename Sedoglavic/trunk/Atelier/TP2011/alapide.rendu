@@ -1,0 +1,33 @@
+Visiblement, il y a un probl\`eme de compilation
+espoir:PDC_Alapide_Romuald_TP_pretty_printer sedoglavic$ make
+gcc -Wall -ansi -pedantic -o pp pp.c
+pp.c: In function 'main':
+pp.c:61: error: 'ETAT_COM' undeclared (first use in this function)
+pp.c:61: error: (Each undeclared identifier is reported only once
+pp.c:61: error: for each function it appears in.)
+pp.c:61: error: 'TYP' undeclared (first use in this function)
+pp.c:66: error: 'ETAT_DEB_LIGNE' undeclared (first use in this function)
+pp.c:85: error: 'ETAT_COM_TYP2' undeclared (first use in this function)
+pp.c:12: warning: enumeration value 'ETAT_COM_TYP' not handled in switch
+make: *** [pp] Error 1
+
+Une fois ces erreurs corrig\'ees, il reste des probl\`emes algorithmiques. Par exemple,
+espoir:PDC_Alapide_Romuald_TP_pretty_printer sedoglavic$ cat toto.c
+struct data { int a ; char c ; }
+espoir:PDC_Alapide_Romuald_TP_pretty_printer sedoglavic$ ./pp < toto.c 
+struct data 
+int a ; char c ; }
+espoir:PDC_Alapide_Romuald_TP_pretty_printer sedoglavic$ 
+
+
+Soit c'est un probl\`eme de temps pass\'e sur le TP, soit c'est un probl\`eme sur le langage.
+Je vous conseille si c'est la seconde situation, de r\'eduire ce que votre code peut faire et de le faire bien.
+
+
+
+Les remarques ci-dessus sont sommaires.
+L'objectif principale est de vous incitez \`a pers\'ev\'erer en \'enum\'erant ce qui visiblement pose probl\`eme.
+Nous pourrons en discuter demain en TP.
+Bon courage et bonne continuation.
+
+AS

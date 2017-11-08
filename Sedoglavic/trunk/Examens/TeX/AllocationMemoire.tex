@@ -1,0 +1,295 @@
+\section{M\'ecanismes d'affectation dynamique de m\'emoire}
+\label{sec:AffectationMemoire}
+On suppose disposer d'une zone m\'emoire~:
+\begin{verbatim}
+#define NULL 0
+#define BUFFERSIZE 65536
+static char buffer[BUFFERSIZE] ;
+\end{verbatim}
+On souhaite utiliser des portions de mani\`ere dynamique i.e.\ pouvoir
+disposer --- quand c'est possible --- d'un pointeur de type quelconque
+sur une portion de cet espace m\'emoire (sans possibilit\'e de
+recouvrement avec d'autres portions point\'ees par d'autres
+pointeurs).
+
+Pour ce faire, on se propose d'\'ecrire les fonctions de prototype~:
+\begin{itemize}
+\item \verb+void *monalloc(unsigned int);+ cette fonction retourne un
+  pointeur de type \verb+void+ sur un espace m\'emoire de taille
+  pass\'ee en param\`etre \`a la fonction. Elle retourne \verb+NULL+
+  s'il est impossible de disposer de la quantit\'e de m\'emoire
+  demand\'ee~;
+\item \verb+void monfree(void *);+ cette fonction lib\`ere l'espace
+  m\'emoire associ\'e au pointeur pass\'e en param\`etre.
+\end{itemize}
+Aucune autre fonction ou partie du code n'a \`a acc\'eder au tableau
+\verb+buffer+~: ce dernier n'est manipul\'e que par l'interm\'ediaire
+des fonctions \verb+monalloc+ et \verb+monfree+. 
+
+\subsection{Implantation rudimentaire du type pile (LIFO)}
+Pour commencer, on propose une implantation rudimentaire du type
+pile~: les espaces allou\'es s'empilent dans le tableau et la
+d\'esallocation consiste en un d\'epilement. Ainsi, l'utilisateur doit
+veiller \`a ce que les appels de la fonction \verb+monfree+ se fassent
+dans l'ordre inverse exacte de ceux de la fonction \verb+monalloc+.
+
+Ce type d'implantation simple se base sur les d\'efinitions~:
+\begin{verbatim}
+static char *nextfreebyte = buffer ;
+\end{verbatim}
+Le pointeur \verb+nextfreebyte+ pointe sur le premier octet non
+allou\'e du tableau \verb+buffer+.
+
+\paragraph{Question.} 
+\begin{enumerate}
+\item Pourquoi le pointeur \verb+nextfreebyte+ est-il de classe
+  d'allocation \verb+static+.
+\ifcorrection
+\begin{correction}
+  Ce pointeur doit \^etre manipul\'e globalement par l'ensemble des
+  fonctions d\'efinies dans le m\^eme code source mais inaccessible
+  pour les autres.
+\end{correction}
+\fi
+\item Implantez les fonctions \verb+monalloc+ et \verb+monfree+
+  bas\'ees sur le principe ci-dessus.
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+void *monalloc(unsigned int n){
+  if(nextfreebyte +n <=buffer+BUFFERSIZE){
+    nextfreebyte += n ;
+    return nextfreebyte - n ;
+  }
+  else return NULL ;
+}
+
+void monfree(void *ptr){
+  if( (char *) ptr>= buffer && (char *) ptr<=buffer+BUFFERSIZE)
+    nextfreebyte = ptr ;
+}
+\end{verbatim}
+\end{correction}
+\fi
+\end{enumerate}
+
+\paragraph{Remarque.} 
+Ce principe ne permet pas une gestion simple de la m\'emoire dynamique
+nnnnnotamment par la contrainte sur les appels.  La section suivante
+propose une implantation plus souple des fonctions \verb+monalloc+ et
+\verb+monfree+.
+
+\subsection{Implantation \`a base de listes doublement cha\^\i{}n\'ees}
+Nous allons utiliser une structure de donn\'ee auxiliaire permettant
+de stocker l'ensemble des blocs d\'efinis dans l'espace m\'emoire
+\verb+buffer+.
+\par
+Chaque bloc commence par une ent\^ete d\'efinie par une structure de
+type \verb+freelist_t+ constitu\'ee par les champs~:
+\begin{itemize}
+\item \verb+isfree+ pour savoir si le bloc est libre ou pas~;
+\item \verb+size+ pour la taille en octets de cette zone~;
+\item \verb+next+ pour un pointeur sur l'ent\^ete du bloc suivante de
+  la liste~;
+\item \verb+previous+ pour un pointeur sur l'ent\^ete du bloc
+  pr\'ec\'edent de la liste.
+\end{itemize}
+Ainsi, dans un bloc libre de taille totale~$n$ octets, ne sont
+r\'eellement disponibles que~${n-t}$ octets avec~:
+\begin{verbatim}
+t = 2*sizeof(unsigned int) + 2*sizeof(freelist_t *) ;
+\end{verbatim}
+\par
+On suppose exister une variable globale \verb+freelist_t *Head+ qui
+permet de pointer sur la premi\`ere ent\^ete disponible. De plus, une
+ent\^ete dont le champs \verb+next+ (resp.\ \verb+previous+) pointe
+sur \verb+NULL+ est la derni\`ere (resp.\ premi\`ere) de la liste.  La
+liste des blocs est vide si \verb+Head+ pointe sur \verb+NULL+.
+\paragraph{Question.} 
+\begin{enumerate}
+\item Donnez la d\'eclaration de la structure de l'ent\^ete.
+  D\'efinissez le type \verb+freelist_t+ correspondant.
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+struct freelist_m{
+  unsigned int isfree ;
+  unsigned int size ;
+  struct freelist_m *next ;
+  struct freelist_m *previous ;
+} ;
+
+typedef struct freelist_m freelist_t ;
+\end{verbatim}
+\end{correction}
+\fi
+\item Que fait la fonction d\'efinie ci-dessous~:
+\begin{verbatim}
+static void AllocatorInit(void){
+  freelist_t *ptr = (freelist_t *) buffer ;
+  ptr->isfree = TRUE ;
+  ptr->size = BUFFERSIZE ;
+  ptr->next = NULL ;
+  ptr->previous = NULL ;
+  Head = ptr ;
+  return ;
+}
+\end{verbatim}
+On suppose que les macros suivantes sont d\'efinies~:
+\begin{verbatim}
+#define TRUE 1
+#define FALSE 0
+\end{verbatim}
+\ifcorrection
+\begin{correction}
+  Cette fonction construit une cellule libre de la taille du tampon
+  disponible. De plus, elle place cette cellule dans la liste des
+  cellules libres.
+\end{correction}
+\fi
+%\item Donnez la d\'efinition de la fonction de prototype~: %
+%\verb+void Retirer(BlocHeader_t *);+ qui prend en argument
+%une ent\^ete de bloc libre et retire ce dernier  de
+%la liste des blocs libres.
+%\item Donnez la d\'efinition de la fonction de prototype~: %
+%  \verb+void Inserer(BlocHeader_t *);+ qui prend en argument une
+%  ent\^ete de bloc libre et ins\`ere ce dernier de la liste des blocs
+%  libres en respectant le fait que la liste des blocs libres est
+%  tri\'ee par adresses d'ent\^etes croissantes.
+\item Donnez la d\'efinition de la fonction de prototype %
+  \verb+void *monalloc(unsigned int taille)+ qui prend en entr\'ee la
+  taille de l'espace m\'emoire d\'esir\'e par l'utilisateur et qui
+  retourne un pointeur sur le d\'ebut de l'espace m\'emoire disponible
+  (juste apr\`es l'ent\^ete) du bloc correspondant.
+  \par
+  L'algorithme utilis\'e pour ce faire est le suivant~:
+  \begin{enumerate}
+  \item Pointer le premier bloc libre de taille suffisante ---
+    sup\'erieure \`a~${t+\mathrm{taille}}$ --- dans la liste des
+    blocs. Ce bloc est le bloc courant. Retourner NULL si ce n'est pas
+    possible~;
+  \item Si l'espace libre du bloc courant est inf\'erieur
+    \`a~${2t+\mathrm{taille}}$, aller \`a l'\'etape~(d)~;
+  \item Sinon, le bloc courant doit \^etre scind\'e en deux blocs~: le
+    premier est le nouveau bloc courant et sert \`a satisfaire la
+    requ\^ete~; le second est ajout\'e \`a la liste des blocs juste
+    derri\`ere le bloc courant.  Poursuivre par l'\'etape suivante~;
+  \item Retourner un pointeur sur l'espace libre positionn\'e juste
+    apr\`es l'ent\^ete du bloc courant.
+  \end{enumerate}
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+void *monalloc(unsigned int taille){
+  
+  freelist_t *ptr = Head, *newbloc ;
+
+  while( ( ptr->size<taille+sizeof(freelist_t)) 
+	 || ptr->isfree == FALSE ){
+    if(!ptr->next)
+      return NULL ;
+    ptr = ptr -> next ;
+  } 
+
+  ptr->isfree = FALSE ;
+
+  if(!(ptr->size<2*sizeof(freelist_t)+taille)){
+    /* Construire la nouvelle ent\^ete */
+    newbloc = (freelist_t *) ((char *) ptr + sizeof(freelist_t)+ taille) ;
+    newbloc->isfree = TRUE ;
+    newbloc->size = ptr->size - taille - sizeof(freelist_t);
+    newbloc->next = ptr->next ;
+    if(ptr->next)
+      ptr->next->previous = newbloc ;
+    newbloc->previous = ptr ;
+    ptr->next = newbloc ;
+    ptr->size -= newbloc->size ; 
+  }
+  
+  return (void *)((char *) ptr + sizeof(freelist_t)) ;
+}
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype %
+  \verb+void monfree(void *ptr)+ qui prend en entr\'ee un pointeur et
+  lib\`ere le bloc correspondant. On se fixe comme contrainte que pour
+  tout pointeur~\verb+p+ sur une cellule de la liste des blocs libre,
+  la relation suivante
+\begin{verbatim}
+p->next > p
+\end{verbatim}
+  soit v\'erifi\'ee.
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+void free(void *ptr){
+
+  freelist_t **pt,*entete = (freelist_t *) ((char *) ptr - sizeof(freelist_t)) ;
+  
+  entete->isfree = TRUE ;
+
+  if(entete->next && (entete->next)->isfree == TRUE){
+    /* Si la fusion avec la cellule suivante est possible, on y va */
+    entete->size += entete->next->size ;
+    entete->next = entete->next->next ;
+    return ;
+  }
+  
+  if(entete->previous && (entete->previous)->isfree == TRUE){
+    /* Si la fusion avec la cellule pr\'ec\'edente est possible, on y va */
+    entete->previous->size += entete->size ;
+    entete->previous->next = entete->next ;
+    return ;
+  }
+  
+  /* sinon, on l'ins\`ere \`a la bonne place dans la liste */
+
+  pt = Head ;
+  while(pt->next>entete)
+    pt=pt->next ;
+
+  entete->next=pt->next ;
+  pt->next=entete ;
+
+  return ;
+
+}
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype %
+  \verb+void garbagecollect(void)+ qui fusionne les blocs voisins
+  pouvant l'\^etre.
+\ifcorrection
+\begin{correction}
+  On l'a int\'egr\'e au free par commodit\'e.
+\end{correction}
+\fi
+\item Comment s'assurer que le pointeur \verb+ptr+ pointe bien apr\`es
+  une ent\^ete~?
+\ifcorrection
+\begin{correction}
+  Apr\`es avoir positionner un pointeur sur le d\'edut de l'ent\^ete,
+  on peut s'assurer de la coh\'erence de sess donn\'ees (que le champ
+  \verb+istrue+ soit bien~$0$ ou~$1$ et que les ent\^etes
+  pr\'ec\'edente et suivante soient valide. Mais il faut garder \`a
+  l'esprit que rien ne peut nous assurer que l'on soit au d\'ebut
+  d'une ent\^ete (sauf en y placant un code --- magic number ---
+  permettant de se convaincre).
+\end{correction}
+\fi
+\item Que risque-t-il de se passer si un bloc de~$n$ octets de
+  m\'emoire est allou\'e et que l'on manipule ce bloc sans
+  pr\'ecaution comme dans l'allocation de~D suivante~:
+\begin{verbatim}
+   unsigned int i, n = 48 ; 
+   char *D = (char *) monalloc(n) ;
+   for(i=0;i<65000;i++)
+   *(D+i) = 1 ;
+\end{verbatim}
+\ifcorrection
+Un espace m\'emoire sans rapport avec ce qui est point\'e par
+\texttt{D} est modifi\'e.
+\fi
+\end{enumerate}

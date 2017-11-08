@@ -1,0 +1,36 @@
+# 1 "C/TriBulleGenerique.c"
+# 1 "<built-in>"
+# 1 "<command line>"
+# 1 "C/TriBulleGenerique.c"
+void
+                TriBulle
+                (int *tab, int tabsize) {
+ int i;
+ int tmp;
+ for (tabsize--; tabsize; tabsize--)
+  for (i = 0; i < tabsize; i++)
+   if (tab[i] > tab[i + 1]) {
+    tmp = tab[i];
+    tab[i] = tab[i + 1];
+    tab[i + 1] = tab[i];
+   }
+ return;
+}
+
+void
+                TriBulleGenerique
+                (void *tab, int tabsize, int cellsize,
+   int (*compar) (void *, void *))
+{
+ int i, j;
+ char tmp;
+ for (tabsize--; tabsize; tabsize--)
+  for (i = 0; i < tabsize; i++)
+   if (compar((void *(((char *) tab)+(i)*cellsize+(0))), (void *(((char *) tab)+(i + 1)*cellsize+(0)))))
+    for (j = 0; j < cellsize; j++) {
+     tmp = (void *(((char *) tab)+(i)*cellsize+(j)));
+     (void *(((char *) tab)+(i)*cellsize+(j))) = (void *(((char *) tab)+(i + 1)*cellsize+(j)));
+     (void *(((char *) tab)+(i + 1)*cellsize+(j))) = (void *(((char *) tab)+(i)*cellsize+(j)));
+    }
+ return;
+}

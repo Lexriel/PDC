@@ -1,0 +1,23 @@
+Il n'y a aucun commentaire dans votre texte. Cela ne facilite pas sa lecture.
+
+Votre Readme ne m'informe pas sur ce qui est implanter afin que je puisse tester le code.
+De plus, votre pretty printer est lit.c et pas pp.c comme on pourrait s'y attendre. Votre readme devrait l'indiquer plutot que de me laisser deviner.
+
+Votre archive contient un ex\'ecutable inutile puisque je suis sur une architecture mac alors que votre ex\'ecutable est ELF (Executable and Linkable Format i.e. unix like).
+
+Votre code introduit un saut de ligne entre #include et <stdio.h> donc le code produit ne compile pas.
+
+De plus, il ins\`ere un espace entre ! et = ce qui n'est pas du C.
+
+Le code donne une impression de fouilli (sa lecture est difficile).
+
+Le langage n'est pas un obstacle, n'h\'esitez pas \`a \^etre plus rigoureux dans votre implantation.
+
+
+
+Les remarques ci-dessus sont sommaires.
+L'objectif principale est de vous incitez \`a pers\'ev\'erer en \'enum\'erant ce qui visiblement pose probl\`eme.
+Nous pourrons en discuter demain en TP.
+Bon courage et bonne continuation.
+
+AS

@@ -1,0 +1,238 @@
+#include "tree.h"
+
+#include <stdlib.h>
+
+
+typedef unsigned char uchar;
+
+
+/*
+  delete a node [n] and its value with [free_value] function
+  - 0 : OK
+  - -1 : node does not exists
+*/
+int
+deleteNodes (node_t *n, void(*free_value)(void *ptr));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tree_t
+newTree (int value_size)
+{
+  return newTreeFreeFun (value_size,free);
+}
+
+
+tree_t
+newTreeFreeFun (int value_size, void(*free_value)(void *ptr))
+{
+  tree_t tmp;
+  /* if the value size is not correct */
+  if (value_size <= 0)
+    return NULL;
+  /* alloc tree */
+  tmp = (tree_t) malloc (sizeof(struct tree_m));
+  /* check alloc */
+  if (!tmp) exit(1);
+  /* init vars */
+  tmp->root = NULL;
+  tmp->value_size = value_size;
+  tmp->free_value = free_value;
+  return tmp;
+}
+
+int
+isEmptyTree (tree_t t)
+{
+  /* if tree does not exists */
+  if (!t)
+    return -1;
+  /* if tree is not empty */
+  if (!t->root)
+    return 0;
+  /* tree is empty */
+  return 1;
+}
+
+int
+isTreeIteratorLeaf (treeiterator_t i)
+{
+  /* if iterator is empty */
+  if (!i)
+    return -1;
+  /* return 1 if leaf else 0 */
+  return !(getListSize (i->sons));
+}
+
+void
+clearTree (void *tree)
+{
+  deleteTree ((tree_t*)tree);
+}
+
+int
+deleteTree (tree_t *t)
+{
+  /* if tree does not exists */
+  if (!(*t))
+    return -1;
+  /* delete all nodes */
+  deleteNodes (&((*t)->root), (*t)->free_value);
+  /* free tree */
+  free (*t);
+  (*t) = NULL;
+  return 0;
+}
+
+int
+deleteNodes (node_t *n, void(*free_value)(void *ptr))
+{
+  listiterator_t i;
+  /* if node does not exists */
+  if (!(*n))
+    return -1;
+  /* delete node sons */
+  if ( !isEmptyList((*n)->sons) )
+    {
+      node_t tmp;
+      i = getListIterator ((*n)->sons);
+      do {
+        tmp = (node_t) getListIteratorValue (i);
+        deleteNodes (&tmp,free_value);
+      } while ( nextListIterator (&i) );
+    }
+  /* free node's value */
+  free_value ((*n)->value);
+  /* free this node */
+  free (*n);
+  (*n) = NULL;
+  return 0;
+}
+
+treeiterator_t
+getTreeIterator (tree_t t)
+{
+  treeiterator_t i;
+  /* if the tree does not exists */
+  if (!t)
+    return NULL;
+  /* if the tree is empty */
+  if (!t->root)
+    return NULL;
+  i = (treeiterator_t) t->root;
+  return i;
+}
+
+int
+setTreeRootValue (tree_t *t, void *value)
+{
+  /* if tree does not exists */
+  if (!(*t))
+    return -2;
+  /* if root already exists */
+  if ((*t)->root)
+    return -1;
+  (*t)->root = (node_t) malloc (sizeof(struct node_m));
+  /* check alloc */
+  if (!(*t)->root) exit(1);
+  /* create value */
+  ((*t)->root)->value =
+    (uchar*) malloc((*t)->value_size / sizeof(uchar));
+  /* check alloc again */
+  if (!((*t)->root)->value) exit(1);
+  /* clone the value to the node */
+  {
+    int i;
+    for (i = 0; i < (*t)->value_size / sizeof(uchar); i++)
+      *(((uchar*)(((*t)->root)->value)) + i) =
+        *(((uchar*)value) + i);
+  }
+  /* create an empty list of sons */
+  ((*t)->root)->sons = newList (sizeof(struct node_m));
+  /* /\* check new list *\/ */
+  /* if (!((*t)->root)->sons) exit(1); */
+  return 0;
+}
+
+int
+addTreeIteratorSonValue (tree_t t,treeiterator_t i, void *value)
+{
+  node_t node;
+  int res;
+  /* if tree does not exists */
+  if (!t)
+    return -2;
+  /* if iterator is empty */
+  if (!i)
+    return -1;
+  /* alloc node */
+  node = (node_t) malloc (sizeof(struct node_m));
+  /* check alloc */
+  if (!node) exit(1);
+  /* create value */
+  node->value =
+    (uchar*) malloc(t->value_size / sizeof(uchar));
+  /* check alloc again */
+  if (!node->value) exit(1);
+  /* clone the value to the node */
+  {
+    int i;
+    for (i = 0; i < t->value_size; i++)
+      *(((uchar*)(node->value)) + i) = *(((uchar*)value) + i);
+  }
+  /* create an empty list of sons */
+  node->sons = newList (sizeof(struct node_m));
+  /* /\* check alloc *\/ */
+  /* if (!node->sons) exit (1); */
+  /* add to the sons (clone the node) */
+  res = addListValue (i->sons, node);
+  /* free node */
+  free (node);
+  return res;
+}
+
+
+void *
+getTreeIteratorValue (treeiterator_t i)
+{
+  /* if iterator empty */
+  if (!i)
+    return NULL;
+  /* if not empty, returns the value */
+  return (i->value);
+}
+
+treeiterator_t
+moveTreeIteratorAtSon (treeiterator_t *i, int index)
+{
+  /* if iterator empty */
+  if (!(*i))
+    return NULL;
+  /* if not empty, go to the good son */
+  (*i) = (treeiterator_t) getListValueAt ((*i)->sons,index);
+  return (*i);
+}
+
+int
+getTreeIteratorSonsNumber (treeiterator_t i)
+{
+  /* if iterator empty */
+  if (!i)
+    return -1;
+  /* return the number of sons */
+  return getListSize (i->sons);
+}

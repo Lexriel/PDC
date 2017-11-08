@@ -1,0 +1,21 @@
+\section{Que fait ce programme~?}
+Donnez la repr\'esentation sch\'ematique de~$i$ et~$p$ en m\'emoire avant 
+l'ex\'ecution de la boucle. Qu'affiche le programme~? Quel est le contenu
+du tableau~$i$ \`a la fin de l'ex\'ecution~?
+\begin{verbatim}
+void f(int **i){
+        *((*i)++) += 1 ;
+}
+int main(void){
+        int i[5] = {0,2,4,6,8}, *p = i ;
+        for(;*p!=8;)
+        f(&p) ;
+        printf("%d %d\n",i[0],*p);
+        return 0 ;
+}
+\end{verbatim}
+\ifcorrection
+\begin{correction}
+L'affichage est~$1,8$.
+\end{correction}
+\fi

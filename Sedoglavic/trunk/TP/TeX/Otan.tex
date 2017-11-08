@@ -1,0 +1,30 @@
+\begin{exercice}[Convertion    alphabet    latin   --  alphabet  OTAN]
+L'alphabet OTAN associe un mot \`a chaque  lettre de l'alphabet latin. 
+On consid\`ere l'ensemble de mots~:
+\par
+\begin{tabular}{llllll}
+alpha & bravo & charlie & delta & echo & foxtrot \\
+ golf & hotel & india & juliet & kilo & lima \\
+mike & november & oscar & papa & quebec & romeo \\
+sierra & tango & uniform & victor  & whiskey & xray \\
+yankee & zulu 
+\end{tabular}
+\par
+et \`a chaque mot,   on fait correspondre  sa premi\`ere  lettre.  Cet
+alphabet permet  d'\'epeler des mots  afin d'\'eviter les erreurs dues
+\`a une mauvaise transmission.
+\par\medskip
+\'Ecrivez un programme qui prend en entr\'ee un mot  et qui affiche la
+convertion de ce mot en alphabet OTAN~; les constituants de l'alphabet
+OTAN  devront  \^etre  s\'epar\'es  par  des  espaces.  Cette fonction
+renvoie~$1$ en cas de succ\`es et~$0$ si elle rencontre un caract\`ere
+ascii intraduisible.  
+\paragraph{Remarque.} 
+Cet exercice n\'ecessite la notion de tableau afin de stocker les
+cha\^\i{}nes de caract\`eres.  
+\ifcorrection
+\begin{correction}
+\input{Verbatim/alphabetOtan.c.verb}
+\end{correction}
+\fi
+\end{exercice}

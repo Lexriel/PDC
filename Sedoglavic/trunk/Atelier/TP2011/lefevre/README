@@ -1,0 +1,7 @@
+LEFEVRE Clément
+
+TP Pretty Printer
+
+gcc -o pp -ansi -pedantic -Wall pp.c
+puis 
+./pp < file.c > file-i.c

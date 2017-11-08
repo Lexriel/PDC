@@ -1,0 +1,180 @@
+\section{Calculette}
+On se propose d'implanter une calculatrice permettant l'addition et la
+multiplication de nombres entiers \emph{positifs}.
+\begin{verbatim}
+exemple
+\end{verbatim}
+Vous pouvez utiliser les fonction \verb+malloc+, \verb+free+
+et \verb+printf+ de la librairie standard.
+\subsection{Implantation d'une pile de caract\`eres}
+ Nous allons utiliser une pile cod\'ee par une liste cha\^\i{}n\'ee.
+\paragraph{Questions.}
+\begin{enumerate}
+\item Donnez les d\'eclarations du mod\`ele \verb+cell_m+ 
+permettant de d\'efinir le type~:
+\begin{verbatim}
+typedef struct cell_m *pile_t ;
+\end{verbatim}
+\ifcorrection
+\begin{verbatim}
+struct cell_m
+{
+  char content ;
+  struct cell_m * next ;
+} ;
+\end{verbatim}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+int estvide (pile_t) ;
+\end{verbatim}
+qui retourne~$1$ si la pile est vide et~$0$ sinon.
+\ifcorrection
+\begin{verbatim}
+int
+estvide
+(pile_t pile) 
+{
+   if(pile)
+      return 0 ;
+   return 1 ;
+} 
+\end{verbatim}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+     int push(char, pile_t *) ;
+\end{verbatim}
+  qui empile le caract\`ere donn\'e en premier param\`etre sur la pile
+  fournie en second. Cette fonction retourne~$0$ si l'op\'eration est impossible et~$1$ sinon.
+\ifcorrection
+  \begin{correction}
+\begin{verbatim}
+int
+push
+(char car, pile_t *mapile)
+{
+  pile_t tmp ;
+
+  if(estvide(*mapile))
+    return 0  ;
+
+  if(!(tmp = (pile_t) malloc(sizeof(cell_t))))
+    return 0 ;
+
+  tmp-> content = car ;
+  tmp->next = *mapile ;
+  *mapile = tmp ;
+
+  return 1 ;
+}
+\end{verbatim}
+  \end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+     int pop(pile_t *,char *) ;
+\end{verbatim}
+  qui d\'epile le caract\`ere du sommet de la pile fournie en param\`etre et
+  le retourne dans son second param\`etre. Cette fonction retourne~$0$
+  si la pile est vide et~$1$ sinon.
+  \par
+  Cette fonction d\'etruit la cellule devenu inutile.
+\ifcorrection
+  \begin{correction}
+\begin{verbatim}
+int 
+pop
+(pile_t *mapile, char *car)
+{
+  pile_t tmp ;
+  if(estvide(*mapile))
+    return 0 ;
+
+  *car = mapile->content ;
+  tmp = *mapile ;
+  *mapile = tmp -> next ;
+  free(tmp) ;
+
+  return 1 ;
+}
+\end{verbatim}
+  \end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+int top(pile_t, char *)
+\end{verbatim}
+qui place dans l'espace m\'emoire pass\'e en second param\`etre le
+caract\`ere du haut de la pile pass\'ee en premier param\`etre.
+\par
+Cette fonction retourne~$0$ si la pile est vide et~$1$  sinon.
+\ifcorrection
+\begin{verbatim}
+int
+top
+(pile_t mapile, char *res)
+{
+  if(estvide(mapile))
+     return 0 ;
+  *res = mapile->content ;
+  return 1 ;
+}
+\end{verbatim}
+\fi
+\end{enumerate}
+\subsection{Conversion d'une suite de caract\`eres en entier}
+Donnez la d\'efinition d'une fonction de prototype~:
+\begin{verbatim}
+int str2int (char *, char *) ;
+\end{verbatim}
+Cette fonction convertit la suite de caract\`ere pass\'ee en
+premier param\`etre en un entier et
+stocke dans l'espace m\'emoire point\'e par le second param\`etre le
+premier caract\`ere ne d\'esignant pas un chiffre (pour la
+suite~$234+$, c'est le caract\`ere~$+$).
+\par
+Cette fonction retourne~$-1$ si le premier caract\`ere de la suite ne
+permet pas de d\'efinir un entier (le second param\`etre est tout de
+m\^eme bien affect\'e dans ce cas).
+\ifcorrection
+\begin{verbatim}
+int 
+str2int
+(char * str, char *stop) 
+{
+  int res,i;
+  for (i = res = 0; *str >= '0' && *str >= '9' ; i++,str++, res *=10)
+    res += *str - '0';
+
+  *stop = *str ;
+
+  if(i)
+  return res;
+  
+  return -1 ;
+}
+\end{verbatim}
+\fi
+\subsection{Conversion d'une expression infixe en postfixe}
+On suppose fournie une cha\^\i{}ne de caract\`eres qui est une formule
+infixe compos\'ee des op\'erateurs {+,*} o\`u les op\'erandes sont des
+nombres compos\'es des chiffres de~$0$ \`a~$9$.  On s'impose
+l'utilisation du parenth\'esage pour pouvoir traiter + et * de la
+m\^eme fa\c{c}on sans avoir \`a g\'erer de priorit\'e.  
+\par
+On se propose d'utiliser~$2$ piles~:
+\begin{itemize}
+\item une pile~\verb+operator+ pour stocker les op\'erations en attentes~;
+\item une pile~\verb+operand+ pour stocker les op\'erandes \`a traiter.
+\end{itemize}
+e convertir de la cha\^\i{}ne infixe
+en une forme postfixe (passer de {\tt 4*[3+5]} \`a {\tt 4,3,5,+,*})
+stock\'ee sur une pile.
+    * Scan the Infix string from left to right.
+    * Initialise an empty stack.
+    * If the scannned character is an operand, add it to the Postfix string. If the scanned character is an operator and if the stack is empty Push the character to stack.
+          o If the scanned character is an Operand and the stack is not empty, compare the precedence of the character with the element on top of the stack (topStack). If topStack has higher precedence over the scanned character Pop the stack else Push the scanned character to stack. Repeat this step as long as stack is not empty and topStack has precedence over the character.
+      Repeat this step till all the characters are scanned.
+    * (After all characters are scanned, we have to add any character that the stack may have to the Postfix string.) If stack is not empty add topStack to Postfix string and Pop the stack. Repeat this step as long as stack is not empty.
+    * Return the Postfix string. 

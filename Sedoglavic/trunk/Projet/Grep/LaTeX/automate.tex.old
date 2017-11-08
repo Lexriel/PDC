@@ -1,0 +1,127 @@
+\section{Construction d'un automate d\'eterministe \`a partir d'un
+  arbre de syntaxe abstraite}
+\subsection{Construction d'ensembles d'\'etats associ\'es \`a chaque
+  n\oe{}uds}
+Pour construire un automate d\'eterministe \`a partir de cet arbre, il
+faut calculer pour chaque n\oe{}ud~$n$ les~$5$ ensembles
+$\textrm{alphabet}(n)$, $\textrm{initial}(n)$, $\textrm{final}(n)$,
+$\textrm{suivant}(n)$ et $\textrm{isnul}(n)$ d\'efinis \`a la figure
+Fig.~\ref{fonctions} page~\pageref{fonctions}. 
+\begin{itemize}
+\item $\textrm{isnul}(n)$ est une valeur bool\'eenne~;
+\item $\textrm{alphabet}(n)$ est un ensemble de caract\`eres~;
+\item les autres ensembles sont des ensembles d'\'etats de l'automate.
+\end{itemize}
+Ces ensembles peuvent se calculer en r\'ealisant un parcours de
+l'arbre en profondeur d'abord.
+\paragraph{Remarques~:}
+L'op\'eration~$\cup$ de r\'eunion des ensembles v\'erifie la
+relation~${\{i,j\} \cup\{i,k\}=\{i,j,k\}}$. Les autres op\'erations
+sur les ensembles (intersection, compl\'ement ne sont pas utiles pour
+ce projet).
+\par
+Vous \^etes libres de choisir votre repr\'esentation des ensembles et
+des \'etats (pour ces derniers, il peut \^etre int\'eressant de leurs
+associer une \'etiquette unique pouvant \^etre en relation avec
+l'adresse d'un n\oe{}ud de l'arbre de syntaxe abstraite).
+\begin{figure}[htbp]
+  \begin{center}
+    \[
+    \begin{array}[h]{|c|c|c|c|}
+      \hline
+      \mbox{N\oe{}ud } n & \textrm{initial}(n) & \textrm{final}(n) &
+      \textrm{isnul}(n) \\
+      \hline
+      n \mbox{ est une feuille} & \{\textrm{end}\}  & \{\textrm{end}\} &
+      \mbox{\bf True} \\
+      \mbox{\'etiquet\'ee } \textrm{end} (=\#)& & & \\
+      \hline
+      n \mbox{ est une feuille} & \{i\} & \{i\} & \mbox{\bf False} \\
+      \mbox{\'etiquet\'ee } i & & & \\
+      \hline
+      \begin{array}{c}
+        \begin{picture}(40,40)(-20,-17)
+          \put(-15,-10){\circle{12}}
+          \put(15,-10){\circle{12}}
+          \put(0,15){\circle{12}}
+          \put(-19,-11){$c_1$}
+          \put(11,-11){$c_2$}
+          \put(-2,13){$\mid$}
+          \put(-15,13){$n$}
+          \put(-11.9,-4.86){\line(3,5){8.81}}
+          \put(11.9,-4.86){\line(-3,5){8.81}}
+        \end{picture}
+      \end{array}
+      &  \textrm{initial}(c_1) \cup \textrm{initial}(c_2) & \textrm{final}(c_1) \cup \textrm{final}(c_2) &
+      \textrm{isnul}(c_1)\ \mbox{\bf  ou } \textrm{isnul}(c_2) \\
+      \hline
+      \begin{array}{c}
+        \begin{picture}(40,40)(-20,-17)
+          \put(-15,-10){\circle{12}}
+          \put(15,-10){\circle{12}}
+          \put(0,15){\circle{12}}
+          \put(-19,-11){$c_1$}
+          \put(11,-11){$c_2$}
+          \put(-3,13){$\bullet$}
+          \put(-15,13){$n$}
+          \put(-11.9,-4.86){\line(3,5){8.81}}
+          \put(11.9,-4.86){\line(-3,5){8.81}}
+        \end{picture}
+      \end{array}
+      &  
+      \begin{array}{c}
+        \mbox{si } \textrm{isnul}(c_{1}) \mbox{ alors} \\ 
+        \textrm{initial}(c_1) \cup \textrm{initial}(c_2) \\ 
+        \mbox{sinon } \textrm{initial}(c_1) 
+      \end{array}
+      &
+      \begin{array}{c}
+        \mbox{si } \textrm{isnul}(c_{2}) \mbox{ alors} \\
+        \textrm{final}(c_1) \cup \textrm{final}(c_2) \\
+        \mbox{sinon } \textrm{final}(c_2) 
+      \end{array}
+      &
+      \textrm{isnul}(c_1)\ \mbox{\bf  and } \textrm{isnul}(c_2)\\
+      \hline
+      \begin{picture}(40,40)(-20,-17)
+        \put(0,-10){\circle{12}}
+        \put(0,15){\circle{12}}
+        \put(-4,-11){$c_1$}
+        \put(-3,13){$\ast$}
+        \put(-15,13){$n$}
+        \put(0, -4){\line(0,1){13}}
+      \end{picture}
+      & \textrm{initial}(c_1) & \textrm{final}(c_1) & \mbox{\bf True} \\
+      \hline
+    \end{array}
+    \]
+  \end{center}
+  Soit~$n$ un n\oe{}ud de l'arbre,
+  \begin{itemize}
+  \item Construction de l'ensemble~$\textrm{suivant}$~:
+    \begin{enumerate}
+    \item si~$n$ est un n\oe{}ud de concat\'enation~($\bullet$)
+      ayant~$c_{1}$ pour fils droit et~$c_{2}$ pour fils gauche, et
+      si~$i$ appartient \`a~$\textrm{final}(c_{1})$, alors tous les
+      \'el\'ements de~$\textrm{initial}(c_{2})$ sont
+      dans~$\textrm{suivant}(i)$,
+    \item si~$n$ est un n\oe{}ud de r\'ep\'etition~($\ast$), et si~$i$
+      appartient \`a~$\textrm{final}(n)$, alors tous les \'el\'ements
+      de~$\textrm{initial}(n)$ sont dans~$\textrm{suivant}(i)$,
+    \item sinon, ne rien faire~;
+    \end{enumerate}
+  \item Construction de l'ensemble~$\textrm{alphabet}$~:
+    \begin{enumerate}
+    \item si~$n$ est un n\oe{}ud de concat\'enation (resp.\
+      conditionnel~($\mid$)) ayant~$c_{1}$ pour fils droit et~$c_{2}$
+      pour fils gauche, alors~$\textrm{alphabet}(n)$ est la r\'eunion
+      de~$\textrm{alphabet}(c_{1})$ et~$\textrm{alphabet}(c_{2})$~;
+    \item si~$n$ est un n\oe{}ud de r\'ep\'etition,
+      alors~$\textrm{alphabet}(n)$ est \'egal
+      \`a~$\textrm{alphabet}(c_{1})$.
+    \end{enumerate}
+  \end{itemize}
+
+  \caption{D\'efinition des ensembles $\textrm{alphabet}$, $\textrm{initial}$,
+    $\textrm{final}$, $\textrm{isnul}$ et $\textrm{suivant}$.\label{fonctions}}
+\end{figure}

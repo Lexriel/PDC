@@ -1,0 +1,17 @@
+#!/bin/sh
+DIRPATH=$(dirname $(dirname `pwd`))
+TARGETPATH=$(basename $DIRPATH)
+echo $TARGETPATH
+if [ $# -eq 0 ]
+then ARG="*"
+else ARG="$*"
+fi 
+
+ftp -i <<EOF
+open www.fil.univ-lille1.fr
+sedoglav
+bin
+cd public_html/$TARGETPATH
+mput $ARG
+bye
+EOF

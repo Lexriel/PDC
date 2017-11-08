@@ -1,0 +1,401 @@
+Pour se familiariser avec l'interpr\'eteur de commandes, on se propose
+d'utiliser l'aide en ligne afin de r\'ealiser un certains nombres de
+t\^aches. Ces derni\`eres sont fortement inspir\'ees des contraintes
+locales i.e.\ de la configuration logicielle offerte aux \'etudiants
+\`a Lille.
+\section{Manipulation du syst\`eme de fichiers }
+\label{sec:ShellFileSystem}
+Pour pr\'eparer notre travail, nous allons configurer notre
+environnement. Pour se faire, nous utiliserons les commandes shell~:
+\begin{verbatim}
+cat, cd, cp, df, du, grep, less, ls, mkdir, tar.
+\end{verbatim}
+Ce document ne donne pas d'indication sur ces commandes mais vous
+\^etes incit\'e \`a utiliser l'aide en ligne \verb?man? afin d'en
+obtenir.
+\begin{exercice}[Construire une arborescence]
+  Cr\'eer un r\'epertoire~C qui contiendra l'ensemble des fichiers
+  associ\'es au cours.  Dans ce r\'epertoire, cr\'eer les
+  r\'epertoires projet et tp.
+\end{exercice}
+\begin{exercice}[Droits d'acc\`es]
+  En utilisant la commande \verb?ls -l?, d\'eterminez les droits
+  d'acc\`es des sous r\'epertoires de ma racine (\~{}sedoglav).
+  \par
+  Construisez vous un r\'epertoire public dans lequel les membres de
+  votre groupe pourrons lire mais pas \'ecrire.
+\end{exercice}
+\begin{exercice}[La commande ls]
+  La commande ls permet d'examiner le contenu des r\'epertoires. Il
+  est utile de conna\^\i{}tre certaines de ces options.
+  \par
+  D\'eterminez l'effet des options suivantes de ls~:
+  \begin{center}
+    a \qquad d  \qquad l \qquad r \qquad t 
+  \end{center}
+  Remarquez que ces options sont cumulables.
+  \par
+  Comment visualiser la date de cr\'eation de l'ensemble des sous
+  r\'epertoires de votre racine.
+  
+\end{exercice}
+\begin{exercice}[Configurer la taille des polices par d\'efaut]
+  Votre professeur a l'intention d'\'economiser le peu de forces qui
+  lui restent~; par exemple, il n'a pas l'intention de se fatiguer les
+  yeux \`a chercher des erreurs dans vos codes sources alors que les
+  polices de caract\`eres utilis\'ees sont minuscules.
+  \par
+  Sans \'editeur de texte, afficher le contenu du fichier
+  \verb?.Xdefaults? (s'il existe). Ce fichier permet de fixer des
+  param\`etres par d\'efaut --- comme la taille des polices
+  utilis\'ees --- pour certaines applications --- comme xterm, emacs,
+  etc.
+  \par
+  Vous trouverez dans le r\'epertoire \verb?~sedoglav/public/? un
+  fichier qui contient la cha\^\i{}ne de caract\`eres \verb?r24?. Ce
+  dernier fixe quelques r\'eglages qui faciliterons vos rapports avec
+  votre enseignant de~C pr\'ef\'er\'e.
+  \par
+  Copier ce fichier sur votre racine et ajouter ses r\'eglages \`a
+  votre fichier \verb?.Xdefaults? (si possible sans user d'un \'editeur
+  de texte). Si ce dernier n'existe pas, cr\'eer le.
+  \par
+  Pour v\'erifier que tout va bien, utiliser la commande %
+  \verb?xrdb .Xdefaults? dans votre shell et lancer un \verb?xterm?
+  en arri\`ere fond.
+\end{exercice}
+\begin{exercice}[Gestion de l'espace disque]
+  Votre espace disque est limit\'e (et g\'en\'eralement pollu\'e par
+  votre butineur). 
+  \par
+  D\'eterminer le r\'epertoire occupant le plus d'espace disque.
+  \par
+  Quels sont les droits du r\'epertoire \verb?/tmp/?~?
+  \par
+  Combien d'espace disque est disponible dans ce r\'epertoire (dont le
+  contenu n'est malheureusement pas sauvegard\'e)~?
+\end{exercice}
+
+\begin{exercice}[La commande tar]
+  Des archives sont disponibles dans le r\'epertoire
+  \verb?~sedoglav/public/?. Par convention, une archive se termine par
+  le suffixe tar (tgz si elle est compress\'ee).
+  \begin{enumerate}
+  \item Listez le contenu de l'archive non compress\'ee (commande
+    \verb?tar tvf <nomarchive>?). 
+  \item Extrayez de l'archive non compress\'ee celle qui est
+    compress\'ee (commande %
+    \verb?tar xvf <nomarchive> <fichieraextraire>?).
+  \item Listez le contenu de l'archive compress\'ee (ajoutez un z \`a
+    la liste des options ci-dessus).
+  \item D\'ecompressez et ouvrez l'archive compress\'ee afin d'obtenir son
+    contenu (commande \verb?tar xvfz <nomarchive> <nomrep>?).
+  \item Utilisez la commande \verb?tar cvfz <nomarchive> <nomrep>? pour faire
+    une archive compress\'ee d'un de vos r\'epertoires.
+  \end{enumerate}
+\end{exercice}
+\begin{exercice}[Liens symboliques]
+  Vous avez peut \^etre d\'ej\`a \'et\'e surpris par le fait que nos
+  voisins flamands s'obstinent --- outre \`a parler une langue
+  incompr\'ehensible --- \`a affubler certaines villes de noms
+  impossibles. Par exemple~:
+  \begin{center}
+    \begin{tabular}{c|c}
+Nom fran\c{c}ais & Nom flamand \\ \hline
+Anvers           &     Antwerpen \\
+Bruxelles        &     Brussel\\
+Gand             &    Gent\\
+La haye          &    Den Haag \\
+Lille            &    Rijsel \\
+Paris            &     Paris \\
+Tournai          &     Doornik 
+    \end{tabular}
+  \end{center}
+  Nous allons profiter de cet \'etat de fait pour nous exercer \`a
+  faire des liens symboliques. Ces \emph{liens} permettent le partage
+  de fichiers sans duplication de ces derniers (man ln).
+  \par
+  \begin{enumerate}
+  \item Construisez un r\'epertoire villes contenant un fichier pour
+    chaque nom de ville en fran\c{c}ais (man touch).
+  \item Construisez un r\'epertoire steden contenant un lien
+    symbolique pour chaque nom de ville en flamand et qui pointe vers
+    le fichier correspondant dans le r\'epertoire villes.
+  \end{enumerate}
+\end{exercice}
+\section{Expressions r\'eguli\`eres}
+\label{sec:ExpressionsRegulieres}
+Les expressions r\'eguli\`eres d\'ecrivent des r\`egles des
+propri\'et\'es de cha\^\i{}nes de caract\`eres. Pour ce faire, on
+utilise en shell les \textit{m\'etacaract\`eres} suivants~:
+\begin{itemize}
+\item le  point d'interrogation  \texttt{?}\ correspond \`a  n'importe
+  quel     caract\`ere   (sauf    EOL).   L'expression   r\'eguli\`ere
+  \texttt{b?l} repr\'esente    les   cha\^\i{}ne  \textit{bal}      et
+  \textit{bol} et toutes les autres combinaisons comme \textit{bwl}~;
+\item la  paire de  crochet  \texttt{[ ]}  permet de  sp\'ecifier plus
+  restrictivement  un      ensemble   de  caract\`eres.   L'expression
+  r\'eguli\`ere     \texttt{dupon[dt]}   ne  repr\'esente    que   les
+  cha\^\i{}nes \textit{dupond}  et    \textit{dupont}.    L'expression
+  r\'eguli\`ere     \texttt{dupon[d-t]}     repr\'esente   toutes  les
+  cha\^\i{}nes commen\c{c}ant  par \textit{dupon}  et se terminant par
+  une   lettre comprise  entre \textit{d}  et~\textit{t}. L'expression
+  r\'eguli\`ere   \texttt{dupon[\^{}dt]} repr\'esente    toutes    les
+  cha\^\i{}nes commen\c{c}ant par \textit{dupon} et ne se terminant ni
+  par un~\textit{d} ni par un~\textit{t}~;
+\item l'\'etoile  \texttt{*} d\'esigne~$0,1$ ou plusieurs caract\`eres
+  quelconques.   L'expression   r\'eguli\`ere  \texttt{*} repr\'esente
+  toutes les cha\^\i{}nes.
+\end{itemize}
+Le pr\'efixe~$\backslash$  (antislash) transforme un m\'etacaract\`ere
+en caract\`ere.  \index{Shell!expression r\'eguli\`ere}
+\begin{exercice}[Shell et expressions r\'eguli\`eres]
+  Nous allons faire des recherches dans le r\'epertoire
+  \verb?/usr/include?. Ce dernier regroupe des fichiers d'ent\^ete
+  contenant des d\'efinitions qui nous serons utiles par la suite.
+  \begin{enumerate}
+  \item Donnez la liste des fichiers commen\c{c}ant par std (utilisez
+    ls et les expressions r\'eguli\`eres).
+  \item Donnez la liste des fichiers dont le nom contient au moins un
+    chiffre.
+  \item Donnez la liste des fichiers contenant les mots putchar et
+    getchar (utilisez grep et les expressions r\'eguli\`eres.
+  \item Donnez la liste des fichiers contenant le mot EOF.
+  \end{enumerate}
+\end{exercice}
+\section{Variable et commandes internes du shell}
+\label{sec:CommandesInternes}
+\begin{exercice}[Variables du shell]
+  Stockez dans un fichier \verb?foo.temp? l'ensemble des variables
+  d\'efinies dans votre shell.
+  \par
+  Stockez dans un fichier \verb?bar.temp? l'ensemble des commandes
+  externes accessibles dans votre shell sans avoir \`a fournir de
+  chemin.
+\end{exercice}
+
+\begin{exercice}[La commande which]
+  Que permet la commande which~?
+  \par
+  Que vous apprend l'instruction \verb?which echo?.
+\end{exercice}
+
+\begin{exercice}[Historique des commandes]
+Le sell g\`ere une liste des derni\`eres commandes ex\'ecut\'ees dont la
+taille est donn\'ee par la variable \verb+history+
+
+Si, cette variable  est initialis\'ee \`a~$40$, ce  m\'ecanisme permet
+d'obtenir  un historique  des~$40$ derni\`eres commandes ex\'ecut\'ees
+et   de redemander   l'ex\'ecution  de  ces  commandes.  La   commande
+\verb+history+ permet d'obtenir l'historique des derni\`eres commandes
+avec un num\'ero d'ordre associ\'e \`a  chaque commande. Les commandes
+ainsi num\'erot\'ees peuvent être r\'e-ex\'ecut\'ees simplement~:
+\begin{itemize}
+  \item \verb+!!+ permet de r\'e-ex\'ecuter la derni\`ere commande~;
+  \item \verb+!n+ permet de r\'e-ex\'ecuter la commande num\'ero n~;
+     \item \verb+!ch+ permet de r\'e-ex\'ecuter la commande la plus
+    r\'ecente commen\c{c}ant par {\em ch}.
+\end{itemize}
+\begin{enumerate}
+\item  Testez la commande  \verb+history+   et la  r\'e-ex\'ecution  de
+  commandes selon les trois m\'ethodes pr\'ecis\'ees ci-dessus.
+\item Combien de commandes votre historique peut-il m\'emoriser~?
+\item Cette commande est elle interne ou externe. Justifiez votre r\'eponse.
+\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Les alias]
+  Un alias est une abr\'eviation pour une commande ou une s\'erie de
+  commandes fr\'equemment utilis\'ees. Vous pouvez visualisez les alias
+  d\'ej\`a d\'efinis (ils le sont en g\'en\'eral dans le fichier .cshrc qui est
+  ex\'ecut\'e au d\'ebut de chaque shell) par la commande alias.
+  \begin{enumerate}
+  \item Donnez la liste des alias d\'ej\`a d\'efinis dans votre shell.
+  \item D\'efinissez l'alias \verb?h? qui constituera un raccourci pour la commande history.
+  \item D\'efinissez l'alias \verb?ll? qui affiche sous format long le
+    contenu d'un r\'epertoire tri\'e par date de derni\`ere
+    modification.
+  \end{enumerate}
+\end{exercice}
+
+\section{Utilisation de commandes externes standards}
+\label{sec:CommandesExternes}
+
+\begin{exercice}[La commande find]
+  La commande find permet de retrouver des fichiers. En particulier,
+  il est possible de rechercher des fichiers dont le nom correspond
+  \`a un motif d\'efini par une expression r\'eguli\`ere.
+  \par
+  En utilisant la commande find~:
+  \begin{enumerate}
+  \item Donnez la liste des fichiers dont le nom se termine par un
+    tilde (il s'agit de copie de sauvegarde engendr\'ee par emacs).
+  \item De plus, la commande find permet d'ex\'ecuter une commande.
+    Donnez la commande permettant de trouver et d'effacer les fichiers
+    inutiles dans votre arborescence. Pour effacer les copies faites
+    par les \'editeurs, on peut utiliser %
+    \verb?find *~ -exec rm {} \;?.
+  \end{enumerate}
+\end{exercice}
+\begin{exercice}[Notion de montage~: la commande mount]
+  Certains syst\`eme de fichier --- NTFS par exemple --- distinguent
+  les arborescences situ\'ees physiquement sur des supports
+  diff\'erents (disquettes, cdrom, disques durs, clefs USB, r\'eseaux,
+  etc).
+  \par\smallskip
+  D'autres ne  font  pas cette distinction gr\^ace   \`a  la notion de
+  \emph{montage}.   Il s'agit    d'associer  \`a un  r\'epertoire  une
+  arborescence  de fichiers   stock\'e sur un support.
+  \par\smallskip
+  Ainsi, une disquette format\'ee sur un ordinateur utilisant un OS de
+  type windows aura une arborescence de fichiers cod\'ees par le File
+  System FAT. Il est possible de la \lq monter \rq sur une
+  arborescence de type unix et d'acc\'eder \`a ces fichiers.
+  \par
+  Le m\^eme principe s'applique aux cdroms, aux FS accessibles par
+  r\'eseaux, etc.
+  \begin{enumerate}
+  \item Consulter le fichier \verb?/etc/fstab? pour avoir la liste des
+    supports montable sur votre machine.
+  \item Consulter le fichier \verb?/etc/mtab? pour avoir la liste des
+    supports actuellement mont\'e sur votre machine.
+  \item Quel r\'epertoire est utilis\'e pour monter un cdrom sur votre
+    machine~?
+  \item Utilisez la commande mount pour monter une disquette, une clef
+    ou un cdrom sur votre machine.
+  \item Utilisez la commande umount pour d\'emonter une disquette, une clef
+    ou un cdrom sur votre machine.
+  \end{enumerate}
+\end{exercice}
+\section{Gestion des processus}
+\label{sec:GestionProcessus}
+L'ex\'ecution     d'un   programme   provoque    la cr\'eation    d'un
+\emph{processus}.  Si le  programme est ex\'ecut\'e plusieurs fois, un
+processus sera    cr\'e\'e par  ex\'ecution.    Chaque  processus  est
+identifi\'e par un num\'ero, son \verb+PID+.
+\par
+Au cours de sa vie, un processus peut passer par diff\'erents \'etats~:
+\begin{itemize}
+\item \verb+R+ pour Run~: il est actif~;
+\item \verb+T+ pour Traced~: il est passif et attend d'être remis en activit\'e~;
+\item \verb+S+ pour Sleep~: il dort, et se r\'eactivera tout seul en temps utile~;
+\item \verb+Z+ pour Zombie~: il est mort, mais il occupe encore de la m\'emoire.
+\end{itemize}
+La commande \verb+kill+ permet d'envoyer des signaux aux processus
+afin d'influer sur leur existence.  La syntaxe est~: %
+\verb+kill -s pid+ ou \verb+kill pid+, o\`u \verb+pid+ d\'esigne le
+num\'ero d'un processus (on peut en mettre plusieurs s\'epar\'es par
+des espaces), et \verb+s+ d\'esigne le signal \`a envoyer.
+\par
+La liste compl\`ete des signaux s'obtient en ex\'ecutant la commande
+\verb+kill -l+.
+\begin{exercice}[Manipulation de processus]
+  \begin{enumerate}
+  \item Obtenez la liste de l'ensemble des processus existant sur
+    votre machine.
+  \item Lancer la commande \verb?du -h / &?. Suspendez le processus
+    correspondant puis relancer le pour finir par le tuer. Comment
+    auriez vous du lancer cette commande afin de ne pas polluer la
+    sortie standard.
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[T\^ache de fond]
+  \begin{enumerate}
+  \item Que provoque la commande sleep~?
+  \item Tentez de d\'eterminez \`a l'avance le comportement des instructions suivantes~:
+\begin{verbatim}
+sleep 5 ; echo A
+echo A ; sleep 5
+sleep 5 & echo A
+echo A & sleep 5
+(echo A ; sleep 5) &
+echo A ; sleep 5 ; echo B
+echo A ; sleep 5 & echo B
+(echo A ; sleep 5 ) & echo B
+echo A ; (sleep 5 & echo B)
+echo A ; (sleep 5 ; echo B) &
+sleep 5 & echo A ; ( sleep 5 ; echo B)
+sleep 5 & echo A & ( sleep 5 ; echo B)
+sleep 5 & echo A & ( sleep 5 & echo B) &
+sleep 5 & echo A & ( sleep 5 ; echo B) &
+\end{verbatim}
+  \end{enumerate}
+\end{exercice}
+
+\begin{exercice}[Jouons avec les redirections]
+  Lancer un shell puis d\'eterminez le num\'ero du processus associ\'e
+  \`a ce shell.
+  \par
+  Dans le r\'epertoire proc, donnez la liste --- sous format long ---
+  de l'ensemble des r\'epertoires commen\c{c}ant par un chiffre.
+  \par
+  Remarquez qu'un nom de r\'epertoire est identique au num\'ero du
+  processus shell.
+  \par
+  Placer le r\'epertoire courant dans le sous-r\'epertoire fd du
+  r\'epertoire portant comme nom le num\'ero d'identification
+  (utilisez cd).
+  \par
+  Lister sous format long le contenu de ce r\'epertoire.
+  \par
+  Utilisez la commande \verb?echo Salut? pour afficher Salut sur la
+  sortie standard.
+  \par
+  Utilisez la commande \verb?echo Salut? et une redirection pour
+  placer la cha\^\i{}ne Salut dans un fichier contenu dans le
+  r\'epertoire tmp.
+  \par
+  Utilisez la commande \verb?echo Salut? et une redirection pour
+  placer la cha\^\i{}ne Salut dans un des fichiers pr\'eexistant dans
+  le r\'epertoire fd.
+  \par
+  Bravo, vous venez de d\'ecouvrir que la sortie standard (ce qui est
+  affich\'e \`a l'\'ecran correspond \`a un fichier comme les autres
+  de l'arborescence).
+\end{exercice}
+\section{Environnement r\'eseaux}
+\label{sec:Reseaux}
+\begin{exercice}[Un pr\'etexte pour manipuler les commandes du shell]
+  La commande \verb?ypcat passwd? permet d'afficher sur la sortie
+  standrad des informations concernant les utilisateurs ayant un
+  compte sur le r\'eseau~; ces informations sont~:
+  \begin{itemize}
+  \item leur login~;
+  \item leur mot de passe crypt\'e~;
+  \item leur num\'ero d'identification~;
+  \item le num\'ero  d'identification de leur groupe~;
+  \item leurs nom et pr\'enoms~;
+  \item leurs racine~;
+  \item le shell utilis\'e.
+  \end{itemize}
+  \begin{enumerate}
+  \item Combien y a-t'il d'utilisateur ayant acc\`es \`a votre
+    machine~? (utilisez la commande nl).
+  \item Trier cette liste par ordre alphab\'etique (utilisez sort).
+  \item Combien y a-t'il d'enseignant~? (utilisez grep et nl).
+  \item Afficher les noms et pr\'enoms de l'ensemble des enseignants
+    (utilisez en compl\'ement des commandes ci-dessus, la commande
+    cut).
+  \end{enumerate}
+  Vos r\'eponses ne devront pas utilisez de fichiers temporaire.
+\end{exercice}
+\begin{exercice}[Ouverture d'une session sur une machine distante]
+  La commande ssh permet d'ouvrir une session sur une machine
+  distante.  Par exemple, la commande %
+  \verb?ssh nom.fil.univ-lille1.fr? permet d'ouvrir une session sur la
+  machine \verb?nom? du r\'eseau du M~5.
+  \par
+  Ouvrez une session sur la machine \`a cot\'e de vous.
+\end{exercice}
+
+\begin{exercice}[Un utilitaire pratique]
+  wget un programme non-interactif de t\'el\'echargement de fichiers
+  depuis le Web i.e.\ il peut travailler en arri\`ere plan sans
+  intervention de l'utilisateur.
+  \par
+  Avec l'aide en ligne de wget, construisez une archive compress\'ee
+  contenant l'ensemble des pages web constituant le fascicule de
+  travaux pratiques (afin par exemple de l'utiliser hors connexions
+  chez vous).
+\end{exercice}

@@ -1,0 +1,495 @@
+%\documentclass[licence,solution]{controle}
+\documentclass[licence]{controle}
+\matiere{Pratique du~C}
+\genre{Fiche de TD~2}
+\commentaire{Langage~C}
+
+\usepackage{epsfig}
+
+\newcommand{\B}[1]{\overline{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% graphismes
+%
+
+%\pssilent
+
+\newlength{\longDSfig}
+
+\def\normalDSfig{0.7}
+\def\petiteDSfig{0.5}
+\def\tinyDSfig{0.42}
+\def\petiteXpixDSfig{0.9}
+\def\smallDSfig{0.4}
+
+\newcommand{\DSfig}[2]
+{ \settowidth{\longDSfig}{\epsfig{figure=#1}}%
+  \setlength{\longDSfig}{#2\longDSfig}%
+  \ifthenelse{\lengthtest{\longDSfig > \linewidth}}%
+    {\setlength{\longDSfig}{\linewidth}}%
+    {\setlength{\longDSfig}{\longDSfig}}%
+  \epsfig{figure=#1,width=\longDSfig}}
+
+% the end
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Identificateurs, types simples, op\'erateurs, priorit\'e et conversion implicite}
+\begin{question}
+Indiquer si les identificateurs suivants sont valides~:
+\begin{center}
+\begin{tabular}{lll}
+foo-1 & \_foo\_bar & 3cavaliers \\
+foo. & t\^ete & \_\_\_A\_ \\
+\_ & a & 3 
+\end{tabular}
+\end{center}
+\end{question}
+\begin{solution}
+\begin{itemize}
+\item[foo-1] contient un op\'erateur et n'est donc pas valide~;
+\item[\_foo\_bar] est valide~;
+\item[3cavaliers] commence par un entier et n'est donc pas valide~;
+\item[foo.] contient un op\'erateur et n'est donc pas valide~;
+\item[t\^ete] contient un accent et n'est donc pas valide~;
+\item[\_\_\_A\_] est valide~;
+\item[\_ et a] sont valides~;
+\item[3]  n'est pas valide.
+\end{itemize}
+\end{solution}
+\begin{question}
+En supposant~:
+$$
+A=20 \quad B=5 \quad C=-10 \quad D=2 \quad X=12 \quad Y=15
+$$
+\'evaluer les expressions valides parmi les expressions suivantes~:
+$$
+\begin{array}{llll}
+5*X+2*3*B/4 & A == B = 5 & A += X + 2 & A != C *= -D\\
+A \%= D++ & A \%= ++D & (X++) * A+C & A = X*B<C+Y*!(B<C) \\
+!(X-D+C) | |D  & A \&\&B | | !0\&\&C\&\&!D &C=12-- & (1<<(2<<1))==((1<<2)<<1) 
+\end{array}
+$$
+En utilisant le parenth\'esage, corriger les expressions invalides.
+\end{question}
+\begin{solution}
+  Il serait p\'edagagique de rappeler les op\'erateurs.
+  \begin{enumerate}
+  \item[$5*X+2*3*B/4$] pas de pb, de gauche \`a droite avec priorit\'e
+    de la multiplication sur l'addition~;
+  \item[$A == B = 5$] pas valide. On commence par == qui retourne~0 et
+    l'affectation n'accepte qu'un identificateur sur la gauche~;
+  \item[$A += X + 2$] on commence par l'addition puis l'affectation additive~;
+  \item[$A != C *= -D$] on commence par -D. on fait C *= -D et il reste
+    \`a faire le test diff\'erent de.
+  \item[$A \%= D++ $] on commence par A \%= D puis l'incr\'ementation~;
+  \item[$A \%= ++D$] on commence par l'incr\'ementation puis le reste~;
+  \item[$X++ * A+C$] l'incr\'ementation de~X se fait apr\`es la *~;
+  \item[$A = X*B<C+Y*!(B<C)$] on commence par les op\'erateurs de
+    comparaisons et on fait l'arithm\'etique (on rapelle 0 faut,
+    diff\'erent de~$0$ vrai)~;
+  \item[$!(X-D+C) | | D$] idem  le r\'esultat est !0 || D
+  \item[$A \&\&B | | !0\&\&C\&\&!D$] 1 || 1 \&\& 1 \&\& 0 qui est \'egal \`a 0~;
+  \item[$C=12--$] C est affect\'e \`a~$13$ puis on incr\'emente~;
+  \item[$(1<<(2<<1))==((1<<2)<<1)$] suivre les parenth\`eses.
+  \end{enumerate}
+\end{solution}
+\begin{question}
+En supposant faites les d\'eclaration~:
+\begin{verbatim}
+long int A = 15 ;
+char B = 'A' ;
+short int C = 10 ;
+\end{verbatim}
+\'evaluer et donner le type des expressions valides suivantes~:
+$$
+\begin{array}{lll}
+B+1 & B+A  & B+C \\
+3*B+2*B & 2*B+(A+10)/C & 2*B+(A+10.0)/C \\
+B=2*B+(A+10.0)/C & C = 666 & B *= 3.14
+\end{array}
+$$
+\end{question}
+\begin{solution}
+\end{solution}
+  {\tiny
+    \begin{center}
+      \begin{tabular}{c|l|c}
+        16 &
+        \verb+()+ 
+        \hspace{3mm}
+        \verb+[]+ 
+        \hspace{3mm}
+        \verb+->+
+        \hspace{3mm}
+        \verb+.+ 
+        & G
+        \\
+        15 &
+        \verb|++| 
+        \hspace{3mm}
+        \verb+--+ (postfix\'e)
+        & D
+        \\
+        14 &
+        \verb+!+ 
+        \hspace{3mm}
+        \verb+~+ 
+        \hspace{3mm}
+        \verb|++|
+        \hspace{3mm}
+        \verb+--+ (pr\'efix\'e) 
+        \hspace{3mm}
+        \verb+-+ (unaire) 
+        & D
+        \\
+        & \verb+*+ (indirection)
+        \hspace{3mm}
+        \verb+&+ (adresse)
+        \hspace{3mm}{\tt sizeof} 
+        & D
+        \\
+        13 &
+        \verb+*+ (multiplication)
+        \hspace{3mm}
+        \verb+/+ 
+        \hspace{3mm}
+        \verb+%+
+        & G
+        \\
+        12 & 
+        \verb|+| 
+        \hspace{3mm}
+        \verb+-+ 
+        & G
+        \\
+        11 &
+        \verb+<<+ 
+        \hspace{3mm}
+        \verb+>>+       
+        & G
+        \\
+        10 &
+        \verb+<+ 
+        \hspace{3mm}
+        \verb+<=+ 
+        \hspace{3mm}
+        \verb+>+ 
+        \hspace{3mm}
+        \verb+>=+ 
+        & G
+        \\
+        9 &\verb+==+ \hspace{3mm}\verb+!=+ & G\\
+        8 &\verb+&+ (et bit \`a bit) & G\\
+        7 &\verb+^+ & G\\
+        6 &\verb+|+ & G\\
+        5 &\verb+&&+ & G\\
+        4 &\verb+||+ & G\\
+        3 &\verb+?:+ & D\\
+        2 &\verb+=+ 
+        \hspace{3mm}
+        \verb|+=| 
+        \hspace{3mm}
+        \verb+-=+ 
+        \hspace{3mm}
+        \verb+*=+ 
+        \hspace{3mm}
+        \verb+/=+ 
+        \hspace{3mm}
+        \verb+%=+ 
+        \hspace{3mm}
+        \verb+>>=+ 
+        \hspace{3mm}
+        \verb+<<=+ 
+        \hspace{3mm}
+        \verb+&=+ 
+        \hspace{3mm}
+        \verb+^=+ 
+        \hspace{3mm}
+        \verb+|=+ 
+        & D
+        \\
+        1 &
+        \verb+,+ 
+        &G
+      \end{tabular}
+    \end{center}
+}
+\newpage
+\section{Instructions de contr\^ole}
+    La fonction \texttt{getchar()} renvoie le code ASCII du caract\`ere lu
+    sur \texttt{stdin}, la valeur \texttt{EOF} en fin de fichier ou
+    ou cas d'erreur. 
+
+\begin{question}    
+    On entre sur \texttt{stdin} une valeur \texttt{unsigned int}. On
+    sort sur \texttt{stdout} sa traduction en binaire.
+    \begin{solution}
+        \begin{itemize}
+          \item On remarque que \texttt{n\%2} donne le bit de poids
+            faible de \texttt{n}. 
+          \item La récursivité peut faciliter l'obtention des chiffres
+            dans le bon ordre.
+        \end{itemize}
+        \begin{verbatim}
+void binaire (unsigned int n)
+{
+  if (n!=0) {
+    binaire (n>>1) ;
+    printf("%d", n%2) ;
+  }
+}                                        
+        \end{verbatim}
+    \end{solution}
+\end{question}
+\begin{question}
+  Vous  avez d\'ej\`a  remarqu\'e  que  le clavier d'un  t\'el\'ephone
+  outre la touche~\#, ressemblait \`a~:
+  \par
+        \begin{center}
+  \begin{tabular}{ccc}
+    1 &  2  & 3 \\
+    & ABC & DEF \\
+    4 & 5 & 6 \\
+    GHI & JKL & MNO  \\ 
+    7 & 8 & 9 \\
+    PQRS &TUV  &WXYZ
+  \end{tabular}
+        \end{center}
+  \par
+  Cette  disposition permet \`a l'utilisateur de  taper du texte.  Par
+  exemple, presser une fois la touche~$7$ correspond \`a la lettre~$P$
+  alors  que  presser cette    touche~$4$    fois correspond   \`a  la
+  lettre~$S$.  La touche~\# du t\'el\'ephone   sert \`a s\'eparer  les
+  lettres  et peut \^etre omise lorsqu'il   est clair qu'une lettre se
+  termine et l'autre commence.
+  \par
+  Ainsi, la s\'equence \verb+777666222559996#6668866#8244466+
+  correspond au mot \verb+rockymountain+.
+
+  Donnez un programme qui permet de traduire  une suite tap\'ee sur le
+  clavier d'un t\'el\'ephone en un texte.
+
+  \begin{solution}
+\begin{verbatim}
+#include "stdio.h"
+#include "stdlib.h"
+#define MAX 100
+
+void traduction(char code[MAX]){
+  
+  int i,j ;
+  char trad[MAX] ;
+
+  i = j = 0 ;
+
+  while(code[j]!=0){
+
+    switch(code[j]){
+    case '#' : j++ ; continue ; break ;
+    case '1' : trad[i] =' ' ; break ;
+    case '2' : trad[i] ='a' ; break ;
+    case '3' : trad[i] ='d' ; break ;
+    case '4' : trad[i] ='g' ; break ;
+    case '5' : trad[i] ='j' ; break ;
+    case '6' : trad[i] ='m' ; break ;
+    case '7' : trad[i] ='p' ; break ;
+    case '8' : trad[i] ='t' ; break ;
+    case '9' : trad[i] ='w' ; break ;
+    default : printf("Erreur dans la chaine\n") ; exit(-1) ;
+    }  
+
+    j++ ;
+    while(code[j-1]==code[j]) {
+      trad[i]++ ;
+      j++ ;
+    } 
+    i++ ;
+  }
+  trad[i] = 0 ;
+  printf("La traduction est %s\n",trad) ;
+}
+
+int main(void){
+
+  char code[MAX];
+
+  printf("Saisir le code a traduire => ");
+  scanf("%s",code) ;
+  traduction(code) ;
+  return 1 ;
+
+} 
+\end{verbatim}
+  \end{solution}
+
+\end{question}
+
+\begin{question}    
+    On veut calculer le nombre de bits sur lequel sont cod\'es les
+    \texttt{unsigned int}. Le format des donn\'ees n'est pas pr\'ecis\'e
+    dans les sp\'ecifications du langage C, il peut d\'ependre de la
+    machine ou du compilateur.
+    
+    L'op\'erateur arithm\'etique \verb+x << lg+ %>>
+    calcule un d\'ecalage sur \texttt{x} d'une longueur \texttt{lg} bits
+    vers les bits de poids fort.  Les \texttt{lg} bits de poids forts
+    sont perdus, ceux de poids faible sont mis à 0. 
+    
+    On remarquera qu'on peut utiliser cet op\'erateur pour une
+    multiplication (ou une division avec~\verb+>>+) par 2, 4..., à
+    condition de faire attention aux pertes \'eventuelles
+    d'informations.
+
+    \begin{solution}
+        \begin{itemize}
+          \item On remarque que 0 est cod\'e sous forme d'une suite de
+            z\'eros et que 1 est cod\'e sous la forme d'une suite de z\'eros
+            suivie d'un unique 1. 
+        \end{itemize}
+        \begin{verbatim}
+int longint()
+{
+  unsigned int V = 1 ;
+  int nb_decal = 0;
+  while (V != 0) {
+    V <<= 1 ;  /* ou  V = V << 1; */
+    nb_decal ++ ;
+  }
+  return nb_decal ;
+}
+        \end{verbatim}
+    \end{solution}
+\end{question}
+
+
+\begin{question}
+    On lit sur l'entr\'ee standard (\texttt{stdin}) un texte, termin\'e
+    par \texttt{EOF}, dont on veut v\'erifier que le parenth\'esage est
+    correct. On sortira sur la sortie standard (\texttt{stdout}) un
+    message pour le r\'esultat.
+    
+    \begin{solution}
+        \begin{itemize}
+          \item Le \texttt{switch}/\texttt{case}/\texttt{break}
+            n'avait pas \'et\'e utilis\'e dans l'exercice pr\'ec\'edent...
+          \item Introduction de \texttt{getchar()}.
+          \item Introduction de \texttt{exit()}
+        \end{itemize}
+        Pourquoi \texttt{carac} est d\'eclar\'e \texttt{int} et non
+        \texttt{char} 
+        \begin{verbatim}
+#include <stdio.h>
+main () 
+{
+  int ouvertes = 0 ;
+  int carac ;
+  while ((carac=getchar()) != EOF)
+  switch (carac) {
+    case '(' : 
+      ouvertes ++;
+      break;
+    case ')' : 
+      if (ouvertes <= 0)
+        printf("Erreur de fermeture\n");
+        exit (1) ; 
+      else
+        ouvertes --;
+        break;
+      default : ;
+  }
+  if (ouvertes != 0)
+    printf ("Manque %d fermetures\n", ouvertes) ;
+  else
+    printf ("Parenth\'esage correct\n") ;
+    exit (0) ; 
+ }
+        \end{verbatim}
+    \end{solution}
+\end{question}
+\begin{question}    
+    On calcule la valeur d'un entier entr\'e sur \texttt{stdin} sous
+    forme d'une suite de caract\`eres (termin\'ee par un caract\`ere autre
+    qu'un chiffre).
+
+    L'arithm\'etique << classique >> peut s'appliquer sur le type
+    \texttt{char}. La valeur num\'erique d'un caract\`ere est le code
+    \textsc{ASCII} de ce caract\`ere (65 pour \texttt{'A'}, 66
+    pour \texttt{'B'}...). 
+        
+    \begin{solution}
+        \begin{itemize}
+          \item Arithm\'etique des caract\`eres
+        \end{itemize}
+        \begin{verbatim}
+unsigned int lire_entier ()
+{
+  unsigned int resu = 0 ;
+  int carac = getchar() ;
+  while ((carac >= '0') && (carac <= '9')) {
+    resu *= 10 ;
+    resu += carac - '0' ;
+    carac = getchar() ;
+  }
+  return resu ;
+}
+        \end{verbatim}
+        Ce qui peut être r\'e\'ecrit (au niveau du \texttt{getchar()} : 
+        \begin{verbatim}
+unsigned int lire_entier ()
+{
+  unsigned int resu = 0 ;
+  int carac ;
+  while (carac = getchar (), (carac >= '0') && (carac <= '9')) {
+    resu *= 10 ;
+    resu += carac - '0' ;
+  }
+  return resu ;
+}
+        \end{verbatim}
+    \end{solution}
+\end{question}
+\begin{question}
+  La racine carr\'ee par    d\'efaut d'un entier positif~$n$  est   un
+  entier positif~$p$ qui v\'erifie~:
+  $$
+  p^{2}\leq n <(p+1)^{2}.
+  $$
+  Construiser un programme  qui calcul la racine carr\'ee par d\'efaut d'un entier.
+  \par
+  Vous pouvez tester deux  approches~:  la recherche lin\'eaire de  la
+  racine par d\'efaut et la recherche dichotomique.
+\end{question}
+  \begin{solution}      
+\begin{verbatim}
+#include <stdio.h>
+int racine_par_defaut(int n){
+
+  int d=n ;
+  int g=0 ;
+  int i ;
+  
+  do{
+    i = (d+g)/2 ;
+
+    if (i*i>n)
+      d = i ;
+    else if ((i+1)*(i+1)<n)
+      g = i ;
+    else return i ;
+
+  } while (1) ;
+}
+\end{verbatim}
+  \end{solution}
+
+\end{document}
+
+
+
+
+

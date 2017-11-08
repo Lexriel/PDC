@@ -1,0 +1,35 @@
+\section{Validit\'e d'un code barres de type EAN13}
+Le code \`a barres de type European Article Numbering~$13$ est
+compos\'e de~$13$ chiffres (compris entre~$0$ et~$9$).  Sa validit\'e
+repose sur le test suivant~: le reste de la division par~$10$ de la
+somme des termes de rang \emph{impairs} et des triples des termes de
+rang \emph{pairs} doit \^etre \'egale au premier chiffre.
+\par
+Par exemple, le code~:
+\par
+\begin{center}
+  \begin{tabular}{cccccccccccccc}
+    rang & 0 & 1 & 2 & 3 &4 &5 &6 &7 &8 & 9 & 10 & 11 & 12  \\
+    chiffres & 3& 2& 2& 8& 8& 8& 1& 0& 8& 4& 4& 9& 1
+  \end{tabular}
+\end{center}
+\par
+est valide car la somme~:
+\begin{verbatim}
+2 + 8 + 8 + 0 + 4 + 9 + 3*( 2 + 8 + 1 + 8 + 4 + 1 )
+\end{verbatim}
+est \'egale \`a~$103$ et son reste par~$10$ est~$3$.
+\paragraph{Question.}
+\'Ecrivez  une fonction  qui prend   en  entr\'ee un  tableau  de~$13$
+entiers  et  qui retourne~$0$  si c'est  un code  barres valide et~$1$
+sinon.
+\paragraph{Informations culturelles.}
+Le code est constitu\'e de  deux parties~: les informations  relatives
+\`a l'entreprise sur la gauche, et les informations correspondantes au
+produit sur la droite. La partie de  l'entreprise est sur six chiffres
+et identifie la compagnie qui a cr\'e\'e  ou qui distribue le produit. 
+Le fabriquant   d'un produit doit être    enregistr\'e aupr\`es de EAN
+International, duquel il obtient un code.  Le d\'ebut  de la partie de
+l'entreprise (les deux ou trois  premiers chiffres) identifie le pays. 
+Le   fabriquant peut utiliser  ses  propres r\`egles pour d\'efinir la
+deuxi\`eme partie du code de son produit~($6$ chiffres).

@@ -1,0 +1,345 @@
+\section{Introduction aux fonctions}
+\label{sec:Fonction}
+\begin{exercice}[Fonctions de saisie et d'affichage]
+  Reprenez les deux exercices du d\'ebut de la
+  section~\ref{sec:getchar} afin de construire les~$2$ fonctions de
+  prototypes~:
+\begin{verbatim}
+int intscan(void);
+void intprint(int);
+\end{verbatim}
+  que vous utiliserez syst\'ematiquement par la suite en lieu et place
+  de printf et scanf. Pensez \`a faire un fichier d'ent\^ete contenant
+  leurs prototypes et un objet avec lequel vous lierez vos codes
+  ult\'erieurs.
+\end{exercice}
+\begin{exercice}[Suite de Param\`etres et suite d'expressions]
+  Nous avons vu dans l'exercice~\ref{sec:SuiteExpression} la notion de
+  suite d'expression.  Lors de l'appel d'une fonction, la suite de
+  param\`etres fournis \`a la fonction peut \^etre compos\'ees
+  d'expressions~: l'\'evaluation de cette suite de param\`etres se
+  fait de droite \`a gauche.
+  \par
+  Pour illustrer ce point, d\'eterminez ce que retourne le code suivant~:
+  \input{Verbatim/fctsuiteexpressions.c.verb}
+  Testez votre r\'eponse.
+\end{exercice}
+%------------------------------------------------------------------------------
+\section{R\'ecursivit\'e~: exemples classiques}
+\label{sec:Recursivite}
+\begin{exercice}[Calcul r\'ecursif de la factorielle]
+  Implanter le calcul r\'ecursif de la factorielle.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/factoriellerecur.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\begin{exercice}[Suite de Fibonacci]
+  La suite de Fibonacci est d\'efinie de  mani\`ere r\'ecursive par la
+  relation~:
+  $$
+  u_{n} = u_{n-1} + u_{n-2}.
+  $$
+  Cette d\'efinition doit \^etre compl\'et\'ee par une condition d'arr\^et.
+  Dans notre cas, si~$n$ est \'egal \`a~$0$ ou~$1$ alors~:
+  $$
+  u_{0}=u_{1}=1.
+  $$
+  \par
+  Par curiosit\'e, on   peut tracer les  calculs.   Ainsi, si on  veut
+  calculer~$u_{4}$  et que  l'on suppose que   le premier terme  de la
+  somme est calcul\'e en premier,  on est confront\'e  \`a la suite de
+  calculs~:
+  \par
+  \begin{tabular}{c c c c c c c c ccc}
+    Fib(4) &=& &&&Fib(3)& &+& &Fib(2) \\
+    &=& &Fib(2)&&+&Fib(1) &+& &Fib(2) \\
+    &=& Fib(1)&+&Fib(1)&+&Fib(1) &+& &Fib(2) \\
+    &=& 1&+&Fib(1)&+&Fib(1) &+& &Fib(2) \\
+    &=& 1&+&1&+&Fib(1) &+& &Fib(2) \\
+    &=& &2&&+&Fib(1) &+& &Fib(2) \\
+    &=& &2&&+&1 &+& &Fib(2) \\
+    &=& &&&3& &+& &Fib(2) \\
+    &=& &&&3&  &+& Fib(1)&+&Fib(1) \\
+    &=& &&&3&  &+& 1&+&Fib(1) \\    
+    &=& &&&3&  &+& 1&+&1 \\   
+    &=& &&&3&  &+& &2\\
+    &=& &&&5 
+  \end{tabular}
+  \par
+  Construire un   programme qui  calcul  r\'ecursivement  le~$n$i\`eme
+  terme de la suite de Fibonacci.
+  \ifcorrection
+\begin{correction}
+  \input{Verbatim/fibonaccirecur.c.verb}
+\end{correction}
+\fi
+\paragraph{Remarque.}
+Pour m\'emoire,  comptons  le nombre d'appel  r\'ecursifs~$a_{n}$ pour
+cette fonction.  Par d\'efinition, on a~:
+$$
+{a_{0}=a_{1}=1}\qquad   \mathrm{et}\qquad {a_{n}=1+a_{n-1}+a_{n-2}}
+\qquad  \mathrm{pour}\qquad {n>1}.
+$$
+Par changement de variable~${b_{n}=a_{n}+1}$, on en d\'eduit que~:
+$$
+{b_{0}=b_{1}=2}\qquad   \mathrm{et}\qquad {b_{n}=b_{n-1}+b_{n-2}}
+\qquad  \mathrm{pour}\qquad {n>1}.
+$$
+On  a  donc~$b_{n}=2Fib_{n}$  et  ainsi,~$a_{n}=2Fib_{n}-1$.   Or
+si~$\phi$  d\'esigne   le nombre  d'or~${(\sqrt{5}+1)/2}$,          le
+terme~$Fib_{n}$ de  la suite de Fibonacci  est l'entier le plus proche
+de~${\phi^{n}/\sqrt{5}}$.   Le  nombre  d'appels r\'ecursifs est  donc
+exponentiel en~$n$.  Comparez ce  nombre avec le nombre d'it\'erations
+n\'ecessaires pour calculer la suite de Fibonacci.
+\par
+Ce comportement n'est pas la r\`egle  en mati\`ere de r\'ecursivit\'e. 
+L'\'ecriture   r\'ecursive  tout  en  \'etant  synth\'etique   peut se
+r\'ev\'eler efficace.
+\end{exercice}
+%------------------------------------------------------------------------------
+\begin{exercice}[La fonction~$91$ de MacCarthy]
+  Pour    tout  entier~$n$,     MacCarthy  a  d\'efini  la    fonction
+  r\'ecursive~$f$ suivante~:
+  $$
+  f(n) = 
+  \begin{array}{l}
+    n - 10\ \mathrm{si}\ n> 100 \\
+    f(f(n+11))\ \mathrm{sinon}.
+  \end{array}
+  $$
+  Pour  tout~$n$,     cette fonction   vaut~${n-10}$  si~$n$   est
+  strictement sup\'erieur  \`a~$100$.  Quelle  est sa valeur  pour~$n$
+  inf\'erieur  ou   \'egal \`a~$100$~?  Pour   le  savoir, vous pouvez
+  implanter cette fonction.%
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/MacCarthy.c.verb}
+  \end{correction}
+  \fi
+\paragraph{Attention.}
+Il     n'est pas   \'evident  en~C  qu'une    fonction d\'efinie   par
+r\'ecursivit\'e imbriqu\'ee soit  correcte. Prenons  comme exemple, la
+fonction de Morris~:
+\begin{verbatim}
+int Morris(int a, int b){
+  if (a == 0)
+    return 1 ;
+  else 
+    return Morris(a-1,Morris(a,b)) ;
+}
+\end{verbatim}
+Que   vaut    \texttt{Morris(1,0)}~?     Par    construction,  on    a
+\texttt{Morris(1,0)=Morris(0,Morris(1,0))}.  Puisqu'en~C  le  passage
+  d'argument se fait  par  valeur, cette d\'efinition  r\'ecursive  ne
+  termine pas.
+\end{exercice}
+%------------------------------------------------------------------------------
+\begin{exercice}[Implantation r\'ecursive de l'algorithme d'Euclide]
+  \index{pgcd!Implantation r\'ecursive}
+  Implanter une proc\'edure  r\'ecursive permettant le  calcul du plus
+  grand commun d\'enominateur (cf.~\ref{ex:AlgorithmeEuclideIteratif}).
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/algoEuclideRec.c.verb}
+  \end{correction}
+  \fi
+  D\'eterminer le  nombre d'appels r\'ecursifs n\'ecessaire  au calcul
+  du pgcd de~$a$ et~$b$ en fonction de~$a$.
+\end{exercice}
+\begin{exercice}[le jeu des Tours de Hano\"\i{}]
+\label{sec:TourDeHanoi}
+En~$1883$, \'Edouard Lucas (1842--91) publie sous le nom de Claus de
+Siam  professeur au coll\`ege de Li-Sou-Tsian  ---  anagramme de Lucas
+d'Amiens    professeur  \`a Saint-Louis  ---    le   jeu des Tours  de
+Hano\"\i{}.    Le  jeu est  constitu\'e   de  trois  piquets verticaux
+---~$1$,~$2$ et~$3$ ---     et  de disques superpos\'es   de   tailles
+strictement   d\'ecroissantes  enfil\'es autour  du  piquet~$3$~;  ces
+disques forment les fameuses tours.
+\begin{figure}[htbp]      % Les tours de Hanoi
+  \begin{center}
+    %BEGIN IMAGE
+    \count0=100                 % \count0 la hauteur de la fen\^etre
+    \count2=4                  % \count2 le nombre de disques dans la tour
+
+    \count3=\count2            % \count3 le nombre d'\'equivalent disques 
+    \advance\count3 by 4       % tenant dans la fen\^etre
+
+    \count4=\count0
+    \divide\count4 by \count3  % la largeur d'un disque 
+
+    \count1=\count2            % \count1 la largeur de la fen{\^e}tre 
+    \multiply\count1 by 6     
+    \advance\count1 by 4    
+    \multiply\count1 by \count4 % 
+
+    \count5=\count2
+    \advance\count5 by 1 
+    \count6=\count4
+    \multiply\count6 by \count5  % la position du premier piquet
+
+    \count7=\count4 
+    \multiply\count7 by \count5        
+    \multiply\count7 by 3        % la position du second piquet 
+
+    \count8=\count4 
+    \multiply\count8 by \count5        
+    \multiply\count8 by 5        % la position du troisi\`eme piquet 
+
+    \count9=\count4 
+    \multiply\count9 by \count2
+    \advance\count9 by \count4
+    \advance\count9 by \count4   % la hauteur des piquets
+    \begin{picture}(\count1,\count0)
+      % Premier disque sur le premier piquet
+      \count13=\count9                    % la hauteur libre du piquet
+      \count10=\count4                    % l'abscisse du coin gauche bas 
+      \count11=\count4                    % l'ordonn\'ee du coin gauche bas 
+      \count12=\count4                    
+      \multiply\count12 by 4              % le num\'ero du disque 
+      \multiply\count12 by 2              % le diam\`etre du disque
+      \put(\count10,\count11){\framebox(\count12,\count4)}
+      \advance\count13 by -\count4
+      % Second disque sur le premier piquet
+      \advance\count10 by \count4         % l'abscisse du coin gauche bas 
+      \advance\count11 by \count4         % l'ordonn\'ee du coin gauche bas 
+      \count12=\count4                    
+      \multiply\count12 by 3              % le num\'ero du disque 
+      \multiply\count12 by 2              % le diam\`etre du disque
+      \put(\count10,\count11){\framebox(\count12,\count4)}
+      \advance\count13 by -\count4
+      % Troisi\`eme disque sur le premier piquet
+      \advance\count10 by \count4         % l'abscisse du coin gauche bas 
+      \advance\count11 by \count4         % l'ordonn\'ee du coin gauche bas 
+      \count12=\count4                    
+      \multiply\count12 by 2              % le num\'ero du disque 
+      \multiply\count12 by 2              % le diam\`etre du disque
+      \put(\count10,\count11){\framebox(\count12,\count4)}
+      \advance\count13 by -\count4
+      % Quatri\`eme disque sur le premier piquet
+      \advance\count10 by \count4         % l'abscisse du coin gauche bas 
+      \advance\count11 by \count4         % l'ordonn\'ee du coin gauche bas 
+      \count12=\count4                    
+      \multiply\count12 by 1              % le num\'ero du disque 
+      \multiply\count12 by 2              % le diam\`etre du disque
+      \put(\count10,\count11){\framebox(\count12,\count4)}
+      \advance\count13 by -\count4
+      % dessin du premier piquet
+      \advance\count11 by \count4
+      \put(\count6,\count11){\vector(0,1){\count13}}
+      \put(\count6,0){\makebox(0,0){1}}
+
+      % dessin du second piquet
+      \put(\count7,\count4){\vector(0,1){\count9}}
+      \put(\count7,0){\makebox(0,0){2}}
+      % dessin du troisi\`eme piquet
+      \put(\count8,\count4){\vector(0,1){\count9}}
+      \put(\count8,0){\makebox(0,0){3}}
+      % les disques sur le second piquet
+      % les disques sur le troisi\`eme piquet
+    \end{picture}     
+    %END IMAGE
+    %HEVEA \imageflush
+    \caption{L'\'etat initial du jeu des Tours de Hano\"\i{} pour~${n=4}$}
+    \label{fig:ToursHanoiEtatInitial}
+  \end{center}
+\end{figure}
+Il  faut  d\'eplacer  l'ensemble  des   disques  pour que  ceux-ci  se
+retrouvent enfil\'es autour  du piquet~$3$ en  respectant les r\`egles
+suivantes~:
+\begin{itemize}
+\item les disques sont d\'eplac\'es un par un~;
+\item un disque ne  doit pas se retrouver  au-dessus d'un  disque plus
+  petit.
+\end{itemize}
+Lucas  a  montr\'e que le  probl\`eme est  toujours r\'esoluble et que
+pour une  tour de~$n$ \'etages, il  faut au  minimum~${2^{n}-1}$ coups
+pour d\'eplacer la tour. La l\'egende veut que les bonzes d'Hano\"\i{}
+passaient leur vie \`a r\'esoudre ce probl\`eme pour~${n=127}$, ce qui
+leur permettait d'attendre l'\'ecroulement du temple de Brahma et donc
+la  fin du monde.    Pour  m\'emoire,~${2^{127}-1}$ est un nombre   de
+Mersenne dont Lucas a d\'emontr\'e la primalit\'e.
+\paragraph{Raisonnement par r\'ecurrence}
+L'id\'ee de la  r\'ecursivit\'e telle que nous l'employons aujourd'hui
+est attribuable \`a   Stephan~C.\ Kleene (1909--94)  notion  offre une
+solution \'el\'egante au probl\`eme des Tours de Hano\"\i{}.
+\paragraph{Principe.}
+Supposons  notre probl\`eme  r\'esolu  pour~${n-1}$ disques  i.e.\ que
+l'on sache  transf\'erer~${n-1}$ disques depuis le piquet~$i$ jusqu'au
+piquet~$j$ en  respectant les  r\`egles du  jeu.  Il existe  alors une
+solution simple pour  transf\'erer~$n$    disques  dans  les   m\^emes
+conditions~:
+\begin{enumerate}
+\item  on  am\`ene les~${n-1}$ disques   du haut du  piquet~$i$ sur le
+  troisi\`eme piquet --- repr\'esent\'e par~${6-(i+j)}$~;
+\item on prend  le dernier  disque  du piquet~$i$  et  on le  met seul
+  en~$j$~;
+\item on ram\`ene les~${n-1}$ disques de~${6-(i+j)}$ en~$j$.
+\end{enumerate}
+\paragraph{Implantation.}
+Construire une  fonction  {\tt  Hanoi.c}   qui permet  d'afficher  les
+mouvements  \'el\'ementaires \`a accomplir pour d\'eplacer~$n$ disques
+du piquet~$i$ au piquet~$j$  (une proc\'edure principale est fournie). 
+Utiliser  cette fonction   dans    un  programme~C qui  demande    \`a
+l'utilisateur le nombre de disque \`a placer sur le premier piquet et
+qui affiche une solution du jeu.%
+\ifcorrection
+\begin{correction}
+\input{Verbatim/Hanoi.c.verb}
+\end{correction}
+\fi
+\end{exercice}
+%------------------------------------------------------------------------------
+\begin{exercice}[Le probl\`eme des reines]
+  Le probl\`eme  des reines consiste    \`a placer~$n$ reines  sur  un
+  \'echiquier de taille~${n\times n}$  de telle sorte  qu'aucune reine
+  ne soit en prise~: il ne faut  donc pas plus  d'une reine par ligne,
+  par colonne et par diagonale.
+  \par
+  Voici un exemple de solution pour~${n=8}$~:
+  \par
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    &R& & & & & & \\
+    \hline
+    & & & &R& & & \\
+    \hline
+    & & & & & &R& \\
+    \hline
+    & & &R& & & & \\
+    \hline
+    R& & & & & & & \\
+    \hline
+    & & & & & & &R\\
+    \hline
+    & & & & &R& & \\
+    \hline
+    & &R& & & & & \\
+    \hline
+  \end{tabular}
+  On peut trouver les solutions du probl\`eme  des reines en explorant
+  r\'ecursivement  l'espace des  configurations  possibles. Le  but de
+  l'exercice sera de compter le  nombre de solutions du probl\`eme des
+  reines pour un entier~$n$ donn\'e.
+  \par
+  Ainsi, pour~${n=1}$, il  y a une seule  configuration, pour~${n=2}$,
+  il n'y en a pas, etc.
+  \par
+  L'algorithme n\'ecessite trois tableaux de bool\'eens repr\'esentant
+  les contraintes engendr\'e par le placement des reines. Il y a un tableau qui indique
+  \begin{itemize}
+  \item pour chaque ligne si elle est d\'ej\`a occup\'ee par une reine~;
+  \item pour chaque diagonale ``descendante'' si elle est d\'ej\`a occup\'ee par une reine~;
+  \item pour chaque diagonale ``montante'' si elle est d\'ej\`a occup\'ee par une reine.
+  \end{itemize}
+  Pour la  mise au point  du programme, on  pourra ajouter  un tableau
+  pour stocker la solution en cours de construction.
+  \par
+  L'algorithme consiste  \`a placer une reine  dans  chaque colonne et
+  \`a mettre  \`a  jours  les tableaux  ci-dessus.   Il  n'y  a qu'une
+  fonction r\'ecursive    \`a \'ecrire.  Elle  prend  en   argument le
+  num\'ero~$i$ de la colonne \`a explorer  et les trois tableaux. Elle
+  retourne le nombre  de solutions possibles  avec les reines d\`ej\`a
+  plac\'ees dans les colonnes~$0$ \`a~${i-1}$.
+\end{exercice}

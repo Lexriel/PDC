@@ -1,0 +1,7453 @@
+
+atexit.o:
+         U ___errno
+00000058 D __exit_frame_monitor
+000000bc T _exithandle
+0000017c T _get_exit_frame_monitor
+         w _ld_libc
+         U _memcpy
+         U _mutex_lock
+         U _mutex_unlock
+00000188 T _preexec_exit_handlers
+0000004c T atexit
+         U malloc
+         U realloc
+
+stret1.o:
+00000000 T .stret1
+
+stret2.o:
+00000000 T .stret2
+
+_ftou.o:
+00000010 T __dtou
+00000088 T __ftou
+
+_Q_add.o:
+         U .stret8
+00000000 T _Q_add
+         U __quad_mag_add
+         U __quad_mag_sub
+
+_Q_cmp.o:
+00000000 T _Q_cmp
+
+_Q_cmpe.o:
+00000000 T _Q_cmpe
+
+_Q_div.o:
+         U .stret8
+00000000 T _Q_div
+
+_Q_dtoq.o:
+         U .stret8
+00000000 T _Q_dtoq
+
+_Q_itoq.o:
+         U .stret8
+00000000 T _Q_itoq
+
+_Q_lltoq.o:
+         U .stret8
+00000000 T _Q_lltoq
+
+_Q_mul.o:
+         U .stret8
+00000000 T _Q_mul
+
+_Q_neg.o:
+         U .stret8
+00000000 T _Q_neg
+
+_Q_qtod.o:
+00000000 T _Q_qtod
+
+_Q_qtoi.o:
+00000000 T _Q_qtoi
+
+_Q_qtos.o:
+00000000 T _Q_qtos
+
+_Q_qtou.o:
+00000000 T _Q_qtou
+
+_Q_sqrt.o:
+         U .stret8
+00000000 T _Q_sqrt
+
+_Q_stoq.o:
+         U .stret8
+00000000 T _Q_stoq
+
+_Q_sub.o:
+         U .stret8
+00000000 T _Q_sub
+         U __quad_mag_add
+         U __quad_mag_sub
+
+_Q_ulltoq.o:
+         U .stret8
+00000000 T _Q_ulltoq
+
+_Q_utoq.o:
+         U .stret8
+00000000 T _Q_utoq
+
+__flt_rounds.o:
+         U _QgetRD
+00000000 T __flt_rounds
+
+__quad_mag.o:
+00000000 T __quad_mag_add
+000003f4 T __quad_mag_sub
+
+finite.o:
+00000000 T _finite
+000000a8 T _fpclass
+00000028 T _unordered
+00000000 W finite
+000000a8 W fpclass
+00000028 W unordered
+
+fpgetrnd.o:
+00000000 T _fpgetround
+00000000 W fpgetround
+
+fpgetsticky.o:
+00000000 T _fpgetsticky
+00000000 W fpgetsticky
+
+fpsetrnd.o:
+00000000 T _fpsetround
+00000000 W fpsetround
+
+fpsetsticky.o:
+00000000 T _fpsetsticky
+00000000 W fpsetsticky
+
+func_decim.o:
+         U __ctype
+00000000 T _func_to_decimal
+         U _thr_get_inf_read
+         U _thr_get_nan_read
+00000000 W func_to_decimal
+         U localeconv
+
+isnanf.o:
+00000000 T _isnanf
+00000000 W isnanf
+
+logb.o:
+         U ___errno
+00000018 T _logb
+00000100 T _nextafter
+00000018 W logb
+00000100 W nextafter
+
+scalb.o:
+         U ___errno
+         U __huge_val
+         U _isnan
+         U _lib_version
+00000028 T _scalb
+         U ldexp
+00000028 W scalb
+
+isnand.o:
+00000000 T _isnan
+00000000 T _isnand
+00000000 W isnan
+00000000 W isnand
+
+seconvert.o:
+         U _QgetRD
+         U __infnanstring
+         U __k_gconvert
+         U _memcpy
+         U _memset
+00000000 T _seconvert
+000000b0 T _sfconvert
+00000198 T _sgconvert
+         U _single_to_decimal
+00000000 W seconvert
+000000b0 W sfconvert
+00000198 W sgconvert
+
+__flt_decim.o:
+         U __base_conversion_set_exception
+         U __class_extended
+         U __class_single
+         U __k_double_to_decimal
+         U __pack_double
+         U __right_shift_base_two
+000003c4 T __unpack_extended_two
+         U __unpack_single
+000001e8 T __unpack_single_two
+000006ac T _extended_to_decimal
+000002f0 T _single_to_decimal
+         U _split_shorten
+00000130 T _split_single_22
+000001a0 T _split_single_23
+000000b8 T _split_single_6
+00000000 T _split_single_m1
+         U _unpacked_to_decimal_two
+000006ac W extended_to_decimal
+000002f0 W single_to_decimal
+
+sigfpe.o:
+         U ___errno
+         U _mutex_lock
+         U _mutex_unlock
+         U _sigaction
+         U _sigemptyset
+000001cc T _sigfpe
+         U abort
+         U ieee_handlers
+000001cc W sigfpe
+
+abs.o:
+00000000 T abs
+00000000 T labs
+
+alloca.o:
+00000000 T __builtin_alloca
+
+atof.o:
+00000000 T atof
+         U strtod
+
+ecvt.o:
+         U _econvert
+00000000 T _ecvt
+         U _fconvert
+00000038 T _fcvt
+         U _qeconvert
+000000d0 T _qecvt
+         U _qfconvert
+00000118 T _qfcvt
+         U _qgconvert
+00000160 T _qgcvt
+00000000 W ecvt
+00000038 W fcvt
+         U malloc
+000000d0 W qecvt
+00000118 W qfcvt
+00000160 W qgcvt
+
+getcpuid.o:
+00000000 T _getcpuid
+00000000 W getcpuid
+
+gethomelgroup.o:
+00000000 T _gethomelgroup
+00000000 W gethomelgroup
+
+gethrtime.o:
+00000000 T gethrtime
+0000000c T gethrvtime
+
+lexp10.o:
+         U .stret4
+00000000 T _lexp10
+         U _lmul
+         U _lone
+         U _lsub
+         U _lten
+00000000 W lexp10
+
+llog10.o:
+         U .stret4
+         U _ladd
+         U _ldivide
+00000000 T _llog10
+         U _lone
+         U _lten
+         U _lzero
+00000000 W llog10
+
+ldivide.o:
+         U .stret4
+00000000 T _ldivide
+         U _lshiftl
+         U _lsign
+         U _lsub
+         U _lzero
+00000000 W ldivide
+
+lmul.o:
+         U .stret4
+         U _ladd
+00000000 T _lmul
+         U _lshiftl
+         U _lzero
+00000000 W lmul
+
+ladd.o:
+00000000 T _ladd
+00000000 W ladd
+
+lconstants.o:
+00000008 D _lone
+00000010 D _lten
+00000000 D _lzero
+00000008 V lone
+00000010 V lten
+00000000 V lzero
+
+lshiftl.o:
+00000000 T _lshiftl
+00000000 W lshiftl
+
+lsign.o:
+00000000 T _lsign
+00000000 W lsign
+
+lsub.o:
+00000000 T _lsub
+00000000 W lsub
+
+makectxt.o:
+         U _getcontext
+00000000 T _makecontext
+         U _setcontext
+00000000 W makecontext
+000000bc T resumecontext
+
+setjmp.o:
+00000020 T _longjmp
+00000000 T _setjmp
+00000020 W longjmp
+00000000 W setjmp
+
+strtod.o:
+         U _QgetRD
+         U ___errno
+         U _decimal_to_double
+         U _string_to_decimal
+00000008 T strtod
+
+string_decim.o:
+         U __ctype
+00000000 T _string_to_decimal
+         U _thr_get_inf_read
+         U _thr_get_nan_read
+         U localeconv
+00000000 W string_to_decimal
+
+swapctxt.o:
+         U __getcontext
+         U _getsp
+         U _setcontext
+00000000 T _swapcontext
+00000000 W swapcontext
+
+sync_instruction_memory.o:
+00000030 T nop
+00000000 T sync_instruction_memory
+
+ftw64.o:
+00000000 T _ftw64
+         U _mutex_lock
+         U _mutex_unlock
+         U _xftw64
+00000000 W ftw64
+
+_xftw64.o:
+         U ___errno
+         U _closedir
+         U _lstat64
+         U _opendir
+         U _readdir64
+         U _seekdir
+         U _stat64
+         U _telldir
+00000000 T _xftw64
+         U free
+         U malloc
+         U strcmp
+         U strcpy
+         U strlen
+
+nftw64.o:
+         U ___errno
+         U __iob
+         U _chdir
+         U _closedir
+         U _fprintf
+         U _getcwd
+         U _lstat64
+         U _mutex_lock
+         U _mutex_unlock
+000006e0 T _nftw64
+         U _opendir
+         U _readdir64
+         U _seekdir
+         U _stat64
+         U _telldir
+         U malloc
+000006e0 W nftw64
+         U strerror
+         U strlen
+
+tell64.o:
+         U _lseek64
+00000000 T _tell64
+00000000 W tell64
+
+attropen64.o:
+         U ___errno
+00000000 T _attropen64
+         U _close
+         U _open64
+         U _openat64
+00000000 W attropen64
+
+truncate64.o:
+         U _close
+         U _fcntl
+00000000 T _ftruncate64
+         U _open64
+0000004c T _truncate64
+00000000 W ftruncate64
+0000004c W truncate64
+
+_ftoll.o:
+00000280 T _Q_qtoll
+         U _Q_set_exception
+00000000 T __dtoll
+00000154 T __ftoll
+
+_ftoull.o:
+00000264 T _Q_qtoull
+         U _Q_set_exception
+00000000 T __dtoull
+00000138 T __ftoull
+
+_Q_set_except.o:
+00000000 T _Q_set_exception
+         U _fpgetmask
+
+fpgetmask.o:
+00000000 T _fpgetmask
+00000000 W fpgetmask
+
+a64l.o:
+00000000 T _a64l
+00000000 W a64l
+
+addsev.o:
+         U __pfmt_nsev
+         U __pfmt_sev_tab
+         U _rw_pfmt_sev_tab
+         U _rw_unlock
+         U _rw_wrlock
+00000000 T addsev
+         U free
+         U malloc
+         U realloc
+         U strcpy
+         U strlen
+
+assert.o:
+00000000 T __assert
+00000000 W _assert
+         U _dgettext
+         U _write
+         U abort
+         U snprintf
+         U strlen
+
+atol.o:
+         U __ctype
+00000000 T atol
+
+atoll.o:
+         U __ctype
+00000000 T _atoll
+00000000 W atoll
+
+attropen.o:
+         U ___errno
+00000000 T _attropen
+         U _close
+         U _open
+         U _openat
+00000000 W attropen
+
+basename.o:
+00000000 T _basename
+00000000 W basename
+         U strlen
+
+bcmp.o:
+         U _memcmp
+00000000 T bcmp
+
+bcopy.o:
+         U _memmove
+00000000 T bcopy
+
+bsearch.o:
+00000000 T bsearch
+
+catgets.o:
+         U ___errno
+00000000 T _catgets
+00000000 W catgets
+         U check_format
+
+catopen.o:
+         U ___errno
+00000668 T _catclose
+00000000 T _catopen
+         U _close
+         U _mmap
+         U _munmap
+         U _setlocale
+         U _strdup
+00000668 W catclose
+00000000 W catopen
+         U free
+         U getenv
+         U malloc
+         U nls_safe_open
+         U strchr
+
+cfgetispeed.o:
+00000000 T _cfgetispeed
+00000000 W cfgetispeed
+
+cfgetospeed.o:
+00000000 T _cfgetospeed
+00000000 W cfgetospeed
+
+cfree.o:
+00000000 T _cfree
+00000000 W cfree
+         U free
+
+cfsetispeed.o:
+00000000 T _cfsetispeed
+00000000 W cfsetispeed
+
+cfsetospeed.o:
+00000000 T _cfsetospeed
+00000000 W cfsetospeed
+
+cftime.o:
+00000030 T _ascftime
+00000000 T _cftime
+         U _localtime_r
+00000030 W ascftime
+00000000 W cftime
+         U getenv
+         U strftime
+
+clock.o:
+         U _gethz
+         U _sysconf
+         U _times
+00000000 T clock
+
+closefrom.o:
+         U ___errno
+         U __ctype
+         U _close
+         U _closedir
+00000204 T _closefrom
+         U _fcntl
+00000000 T _fdwalk
+         U _getrlimit
+         U _memcpy
+         U _opendir
+         U _readdir
+         U atoi
+00000204 W closefrom
+00000000 W fdwalk
+
+confstr.o:
+         U ___errno
+00000000 T confstr
+         U strlen
+         U strncpy
+
+crypt.o:
+         U ___errno
+00000508 T _crypt
+00000784 T _encrypt
+         U _mutex_lock
+         U _mutex_unlock
+000007cc T _setkey
+         U _thr_main
+         U _tsdbufalloc
+         U calloc
+00000508 W crypt
+00000784 W encrypt
+         U perror
+000007cc W setkey
+
+directio.o:
+00000000 T directio
+         U ioctl
+
+dirname.o:
+00000000 T _dirname
+00000000 W dirname
+         U strlen
+
+div.o:
+         U .stret4
+00000000 T div
+00000068 T ldiv
+
+drand48.o:
+00000514 T _drand48
+00000548 T _erand48
+0000060c T _jrand48
+0000035c T _lcong48
+0000057c T _lrand48
+000005dc T _mrand48
+         U _mutex_lock
+         U _mutex_unlock
+000005ac T _nrand48
+000002b4 T _seed48
+00000248 T _srand48
+00000514 W drand48
+00000548 W erand48
+0000060c W jrand48
+0000035c W lcong48
+0000057c W lrand48
+000005dc W mrand48
+000005ac W nrand48
+000002b4 W seed48
+00000248 W srand48
+
+errlst.o:
+         U __sys_errs
+00000000 D _sys_errlist
+00000000 V sys_errlist
+
+euclen.o:
+         U __ctype
+00000000 T euccol
+0000004c T euclen
+000000a0 T eucscol
+
+execvp.o:
+         U ___errno
+         U __xpg4
+00000000 T _execlp
+         U _execv
+000000f8 T _execvp
+         U _geteuid
+         U _getuid
+         U _sleep
+         U _strdup
+00000000 W execlp
+000000f8 W execvp
+         U free
+         U getenv
+         U strchr
+         U strcpy
+         U strlen
+
+fattach.o:
+         U ___errno
+         U __door_info
+00000000 T _fattach
+         U _isastream
+         U _mount
+00000000 W fattach
+
+fdetach.o:
+00000000 T _fdetach
+         U _umount
+00000000 W fdetach
+
+fdopendir.o:
+         U ___errno
+         U __fcntl
+00000000 T _fdopendir
+         U _fstat64
+00000000 W fdopendir
+         U free
+         U malloc
+
+ffs.o:
+00000000 T _ffs
+00000000 W ffs
+
+fmtmsg.o:
+         U ___errno
+         U __iob
+00000510 T _addseverity
+00000b40 T _fmtmsg
+         U _mutex_lock
+         U _mutex_unlock
+00000510 W addseverity
+         U clearerr
+         U fclose
+         U ferror
+00000b40 W fmtmsg
+         U fopen
+         U fputs
+         U free
+         U getenv
+         U malloc
+         U putc
+         U sprintf
+         U strchr
+         U strcmp
+         U strcpy
+         U strlen
+         U strncpy
+         U strtol
+
+ftime.o:
+         U _daylight
+         U _gettimeofday
+         U _ltzset
+         U _timezone
+00000000 T ftime
+
+ftok.o:
+         U __minor
+00000000 T _ftok
+         U _stat64
+00000000 W ftok
+
+ftw.o:
+00000000 T _ftw
+         U _mutex_lock
+         U _mutex_unlock
+         U _xftw
+00000000 W ftw
+
+_xftw.o:
+         U ___errno
+         U _closedir
+         U _lstat
+         U _opendir
+         U _readdir
+         U _seekdir
+         U _stat
+         U _telldir
+00000000 T _xftw
+         U free
+         U malloc
+         U strcmp
+         U strcpy
+         U strlen
+
+gcvt.o:
+         U _gconvert
+00000000 T _gcvt
+00000000 W gcvt
+
+gconvert.o:
+         U _QgetRD
+         U __k_gconvert
+         U _double_to_decimal
+00000000 T _gconvert
+00000000 W gconvert
+
+getdtblsize.o:
+         U _getrlimit
+00000000 T getdtablesize
+
+getexecname.o:
+         U _close
+         U _fstat
+000001c8 T _getexecname
+         U _mutex_lock
+         U _mutex_unlock
+         U _open
+         U _read
+         U free
+000001c8 W getexecname
+         U malloc
+
+getgrnam.o:
+000000f0 T _fgetgrent
+         U _fgetgrent_r
+000000a0 T _getgrent
+         U _getgrent_r
+00000000 T _getgrgid
+         U _getgrgid_r
+00000050 T _getgrnam
+         U _getgrnam_r
+         U _nss_XbyY_buf_alloc
+000000f0 W fgetgrent
+000000a0 W getgrent
+00000000 W getgrgid
+00000050 W getgrnam
+
+gethostid.o:
+         U _sysinfo
+00000000 T gethostid
+         U strtoul
+
+gethostname.o:
+         U _sysinfo
+00000000 T gethostname
+0000002c T sethostname
+
+gethz.o:
+         U __ctype
+00000000 T _gethz
+         U atoi
+         U getenv
+00000000 W gethz
+
+getloadavg.o:
+         U __getloadavg
+00000008 T _getloadavg
+00000008 W getloadavg
+
+getmntent.o:
+         U ___errno
+         U __ctype
+00000598 T _getextmntent
+00000000 T _getmntany
+000001f0 T _getmntent
+000004f0 T _hasmntopt
+         U _ioctl
+         U _mutex_lock
+         U _mutex_unlock
+000008a0 T _resetmnttab
+         U _stat64
+         U _thr_main
+         U _tsdbufalloc
+         U fgets
+         U fileno
+         U free
+00000598 W getextmntent
+00000000 W getmntany
+000001f0 W getmntent
+000004f0 W hasmntopt
+         U malloc
+00000468 T mntopt
+000008a0 W resetmnttab
+         U strcmp
+         U strcpy
+         U strlen
+         U strncmp
+         U strtok_r
+
+getnetgrent.o:
+0000001c T __multi_innetgr
+         U _mutex_lock
+         U _mutex_unlock
+         U _nss_XbyY_buf_alloc
+         U _nss_XbyY_buf_free
+         U _nss_delete
+00000000 T _nss_initf_netgroup
+         U _nss_search
+000002bc T endnetgrent
+0000027c T getnetgrent
+000001d0 T getnetgrent_r
+00000090 T innetgr
+000000e8 T setnetgrent
+
+getopt.o:
+         U _dgettext
+00000000 T _getopt
+00000000 D _sp
+         U _write
+00000000 W getopt
+         U optarg
+         U opterr
+         U optind
+         U optopt
+         U snprintf
+         U strchr
+         U strcmp
+         U strlen
+
+getpagesize.o:
+         U _sysconf
+00000000 T getpagesize
+
+getpw.o:
+00000018 D PASSWD
+         U __ctype
+         U _getc_unlocked
+00000000 T _getpw
+         U _mutex_lock
+         U _mutex_unlock
+         U _rewind_unlocked
+         U flockfile
+         U fopen
+         U funlockfile
+00000000 W getpw
+
+getpwnam.o:
+000000e4 T _fgetpwent
+         U _fgetpwent_r
+00000098 T _getpwent
+         U _getpwent_r
+0000004c T _getpwnam
+         U _getpwnam_r
+00000000 T _getpwuid
+         U _getpwuid_r
+         U _nss_XbyY_buf_alloc
+000000e4 W fgetpwent
+00000098 W getpwent
+0000004c W getpwnam
+00000000 W getpwuid
+
+getrusage.o:
+         U ___errno
+         U _close
+         U _getpid
+         U _memset
+         U _open
+         U _read
+         U _sysconf
+         U _times
+00000000 T getrusage
+         U sprintf
+
+getspent.o:
+00000098 T _fgetspent
+         U _fgetspent_r
+0000004c T _getspent
+         U _getspent_r
+00000000 T _getspnam
+         U _getspnam_r
+         U _nss_XbyY_buf_alloc
+00000098 W fgetspent
+0000004c W getspent
+00000000 W getspnam
+
+getsubopt.o:
+00000000 T _getsubopt
+00000000 W getsubopt
+         U strchr
+         U strlen
+         U strncmp
+
+gettxt.o:
+00000000 V Msgdb
+00000000 D _Msgdb
+         U __ctype
+         U _close
+         U _fstat64
+00000000 T _gettxt
+         U _mmap
+         U _munmap
+         U _open
+         U _setlocale
+         U atoi
+         U free
+00000000 W gettxt
+000005c8 T handle_return
+         U malloc
+         U setcat
+         U snprintf
+         U strchr
+         U strcmp
+         U strcpy
+         U strlen
+         U strncpy
+
+getusershell.o:
+         U __ctype
+         U _fstat
+         U calloc
+00000040 T endusershell
+         U fclose
+         U fgets
+         U fileno
+         U fopen
+         U free
+00000000 T getusershell
+         U malloc
+00000000 D okshells
+00000090 T setusershell
+
+getvfsent.o:
+         U ___errno
+         U _fseeko64
+         U _ftello64
+00000150 T _getvfsany
+00000634 T _getvfsent
+0000011c T _getvfsfile
+00000000 T _getvfsspec
+         U _stat64
+         U _thr_main
+         U _tsdbufalloc
+         U bzero
+         U fgets
+00000150 W getvfsany
+00000634 W getvfsent
+0000011c W getvfsfile
+00000000 W getvfsspec
+         U malloc
+         U strcmp
+         U strlen
+         U strtok_r
+
+getxby_door.o:
+
+hsearch.o:
+00000000 T _hcreate
+00000090 T _hdestroy
+000000c8 T _hsearch
+         U _mutex_lock
+         U _mutex_unlock
+         U calloc
+         U free
+00000000 W hcreate
+00000090 W hdestroy
+000000c8 W hsearch
+         U strcmp
+
+iconv.o:
+         U ___errno
+         U _access
+         U _close
+         U _dlclose
+         U _dlopen
+         U _dlsym
+         U _fstat64
+000006d4 T _iconv
+0000067c T _iconv_close
+00000000 T _iconv_open
+         U _memcpy
+         U _mmap
+         U _munmap
+         U _open
+         U free
+000006d4 W iconv
+0000067c W iconv_close
+00000000 W iconv_open
+         U malloc
+         U snprintf
+         U strlen
+         U strncasecmp
+         U strncmp
+
+import_def.o:
+00000008 D _libc_calloc
+0000000c D _libc_free
+00000000 D _libc_malloc
+00000004 D _libc_realloc
+         U calloc
+         U free
+         U malloc
+         U realloc
+
+index.o:
+00000000 T index
+         U strchr
+
+initgroups.o:
+         U ___errno
+         U _getgroupsbymember
+00000000 T _initgroups
+         U _setgroups
+         U _sysconf
+         U calloc
+         U free
+00000000 W initgroups
+
+insque.o:
+00000000 T _insque
+0000004c T _remque
+00000000 W insque
+0000004c W remque
+
+isaexec.o:
+         U ___errno
+         U _access
+         U _execve
+00000000 T _isaexec
+         U _sysinfo
+         U free
+00000000 W isaexec
+         U malloc
+         U realloc
+         U strcat
+         U strcpy
+         U strlen
+         U strrchr
+         U strtok_r
+
+isastream.o:
+         U ___errno
+         U _ioctl
+00000000 T _isastream
+00000000 W isastream
+
+killpg.o:
+         U ___errno
+         U _kill
+00000000 T killpg
+
+l64a.o:
+00000000 T _l64a
+         U _thr_main
+         U _tsdbufalloc
+00000000 W l64a
+
+lckpwdf.o:
+         U _alarm
+         U _close
+         U _creat
+         U _fcntl
+00000008 T _lckpwdf
+         U _sigset
+0000008c T _ulckpwdf
+00000008 W lckpwdf
+0000008c W ulckpwdf
+
+ldexp.o:
+         U ___errno
+         U __huge_val
+         U _lib_version
+         U frexp
+00000028 T ldexp
+
+fp_data.o:
+00000000 R __huge_val
+
+frexp.o:
+00000018 T frexp
+
+lfind.o:
+         U __lsearch_lock
+00000000 T _lfind
+         U _mutex_lock
+         U _mutex_unlock
+00000000 W lfind
+
+lfmt.o:
+         U __lfmt_log
+         U __pfmt_print
+00000000 T lfmt
+
+llabs.o:
+00000000 T _llabs
+00000000 W llabs
+
+lldiv.o:
+         U .stret8
+         U __div64
+         U __rem64
+00000000 T _lldiv
+00000000 W lldiv
+
+lltostr.o:
+         U __div64
+         U __udiv64
+         U __umul64
+00000000 T _lltostr
+0000006c T _ulltostr
+00000000 W lltostr
+0000006c W ulltostr
+
+lsearch.o:
+00000000 D __lsearch_lock
+00000000 T _lsearch
+         U _memcpy
+         U _mutex_lock
+         U _mutex_unlock
+00000000 W lsearch
+
+madvise.o:
+00000000 T _madvise
+         U _memcntl
+00000000 W madvise
+
+mkfifo.o:
+00000000 T _mkfifo
+         U _mknod
+00000000 W mkfifo
+
+mlock.o:
+         U _memcntl
+00000000 T _mlock
+00000000 W mlock
+
+modf.o:
+00000028 T _modf
+00000028 W modf
+
+modff.o:
+         U _getpid
+         U _kill
+00000010 T _modff
+00000010 W modff
+
+mon.o:
+00000018 D ___Argv
+         U _close
+         U _creat
+         U _getpid
+00000644 T _mcount_newent
+00000018 T _monitor
+         U _mutex_lock
+         U _mutex_unlock
+         U _profil
+         U _write
+         U getenv
+         U malloc
+00000018 W monitor
+         U perror
+         U strcpy
+         U strlen
+         U strrchr
+
+munlock.o:
+         U _memcntl
+00000000 T _munlock
+00000000 W munlock
+
+ndbm.o:
+         U .stret4
+         U ___errno
+         U _close
+         U _fstat64
+         U _lseek64
+         U _memcmp
+         U _memmove
+         U _memset
+         U _open64
+         U _read
+         U _write
+0000001c T dbm_clearerr
+000002b0 T dbm_close
+000002bc T dbm_close_status
+00000440 T dbm_delete
+00000d40 T dbm_do_nextkey
+00000010 T dbm_error
+00000394 T dbm_fetch
+00000a24 T dbm_firsthash
+00000b40 T dbm_firstkey
+00000030 T dbm_flush
+00000310 T dbm_forder
+00000b70 T dbm_nextkey
+00000194 T dbm_open
+00000000 T dbm_setdefwrite
+00000588 T dbm_store
+         U free
+         U malloc
+         U strcat
+         U strcpy
+
+stret4.o:
+00000000 T .stret4
+00000000 T .stret8
+
+nftw.o:
+         U ___errno
+         U __iob
+         U _chdir
+         U _closedir
+         U _fprintf
+         U _getcwd
+         U _lstat
+         U _mutex_lock
+         U _mutex_unlock
+00000694 T _nftw
+         U _opendir
+         U _readdir
+         U _seekdir
+         U _stat
+         U _telldir
+         U malloc
+00000694 W nftw
+         U strerror
+         U strlen
+
+opt_data.o:
+0000000c D optarg
+00000000 D opterr
+00000004 D optind
+00000008 D optopt
+
+pfmt.o:
+         U __pfmt_print
+00000000 T pfmt
+
+plock.o:
+         U ___errno
+         U _getpid
+         U _memcntl
+         U _mlockall
+         U _munlockall
+         U _mutex_lock
+         U _mutex_unlock
+00000000 T _plock
+00000000 W plock
+
+mlockall.o:
+         U _memcntl
+00000000 T _mlockall
+00000000 W mlockall
+
+munlockall.o:
+         U _memcntl
+00000000 T _munlockall
+00000000 W munlockall
+
+psiginfo.o:
+         U _dgettext
+00000000 T _psiginfo
+         U _sys_siginfolistp
+         U _sys_siglistp
+         U _write
+00000000 W psiginfo
+         U snprintf
+         U strlen
+
+siginfolst.o:
+0000005c D _sys_buslist
+00000068 D _sys_cldlist
+00000034 D _sys_fpelist
+00000014 D _sys_illlist
+00000080 D _sys_polllist
+00000054 D _sys_segvlist
+00000098 D _sys_siginfolist
+000001a0 D _sys_siginfolistp
+00000000 D _sys_traplist
+
+psignal.o:
+         U _dgettext
+00000000 T _psignal
+         U _sys_siglistp
+         U _write
+00000000 W psignal
+         U sprintf
+         U strlen
+
+pt.o:
+         U ___errno
+         U __minor
+         U _access
+         U _environ
+         U _fstat64
+000003e4 T _grantpt
+         U _ioctl
+         U _mutex_lock
+         U _mutex_unlock
+         U _private_execve
+         U _private_exit
+0000009c T _ptsname
+         U _sigaddset
+         U _sigemptyset
+         U _sigprocmask
+         U _thr_main
+         U _tsdbufalloc
+00000174 T _unlockpt
+         U _vfork
+         U _waitpid
+000003e4 W grantpt
+0000009c W ptsname
+         U strcpy
+         U strlen
+00000174 W unlockpt
+
+putpwent.o:
+         U _fprintf
+00000000 T _putpwent
+         U ferror
+         U fflush
+         U putc
+00000000 W putpwent
+
+putspent.o:
+         U _fprintf
+00000000 T _putspent
+         U ferror
+         U fflush
+00000000 W putspent
+
+rand.o:
+0000000c T rand
+00000000 T srand
+
+random.o:
+00000060 T initstate
+         U malloc
+0000035c T random
+0000020c T setstate
+00000464 T srandom
+
+rctlops.o:
+         U free
+         U malloc
+00000000 T rctl_walk
+00000130 T rctlblk_get_enforced_value
+00000100 T rctlblk_get_firing_time
+000000a8 T rctlblk_get_global_action
+000000e0 T rctlblk_get_global_flags
+000000b8 T rctlblk_get_local_action
+000000f0 T rctlblk_get_local_flags
+00000118 T rctlblk_get_privilege
+00000110 T rctlblk_get_recipient_pid
+00000120 T rctlblk_get_value
+00000140 T rctlblk_set_local_action
+00000160 T rctlblk_set_local_flags
+0000017c T rctlblk_set_privilege
+00000184 T rctlblk_set_value
+00000190 T rctlblk_size
+         U rctllist
+         U strlen
+
+realpath.o:
+         U ___errno
+         U _getcwd
+00000000 T _realpath
+         U _resolvepath
+00000000 W realpath
+         U strcmp
+         U strcpy
+         U strlcpy
+         U strlen
+         U strncmp
+
+strlcpy.o:
+         U _memcpy
+00000000 T strlcpy
+         U strlen
+
+reboot.o:
+         U _uadmin
+00000000 T reboot
+
+regexpr.o:
+         U calloc
+00000000 T re_comp
+00000404 T re_exec
+
+rename.o:
+         U _lstat64
+         U _rename
+         U _rmdir
+         U _unlink
+00000000 T remove
+0000005c T rename
+
+rewinddir.o:
+00000000 T _rewinddir
+         U _seekdir
+00000000 W rewinddir
+
+rindex.o:
+00000000 T rindex
+         U strrchr
+
+seekdir.o:
+         U _dirent_lock
+         U _lseek64
+         U _mutex_lock
+         U _mutex_unlock
+000000e8 T _seekdir
+000000e8 W seekdir
+00000000 W seekdir64
+
+select_large_fdset.o:
+         U ___errno
+         U _memcpy
+         U _memset
+         U _poll
+         U free
+         U malloc
+00000000 T select_large_fdset
+00000000 D sz
+
+setlabel.o:
+         U __pfmt_label
+         U _rw_pfmt_label
+         U _rw_unlock
+         U _rw_wrlock
+00000000 T setlabel
+         U strncpy
+
+setpriority.o:
+         U ___errno
+000000ac T getpriority
+         U priocntl
+00000188 T setpriority
+
+priocntl.o:
+         U ___errno
+00000000 T __priocntl
+         U __priocntlset
+00000040 T priocntl
+000000e0 T priocntlset
+
+setreid.o:
+         U _cerror
+         U _cerror64
+00000024 T _setregid
+00000000 T _setreuid
+00000024 W setregid
+00000000 W setreuid
+
+settimeofday.o:
+         U ___errno
+00000000 T _settimeofday
+         U _stime
+00000000 W settimeofday
+
+sigflag.o:
+         U _sigaction
+00000000 T _sigflag
+00000000 W sigflag
+
+sigsend.o:
+00000000 T _sigsend
+         U _sigsendset
+00000000 W sigsend
+
+ssignal.o:
+00000030 T _gsignal
+00000000 T _ssignal
+00000030 W gsignal
+00000000 W ssignal
+
+strcspn.o:
+00000000 T strcspn
+
+strlcat.o:
+         U _memcpy
+00000000 T strlcat
+         U strlen
+
+strsignal.o:
+         U _dgettext
+00000000 T _strsignal
+         U _sys_siglistn
+         U _sys_siglistp
+00000000 W strsignal
+
+siglist.o:
+00000000 R _sys_nsig
+00000000 D _sys_siglist
+00000220 R _sys_siglistn
+00000144 D _sys_siglistp
+
+strtoll.o:
+         U ___errno
+         U __ctype
+         U __div64
+         U __mul64
+00000000 T _strtoll
+00000000 W strtoll
+
+strtoull.o:
+         U ___errno
+         U __ctype
+         U __udiv64
+         U __umul64
+00000000 T _strtoull
+00000000 W strtoull
+
+swab.o:
+00000000 T _swab
+00000000 W swab
+
+swapctl.o:
+00000000 T _swapctl
+         U _uadmin
+00000000 W swapctl
+
+tcflow.o:
+         U _ioctl
+00000000 T _tcflow
+00000000 W tcflow
+
+tcflush.o:
+         U _ioctl
+00000000 T _tcflush
+00000000 W tcflush
+
+tcgetattr.o:
+         U _ioctl
+00000000 T _tcgetattr
+00000000 W tcgetattr
+
+tcgetpgrp.o:
+         U _ioctl
+00000000 T _tcgetpgrp
+         U _tcgetsid
+00000000 W tcgetpgrp
+
+tcsendbreak.o:
+         U _ioctl
+00000000 T _tcsendbreak
+00000000 W tcsendbreak
+
+tcsetattr.o:
+         U ___errno
+         U _ioctl
+00000000 T _tcsetattr
+00000000 W tcsetattr
+
+tcsetpgrp.o:
+         U _ioctl
+         U _tcgetsid
+00000000 T _tcsetpgrp
+00000000 W tcsetpgrp
+
+tcgetsid.o:
+         U ___errno
+         U _getsid
+         U _ioctl
+00000000 T _tcgetsid
+00000000 W tcgetsid
+
+tell.o:
+         U _lseek
+00000000 T _tell
+00000000 W tell
+
+telldir.o:
+         U ___errno
+         U _dirent_lock
+         U _lseek64
+         U _mutex_lock
+         U _mutex_unlock
+000000b4 T _telldir
+000000b4 W telldir
+00000000 W telldir64
+
+tfind.o:
+         U __treelock
+         U _mutex_lock
+         U _mutex_unlock
+00000088 T _tfind
+00000088 W tfind
+
+truncate.o:
+         U _close
+         U _fcntl
+00000000 T _ftruncate
+         U _open
+00000040 T _truncate
+00000000 W ftruncate
+00000040 W truncate
+
+tsearch.o:
+00000000 D __treelock
+         U _mutex_lock
+         U _mutex_unlock
+000001fc T _tdelete
+000000b0 T _tsearch
+00000234 T _twalk
+         U free
+         U malloc
+000001fc W tdelete
+000000b0 W tsearch
+00000234 W twalk
+
+ualarm.o:
+         U _setitimer
+00000000 T ualarm
+
+valloc.o:
+         U _memalign
+         U _sysconf
+00000000 T _valloc
+00000000 W valloc
+
+memalign.o:
+         U ___errno
+         U __malloc_lock
+         U _free_unlocked
+00000000 T _memalign
+         U _mutex_lock
+         U _mutex_unlock
+         U malloc
+00000000 W memalign
+
+vlfmt.o:
+         U __lfmt_log
+         U __pfmt_print
+00000000 T vlfmt
+
+lfmt_log.o:
+         U ___errno
+00000000 T __lfmt_log
+         U __pfmt_label
+         U _close
+         U _ctime_r
+         U _fcntl
+         U _open
+         U _putmsg
+         U _rw_pfmt_label
+         U _rw_rdlock
+         U _rw_unlock
+         U _time
+         U _write
+         U sprintf
+         U strlen
+         U strrchr
+         U vsprintf
+
+strrchr.o:
+00000000 T strrchr
+
+vpfmt.o:
+         U __pfmt_print
+00000000 T vpfmt
+
+pfmt_print.o:
+         U __ctype
+         U __gtxt
+         U __pfmt_label
+         U __pfmt_nsev
+00000000 T __pfmt_print
+         U __pfmt_sev_tab
+         U _fprintf
+         U _rw_pfmt_label
+         U _rw_pfmt_sev_tab
+         U _rw_rdlock
+         U _rw_unlock
+         U vfprintf
+
+gtxt.o:
+00000408 T __gtxt
+         U _close
+         U _fstat64
+         U _mmap
+         U _munmap
+         U _open
+         U _rw_rdlock
+         U _rw_unlock
+         U _rw_wrlock
+         U _setlocale
+         U _strdup
+         U free
+         U malloc
+         U realloc
+00000000 T setcat
+         U snprintf
+         U strchr
+         U strcmp
+         U strcpy
+         U strncpy
+
+pfmt_data.o:
+00000019 C __pfmt_label
+00000004 C __pfmt_nsev
+00000004 C __pfmt_sev_tab
+00000000 D _rw_pfmt_label
+00000040 D _rw_pfmt_sev_tab
+
+walkstack.o:
+         U _close
+         U _getcontext
+         U _open
+         U _pread
+00000654 T _printstack
+         U _sig2str
+00000064 T _walkcontext
+         U _writev
+         U dladdr1
+00000654 W printstack
+         U strcpy
+         U strlen
+         w thr_sighndlrinfo
+00000064 W walkcontext
+
+getctxt.o:
+         U __getcontext
+00000000 T _getcontext
+         U _getsp
+00000000 W getcontext
+
+str2sig.o:
+         U ___errno
+00000168 T _sig2str
+0000007c T _str2sig
+00000168 W sig2str
+0000007c W str2sig
+         U strcmp
+         U strcpy
+         U strtol
+
+xgetwidth.o:
+         U _cswidth
+00000000 T _xgetwidth
+         U getwidth
+
+getwidth.o:
+         U __ctype
+00000000 T getwidth
+
+wdata.o:
+00000000 D _cswidth
+
+yp_stubs.o:
+         U ___errno
+         U __iob
+         U _access
+         U _dgettext
+         U _dlopen
+         U _dlsym
+         U _fprintf
+         U free
+00000048 T libc_yp_first
+00000000 T libc_yp_get_default_domain
+0000011c T libc_yp_match
+0000009c T libc_yp_next
+         U malloc
+         U snprintf
+         U strcpy
+         U strerror
+
+__btowc_dense.o:
+00000000 T __btowc_dense
+
+__btowc_euc.o:
+00000000 T __btowc_euc
+
+__eucpctowc_gen.o:
+00000000 T __eucpctowc_gen
+
+__fgetwc_dense.o:
+         U ___errno
+00000000 T __fgetwc_dense
+         U _getc_unlocked
+         U _ungetc_unlocked
+
+__mbftowc_dense.o:
+00000000 T __mbftowc_dense
+
+__mblen_gen.o:
+00000000 T __mblen_gen
+         U mbtowc
+
+__mbsinit_sb.o:
+00000000 T __mbsinit_sb
+         U __mbst_get_nconsumed
+
+__mbrlen_gen.o:
+00000000 T __mbrlen_gen
+
+__mbrtowc_dense.o:
+         U ___errno
+         U __ctype
+00000000 T __mbrtowc_dense
+         U __mbst_get_consumed_array
+         U __mbst_get_nconsumed
+         U __mbst_set_consumed_array
+         U __mbst_set_nconsumed
+         U memcpy
+         U memset
+
+__mbrtowc_euc.o:
+         U ___errno
+         U __ctype
+00000000 T __mbrtowc_euc
+         U __mbst_get_consumed_array
+         U __mbst_get_nconsumed
+         U __mbst_set_consumed_array
+         U __mbst_set_nconsumed
+         U memcpy
+         U memset
+
+__mbsrtowcs_dense.o:
+         U ___errno
+         U __ctype
+00000000 T __mbsrtowcs_dense
+         U memset
+         U strlen
+
+__mbsrtowcs_euc.o:
+         U ___errno
+         U __ctype
+00000000 T __mbsrtowcs_euc
+         U memset
+         U strlen
+
+__mbstowcs_dense.o:
+         U __ctype
+00000000 T __mbstowcs_dense
+         U strlen
+
+__mbstowcs_euc.o:
+         U __ctype
+00000000 T __mbstowcs_euc
+         U mbtowc
+         U strlen
+
+__mbtowc_dense.o:
+         U ___errno
+00000000 T __mbtowc_dense
+
+__mbtowc_euc.o:
+         U ___errno
+00000000 T __mbtowc_euc
+
+__wcrtomb_dense.o:
+         U ___errno
+         U __ctype
+00000000 T __wcrtomb_dense
+         U memset
+
+__wcrtomb_euc.o:
+         U ___errno
+         U __ctype
+00000000 T __wcrtomb_euc
+         U memset
+
+__wcsrtombs_dense.o:
+00000000 T __wcsrtombs_dense
+         U memset
+
+__wcsrtombs_euc.o:
+00000000 T __wcsrtombs_euc
+         U memset
+
+__wcstombs_dense.o:
+00000000 T __wcstombs_dense
+
+__wcstombs_euc.o:
+00000000 T __wcstombs_euc
+         U wctomb
+
+__wcswidth_dense.o:
+         U __lc_ctype
+00000000 T __wcswidth_dense
+
+__wcswidth_euc.o:
+00000000 T __wcswidth_euc
+         U iswprint
+
+__wctoeucpc_gen.o:
+00000000 T __wctoeucpc_gen
+
+__wctob_dense.o:
+00000000 T __wctob_dense
+
+__wctob_euc.o:
+00000000 T __wctob_euc
+
+__wctomb_dense.o:
+         U __ctype
+00000000 T __wctomb_dense
+
+__wctomb_euc.o:
+         U __ctype
+00000000 T __wctomb_euc
+
+__wcwidth_dense.o:
+         U __lc_ctype
+00000000 T __wcwidth_dense
+
+__wcwidth_euc.o:
+00000000 T __wcwidth_euc
+         U iswprint
+
+btowc.o:
+         U __lc_charmap
+00000000 T btowc
+
+euc_info.o:
+         U __lc_charmap
+00000000 T _is_euc_fc
+00000018 T _is_euc_pc
+
+mbftowc.o:
+         U __lc_charmap
+00000000 T __mbftowc_euc
+00000154 T _mbftowc
+
+mbrlen.o:
+         U ___errno
+         U __lc_charmap
+         U _get_internal_mbstate
+00000000 T mbrlen
+
+mbrtowc.o:
+         U ___errno
+         U __lc_charmap
+         U _get_internal_mbstate
+00000000 T mbrtowc
+
+mbsinit.o:
+         U __lc_charmap
+00000000 T mbsinit
+
+mbsrtowcs.o:
+         U ___errno
+         U __lc_charmap
+         U _get_internal_mbstate
+00000000 T mbsrtowcs
+
+wcrtomb.o:
+         U ___errno
+         U __lc_charmap
+         U _get_internal_mbstate
+00000000 T wcrtomb
+
+wcsrtombs.o:
+         U ___errno
+         U __lc_charmap
+         U _get_internal_mbstate
+00000000 T wcsrtombs
+
+wctob.o:
+         U __lc_charmap
+00000000 T wctob
+
+__fnmatch_sb.o:
+00000000 T __fnmatch_sb
+         U __lc_ctype
+         U _getcolval
+         U _mbucoll
+         U strchr
+         U wctype
+
+__fnmatch_std.o:
+00000000 T __fnmatch_std
+         U __lc_collate
+         U __lc_ctype
+         U _mbucoll
+         U mblen
+         U strchr
+         U wctype
+
+__strcoll_sb.o:
+00000000 T __strcoll_sb
+         U back_pos_collate_sb
+         U backward_collate_sb
+         U do_replacement
+         U forw_pos_collate_sb
+         U forward_collate_sb
+         U strcmp
+         U strlen
+
+__strcoll_std.o:
+00000000 T __strcoll_std
+         U back_pos_collate_std
+         U backward_collate_std
+         U do_replacement
+         U forw_pos_collate_std
+         U forward_collate_std
+         U strcmp
+         U strlen
+
+__strxfrm_sb.o:
+00000000 T __strxfrm_sb
+         U _getcolval
+         U do_replacement
+         U strlen
+         U strncpy
+
+__strxfrm_std.o:
+         U ___errno
+         U __lc_collate
+00000000 T __strxfrm_std
+         U _getcolval
+         U do_replacement
+0000046c T forw_pos_xfrm_std
+00000258 T forward_xfrm_std
+         U strlen
+         U strncpy
+
+__wcscoll_bc.o:
+00000000 T __wcscoll_bc
+         U free
+         U malloc
+         U wcslen
+
+__wcscoll_std.o:
+         U ___errno
+         U __lc_collate
+00000000 T __wcscoll_std
+         U _exit
+         U perror
+         U strcoll
+         U wcslen
+         U wcstombs
+
+__wcsxfrm_bc.o:
+00000000 T __wcsxfrm_bc
+         U free
+         U malloc
+         U wcslen
+
+__wcsxfrm_std.o:
+         U ___errno
+         U __lc_collate
+00000000 T __wcsxfrm_std
+         U _exit
+         U perror
+         U strxfrm
+         U wcslen
+         U wcstombs
+
+back_pos.o:
+         U ___errno
+         U __lc_collate
+         U _getcolval
+0000027c T back_pos_collate_sb
+00000000 T back_pos_collate_std
+         U exit
+         U perror
+         U strlen
+
+backward.o:
+         U ___errno
+         U __lc_collate
+         U _getcolval
+00000244 T backward_collate_sb
+00000000 T backward_collate_std
+         U exit
+         U perror
+         U strlen
+
+forw_pos.o:
+         U ___errno
+         U __lc_collate
+         U _getcolval
+000002c4 T forw_pos_collate_sb
+00000000 T forw_pos_collate_std
+
+forward.o:
+         U ___errno
+         U __lc_collate
+         U _getcolval
+00000284 T forward_collate_sb
+00000000 T forward_collate_std
+
+replacement.o:
+         U __lc_collate
+00000000 T do_replacement
+         U perror
+         U strcpy
+         U strlen
+         U strncpy
+         U strstr
+
+__iswctype_bc.o:
+00000000 T __iswctype_bc
+
+__iswctype_sb.o:
+00000000 T __iswctype_sb
+
+__towctrans_bc.o:
+00000000 T __towctrans_bc
+
+__towlower_bc.o:
+00000000 T __towlower_bc
+
+__towupper_bc.o:
+00000000 T __towupper_bc
+
+_tolower.o:
+         U __lc_ctype
+00000000 T _tolower
+
+_toupper.o:
+         U __lc_ctype
+00000000 T _toupper
+
+isalnum.o:
+         U __lc_ctype
+00000000 T isalnum
+
+isalpha.o:
+         U __lc_ctype
+00000000 T isalpha
+
+isascii.o:
+00000000 T _isascii
+00000000 W isascii
+
+iscntrl.o:
+         U __lc_ctype
+00000000 T iscntrl
+
+isdigit.o:
+         U __lc_ctype
+00000000 T isdigit
+
+isenglish.o:
+         U __lc_ctype
+00000000 T _isenglish
+00000000 W isenglish
+
+isgraph.o:
+         U __lc_ctype
+00000000 T isgraph
+
+isideogram.o:
+         U __lc_ctype
+00000000 T _isideogram
+00000000 W isideogram
+
+islower.o:
+         U __lc_ctype
+00000000 T islower
+
+isnumber.o:
+         U __lc_ctype
+00000000 T _isnumber
+00000000 W isnumber
+
+isphonogram.o:
+         U __lc_ctype
+00000000 T _isphonogram
+00000000 W isphonogram
+
+isprint.o:
+         U __lc_ctype
+00000000 T isprint
+
+ispunct.o:
+         U __lc_ctype
+00000000 T ispunct
+
+isspace.o:
+         U __lc_ctype
+00000000 T isspace
+
+isspecial.o:
+         U __lc_ctype
+00000000 T _isspecial
+00000000 W isspecial
+
+isupper.o:
+         U __lc_ctype
+00000000 T isupper
+
+iswalpha.o:
+         U __lc_ctype
+00000000 T _iswalpha
+00000000 W iswalpha
+
+iswgraph.o:
+         U __lc_ctype
+00000000 T _iswgraph
+00000000 W iswgraph
+
+iswpunct.o:
+         U __lc_ctype
+00000000 T _iswpunct
+00000000 W iswpunct
+
+iswupper.o:
+         U __lc_ctype
+00000000 T _iswupper
+00000000 W iswupper
+
+isxdigit.o:
+         U __lc_ctype
+00000000 T isxdigit
+
+toascii.o:
+00000000 T _toascii
+00000000 W toascii
+
+strfmon.o:
+         U __lc_monetary
+00000000 T strfmon
+
+__regcomp_std.o:
+         U __lc_charmap
+         U __lc_ctype
+00000000 T __regcomp_std
+         U _mbucoll
+         U calloc
+         U enlarge
+         U free
+         U malloc
+         U memset
+         U realloc
+         U repeat_check
+         U tolower
+         U toupper
+         U wctype
+
+__regexec_std.o:
+         U __ctype
+         U __lc_charmap
+         U __lc_ctype
+00000000 T __regexec_std
+         U _mbucoll
+         U free
+         U malloc
+         U mblen
+         U memcpy
+         U memset
+         U strncmp
+         U tolower
+
+colval.o:
+         U ___errno
+         U __lc_collate
+00000000 T _getcolval
+00000100 T _mbucoll
+         U strlen
+         U strncmp
+
+regcomp.o:
+         U __lc_collate
+00000000 T _regcomp
+00000000 W regcomp
+
+regerror.o:
+         U __lc_collate
+00000000 T _regerror
+00000000 W regerror
+
+regexec.o:
+         U __lc_collate
+00000000 T _regexec
+00000000 W regexec
+
+regfree.o:
+         U __lc_collate
+00000000 T _regfree
+00000000 W regfree
+
+fgetws.o:
+         U ___errno
+000000d0 T __fgetws_xpg5
+         U __threaded
+         U _fgetwc_unlocked
+         U _flockget
+         U _mutex_unlock
+         U _set_orientation_wide
+00000000 T fgetws
+
+fputws.o:
+         U ___errno
+000000e4 T __fputws_xpg5
+         U __threaded
+         U _flockget
+         U _mutex_unlock
+         U _set_orientation_wide
+         U fputs
+00000000 T fputws
+         U wctomb
+         U wslen
+
+getwchar.o:
+         U __getwc_xpg5
+00000014 T __getwchar_xpg5
+         U __iob
+         U _getwc
+00000000 T getwchar
+
+getws.o:
+         U __iob
+         U __threaded
+         U _fgetwc_unlocked
+         U _flockget
+         U _mutex_unlock
+00000000 T getws
+
+putwchar.o:
+         U __iob
+         U __putwc_xpg5
+00000010 T __putwchar_xpg5
+         U _putwc
+00000000 T putwchar
+
+putws.o:
+         U __fputwc_xpg5
+         U __iob
+         U __threaded
+         U _flockget
+         U _mutex_unlock
+         U fflush
+00000000 T putws
+
+fputwc.o:
+         U ___errno
+000000e0 T __fputwc_xpg5
+0000022c T __putwc_xpg5
+         U __threaded
+         U _flockget
+00000000 T _fputwc
+         U _mutex_unlock
+         U _putc_unlocked
+000000d4 T _putwc
+         U _set_orientation_wide
+00000000 W fputwc
+000000d4 W putwc
+         U wctomb
+
+strtows.o:
+         U ___errno
+         U mbstowcs
+00000000 T strtows
+         U wcstombs
+00000040 T wstostr
+
+wcstoul.o:
+         U ___errno
+00000000 T _wcstoul
+         U iswalnum
+         U iswdigit
+         U iswlower
+         U iswspace
+         U iswxdigit
+00000000 W wcstoul
+
+wcswcs.o:
+00000000 T _wcswcs
+00000000 W wcswcs
+
+wscasecmp.o:
+         U _towlower
+00000000 T _wscasecmp
+00000000 W wscasecmp
+
+wscat.o:
+00000000 T _wcscat
+00000044 T _wscat
+00000000 W wcscat
+00000044 W wscat
+
+wscol.o:
+         U __lc_charmap
+00000000 T wscol
+
+wscspn.o:
+00000000 T _wcscspn
+00000078 T _wscspn
+00000000 W wcscspn
+00000078 W wscspn
+
+wsdup.o:
+         U _wcscpy
+         U _wcslen
+         U malloc
+00000000 T wsdup
+
+wscpy.o:
+00000000 T _wcscpy
+0000002c T _wscpy
+00000000 W wcscpy
+0000002c W wscpy
+
+wsncasecmp.o:
+         U _towlower
+00000000 T _wsncasecmp
+00000000 W wsncasecmp
+
+wsncat.o:
+00000000 T _wcsncat
+00000054 T _wsncat
+00000000 W wcsncat
+00000054 W wsncat
+
+wsncmp.o:
+00000000 T _wcsncmp
+00000078 T _wsncmp
+00000000 W wcsncmp
+00000078 W wsncmp
+
+wsprintf.o:
+         U __ctype
+         U free
+         U malloc
+         U mbstowcs
+         U mbtowc
+         U strcpy
+         U strlen
+         U vsprintf
+         U wslen
+00000000 T wsprintf
+
+wsrchr.o:
+00000000 T _wcsrchr
+00000030 T _wsrchr
+00000000 W wcsrchr
+00000030 W wsrchr
+
+wsscanf.o:
+         U __ctype
+         U _vsscanf
+         U free
+         U malloc
+         U wcstombs
+         U wslen
+00000000 T wsscanf
+
+wstod.o:
+         U _QgetRD
+         U ___errno
+         U _thr_get_inf_read
+         U _thr_get_nan_read
+00000008 T _wcstod
+000000cc T _wstod
+         U decimal_to_double
+         U iswspace
+         U localeconv
+00000008 W wcstod
+000000cc W wstod
+
+wstok.o:
+00000000 T __wcstok_xpg5
+         U _thr_main
+         U _tsdbufalloc
+000000cc T _wstok
+         U wcspbrk
+         U wcsspn
+00000084 T wcstok
+000000cc W wstok
+
+wspbrk.o:
+00000000 T _wcspbrk
+00000060 T _wspbrk
+00000000 W wcspbrk
+00000060 W wspbrk
+
+wstol.o:
+         U ___errno
+00000000 T _wcstol
+0000036c T _wstol
+         U iswalnum
+         U iswdigit
+         U iswlower
+         U iswspace
+         U iswxdigit
+00000000 W wcstol
+0000036c W wstol
+
+wstoll.o:
+         U __mul64
+000002b8 T _watoll
+00000000 T _wstoll
+         U iswalnum
+         U iswdigit
+         U iswlower
+         U iswspace
+         U iswxdigit
+000002b8 W watoll
+00000000 W wstoll
+
+iswalnum.o:
+         U __lc_ctype
+00000000 T _iswalnum
+00000000 W iswalnum
+
+iswdigit.o:
+         U __lc_ctype
+00000000 T _iswdigit
+00000000 W iswdigit
+
+iswlower.o:
+         U __lc_ctype
+00000000 T _iswlower
+00000000 W iswlower
+
+iswxdigit.o:
+         U __lc_ctype
+00000000 T _iswxdigit
+00000000 W iswxdigit
+
+wsxfrm.o:
+         U _wcscoll
+         U _wcsxfrm
+0000000c T _wscoll
+00000000 T _wsxfrm
+0000000c W wscoll
+00000000 W wsxfrm
+
+wmemchr.o:
+00000000 T wmemchr
+
+wmemcmp.o:
+00000000 T wmemcmp
+
+wmemmove.o:
+         U memmove
+00000000 T wmemmove
+
+wcsstr.o:
+00000000 T wcsstr
+
+fwide.o:
+         U ___errno
+         U __lc_locale
+         U __mbst_set_locale
+         U __threaded
+         U _fileno_unlocked
+         U _flockget
+         U _getmbstate
+         U _getorientation
+         U _mutex_unlock
+         U _setorientation
+         U fstat
+00000000 T fwide
+
+wdresolve.o:
+         U __ctype
+00000184 T _mcfiller
+0000018c T _mcwrap
+000000d0 T _wdbindf
+00000008 T _wdchkind
+0000013c T _wddelim
+00000000 T _wdinit
+         U csetlen
+         U iswprint
+00000184 W mcfiller
+0000018c W mcwrap
+000000d0 W wdbindf
+00000008 W wdchkind
+0000013c W wddelim
+00000000 W wdinit
+
+csetlen.o:
+         U __ctype
+00000068 T csetcol
+00000000 T csetlen
+
+printf.o:
+         U ___errno
+         U __iob
+         U __threaded
+         U _doprnt
+         U _ferror_unlocked
+         U _flockget
+         U _mutex_unlock
+         U _setorientation
+00000000 T printf
+
+vfprintf.o:
+         U ___errno
+         U __threaded
+         U _doprnt
+         U _ferror_unlocked
+         U _flockget
+         U _mutex_unlock
+         U _setorientation
+00000000 T vfprintf
+
+vprintf.o:
+         U ___errno
+         U __iob
+         U __threaded
+         U _doprnt
+         U _ferror_unlocked
+         U _flockget
+         U _mutex_unlock
+         U _setorientation
+00000000 T vprintf
+
+vsprintf.o:
+         U ___errno
+         U _doprnt
+00000000 T vsprintf
+
+wprintf.o:
+         U ___errno
+         U __iob
+         U __threaded
+         U _ferror_unlocked
+         U _flockget
+         U _mutex_unlock
+         U _set_orientation_wide
+         U _wdoprnt
+0000017c T fwprintf
+000002f0 T swprintf
+000004f8 T vfwprintf
+0000065c T vswprintf
+00000388 T vwprintf
+00000000 T wprintf
+
+doprnt_w.o:
+         U _Q_feq
+         U ___errno
+         U __ctype
+         U __div64
+         U __lc_charmap
+         U __mbst_get_locale
+         U __rem64
+         U _bufsync
+         U _econvert
+         U _fconvert
+         U _ferror_unlocked
+         U _findbuf
+         U _fwrite_unlocked
+         U _getmbstate
+         U _memcpy
+         U _memset
+         U _numeric
+         U _qeconvert
+         U _qfconvert
+         U _realbufend
+0000058c T _wdoprnt
+         U _xflsbuf
+         U free
+         U localeconv
+         U malloc
+         U mbstowcs
+         U memchr
+         U strlen
+         U wcschr
+         U wcsspn
+         U wmemcpy
+         U wmemset
+         U wslen
+
+wmemset.o:
+00000000 T wmemset
+
+glob.o:
+         U ___errno
+         U closedir
+         U fnmatch
+         U free
+00000078 T glob
+00000000 T globfree
+         U malloc
+         U memcpy
+         U opendir
+         U qsort
+         U readdir64_r
+         U realloc
+         U stat64
+         U strcoll
+         U strcpy
+         U strlen
+
+qsort.o:
+00000000 T qsort
+
+regcmp.o:
+000000a4 T ___i_size
+         U __ctype
+00000004 C __i_size
+         U _mutex_lock
+         U _mutex_unlock
+000000ec T _regcmp
+         U _thr_getspecific
+         U _thr_keycreate
+         U _thr_main
+         U _thr_setspecific
+         U calloc
+         U free
+         U iswcntrl
+         U malloc
+         U mbtowc
+000000ec W regcmp
+         U strlen
+         U wctomb
+
+iswcntrl.o:
+         U __lc_ctype
+00000000 T _iswcntrl
+00000000 W iswcntrl
+
+regex.o:
+000000a4 T ____loc1
+         U __ctype
+00000004 C __loc1
+         U _mutex_lock
+         U _mutex_unlock
+000000ec T _regex
+         U _thr_getspecific
+         U _thr_keycreate
+         U _thr_main
+         U _thr_setspecific
+         U calloc
+         U free
+         U mbtowc
+000000ec W regex
+
+wordexp.o:
+         U __xpg4
+         U _close
+         U _dup
+         U _dup2
+         U _environ
+         U _execve
+         U _fdopen
+         U _fork
+         U _open
+         U _pipe
+         U _putenv
+         U _waitpid
+         U exit
+         U free
+         U getc
+         U getenv
+         U getwd
+         U malloc
+         U realloc
+         U strcpy
+         U strlen
+00000000 T wordexp
+0000045c T wordfree
+
+dup2.o:
+00000000 T _dup2
+         U _fcntl
+00000000 W dup2
+
+getwd.o:
+         U ___errno
+         U _getcwd
+         U _pathconf
+00000000 T getwd
+         U strcpy
+
+getcwd.o:
+         U ___errno
+         U __major
+         U __minor
+00000230 T __proc_dirname
+         U _close
+         U _fstat
+         U _fstat64
+00000000 T _getcwd
+         U _ioctl
+         U _lstat64
+         U _mutex_lock
+         U _mutex_unlock
+         U _open
+         U _read
+         U _readdir64
+         U _stat64
+         U _strdup
+         U free
+00000000 W getcwd
+         U malloc
+         U opendir_stat
+         U strchr
+         U strcpy
+         U strlen
+         U strncmp
+         U strncpy
+
+putenv.o:
+         U __environ_lock
+         U _environ
+         U _memcpy
+         U _mutex_lock
+         U _mutex_unlock
+000000bc T _putenv
+         U clean_env
+         U env_cleaned
+         U malloc
+000000bc W putenv
+         U realloc
+
+fopen64.o:
+         U __threaded
+         U _endopen
+         U _findiop
+         U _flockget
+         U _mutex_unlock
+         U close_fd
+00000000 T fopen64
+00000048 T freopen64
+
+fpos64.o:
+00000000 T fgetpos64
+         U fseeko64
+00000040 T fsetpos64
+         U ftello64
+
+__extensions.o:
+00000110 T __fbufsize
+00000030 T __flbf
+000000ac T __fpending
+0000003c T __fpurge
+00000018 T __freadable
+00000000 T __freading
+00000024 T __fwritable
+0000000c T __fwriting
+         U __threaded
+         U _flockget
+         U _mutex_unlock
+         U _realbufend
+
+clearerr.o:
+         U __threaded
+00000064 T _clearerr_unlocked
+         U _flockget
+         U _mutex_unlock
+00000000 T clearerr
+00000064 W clearerr_unlocked
+
+ctermid.o:
+00000000 T _ctermid
+00000000 W ctermid
+         U strcpy
+
+cuserid.o:
+00000000 T _cuserid
+         U _getpwuid_r
+         U _getuid
+00000000 W cuserid
+         U getlogin_r
+         U strncpy
+
+getlogin.o:
+         U ___errno
+00000120 T __posix_getlogin_r
+         U _close
+00000198 T _getlogin
+00000000 T _getlogin_r
+         U _lseek64
+         U _open64
+         U _read
+         U _ttyslot
+00000198 W getlogin
+00000000 W getlogin_r
+         U malloc
+         U strncpy
+
+ttyslot.o:
+00000000 T _ttyslot
+         U fclose
+         U fopen
+         U fread
+         U strcmp
+         U strncmp
+         U ttyname_r
+00000000 W ttyslot
+
+ttyname.o:
+         U ___errno
+         U __ctype
+         U __major
+         U __minor
+00000418 T __posix_ttyname_r
+         U _close
+         U _closedir
+         U _dgettext
+         U _fstat64
+         U _isatty
+         U _mutex_lock
+         U _mutex_unlock
+         U _open
+         U _opendir
+         U _read
+         U _readdir64
+         U _stat64
+00000e68 T _ttyname
+00000000 T _ttyname_dev
+00000040 T _ttyname_r
+         U _write
+         U free
+         U realloc
+         U snprintf
+         U strcmp
+         U strcpy
+         U strlen
+         U strncmp
+00000e68 W ttyname
+00000040 W ttyname_r
+
+closedir.o:
+         U _close
+00000000 T _closedir
+00000000 W closedir
+         U free
+
+readdir.o:
+         U ___errno
+         U _getdents64
+00000110 T _readdir
+00000000 T _readdir64
+00000110 W readdir
+00000000 W readdir64
+
+fgetc.o:
+00000000 T fgetc
+         U getc
+
+fpos.o:
+00000000 T fgetpos
+         U fseeko
+00000028 T fsetpos
+         U ftello
+
+fputc.o:
+00000000 T fputc
+         U putc
+
+fseeko.o:
+         U ___errno
+         U __threaded
+         U _fflush_u
+         U _fileno_unlocked
+         U _flockget
+         U _fseek
+0000017c T _fseeko
+00000000 T _fseeko64
+         U _lseek64
+         U _mutex_unlock
+0000017c W fseeko
+00000000 W fseeko64
+
+ftello.o:
+         U ___errno
+         U __threaded
+         U _fileno_unlocked
+         U _flockget
+         U _ftell
+00000128 T _ftello
+00000000 T _ftello64
+         U _lseek64
+         U _mutex_unlock
+00000128 W ftello
+00000000 W ftello64
+
+getchar.o:
+         U __iob
+         U _getc_unlocked
+00000014 T _getchar_unlocked
+         U getc
+00000000 T getchar
+00000014 W getchar_unlocked
+
+getpass.o:
+         U __iob
+         U __threaded
+         U _fileno_unlocked
+         U _flockget
+         U _getc_unlocked
+00000000 T _getpass
+00000010 T _getpassphrase
+         U _getpid
+         U _ioctl
+         U _kill
+         U _mutex_unlock
+         U _putc_unlocked
+         U _signal
+         U _thr_main
+         U _tsdbufalloc
+         U fclose
+         U fopen
+         U fputs
+00000000 W getpass
+00000010 W getpassphrase
+         U setbuf
+
+fputs.o:
+         U __threaded
+         U _bufsync
+         U _flockget
+         U _memcpy
+         U _mutex_unlock
+         U _realbufend
+         U _setorientation
+         U _write
+         U _wrtchk
+         U _xflsbuf
+00000000 T fputs
+         U strlen
+
+gets.o:
+         U ___errno
+         U __filbuf
+         U __iob
+         U __threaded
+         U _bufsync
+         U _findbuf
+         U _flockget
+         U _memccpy
+         U _mutex_unlock
+         U _realbufend
+         U _setorientation
+00000000 T gets
+
+getw.o:
+         U __threaded
+         U _flockget
+         U _getc_unlocked
+00000000 T _getw
+         U _mutex_unlock
+00000000 W getw
+
+popen.o:
+         U ___errno
+         U __xpg4
+         U _access
+         U _close
+000003e4 T _delete
+         U _environ
+         U _fdopen
+000003b0 T _insert
+         U _mutex_lock
+         U _mutex_unlock
+000002c8 T _pclose
+         U _pipe
+00000000 T _popen
+         U _private_close
+         U _private_execve
+         U _private_exit
+         U _private_fcntl
+         U _setorientation
+         U _vfork
+         U _waitpid
+         U fclose
+         U fileno
+         U free
+         U malloc
+000002c8 W pclose
+00000000 W popen
+
+putchar.o:
+         U __iob
+         U _putc_unlocked
+00000010 T _putchar_unlocked
+         U putc
+00000000 T putchar
+00000010 W putchar_unlocked
+
+puts.o:
+         U __iob
+         U __threaded
+         U _bufsync
+         U _flockget
+         U _memcpy
+         U _mutex_unlock
+         U _realbufend
+         U _setorientation
+         U _wrtchk
+         U _xflsbuf
+00000000 T puts
+         U strlen
+
+putw.o:
+         U __threaded
+         U _flockget
+         U _mutex_unlock
+         U _putc_unlocked
+00000000 T _putw
+00000000 W putw
+
+rewind.o:
+         U __threaded
+         U _fflush_u
+         U _fileno_unlocked
+         U _flockget
+         U _lseek64
+         U _mutex_unlock
+0000005c T _rewind_unlocked
+00000000 T rewind
+
+scanf.o:
+         U _vfscanf
+         U _vscanf
+         U _vsscanf
+0000002c T fscanf
+00000000 T scanf
+00000058 T sscanf
+
+setbuf.o:
+         U __threaded
+         U _flockget
+         U _isatty
+         U _mutex_unlock
+         U _setbufend
+         U _sibuf
+         U _smbuf
+         U _sobuf
+         U free
+         U malloc
+00000000 T setbuf
+
+setbuffer.o:
+         U fflush
+00000000 T setbuffer
+00000028 T setlinebuf
+         U setvbuf
+
+setvbuf.o:
+         U __threaded
+         U _flockget
+         U _mutex_unlock
+         U _setbufend
+         U _sibuf
+         U _smbuf
+         U _sobuf
+         U free
+         U malloc
+00000000 T setvbuf
+
+system.o:
+         U ___errno
+         U __xpg4
+         U _environ
+         U _getgid
+         U _getuid
+         U _memset
+         U _private_execve
+         U _private_exit
+         U _private_sigprocmask
+         U _sigaction
+         U _sigaddset
+         U _sigemptyset
+         U _sigprocmask
+         U _stat64
+         U _vfork
+         U _waitpid
+00000000 T system
+
+tempnam.o:
+         U _access
+         U _mktemp
+         U _mutex_lock
+         U _mutex_unlock
+         U _stat64
+00000000 T _tempnam
+         U free
+         U getenv
+         U malloc
+         U strcat
+         U strcpy
+         U strlen
+         U strncat
+00000000 W tempnam
+
+strncat.o:
+00000000 T strncat
+
+tmpfile.o:
+         U _close
+         U _fchmod
+         U _fdopen
+         U _mkstemp
+         U _mkstemp64
+         U _mutex_lock
+         U _mutex_unlock
+         U _umask
+         U _unlink
+         U strcat
+         U strcpy
+00000140 T tmpfile
+00000130 T tmpfile64
+
+mkstemp64.o:
+         U ___errno
+00000000 T _mkstemp64
+         U _mktemp
+         U _open64
+00000000 W mkstemp64
+         U strcpy
+         U strlen
+
+mkstemp.o:
+         U ___errno
+00000000 T _mkstemp
+         U _mktemp
+         U _open
+00000000 W mkstemp
+         U strcpy
+         U strlen
+
+fdopen.o:
+00000000 T _fdopen
+         U _findiop
+         U _lseek64
+00000000 W fdopen
+
+tmpnam.o:
+         U _mktemp
+         U _mutex_lock
+         U _mutex_unlock
+         U strcat
+         U strcpy
+00000000 T tmpnam
+
+vscanf.o:
+         U __doscan_u
+         U __fsetlocking
+         U __iob
+         U __threaded
+         U _doscan
+         U _flockget
+         U _mutex_unlock
+         U _setorientation
+00000090 T _vfscanf
+00000000 T _vscanf
+00000120 T _vsscanf
+         U strlen
+00000090 W vfscanf
+00000000 W vscanf
+00000120 W vsscanf
+
+doscan.o:
+         U _QgetRD
+         U ___errno
+         U __ctype
+00000080 T __doscan_u
+         U __mul64
+         U __threaded
+         U _decimal_to_double
+         U _decimal_to_quadruple
+         U _decimal_to_single
+00000000 T _doscan
+         U _file_to_decimal
+         U _fileno_unlocked
+         U _flockget
+         U _getc_unlocked
+         U _lib_version
+         U _memset
+         U _mutex_unlock
+         U _read
+         U _scrwidth
+         U _ungetc_unlocked
+         U atoi
+         U fnmatch
+         U free
+         U malloc
+         U mblen
+         U mbtowc
+         U strchr
+         U strncpy
+         U strspn
+         U wctomb
+
+wscanf.o:
+0000002c T fwscanf
+00000058 T swscanf
+         U vfwscanf
+         U vswscanf
+         U vwscanf
+00000000 T wscanf
+
+vwscanf.o:
+         U ___errno
+         U __iob
+         U __threaded
+         U __wdoscan_u
+         U _flockget
+         U _mutex_unlock
+         U _set_orientation_wide
+         U strlen
+000000b8 T vfwscanf
+0000016c T vswscanf
+00000000 T vwscanf
+         U wcstombs
+
+doscan_w.o:
+         U _QgetRD
+         U ___errno
+         U __ctype
+         U __fgetwc_xpg5
+         U __mul64
+         U __ungetwc_xpg5
+00000000 T __wdoscan_u
+         U _decimal_to_double
+         U _decimal_to_quadruple
+         U _decimal_to_single
+         U _file_to_decimal
+         U _fileno_unlocked
+         U _getc_unlocked
+         U _lib_version
+         U _read
+         U fnmatch
+         U free
+         U iswspace
+         U malloc
+         U mbtowc
+         U wcschr
+         U wcslen
+         U wcsspn
+         U wcstombs
+         U wctomb
+         U wmemcpy
+
+decimal_bin.o:
+         U __base_conversion_abort
+         U __base_conversion_set_exception
+         U __big_binary_to_unpacked
+         U __big_decimal_to_big_binary
+         U __big_float_times_power
+00000170 T __decimal_to_binary_fraction
+00000000 T __decimal_to_binary_integer
+0000036c T __decimal_to_unpacked
+         U __digits_to_double
+         U __fractionstring_to_big_decimal
+         U __free_big_float
+         U __get_ieee_flags
+00000bc0 T __inrange_double
+00000e00 T __inrange_quadex
+000007f8 T __inrange_single
+         U __integerstring_to_big_decimal
+         U __left_shift_base_two
+         U __pack_double
+         U __pack_extended
+         U __pack_quadruple
+         U __pack_single
+         U __set_ieee_flags
+         U __tbl_ntens
+         U __tbl_tens
+         U __unpack_double
+00001788 T _decimal_to_double
+0000101c T _decimal_to_extended
+00001250 T _decimal_to_quadruple
+000014f8 T _decimal_to_single
+         U _thr_get_direction
+         U _thr_get_exceptions
+         U _thr_get_precision
+00001788 W decimal_to_double
+0000101c W decimal_to_extended
+00001250 W decimal_to_quadruple
+000014f8 W decimal_to_single
+
+__tbl_ntens.o:
+00000000 R __tbl_ntens
+
+_base_sup.o:
+         U __base_conversion_abort
+000008d4 T __big_binary_to_unpacked
+000006ec T __big_decimal_to_big_binary
+00000aa8 T __digits_to_double
+         U __fp_normalize
+000002fc T __fractionstring_to_big_decimal
+00000000 T __integerstring_to_big_decimal
+00000a04 T __left_shift_base_two
+00000634 T __mul_10000short
+         U __multiply_base_two
+00000600 T __prod_10000_b65536
+         U __quorem
+         U __quorem10000
+
+file_decim.o:
+         U __ctype
+00000000 T _file_to_decimal
+         U _getc_unlocked
+         U _thr_get_inf_read
+         U _thr_get_nan_read
+         U _ungetc_unlocked
+00000000 W file_to_decimal
+         U localeconv
+
+pack_float.o:
+00000000 T __fp_rightshift
+         U __fp_set_exception
+00000658 T __pack_double
+00000968 T __pack_extended
+00000b78 T __pack_quadruple
+00000384 T __pack_single
+         U __unpack_double
+         U __unpack_single
+         U _thr_get_direction
+         U _thr_get_exceptions
+         U _thr_get_precision
+
+unpack_float.o:
+00000088 T __class_extended
+00000000 T __class_single
+         U __fp_normalize
+         U __fp_set_exception
+0000024c T __unpack_extended
+00000124 T __unpack_single
+
+fgetwc.o:
+         U ___errno
+         U __ctype
+000001ac T __fgetwc_xpg5
+00000260 T __getwc_xpg5
+         U __threaded
+00000144 T _fgetwc
+00000000 T _fgetwc_unlocked
+         U _flockget
+         U _getc_unlocked
+000001a0 T _getwc
+         U _mutex_unlock
+         U _set_orientation_wide
+         U _ungetc_unlocked
+00000144 W fgetwc
+000001a0 W getwc
+
+iswspace.o:
+         U __lc_ctype
+00000000 T _iswspace
+00000000 W iswspace
+
+ungetwc.o:
+         U ___errno
+         U __threaded
+00000164 T __ungetwc_xpg5
+         U _flockget
+         U _mutex_unlock
+         U _set_orientation_wide
+00000000 T _ungetwc
+         U _wctomb
+00000000 W ungetwc
+
+wschr.o:
+00000000 T _wcschr
+00000034 T _wschr
+00000000 W wcschr
+00000034 W wschr
+
+wsspn.o:
+00000000 T wcsspn
+00000080 T wsspn
+
+wmemcpy.o:
+         U memcpy
+00000000 T wmemcpy
+
+ungetc.o:
+         U __threaded
+         U _findbuf
+         U _flockget
+         U _mutex_unlock
+00000068 T _ungetc_unlocked
+00000000 T ungetc
+
+fstatat64.o:
+         U __set_errno
+         U __systemcall
+00000000 T _fstatat64
+00000000 W fstatat64
+
+openat64.o:
+         U __set_errno
+         U __systemcall
+00000000 T _openat64
+00000000 W openat64
+
+acctctl.o:
+00000000 T _acctctl
+         U _syscall
+00000000 W acctctl
+
+bsd_signal.o:
+         U ___errno
+00000000 T _bsd_signal
+         U _sigaction
+         U _sigaddset
+         U _sigemptyset
+00000000 W bsd_signal
+
+corectl.o:
+00000048 T _core_get_global_path
+00000018 T _core_get_options
+00000088 T _core_get_process_path
+0000002c T _core_set_global_path
+00000000 T _core_set_options
+00000064 T _core_set_process_path
+         U _syscall
+00000048 W core_get_global_path
+00000018 W core_get_options
+00000088 W core_get_process_path
+0000002c W core_set_global_path
+00000000 W core_set_options
+00000064 W core_set_process_path
+
+exacctsys.o:
+         U __set_errno
+         U __systemcall
+00000000 T _getacct
+00000048 T _putacct
+00000090 T _wracct
+00000000 W getacct
+00000048 W putacct
+00000090 W wracct
+
+execle.o:
+00000000 T _execle
+         U _execve
+00000000 W execle
+
+execv.o:
+         U _environ
+00000000 T _execv
+         U _execve
+00000000 W execv
+
+fsmisc.o:
+         U __set_errno
+         U __systemcall
+00000000 T _fchownat
+00000088 T _futimesat
+000000c8 T _renameat
+00000048 T _unlinkat
+00000000 W fchownat
+00000088 W futimesat
+000000c8 W renameat
+00000048 W unlinkat
+
+fstatat.o:
+         U __set_errno
+         U __systemcall
+00000000 T _fstatat
+00000000 W fstatat
+
+inst_sync.o:
+00000000 T _inst_sync
+         U _syscall
+00000000 W inst_sync
+
+libc_link.o:
+         U __link
+         U __xpg4
+00000000 T _link
+         U _lstat64
+         U _readlink
+00000000 W link
+
+lwp_cond.o:
+         U ___lwp_cond_wait
+         U ___lwp_mutex_lock
+00000048 T __lwp_cond_reltimedwait
+0000008c T __lwp_cond_timedwait
+00000000 T __lwp_cond_wait
+         U __lwp_mutex_lock
+         U _gettimeofday
+00000048 W _lwp_cond_reltimedwait
+0000008c W _lwp_cond_timedwait
+00000000 W _lwp_cond_wait
+
+lwp.o:
+         U ___lwp_mutex_lock
+00000000 T __lwp_mutex_lock
+00000028 T __lwp_mutex_trylock
+0000004c T __lwp_sema_init
+00000064 T _halt
+         U _lock_try
+00000000 W _lwp_mutex_lock
+00000028 W _lwp_mutex_trylock
+0000004c W _lwp_sema_init
+
+meminfosys.o:
+         U __set_errno
+         U __systemcall
+00000000 T _meminfo
+00000000 W meminfo
+
+nfssys.o:
+00000000 T _exportfs
+00000020 T _nfs_getfh
+00000040 T _nfssvc
+         U _nfssys
+00000000 W exportfs
+00000020 W nfs_getfh
+00000040 W nfssvc
+
+openat.o:
+         U __set_errno
+         U __systemcall
+00000000 T _openat
+00000000 W openat
+
+p_online.o:
+         U _cerror
+         U _cerror64
+00000000 T p_online
+
+posix_sigwait.o:
+         U ___errno
+00000000 T __posix_sigwait
+         U _sigwait
+
+processor_bind.o:
+         U _cerror
+         U _cerror64
+00000000 T processor_bind
+
+processor_info.o:
+         U _cerror
+         U _cerror64
+00000000 T processor_info
+
+psetsys.o:
+         U _pset
+00000028 T _pset_assign
+00000074 T _pset_bind
+00000000 T _pset_create
+00000014 T _pset_destroy
+00000178 T _pset_getattr
+000000a8 T _pset_getloadavg
+0000004c T _pset_info
+00000140 T _pset_list
+0000015c T _pset_setattr
+00000028 W pset_assign
+00000074 W pset_bind
+00000000 W pset_create
+00000014 W pset_destroy
+00000178 W pset_getattr
+000000a8 W pset_getloadavg
+0000004c W pset_info
+00000140 W pset_list
+0000015c W pset_setattr
+
+rctlsys.o:
+         U __set_errno
+         U __systemcall
+00000000 T _getrctl
+000000d8 T _rctlctl
+00000090 T _rctllist
+00000048 T _setrctl
+00000000 W getrctl
+000000d8 W rctlctl
+00000090 W rctllist
+00000048 W setrctl
+
+semsys.o:
+         U __set_errno
+         U __systemcall
+00000024 T _semctl
+000000cc T _semctl64
+00000130 T _semget
+000001b0 T _semids
+00000170 T _semop
+000001f0 T _semtimedop
+00000024 W semctl
+000000cc W semctl64
+00000130 W semget
+000001b0 W semids
+00000170 W semop
+000001f0 W semtimedop
+
+shmsys.o:
+         U __set_errno
+         U __systemcall
+00000000 T _shmat
+00000040 T _shmctl
+0000009c T _shmctl64
+000000f8 T _shmdt
+00000130 T _shmget
+00000170 T _shmids
+00000000 W shmat
+00000040 W shmctl
+0000009c W shmctl64
+000000f8 W shmdt
+00000130 W shmget
+00000170 W shmids
+
+siginterrupt.o:
+         U ___errno
+         U _sigaction
+00000000 T _siginterrupt
+00000000 W siginterrupt
+
+sigstack.o:
+00000000 T _sigstack
+         U sigaltstack
+00000000 W sigstack
+
+tasksys.o:
+         U ___errno
+00000074 T _getprojid
+0000004c T _gettaskid
+00000000 T _settaskid
+         U _syscall
+00000074 W getprojid
+0000004c W gettaskid
+00000000 W settaskid
+
+getgrnam_r.o:
+         U ___errno
+000000a4 T __posix_getgrgid_r
+00000194 T __posix_getgrnam_r
+00000214 T _endgrent
+00000300 T _fgetgrent_r
+00000240 T _getgrent_r
+0000001c T _getgrgid_r
+0000010c T _getgrnam_r
+00000374 T _getgroupsbymember
+         U _memcpy
+         U _nss_XbyY_buf_alloc
+         U _nss_XbyY_buf_free
+         U _nss_XbyY_fgets
+         U _nss_delete
+         U _nss_endent
+         U _nss_getent
+00000000 T _nss_initf_group
+         U _nss_search
+         U _nss_setent
+000001f4 T _setgrent
+00000214 W endgrent
+         U fclose
+00000300 W fgetgrent_r
+         U fgets
+         U fopen
+00000240 W getgrent_r
+0000001c W getgrgid_r
+0000010c W getgrnam_r
+000001f4 W setgrent
+000004c4 T str2group
+         U strcmp
+         U strncmp
+         U strtol
+
+getpwnam_r.o:
+         U ___errno
+00000194 T __posix_getpwnam_r
+000000a4 T __posix_getpwuid_r
+0000021c T _endpwent
+00000308 T _fgetpwent_r
+00000248 T _getpwent_r
+0000010c T _getpwnam_r
+0000001c T _getpwuid_r
+         U _memcpy
+         U _nss_XbyY_fgets
+         U _nss_delete
+         U _nss_endent
+         U _nss_getent
+00000000 T _nss_initf_passwd
+         U _nss_search
+         U _nss_setent
+000001fc T _setpwent
+0000021c W endpwent
+00000308 W fgetpwent_r
+00000248 W getpwent_r
+0000010c W getpwnam_r
+0000001c W getpwuid_r
+000001fc W setpwent
+000003f4 T str2passwd
+         U strtol
+
+getspent_r.o:
+         U ___errno
+000000d0 T _endspent
+000001bc T _fgetspent_r
+000000fc T _getspent_r
+00000028 T _getspnam_r
+         U _memccpy
+         U _memcpy
+         U _nss_XbyY_fgets
+         U _nss_delete
+         U _nss_endent
+         U _nss_getent
+         U _nss_search
+         U _nss_setent
+000000b0 T _setspent
+000000d0 W endspent
+000001bc W fgetspent_r
+000000fc W getspent_r
+00000028 W getspnam_r
+         U memchr
+000000b0 W setspent
+00000338 T str2spwd
+         U strchr
+         U strtol
+         U strtoul
+
+nss_common.o:
+         U __ctype
+         U __iob
+00000004 C __nis_debug_bind
+00000004 C __nis_debug_calls
+00000008 D __nis_debug_file
+00000004 C __nis_debug_rpc
+0000022c T __nis_get_environment
+00000004 C __nis_prefsrv
+00000004 C __nis_preftype
+00000004 C __nis_server
+00000004 C __nss_debug_eng_loop
+00000004 D __nss_debug_file
+         U __nsw_extended_action_v1
+         U __nsw_freeconfig_v1
+         U __nsw_getconfig_v1
+         U _cond_init
+         U _cond_signal
+         U _cond_wait
+         U _fprintf
+         U _mutex_init
+         U _mutex_lock
+         U _mutex_unlock
+000007f8 T _nss_db_state_destr
+0000088c T _nss_delete
+000010a4 T _nss_endent
+00001054 T _nss_getent
+00000c74 T _nss_search
+00001014 T _nss_setent
+000006ec T _nss_src_state_destr
+000009d4 T _nss_status_vec
+         U _nsw_getoneconfig_v1
+         U _sleep
+         U _strdup
+         U _thr_getspecific
+         U _thr_keycreate
+         U _thr_main
+         U _thr_setspecific
+         U atoi
+         U calloc
+         U fflush
+         U free
+         U getenv
+         U nss_default_finders
+0000088c W nss_delete
+000010a4 W nss_endent
+00001054 W nss_getent
+00000c74 W nss_search
+00001014 W nss_setent
+         U strcmp
+         U strncpy
+
+nsparse.o:
+         U __ctype
+00000ffc T __nsw_extended_action
+00000fb4 T __nsw_extended_action_v1
+000012e0 T __nsw_freeconfig
+00001260 T __nsw_freeconfig_v1
+0000122c T __nsw_getconfig
+000011f8 T __nsw_getconfig_v1
+         U _mutex_lock
+         U _mutex_unlock
+00000614 T _nsw_getoneconfig
+0000003c T _nsw_getoneconfig_v1
+         U _strdup
+         U _syslog
+         U atoi
+         U calloc
+         U fclose
+         U fgets
+         U fopen
+         U free
+         U malloc
+         U strcasecmp
+         U strchr
+         U strcmp
+
+nss_dbdefs.o:
+         U __ctype
+         U _memcpy
+00000000 T _nss_XbyY_buf_alloc
+00000040 T _nss_XbyY_buf_free
+0000005c T _nss_XbyY_fgets
+00000160 T _nss_netdb_aliases
+         U fgets
+         U free
+         U malloc
+         U strlen
+
+nss_deffinder.o:
+         U _dlclose
+         U _dlopen
+         U _dlsym
+00000010 D _nss_default_finders
+         U free
+         U malloc
+00000010 V nss_default_finders
+         U sprintf
+         U strlen
+
+stricmp.o:
+00000000 T strcasecmp
+0000005c T strncasecmp
+
+strtoul.o:
+         U ___errno
+         U __ctype
+00000000 T strtoul
+
+fprintf.o:
+         U ___errno
+         U __threaded
+         U _doprnt
+         U _ferror_unlocked
+         U _flockget
+00000000 T _fprintf
+         U _mutex_unlock
+         U _setorientation
+00000000 W fprintf
+
+rand_r.o:
+00000000 T _rand_r
+00000000 W rand_r
+
+readdir_r.o:
+         U ___errno
+00000204 T __posix_readdir_r
+         U _dirent_lock
+         U _getdents64
+         U _memcpy
+         U _mutex_lock
+         U _mutex_unlock
+00000000 T _readdir64_r
+0000013c T _readdir_r
+00000000 W readdir64_r
+0000013c W readdir_r
+         U strcpy
+         U strlen
+
+opendir.o:
+         U ___errno
+         U __fcntl
+         U __open
+         U _close
+00000000 D _dirent_lock
+         U _fstat64
+000000a4 T _opendir
+         U free
+         U malloc
+000000a4 W opendir
+00000000 T opendir_stat
+
+ctermid_r.o:
+00000000 T _ctermid_r
+00000000 W ctermid_r
+         U strcpy
+
+tmpnam_r.o:
+         U _mktemp
+         U _mutex_lock
+         U _mutex_unlock
+00000000 T _tmpnam_r
+         U strcat
+         U strcpy
+00000000 W tmpnam_r
+
+mktemp.o:
+         U ___errno
+         U __umul64
+         U _getpid
+         U _gettimeofday
+         U _lstat64
+00000074 T _mktemp
+         U _mutex_lock
+         U _mutex_unlock
+         U _sysconf
+00000074 W mktemp
+         U strlen
+
+_lwp_mutex_unlock.o:
+00000000 T __lwp_mutex_unlock
+         U _cerror
+         U _cerror64
+00000000 W _lwp_mutex_unlock
+
+fstatvfs64.o:
+         U _cerror
+         U _cerror64
+00000000 T _fstatvfs64
+00000000 W fstatvfs64
+
+getdents64.o:
+         U _cerror
+         U _cerror64
+00000000 T _getdents64
+00000000 W getdents64
+
+getrlimit64.o:
+         U _cerror
+         U _cerror64
+00000000 T _getrlimit64
+00000000 W getrlimit64
+
+lstat64.o:
+         U _cerror
+         U _cerror64
+00000000 T _lstat64
+00000000 W lstat64
+
+mmap64.o:
+         U _cerror
+         U _cerror64
+00000000 T _mmap64
+00000000 W mmap64
+
+setrlimit64.o:
+         U _cerror
+         U _cerror64
+00000000 T _setrlimit64
+00000000 W setrlimit64
+
+statvfs64.o:
+         U _cerror
+         U _cerror64
+00000000 T _statvfs64
+00000000 W statvfs64
+
+__getloadavg.o:
+00000000 T __getloadavg
+         U _cerror
+         U _cerror64
+
+__signotify.o:
+00000000 T __signotify
+         U _cerror
+         U _cerror64
+
+_nfssys.o:
+         U _cerror
+         U _cerror64
+00000000 T _nfssys
+
+_pset.o:
+         U _cerror
+         U _cerror64
+00000000 T _pset
+
+_rename.o:
+         U _cerror
+         U _cerror64
+00000000 T _rename
+
+_rpcsys.o:
+         U _cerror
+         U _cerror64
+00000000 T _rpcsys
+
+_so_accept.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_accept
+
+_so_bind.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_bind
+
+_so_connect.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_connect
+
+_so_getpeername.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_getpeername
+
+_so_getsockname.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_getsockname
+
+_so_listen.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_listen
+
+_so_recv.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_recv
+
+_so_recvfrom.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_recvfrom
+
+_so_recvmsg.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_recvmsg
+
+_so_send.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_send
+
+_so_sendmsg.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_sendmsg
+
+_so_sendto.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_sendto
+
+_so_shutdown.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_shutdown
+
+_so_socket.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_socket
+
+_so_socketpair.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_socketpair
+
+_sockconfig.o:
+         U _cerror
+         U _cerror64
+00000000 T _sockconfig
+
+acct.o:
+00000000 T _acct
+         U _cerror
+         U _cerror64
+00000000 W acct
+
+acl.o:
+00000000 T _acl
+         U _cerror
+         U _cerror64
+00000000 W acl
+
+adjtime.o:
+00000000 T _adjtime
+         U _cerror
+         U _cerror64
+00000000 W adjtime
+
+chdir.o:
+         U _cerror
+         U _cerror64
+00000000 T _chdir
+00000000 W chdir
+
+chmod.o:
+         U _cerror
+         U _cerror64
+00000000 T _chmod
+00000000 W chmod
+
+chown.o:
+         U _cerror
+         U _cerror64
+00000000 T _chown
+00000000 W chown
+
+chroot.o:
+         U _cerror
+         U _cerror64
+00000000 T _chroot
+00000000 W chroot
+
+cladm.o:
+00000000 T __cladm
+         U _cerror
+         U _cerror64
+00000000 W _cladm
+
+dup.o:
+         U _cerror
+         U _cerror64
+00000000 T _dup
+00000000 W dup
+
+facl.o:
+         U _cerror
+         U _cerror64
+00000000 T _facl
+00000000 W facl
+
+fchdir.o:
+         U _cerror
+         U _cerror64
+00000000 T _fchdir
+00000000 W fchdir
+
+fchmod.o:
+         U _cerror
+         U _cerror64
+00000000 T _fchmod
+00000000 W fchmod
+
+fchown.o:
+         U _cerror
+         U _cerror64
+00000000 T _fchown
+00000000 W fchown
+
+fchroot.o:
+         U _cerror
+         U _cerror64
+00000000 T _fchroot
+00000000 W fchroot
+
+fpathconf.o:
+         U _cerror
+         U _cerror64
+00000000 T _fpathconf
+00000000 W fpathconf
+
+fstatfs.o:
+         U _cerror
+         U _cerror64
+00000000 T _fstatfs
+00000000 W fstatfs
+
+fstatvfs.o:
+         U _cerror
+         U _cerror64
+00000000 T _fstatvfs
+00000000 W fstatvfs
+
+getdents.o:
+         U _cerror
+         U _cerror64
+00000000 T _getdents
+00000000 W getdents
+
+getegid.o:
+         U _cerror
+         U _cerror64
+00000000 T _getegid
+00000000 W getegid
+
+getgid.o:
+         U _cerror
+         U _cerror64
+00000000 T _getgid
+00000000 W getgid
+
+getgroups.o:
+         U _cerror
+         U _cerror64
+00000000 T _getgroups
+00000000 W getgroups
+
+getitimer.o:
+         U _cerror
+         U _cerror64
+00000000 T _getitimer
+00000000 W getitimer
+
+getpagesizes.o:
+         U _cerror
+         U _cerror64
+00000000 T _getpagesizes
+00000000 W getpagesizes
+
+getppid.o:
+         U _cerror
+         U _cerror64
+00000000 T _getppid
+00000000 W getppid
+
+getrlimit.o:
+         U _cerror
+         U _cerror64
+00000000 T _getrlimit
+00000000 W getrlimit
+
+gettimeofday.o:
+         U _cerror
+         U _cerror64
+00000000 T _gettimeofday
+00000000 W gettimeofday
+
+getuid.o:
+         U _cerror
+         U _cerror64
+00000000 T _getuid
+00000000 W getuid
+
+gtty.o:
+         U _cerror
+         U _cerror64
+00000000 T _gtty
+00000000 W gtty
+
+install_utrap.o:
+         U _cerror
+         U _cerror64
+00000000 T _install_utrap
+00000000 W install_utrap
+
+kaio.o:
+         U _cerror
+         U _cerror64
+00000000 T _kaio
+00000000 W kaio
+
+lchown.o:
+         U _cerror
+         U _cerror64
+00000000 T _lchown
+00000000 W lchown
+
+link.o:
+00000000 T __link
+         U _cerror
+         U _cerror64
+
+llseek.o:
+         U _cerror
+         U _cerror64
+00000000 T _llseek
+00000000 W llseek
+
+lock.o:
+0000000c T _lock_clear
+00000000 T _lock_try
+
+lstat.o:
+         U _cerror
+         U _cerror64
+00000000 T _lstat
+00000000 W lstat
+
+machlwp.o:
+         U __lwp_exit
+00000000 T __lwp_makecontext
+00000000 W _lwp_makecontext
+         U _memset
+         U _xregs_clrptr
+
+_xregs_clrptr.o:
+00000000 T _xregs_clrptr
+
+mincore.o:
+         U _cerror
+         U _cerror64
+00000000 T _mincore
+00000000 W mincore
+
+mkdir.o:
+         U _cerror
+         U _cerror64
+00000000 T _mkdir
+00000000 W mkdir
+
+mknod.o:
+         U _cerror
+         U _cerror64
+00000000 T _mknod
+00000000 W mknod
+
+modctl.o:
+         U _cerror
+         U _cerror64
+00000000 T modctl
+
+mount.o:
+         U _cerror
+         U _cerror64
+00000000 T _mount
+00000000 W mount
+
+mprotect.o:
+         U _cerror
+         U _cerror64
+00000000 T _mprotect
+00000000 W mprotect
+
+nice.o:
+         U _cerror
+         U _cerror64
+00000000 T _nice
+00000000 W nice
+
+ntp_adjtime.o:
+         U _cerror
+         U _cerror64
+00000000 T _ntp_adjtime
+00000000 W ntp_adjtime
+
+ntp_gettime.o:
+         U _cerror
+         U _cerror64
+00000000 T _ntp_gettime
+00000000 W ntp_gettime
+
+pathconf.o:
+         U _cerror
+         U _cerror64
+00000000 T _pathconf
+00000000 W pathconf
+
+pcsample.o:
+         U _cerror
+         U _cerror64
+00000000 T _pcsample
+00000000 W pcsample
+
+pipe.o:
+         U _cerror
+         U _cerror64
+00000000 T _pipe
+00000000 W pipe
+
+priocntlset.o:
+00000000 T __priocntlset
+         U _cerror
+         U _cerror64
+
+profil.o:
+         U _cerror
+         U _cerror64
+00000000 T _profil
+00000000 W profil
+
+ptrace.o:
+         U ___errno
+         U _close
+         U _fcntl
+         U _getpid
+         U _kill
+         U _memset
+         U _mutex_lock
+         U _mutex_unlock
+         U _open
+         U _pread
+00000024 T _ptrace
+         U _pwrite
+         U _read
+         U _write
+         U _writev
+         U exit
+         U free
+         U malloc
+00000024 W ptrace
+         U sprintf
+         U strcat
+         U strcpy
+         U strlen
+
+readlink.o:
+         U _cerror
+         U _cerror64
+00000000 T _readlink
+00000000 W readlink
+
+resolvepath.o:
+         U _cerror
+         U _cerror64
+00000000 T _resolvepath
+00000000 W resolvepath
+
+rmdir.o:
+         U _cerror
+         U _cerror64
+00000000 T _rmdir
+00000000 W rmdir
+
+seteguid.o:
+         U _cerror
+         U _cerror64
+00000000 T _setegid
+00000024 T _seteuid
+00000000 W setegid
+00000024 W seteuid
+
+setgid.o:
+         U _cerror
+         U _cerror64
+00000000 T _setgid
+00000000 W setgid
+
+setgroups.o:
+         U _cerror
+         U _cerror64
+00000000 T _setgroups
+00000000 W setgroups
+
+setpgrp.o:
+         U _cerror
+         U _cerror64
+00000008 T _getpgrp
+00000000 T _setpgrp
+00000008 W getpgrp
+00000000 W setpgrp
+
+setrlimit.o:
+         U _cerror
+         U _cerror64
+00000000 T _setrlimit
+00000000 W setrlimit
+
+setuid.o:
+         U _cerror
+         U _cerror64
+00000000 T _setuid
+00000000 W setuid
+
+sigaltstk.o:
+         U _cerror
+         U _cerror64
+00000000 T _sigaltstack
+00000000 W sigaltstack
+
+signotifywait.o:
+00000000 T __signotifywait
+         U _cerror
+         U _cerror64
+00000000 W _signotifywait
+
+sigsendset.o:
+         U _cerror
+         U _cerror64
+00000000 T _sigsendset
+00000000 W sigsendset
+
+stat.o:
+         U _cerror
+         U _cerror64
+00000000 T _stat
+00000000 W stat
+
+statfs.o:
+         U _cerror
+         U _cerror64
+00000000 T _statfs
+00000000 W statfs
+
+statvfs.o:
+         U _cerror
+         U _cerror64
+00000000 T _statvfs
+00000000 W statvfs
+
+stime.o:
+         U _cerror
+         U _cerror64
+00000000 T _stime
+00000000 W stime
+
+stty.o:
+         U _cerror
+         U _cerror64
+00000000 T _stty
+00000000 W stty
+
+symlink.o:
+         U _cerror
+         U _cerror64
+00000000 T _symlink
+00000000 W symlink
+
+sync.o:
+         U _cerror
+         U _cerror64
+00000000 T _sync
+00000000 W sync
+
+sysfs.o:
+         U _cerror
+         U _cerror64
+00000000 T _sysfs
+00000000 W sysfs
+
+sysinfo.o:
+         U _cerror
+         U _cerror64
+00000000 T _sysinfo
+00000000 W sysinfo
+
+syslwp.o:
+00000224 T ___lwp_cond_wait
+00000390 T ___lwp_mutex_init
+000001a8 T ___lwp_mutex_lock
+00000348 T ___lwp_mutex_trylock
+0000036c T ___lwp_mutex_unlock
+000001dc T ___lwp_mutex_wakeup
+00000200 T __lwp_cond_broadcast
+00000248 T __lwp_cond_signal
+00000024 T __lwp_continue
+00000000 T __lwp_create
+00000160 T __lwp_detach
+00000184 T __lwp_exit
+000000f4 T __lwp_getprivate
+000002dc T __lwp_info
+000000ac T __lwp_kill
+00000300 T __lwp_schedctl
+000000d0 T __lwp_self
+000002b8 T __lwp_sema_post
+00000294 T __lwp_sema_trywait
+0000026c T __lwp_sema_wait
+00000118 T __lwp_setprivate
+00000324 T __lwp_sigredirect
+000003b4 T __lwp_sigtimedwait
+00000048 T __lwp_suspend
+0000006c T __lwp_suspend2
+0000013c T __lwp_wait
+         U _cerror
+         U _cerror64
+00000200 W _lwp_cond_broadcast
+00000248 W _lwp_cond_signal
+00000024 W _lwp_continue
+00000000 W _lwp_create
+00000160 W _lwp_detach
+00000184 W _lwp_exit
+000000f4 W _lwp_getprivate
+000002dc W _lwp_info
+000000ac W _lwp_kill
+00000300 W _lwp_schedctl
+000000d0 W _lwp_self
+000002b8 W _lwp_sema_post
+00000294 W _lwp_sema_trywait
+0000026c W _lwp_sema_wait
+00000118 W _lwp_setprivate
+00000324 W _lwp_sigredirect
+000003b4 W _lwp_sigtimedwait
+00000048 W _lwp_suspend
+0000006c W _lwp_suspend2
+0000013c W _lwp_wait
+
+syssun.o:
+         U _cerror
+         U _cerror64
+00000000 T _syssun
+00000000 W syssun
+
+uadmin.o:
+         U _cerror
+         U _cerror64
+00000000 T _uadmin
+00000000 W uadmin
+
+ulimit.o:
+         U _cerror
+         U _cerror64
+00000000 T _ulimit
+00000000 W ulimit
+
+umask.o:
+         U _cerror
+         U _cerror64
+00000000 T _umask
+00000000 W umask
+
+umount.o:
+00000000 T _umount
+         U _umount2
+00000000 W umount
+
+umount2.o:
+         U _cerror
+         U _cerror64
+00000000 T _umount2
+00000000 W umount2
+
+uname.o:
+         U _cerror
+         U _cerror64
+00000000 T _uname
+00000000 W uname
+
+unlink.o:
+         U _cerror
+         U _cerror64
+00000000 T _unlink
+00000000 W unlink
+
+ustat.o:
+         U _cerror
+         U _cerror64
+00000000 T _ustat
+00000000 W ustat
+
+utime.o:
+         U _cerror
+         U _cerror64
+00000000 T _utime
+00000000 W utime
+
+utimes.o:
+         U _cerror
+         U _cerror64
+00000000 T _utimes
+00000000 W utimes
+
+utssys.o:
+         U _cerror
+         U _cerror64
+00000000 T _utssys
+00000000 W utssys
+
+vfork.o:
+         U _cerror
+         U _cerror64
+00000000 T _vfork
+00000000 W vfork
+
+vhangup.o:
+         U _cerror
+         U _cerror64
+00000000 T _vhangup
+00000000 W vhangup
+
+yield.o:
+         U _cerror
+         U _cerror64
+00000000 T _yield
+00000000 W yield
+
+nlspath_checks.o:
+         U ___errno
+         U __ctype
+         U _close
+         U _environ
+         U _fstat64
+         U _issetugid
+         U _memcmp
+         U _memset
+         U _open
+         U _syslog
+00000878 T check_format
+00000ba8 T clean_env
+00000004 C env_cleaned
+         U free
+         U malloc
+         U memchr
+00000000 T nls_safe_open
+         U nvmatch
+         U strchr
+         U strcmp
+         U strlen
+         U strncmp
+         U strstr
+
+memcmp.o:
+00000000 T _memcmp
+00000000 W memcmp
+
+syslog.o:
+         U ___errno
+         U __door_call
+         U __door_info
+         U _alarm
+         U _close
+00000978 T _closelog
+         U _ctime_r
+         U _exit
+         U _fcntl
+         U _fork
+         U _fstat
+         U _getpid
+         U _mutex_lock
+         U _mutex_unlock
+         U _open
+0000087c T _openlog
+         U _putmsg
+         U _read
+000009f4 T _setlogmask
+         U _sigaddset
+         U _sigdelset
+         U _sigemptyset
+         U _signal
+         U _sigprocmask
+000000a4 T _syslog
+         U _time
+000000d0 T _vsyslog
+         U _waitpid
+         U _write
+         U calloc
+00000978 W closelog
+0000087c W openlog
+000009f4 W setlogmask
+         U snprintf
+         U sprintf
+         U strcpy
+         U strerror
+         U strlen
+         U strncpy
+         U strstr
+000000a4 W syslog
+         U vsnprintf
+000000d0 W vsyslog
+
+ctime_r.o:
+         U __posix_asctime_r
+00000048 T __posix_ctime_r
+         U _asctime_r
+00000000 T _ctime_r
+         U _localtime_r
+00000000 W ctime_r
+
+ctime.o:
+         U ___errno
+000000a4 T __posix_asctime_r
+000001e8 T _asctime_r
+0000022c T asctime
+000001e8 W asctime_r
+00000218 T ctime
+         U localtime
+
+strerror.o:
+         U _dgettext
+00000000 T _strerror
+         U _sys_errs
+         U _sys_index
+         U _sys_num_err
+00000000 W strerror
+
+snprintf.o:
+         U ___errno
+         U _doprnt
+00000000 T snprintf
+
+vsnprintf.o:
+         U ___errno
+         U _doprnt
+00000000 T vsnprintf
+
+issetugid.o:
+00000000 T _issetugid
+         U _syscall
+00000000 W issetugid
+
+door.o:
+000000a0 T __door_bind
+00000118 T __door_call
+00000000 T __door_create
+00000004 C __door_create_pid
+00000078 T __door_cred
+00000050 T __door_info
+00000140 T __door_return
+00000028 T __door_revoke
+00000004 C __door_server_func
+000000c8 T __door_unbind
+000000f0 T __door_unref
+00000004 C __thr_door_server_func
+         U _cerror
+         U _cerror64
+000000a0 W _door_bind
+00000118 W _door_call
+00000000 W _door_create
+00000078 W _door_cred
+00000050 W _door_info
+00000140 W _door_return
+00000028 W _door_revoke
+000000c8 W _door_unbind
+000000f0 W _door_unref
+         U _getpid
+         U thr_exit
+
+fstat.o:
+         U _cerror
+         U _cerror64
+00000000 T _fstat
+00000000 W fstat
+
+getutx.o:
+         U ___errno
+         U __ctype
+         U _close
+         U _compat_endutent
+         U _compat_getutent
+         U _compat_getutid
+         U _compat_getutline
+         U _compat_makeut
+         U _compat_pututline
+         U _compat_setutent
+         U _compat_updwtmp
+00000050 C _compat_utmpfile
+00000c58 T _endutent
+00000bf0 T _endutxent
+         U _execl
+         U _exit
+         U _fork
+         U _fseek
+         U _ftell
+         U _geteuid
+000002b8 T _getutent
+00000494 T _getutid
+000005bc T _getutline
+00001694 T _getutmp
+000015f4 T _getutmpx
+00000274 T _getutxent
+0000035c T _getutxid
+00000524 T _getutxline
+         U _lockf
+         U _lseek
+000013d8 T _makeut
+00001230 T _makeutx
+         U _memcpy
+         U _memset
+00000fa0 T _modut
+00000ea0 T _modutx
+         U _open
+00000b18 T _pututline
+00000914 T _pututxline
+         U _read
+00000bcc T _setutent
+00000b68 T _setutxent
+         U _sysconf
+00000e20 T _updwtmp
+00000dcc T _updwtmpx
+00000d24 T _utmpname
+00000c90 T _utmpxname
+         U _waitpid
+         U _write
+         U bzero
+00000c58 W endutent
+00000bf0 W endutxent
+         U fclose
+         U fflush
+         U fopen
+         U fread
+         U fwrite
+000002b8 W getutent
+00000494 W getutid
+000005bc W getutline
+00001694 W getutmp
+000015f4 W getutmpx
+00000274 W getutxent
+0000035c W getutxid
+00000524 W getutxline
+000013d8 W makeut
+00001230 W makeutx
+         U malloc
+         U memchr
+00000fa0 W modut
+00000ea0 W modutx
+         U perror
+00000b18 W pututline
+00000914 W pututxline
+00000bcc W setutent
+00000b68 W setutxent
+         U sprintf
+         U strcat
+         U strcmp
+         U strcpy
+         U strlen
+         U strncmp
+         U strncpy
+00000e20 W updwtmp
+00000dcc W updwtmpx
+00000d24 W utmpname
+00000c90 W utmpxname
+
+getut.o:
+         U __ctype
+         U _close
+00000550 T _compat_endutent
+0000018c T _compat_getutent
+000001f4 T _compat_getutid
+0000032c T _compat_getutline
+00000610 T _compat_makeut
+000007e4 T _compat_modut
+000003c4 T _compat_pututline
+0000050c T _compat_setutent
+00000598 T _compat_updwtmp
+         U _compat_utmpfile
+         U _fcntl
+         U _lockf
+         U _lseek
+         U _memcpy
+         U _memset
+         U _open
+         U _read
+         U _write
+         U bzero
+         U strncmp
+         U strncpy
+
+bzero.o:
+         U _memset
+00000000 T bzero
+
+perror.o:
+         U ___errno
+         U _dgettext
+         U _sys_errs
+         U _sys_index
+         U _sys_num_err
+         U _write
+00000000 T perror
+         U strlen
+
+new_list.o:
+00000260 V __sys_errs
+00000260 R _sys_errs
+00000000 R _sys_index
+00000ef0 V _sys_nerr
+00000ef0 R _sys_num_err
+00000ef0 V sys_nerr
+
+sprintf.o:
+         U ___errno
+         U _doprnt
+00000000 T sprintf
+
+doprnt.o:
+         U _Q_feq
+         U ___errno
+         U __ctype
+         U __div64
+         U __rem64
+         U __xpg4
+         U _bufsync
+000002f4 T _doprnt
+         U _econvert
+         U _fconvert
+         U _ferror_unlocked
+         U _findbuf
+         U _fwrite_unlocked
+000033e4 T _getarg
+         U _memcpy
+         U _memset
+00003048 T _mkarglst
+         U _numeric
+         U _qeconvert
+         U _qfconvert
+         U _realbufend
+         U _scrwidth
+         U _wcswidth
+         U _xflsbuf
+         U atoi
+         U free
+         U localeconv
+         U malloc
+         U mbstowcs
+         U mbtowc
+         U memchr
+         U strchr
+         U strlen
+         U strspn
+         U wctomb
+
+divrem64.o:
+00000000 T __div64
+00000338 T __rem64
+00000648 T __udiv64
+         U __umul64
+00000934 T __urem64
+
+mul64.o:
+         U .umul
+00000000 T __mul64
+00000130 T __umul64
+
+_Q_fcc.o:
+00000000 T _Q_feq
+00000a3c T _Q_fge
+00000830 T _Q_fgt
+00000624 T _Q_fle
+00000418 T _Q_flt
+0000020c T _Q_fne
+
+qeconvert.o:
+         U _QgetRD
+         U __infnanstring
+         U __k_gconvert
+00000000 T _qeconvert
+000000fc T _qfconvert
+0000022c T _qgconvert
+         U _quadruple_to_decimal
+00000000 W qeconvert
+000000fc W qfconvert
+0000022c W qgconvert
+
+__gconvert.o:
+         U __four_digits_quick
+         U __infnanstring
+00000000 T __k_gconvert
+         U localeconv
+
+scrwidth.o:
+00000000 T _scrwidth
+         U _wcwidth
+         U iswprint
+00000000 W scrwidth
+
+wcswidth.o:
+         U __lc_charmap
+00000000 T _wcswidth
+00000000 W wcswidth
+
+wctomb.o:
+         U __lc_charmap
+00000000 T _wctomb
+00000000 W wctomb
+
+wcwidth.o:
+         U __lc_charmap
+00000000 T _wcwidth
+         U iswprint
+00000000 W wcwidth
+
+localeconv.o:
+         U __lc_locale
+00000000 T localeconv
+
+ferror.o:
+         U __threaded
+00000060 T _ferror_unlocked
+         U _flockget
+         U _mutex_unlock
+00000000 T ferror
+00000060 W ferror_unlocked
+
+fread.o:
+         U ___errno
+         U __filbuf
+         U __threaded
+         U _flockget
+         U _memcpy
+         U _mutex_unlock
+         U _setorientation
+00000020 T fread
+
+fseek.o:
+         U ___errno
+         U __threaded
+         U _fflush_u
+         U _fileno_unlocked
+         U _flockget
+00000000 T _fseek
+         U _lseek
+         U _mutex_unlock
+00000000 W fseek
+
+ftell.o:
+         U ___errno
+         U __threaded
+         U _fileno_unlocked
+         U _flockget
+00000000 T _ftell
+         U _lseek64
+         U _mutex_unlock
+00000000 W ftell
+
+fwrite.o:
+         U __flsbuf
+         U __threaded
+         U _flockget
+000000bc T _fwrite_unlocked
+         U _memcpy
+         U _mutex_unlock
+         U _realbufend
+         U _setorientation
+         U _write
+         U _wrtchk
+         U _xflsbuf
+         U fileno
+00000000 T fwrite
+
+fileno.o:
+         U __threaded
+00000000 T _fileno
+0000005c T _fileno_unlocked
+         U _flockget
+         U _mutex_unlock
+00000000 W fileno
+0000005c W fileno_unlocked
+
+execl.o:
+         U _environ
+00000000 T _execl
+         U _execve
+00000000 W execl
+
+execve.o:
+         U _cerror
+         U _cerror64
+00000000 T _execve
+00000000 T _private_execve
+00000000 W execve
+
+exit.o:
+         U _cerror
+         U _cerror64
+00000000 T _exit
+00000000 T _private_exit
+
+geteuid.o:
+         U _cerror
+         U _cerror64
+00000000 T _geteuid
+00000000 W geteuid
+
+lseek.o:
+         U _cerror
+         U _cerror64
+00000000 T _lseek
+00000000 W lseek
+
+loc_setup.o:
+00000084 R __C_charmap_object
+000010ec R __C_collate_object
+00001020 R __C_ctype_object
+00000004 D __C_locale
+000013ac R __C_locale_object
+00001328 R __C_messages_object
+00001160 R __C_monetary_object
+000011c4 R __C_numeric_object
+00001220 R __C_time_object
+         U __btowc_sb
+000003c0 T __charmap_destructor
+00000128 T __charmap_init
+000003d0 T __collate_destructor
+00000000 T __collate_init
+         U __ctype
+000003c8 T __ctype_destructor
+00000040 T __ctype_init
+00000028 D __ctype_mask
+         U __fgetwc_sb
+         U __fnmatch_C
+         U __getdate_std
+         U __iswctype_std
+00000008 D __lc_charmap
+00000010 D __lc_collate
+0000000c D __lc_ctype
+00000024 D __lc_locale
+00000020 D __lc_messages
+00000018 D __lc_monetary
+00000014 D __lc_numeric
+0000001c D __lc_time
+000003f8 T __locale_destructor
+0000027c T __locale_init
+         U __localeconv_std
+         U __mbftowc_sb
+         U __mblen_sb
+         U __mbrlen_sb
+         U __mbrtowc_sb
+         U __mbsinit_gen
+         U __mbsrtowcs_sb
+         U __mbstowcs_sb
+         U __mbtowc_sb
+000003f0 T __messages_destructor
+00000144 T __messages_init
+000003e0 T __monetary_destructor
+00000098 T __monetary_init
+         U __nl_langinfo_std
+000003e8 T __numeric_destructor
+00000170 T __numeric_init
+         U __regcomp_C
+         U __regerror_std
+         U __regexec_C
+         U __regfree_std
+         U __strcoll_C
+         U __strfmon_std
+         U __strftime_std
+         U __strptime_std
+         U __strxfrm_C
+000003d8 T __time_destructor
+000001c8 T __time_init
+         U __towctrans_std
+         U __towlower_std
+         U __towupper_std
+00000030 D __trans_lower
+0000002c D __trans_upper
+         U __trwctype_std
+         U __wcrtomb_sb
+         U __wcscoll_C
+         U __wcsftime_std
+         U __wcsrtombs_sb
+         U __wcstombs_sb
+         U __wcswidth_sb
+         U __wcsxfrm_C
+         U __wctob_sb
+         U __wctomb_sb
+         U __wctrans_std
+         U __wctype_std
+         U __wcwidth_sb
+         U _clear_internal_mbstate
+         U _memcpy
+         U _numeric
+
+__btowc_sb.o:
+00000000 T __btowc_sb
+
+__fgetwc_sb.o:
+00000000 T __fgetwc_sb
+         U _getc_unlocked
+
+__mbftowc_sb.o:
+00000000 T __mbftowc_sb
+
+__mblen_sb.o:
+         U ___errno
+00000000 T __mblen_sb
+
+__mbsinit_gen.o:
+00000000 T __mbsinit_gen
+         U __mbst_get_nconsumed
+
+__mbrlen_sb.o:
+00000000 T __mbrlen_sb
+         U memset
+
+__mbrtowc_sb.o:
+00000000 T __mbrtowc_sb
+         U memset
+
+__mbsrtowcs_sb.o:
+00000000 T __mbsrtowcs_sb
+         U memset
+         U strlen
+
+__mbstowcs_sb.o:
+00000000 T __mbstowcs_sb
+         U strlen
+
+__mbtowc_sb.o:
+         U ___errno
+00000000 T __mbtowc_sb
+
+__wcrtomb_sb.o:
+         U ___errno
+00000000 T __wcrtomb_sb
+         U memset
+
+__wcsrtombs_sb.o:
+         U ___errno
+00000000 T __wcsrtombs_sb
+         U memset
+
+__wcstombs_sb.o:
+00000000 T __wcstombs_sb
+
+__wcswidth_sb.o:
+00000000 T __wcswidth_sb
+         U iswprint
+
+__wctob_sb.o:
+00000000 T __wctob_sb
+
+__wctomb_sb.o:
+00000000 T __wctomb_sb
+
+__wcwidth_sb.o:
+00000000 T __wcwidth_sb
+         U iswprint
+
+fnmatch.o:
+00000000 T __fnmatch_C
+00000640 T _fnmatch
+00000640 W fnmatch
+         U iswctype
+         U strchr
+         U wctype
+
+strcoll.o:
+00000000 T __strcoll_C
+00000008 T _strcoll
+         U strcmp
+00000008 W strcoll
+
+strxfrm.o:
+00000000 T __strxfrm_C
+00000008 T _strxfrm
+         U strlen
+         U strncpy
+00000008 W strxfrm
+
+wcscoll.o:
+00000000 T __wcscoll_C
+         U _wcscmp
+00000008 T _wcscoll
+00000008 W wcscoll
+
+wcsxfrm.o:
+00000000 T __wcsxfrm_C
+         U _wcslen
+00000008 T _wcsxfrm
+         U wcsncpy
+00000008 W wcsxfrm
+
+__iswctype_std.o:
+00000000 T __iswctype_std
+
+_trwctype.o:
+         U __lc_ctype
+00000000 T __trwctype_std
+         U _lc_get_ctype_flag_name
+00000064 T _trwctype
+         U towctrans
+         U wctrans
+
+get_lcbind.o:
+00000000 T _lc_get_ctype_flag_name
+
+iswctype.o:
+00000000 T __iswctype
+         U __lc_ctype
+00000028 T _iswctype
+00000000 W iswctype
+
+iswprint.o:
+         U __lc_ctype
+00000000 T _iswprint
+00000000 W iswprint
+
+towctrans.o:
+         U __lc_ctype
+00000000 T __towctrans_std
+00000098 T towctrans
+
+towupper.o:
+         U __lc_ctype
+00000000 T __towupper_std
+00000098 T _towupper
+00000098 W towupper
+
+wctrans.o:
+         U __lc_ctype
+00000000 T __wctrans_std
+         U strcmp
+0000005c T wctrans
+
+__localeconv_std.o:
+00000000 T __localeconv_std
+
+__nl_langinfo_std.o:
+         U __C_time_object
+00000000 T __nl_langinfo_std
+         U __xpg4
+         U _thr_main
+         U _tsdbufalloc
+         U strncpy
+
+__strfmon_std.o:
+         U ___errno
+         U __ctype
+00000000 T __strfmon_std
+         U fconvert
+         U free
+         U malloc
+         U mblen
+         U strcat
+         U strcpy
+         U strlen
+
+econvert.o:
+         U _QgetRD
+00000000 T __infnanstring
+         U _double_to_decimal
+00000088 T _econvert
+0000018c T _fconvert
+         U _memcpy
+         U _thr_get_inf_written
+         U _thr_get_nan_written
+00000088 W econvert
+0000018c W fconvert
+
+_Q_get_rp_rd.o:
+00000070 T _QgetRD
+00000088 T _QgetRP
+00000000 T _QswapRD
+00000038 T _QswapRP
+
+double_decim.o:
+         U __arint_set_n
+         U __base_conversion_abort
+         U __base_conversion_set_exception
+         U __big_binary_to_big_decimal
+         U __big_float_times_power
+000003e8 T __binary_to_decimal_fraction
+000001f4 T __binary_to_decimal_integer
+         U __class_double
+         U __class_quadruple
+00000000 T __decimal_round
+         U __double_to_digits
+         U __four_digits_quick
+         U __free_big_float
+         U __get_ieee_flags
+000015e0 T __k_double_to_decimal
+0000200c T __k_quadruple_to_decimal
+         U __right_shift_base_two
+         U __set_ieee_flags
+         U __tbl_baselg
+         U __tbl_tens
+00001480 T __unpack_double_two
+00001cb8 T __unpack_quadruple_two
+00001c38 T _double_to_decimal
+         U _memcpy
+         U _memset
+00002080 T _quadruple_to_decimal
+00001270 T _split_double_19
+000011e4 T _split_double_3
+00001304 T _split_double_35
+0000139c T _split_double_51
+00001420 T _split_double_52
+00001110 T _split_double_m1
+00001064 T _split_shorten
+000007b0 T _unpacked_to_decimal_two
+00001c38 W double_to_decimal
+00002080 W quadruple_to_decimal
+
+__floatprint.o:
+000002f0 T __arint_set_n
+00000020 T __base_conversion_set_exception
+         U __base_conversion_write_only_double
+000000c8 T __double_to_digits
+         U __four_digits_quick
+         U __longquorem10000
+         U __quorem10000
+         U _memset
+
+__tbl_baselg.o:
+00000000 R __tbl_baselg
+
+__tbl_tens.o:
+00000000 R __tbl_tens
+
+__x_power.o:
+         U ___errno
+0000003c T __base_conversion_abort
+00000054 T __big_float_times_power
+         U __carry_propagate_ten
+00000030 T __free_big_float
+         U __multiply_base_ten
+         U __multiply_base_ten_by_two
+         U __multiply_base_ten_vector
+         U __multiply_base_two
+         U __multiply_base_two_vector
+         U __tbl_10_big_digits
+         U __tbl_10_big_start
+         U __tbl_10_huge_digits
+         U __tbl_10_huge_start
+         U __tbl_10_small_digits
+         U __tbl_10_small_start
+         U __tbl_2_big_digits
+         U __tbl_2_big_start
+         U __tbl_2_huge_digits
+         U __tbl_2_huge_start
+         U __tbl_2_small_digits
+         U __tbl_2_small_start
+         U _memcpy
+         U abort
+         U free
+         U malloc
+
+__tbl_10_b.o:
+00000000 R __tbl_10_big_digits
+000008ca R __tbl_10_big_start
+
+__tbl_10_h.o:
+00000000 R __tbl_10_huge_digits
+00000ba4 R __tbl_10_huge_start
+
+__tbl_10_s.o:
+00000000 R __tbl_10_small_digits
+0000028c R __tbl_10_small_start
+
+__tbl_2_b.o:
+00000000 R __tbl_2_big_digits
+00000c7c R __tbl_2_big_start
+
+__tbl_2_h.o:
+00000000 R __tbl_2_huge_digits
+000018dc R __tbl_2_huge_start
+
+__tbl_2_s.o:
+00000000 R __tbl_2_small_digits
+000009c2 R __tbl_2_small_start
+
+_sprintf_sup.o:
+         U ___mul_65536_n
+00000440 T __big_binary_to_big_decimal
+00000090 T __left_shift_base_ten
+00000048 T __lshift_b10000
+000003ec T __mul_65536short
+000001cc T __multiply_base_ten
+00000328 T __multiply_base_ten_by_two
+00000294 T __multiply_base_two
+00000000 T __prodc_b10000
+         U __quorem10000
+00000154 T __right_shift_base_two
+         U __umac
+
+_base_il4.o:
+00000230 T ___mul_65536_n
+000000f8 T __carry_in_b10000
+0000012c T __carry_propagate_ten
+000000b4 T __longquorem10000
+00000178 T __multiply_base_ten_vector
+00000000 T __quorem
+0000006c T __quorem10000
+         U __umac
+
+_base_il.o:
+         U .umul
+000000c8 T __carry_propagate_two
+00000000 T __four_digits_quick
+         U __four_digits_quick_table
+00000100 T __get_ieee_flags
+00000128 T __multiply_base_two_vector
+00000118 T __set_ieee_flags
+000000a4 T __umac
+
+hwmuldiv.o:
+00000024 T .div
+00000000 T .mul
+00000060 T .rem
+0000004c T .udiv
+00000014 T .umul
+0000008c T .urem
+
+__tbl_fdq.o:
+00000000 R __four_digits_quick_table
+
+_unpack_dble.o:
+00000268 T __class_double
+00000478 T __class_quadruple
+00000304 T __fp_leftshift
+00000000 T __fp_normalize
+00000240 T __fp_set_exception
+0000034c T __unpack_double
+         U _thr_get_exceptions
+
+ieee_globals.o:
+00000008 C __base_conversion_write_only_double
+00000004 C __inf_read
+00000004 C __inf_written
+00000004 C __nan_read
+00000004 C __nan_written
+00000004 C _fp_current_direction
+00000004 C _fp_current_exceptions
+00000004 C _fp_current_precision
+0000003c T _thr_get_direction
+00000000 T _thr_get_exceptions
+00000168 T _thr_get_inf_read
+0000012c T _thr_get_inf_written
+000000f0 T _thr_get_nan_read
+000000b4 T _thr_get_nan_written
+00000078 T _thr_get_precision
+         U _thr_main
+         U _tsdbufalloc
+00000014 C ieee_handlers
+
+abort.o:
+         U _cleanup
+         U _sigaction
+         U _sigismember
+         U _signal
+         U _sigpending
+         U _sigprocmask
+         U _sigrelse
+00000000 T abort
+         U raise
+
+raise.o:
+         U ___errno
+         U __threaded
+         U _getpid
+         U _kill
+         U _thr_kill
+         U _thr_self
+00000000 T raise
+
+mblen.o:
+         U __lc_charmap
+00000000 T _mblen
+00000000 W mblen
+
+__regcomp_C.o:
+         U __lc_ctype
+00000000 T __regcomp_C
+         U calloc
+00002454 T enlarge
+         U free
+         U malloc
+         U memcpy
+         U memset
+         U realloc
+000024f4 T repeat_check
+         U tolower
+         U toupper
+         U wctype
+
+toupper.o:
+         U __lc_ctype
+00000000 T toupper
+
+wctype.o:
+         U __lc_ctype
+00000094 T __wctype
+00000000 T __wctype_std
+         U strcmp
+00000094 W wctype
+
+__regerror_std.o:
+00000000 T __regerror_std
+         U _dgettext
+         U strlen
+         U strncpy
+
+__regexec_C.o:
+         U __ctype
+00000000 T __regexec_C
+         U free
+         U malloc
+         U memcpy
+         U memset
+         U strncmp
+         U tolower
+
+__regfree_std.o:
+00000000 T __regfree_std
+         U free
+
+strptime.o:
+         U __ctype
+00002e3c T __getdate_std
+         U __lc_time
+         U __lyday_to_month
+         U __mon_lengths
+0000003c T __strptime_dontzero
+00002f50 T __strptime_std
+         U __yday_to_month
+         U _access
+000000dc T _getdate
+         U _getdate_err_addr
+         U _localtime_r
+         U _memset
+         U _mutex_lock
+         U _mutex_unlock
+         U _stat64
+         U _strdup
+         U _thr_main
+         U _time
+         U _time_lock
+         U _tsdbufalloc
+         U _tzname
+         U _tzset
+         U atoi
+         U fclose
+         U feof
+         U fgets
+         U fopen
+         U free
+000000dc W getdate
+         U getenv
+         U malloc
+         U mbtowc
+         U mktime
+         U nl_langinfo
+         U strchr
+         U strcmp
+         U strlen
+         U strncpy
+00000000 T strptime
+         U strtok_r
+         U tolower
+         U towlower
+
+getdate_err.o:
+00000000 D _getdate_err
+00000000 T _getdate_err_addr
+         U _thr_main
+         U _tsdbufalloc
+00000000 V getdate_err
+
+strtok.o:
+00000000 T _strtok_r
+         U strpbrk
+         U strspn
+00000084 T strtok
+00000000 W strtok_r
+
+strpbrk.o:
+00000000 T strpbrk
+
+strspn.o:
+00000000 T strspn
+
+mbtowc.o:
+         U __lc_charmap
+00000000 T _mbtowc
+00000000 W mbtowc
+
+tolower.o:
+         U __lc_ctype
+00000000 T tolower
+
+towlower.o:
+         U __lc_ctype
+00000000 T __towlower_std
+00000098 T _towlower
+00000098 W towlower
+
+nl_langinfo.o:
+         U __lc_locale
+00000000 T _nl_langinfo
+00000000 W nl_langinfo
+
+wcsftime.o:
+         U __ctype
+         U __lc_time
+000000b8 T __wcsftime_std
+00000038 T __wcsftime_xpg5
+         U mbstowcs
+         U strftime
+00000000 T wcsftime
+         U wcstombs
+
+mbstowcs.o:
+         U __lc_charmap
+00000000 T _mbstowcs
+00000000 W mbstowcs
+
+wcstombs.o:
+         U __lc_charmap
+00000000 T _wcstombs
+00000000 W wcstombs
+
+strftime.o:
+         U __C_time_object
+         U __ctype
+         U __lc_time
+00001a78 T __strftime_std
+         U __xpg4
+         U _daylight
+         U _time_lock
+         U _tzname
+         U atoi
+         U mktime
+         U mutex_lock
+         U mutex_unlock
+         U strchr
+         U strcpy
+00001a88 T strftime
+         U strlen
+         U strncpy
+
+atoi.o:
+         U __ctype
+00000000 T atoi
+
+time_comm.o:
+         U ___errno
+         U __ctype
+         U __daytab
+         U __lyday_to_month
+         U __mon_lengths
+         U __yday_to_month
+         U __year_lengths
+         U _altzone
+         U _close
+         U _daylight
+         U _fstat64
+00000214 T _gmtime_r
+000001cc T _localtime_r
+000010cc T _ltzset
+         U _memset
+         U _mutex_lock
+         U _mutex_unlock
+         U _open
+         U _read
+         U _strdup
+         U _time
+         U _time_lock
+         U _timezone
+         U _tz_gmt
+         U _tz_spaces
+         U _tzname
+000010f0 T _tzset
+         U calloc
+00000680 T difftime
+         U fclose
+         U fgets
+         U fopen
+         U free
+         U getenv
+0000024c T gmtime
+00000214 W gmtime_r
+000001bc T localtime
+000001cc W localtime_r
+         U malloc
+000006dc T mktime
+         U strcmp
+         U strcpy
+         U strlen
+         U strncmp
+         U strncpy
+         U strstr
+000010f0 W tzset
+
+strncpy.o:
+00000000 T strncpy
+
+time_gdata.o:
+00000004 D _altzone
+00000008 D _daylight
+00000018 D _time_lock
+00000000 D _timezone
+         U _tz_gmt
+         U _tz_spaces
+0000000c D _tzname
+00000004 V altzone
+00000008 V daylight
+00000000 V timezone
+0000000c V tzname
+
+time_data.o:
+000000e0 R __daytab
+000000b0 R __lyday_to_month
+00000018 R __mon_lengths
+00000000 R __month_size
+00000080 R __yday_to_month
+00000078 R __year_lengths
+00000000 D _tz_gmt
+00000004 D _tz_spaces
+
+wscmp.o:
+00000000 T _wcscmp
+00000050 T _wscmp
+00000000 W wcscmp
+00000050 W wscmp
+
+wslen.o:
+00000000 T _wcslen
+00000034 T _wslen
+00000000 W wcslen
+00000034 W wslen
+
+wsncpy.o:
+00000000 T _wcsncpy
+0000005c T _wsncpy
+00000000 W wcsncpy
+0000005c W wsncpy
+
+feof.o:
+         U __threaded
+00000060 T _feof_unlocked
+         U _flockget
+         U _mutex_unlock
+00000000 T feof
+00000060 W feof_unlocked
+
+fgets.o:
+         U ___errno
+         U __filbuf
+         U __threaded
+         U _bufsync
+         U _findbuf
+         U _flockget
+         U _memccpy
+         U _mutex_unlock
+         U _realbufend
+         U _setorientation
+00000000 T fgets
+
+memccpy.o:
+00000000 T _memccpy
+00000000 W memccpy
+
+fopen.o:
+         U __threaded
+         U _endopen
+         U _findiop
+         U _flockget
+         U _mutex_unlock
+         U close_fd
+00000000 T fopen
+00000048 T freopen
+
+_endopen.o:
+         U ___errno
+         U __threaded
+         U _close
+00000000 T _endopen
+         U _flockget
+         U _lseek64
+         U _mutex_unlock
+         U _open
+         U _open64
+
+getc.o:
+         U __filbuf
+         U __threaded
+         U _flockget
+000000b0 T _getc_unlocked
+         U _mutex_unlock
+         U _setorientation
+00000000 T getc
+000000b0 W getc_unlocked
+
+_filbuf.o:
+         U ___errno
+00000000 T __filbuf
+00000000 W _filbuf
+         U _findbuf
+         U _flushlbf
+         U _read
+         U _realbufend
+
+tsdalloc.o:
+         U _mutex_lock
+         U _mutex_unlock
+         U _thr_getspecific
+         U _thr_keycreate
+         U _thr_setspecific
+0000004c T _tsdbufalloc
+         U calloc
+         U free
+
+access.o:
+00000000 T _access
+         U _cerror
+         U _cerror64
+00000000 W access
+
+time.o:
+         U _cerror
+         U _cerror64
+00000000 T _time
+00000000 W time
+
+thr_stub.o:
+00000854 T __nanosleep
+00000a30 T __pthread_cleanup_pop
+00000a44 T __pthread_cleanup_push
+000007f0 T __sigtimedwait
+00000004 C __threaded
+00000d34 W __xpg4_putmsg
+00000d5c W __xpg4_putpmsg
+00000804 W _alarm
+0000016c W _cond_broadcast
+00000180 W _cond_destroy
+00000194 W _cond_init
+000001d0 W _cond_reltimedwait
+000001a8 W _cond_signal
+000001bc W _cond_timedwait
+000001e4 W _cond_wait
+000001f8 W _fork
+00000208 W _fork1
+         U _libc_alarm
+         U _libc_close
+         U _libc_cond_init
+         U _libc_creat
+         U _libc_creat64
+         U _libc_fcntl
+         U _libc_fork
+         U _libc_fork1
+         U _libc_fsync
+         U _libc_getmsg
+         U _libc_getpmsg
+         U _libc_kill
+         U _libc_lockf
+         U _libc_lockf64
+         U _libc_msgrcv
+         U _libc_msgsnd
+         U _libc_msync
+         U _libc_mutex_init
+         U _libc_nanosleep
+         U _libc_open
+         U _libc_open64
+         U _libc_pause
+         U _libc_poll
+         U _libc_pread
+         U _libc_pread64
+         U _libc_pthread_cond_init
+         U _libc_pthread_getspecific
+         U _libc_pthread_mutex_init
+         U _libc_pthread_rwlock_init
+         U _libc_putmsg
+         U _libc_putpmsg
+         U _libc_pwrite
+         U _libc_pwrite64
+         U _libc_read
+         U _libc_readv
+         U _libc_rwlock_init
+         U _libc_select
+         U _libc_sema_init
+         U _libc_setcontext
+         U _libc_setitimer
+         U _libc_sigaction
+         U _libc_siglongjmp
+         U _libc_sigpause
+         U _libc_sigpending
+         U _libc_sigprocmask
+         U _libc_sigsuspend
+         U _libc_sigtimedwait
+         U _libc_sigwait
+         U _libc_sleep
+         U _libc_tcdrain
+         U _libc_thr_getspecific
+         U _libc_thr_key_delete
+         U _libc_thr_keycreate
+         U _libc_thr_setspecific
+00000020 T _libc_threads_interface
+         U _libc_usleep
+         U _libc_wait
+         U _libc_wait3
+         U _libc_waitid
+         U _libc_waitpid
+         U _libc_write
+         U _libc_writev
+         U _libc_xpg4_putmsg
+         U _libc_xpg4_putpmsg
+         U _lpthread_atfork
+00000218 W _mutex_destroy
+0000022c W _mutex_held
+00000240 W _mutex_init
+000000f8 W _mutex_lock
+00000254 W _mutex_trylock
+0000010c W _mutex_unlock
+         U _pthread_atfork
+000008dc W _pthread_attr_destroy
+000008f0 W _pthread_attr_getdetachstate
+00000ba8 W _pthread_attr_getguardsize
+00000904 W _pthread_attr_getinheritsched
+00000918 W _pthread_attr_getschedparam
+0000092c W _pthread_attr_getschedpolicy
+00000940 W _pthread_attr_getscope
+00000954 W _pthread_attr_getstackaddr
+00000968 W _pthread_attr_getstacksize
+0000097c W _pthread_attr_init
+00000990 W _pthread_attr_setdetachstate
+00000bbc W _pthread_attr_setguardsize
+000009a4 W _pthread_attr_setinheritsched
+000009b8 W _pthread_attr_setschedparam
+000009cc W _pthread_attr_setschedpolicy
+000009e0 W _pthread_attr_setscope
+000009f4 W _pthread_attr_setstackaddr
+00000a08 W _pthread_attr_setstacksize
+00000a1c W _pthread_cancel
+000005d8 W _pthread_cond_broadcast
+000005ec W _pthread_cond_destroy
+00000600 W _pthread_cond_init
+0000063c W _pthread_cond_reltimedwait_np
+00000614 W _pthread_cond_signal
+00000628 W _pthread_cond_timedwait
+00000650 W _pthread_cond_wait
+00000664 W _pthread_condattr_destroy
+00000678 W _pthread_condattr_getpshared
+0000068c W _pthread_condattr_init
+000006a0 W _pthread_condattr_setpshared
+00000a58 W _pthread_create
+00000a6c W _pthread_detach
+00000a80 W _pthread_equal
+00000a94 W _pthread_exit
+00000bd0 W _pthread_getconcurrency
+00000aa8 W _pthread_getschedparam
+00000abc W _pthread_getspecific
+00000ad0 W _pthread_join
+00000ae4 W _pthread_key_create
+00000af8 W _pthread_key_delete
+00000b0c W _pthread_kill
+000006b4 W _pthread_mutex_destroy
+000006c8 W _pthread_mutex_getprioceiling
+000006dc W _pthread_mutex_init
+000006f0 W _pthread_mutex_lock
+00000704 W _pthread_mutex_setprioceiling
+00000718 W _pthread_mutex_trylock
+0000072c W _pthread_mutex_unlock
+00000740 W _pthread_mutexattr_destroy
+00000754 W _pthread_mutexattr_getprioceiling
+00000768 W _pthread_mutexattr_getprotocol
+0000077c W _pthread_mutexattr_getpshared
+00000c08 W _pthread_mutexattr_gettype
+00000790 W _pthread_mutexattr_init
+000007a4 W _pthread_mutexattr_setprioceiling
+000007b8 W _pthread_mutexattr_setprotocol
+000007cc W _pthread_mutexattr_setpshared
+00000bf4 W _pthread_mutexattr_settype
+00000b20 W _pthread_once
+00000c30 W _pthread_rwlock_destroy
+00000c1c W _pthread_rwlock_init
+00000c44 W _pthread_rwlock_rdlock
+00000c58 W _pthread_rwlock_tryrdlock
+00000c80 W _pthread_rwlock_trywrlock
+00000c94 W _pthread_rwlock_unlock
+00000c6c W _pthread_rwlock_wrlock
+00000cbc W _pthread_rwlockattr_destroy
+00000cd0 W _pthread_rwlockattr_getpshared
+00000ca8 W _pthread_rwlockattr_init
+00000ce4 W _pthread_rwlockattr_setpshared
+000008b8 W _pthread_self
+00000b34 W _pthread_setcancelstate
+00000b48 W _pthread_setcanceltype
+00000be0 W _pthread_setconcurrency
+00000b5c W _pthread_setschedparam
+00000b70 W _pthread_setspecific
+000008c8 W _pthread_sigmask
+00000b84 W _pthread_testcancel
+00000120 W _rw_rdlock
+00000268 W _rw_read_held
+0000027c W _rw_tryrdlock
+00000290 W _rw_trywrlock
+00000148 W _rw_unlock
+000002a4 W _rw_write_held
+00000134 W _rw_wrlock
+00000890 W _rwlock_destroy
+000002b8 W _rwlock_init
+000008a4 W _sema_destroy
+000002cc W _sema_held
+000002e0 W _sema_init
+000002f4 W _sema_post
+00000308 W _sema_trywait
+0000031c W _sema_wait
+00000eb0 W _setcontext
+00000818 W _setitimer
+00000330 W _sigaction
+0000082c W _siglongjmp
+00000344 W _sigprocmask
+00000358 W _sigwait
+0000036c W _sleep
+00000380 W _thr_continue
+00000394 W _thr_create
+000003a8 W _thr_errnop
+000003b8 W _thr_exit
+000003cc W _thr_getconcurrency
+000003dc W _thr_getprio
+000003f0 W _thr_getspecific
+00000404 W _thr_join
+00000418 W _thr_keycreate
+0000042c W _thr_kill
+00000440 W _thr_main
+000007e0 W _thr_min_stack
+0000015c W _thr_self
+00000450 W _thr_setconcurrency
+00000464 W _thr_setprio
+00000478 W _thr_setspecific
+0000048c W _thr_sigsetmask
+000004a0 W _thr_stksegment
+000004b4 W _thr_suspend
+000004c8 W _thr_yield
+         U _write
+00000804 W alarm
+000004d8 W close
+0000016c W cond_broadcast
+00000180 W cond_destroy
+00000194 W cond_init
+000001d0 W cond_reltimedwait
+000001a8 W cond_signal
+000001bc W cond_timedwait
+000001e4 W cond_wait
+000004ec W creat
+0000087c W creat64
+00000500 W fcntl
+000001f8 W fork
+00000208 W fork1
+00000514 W fsync
+00000cf8 W getmsg
+00000d0c W getpmsg
+00000b94 W kill
+00000d70 W lockf
+00000e74 W lockf64
+00000d84 W msgrcv
+00000d98 W msgsnd
+00000528 W msync
+00000218 W mutex_destroy
+0000022c W mutex_held
+00000240 W mutex_init
+000000f8 W mutex_lock
+00000254 W mutex_trylock
+0000010c W mutex_unlock
+0000053c W open
+00000868 W open64
+00000550 W pause
+00000dac W poll
+00000dc0 W pread
+00000e88 W pread64
+000008dc W pthread_attr_destroy
+000008f0 W pthread_attr_getdetachstate
+00000ba8 W pthread_attr_getguardsize
+00000904 W pthread_attr_getinheritsched
+00000918 W pthread_attr_getschedparam
+0000092c W pthread_attr_getschedpolicy
+00000940 W pthread_attr_getscope
+00000954 W pthread_attr_getstackaddr
+00000968 W pthread_attr_getstacksize
+0000097c W pthread_attr_init
+00000990 W pthread_attr_setdetachstate
+00000bbc W pthread_attr_setguardsize
+000009a4 W pthread_attr_setinheritsched
+000009b8 W pthread_attr_setschedparam
+000009cc W pthread_attr_setschedpolicy
+000009e0 W pthread_attr_setscope
+000009f4 W pthread_attr_setstackaddr
+00000a08 W pthread_attr_setstacksize
+00000a1c W pthread_cancel
+000005d8 W pthread_cond_broadcast
+000005ec W pthread_cond_destroy
+00000600 W pthread_cond_init
+0000063c W pthread_cond_reltimedwait_np
+00000614 W pthread_cond_signal
+00000628 W pthread_cond_timedwait
+00000650 W pthread_cond_wait
+00000664 W pthread_condattr_destroy
+00000678 W pthread_condattr_getpshared
+0000068c W pthread_condattr_init
+000006a0 W pthread_condattr_setpshared
+00000a58 W pthread_create
+00000a6c W pthread_detach
+00000a80 W pthread_equal
+00000a94 W pthread_exit
+00000bd0 W pthread_getconcurrency
+00000aa8 W pthread_getschedparam
+00000abc W pthread_getspecific
+00000ad0 W pthread_join
+00000ae4 W pthread_key_create
+00000af8 W pthread_key_delete
+00000b0c W pthread_kill
+000006b4 W pthread_mutex_destroy
+000006c8 W pthread_mutex_getprioceiling
+000006dc W pthread_mutex_init
+000006f0 W pthread_mutex_lock
+00000704 W pthread_mutex_setprioceiling
+00000718 W pthread_mutex_trylock
+0000072c W pthread_mutex_unlock
+00000740 W pthread_mutexattr_destroy
+00000754 W pthread_mutexattr_getprioceiling
+00000768 W pthread_mutexattr_getprotocol
+0000077c W pthread_mutexattr_getpshared
+00000c08 W pthread_mutexattr_gettype
+00000790 W pthread_mutexattr_init
+000007a4 W pthread_mutexattr_setprioceiling
+000007b8 W pthread_mutexattr_setprotocol
+000007cc W pthread_mutexattr_setpshared
+00000bf4 W pthread_mutexattr_settype
+00000b20 W pthread_once
+00000c30 W pthread_rwlock_destroy
+00000c1c W pthread_rwlock_init
+00000c44 W pthread_rwlock_rdlock
+00000c58 W pthread_rwlock_tryrdlock
+00000c80 W pthread_rwlock_trywrlock
+00000c94 W pthread_rwlock_unlock
+00000c6c W pthread_rwlock_wrlock
+00000cbc W pthread_rwlockattr_destroy
+00000cd0 W pthread_rwlockattr_getpshared
+00000ca8 W pthread_rwlockattr_init
+00000ce4 W pthread_rwlockattr_setpshared
+000008b8 W pthread_self
+00000b34 W pthread_setcancelstate
+00000b48 W pthread_setcanceltype
+00000be0 W pthread_setconcurrency
+00000b5c W pthread_setschedparam
+00000b70 W pthread_setspecific
+000008c8 W pthread_sigmask
+00000b84 W pthread_testcancel
+00000d20 W putmsg
+00000d48 W putpmsg
+00000de8 W pwrite
+00000e9c W pwrite64
+00000560 W read
+00000dd4 W readv
+00000120 W rw_rdlock
+00000268 W rw_read_held
+0000027c W rw_tryrdlock
+00000290 W rw_trywrlock
+00000148 W rw_unlock
+000002a4 W rw_write_held
+00000134 W rw_wrlock
+00000890 W rwlock_destroy
+000002b8 W rwlock_init
+00000e10 W select
+000008a4 W sema_destroy
+000002cc W sema_held
+000002e0 W sema_init
+000002f4 W sema_post
+00000308 W sema_trywait
+0000031c W sema_wait
+00000eb0 W setcontext
+00000818 W setitimer
+00000330 W sigaction
+0000082c W siglongjmp
+00000e24 W sigpause
+00000840 W sigpending
+00000344 W sigprocmask
+00000574 W sigsuspend
+00000358 W sigwait
+0000036c W sleep
+         U strlen
+00000588 W tcdrain
+00000380 W thr_continue
+00000394 W thr_create
+000003a8 W thr_errnop
+000003b8 W thr_exit
+000003cc W thr_getconcurrency
+000003dc W thr_getprio
+000003f0 W thr_getspecific
+00000404 W thr_join
+00000418 W thr_keycreate
+0000042c W thr_kill
+00000440 W thr_main
+000007e0 W thr_min_stack
+0000015c W thr_self
+00000450 W thr_setconcurrency
+00000464 W thr_setprio
+00000478 W thr_setspecific
+0000048c W thr_sigsetmask
+000004a0 W thr_stksegment
+000004b4 W thr_suspend
+000004c8 W thr_yield
+00000e38 W usleep
+0000059c W wait
+00000e4c W wait3
+00000e60 W waitid
+000005b0 W waitpid
+000005c4 W write
+00000dfc W writev
+
+sigsetjmp.o:
+         U __getcontext
+         U _getsp
+000000ac T _libc_siglongjmp
+         U _setcontext
+00000000 T _sigsetjmp
+00000000 W sigsetjmp
+
+_getsp.o:
+00000000 T _getsp
+
+msync.o:
+00000000 W _libc_msync
+         U _memcntl
+00000000 T _msync
+
+select.o:
+         U ___errno
+00000000 W _libc_select
+         U _poll
+00000000 T _select
+
+signal.o:
+         U ___errno
+000002b8 W _libc_sigpause
+         U _sigaction
+         U _sigaddset
+         U _sigdelset
+         U _sigemptyset
+000000d0 T _sighold
+000001c8 T _sigignore
+         U _sigismember
+00000000 T _signal
+000002b8 T _sigpause
+         U _sigprocmask
+0000014c T _sigrelse
+00000340 T _sigset
+         U _sigsuspend
+000000d0 W sighold
+000001c8 W sigignore
+00000000 W signal
+0000014c W sigrelse
+00000340 W sigset
+
+sleep.o:
+         U _alarm
+00000008 T _libc_sleep
+         U _sigaction
+         U _sigaddset
+         U _sigdelset
+         U _sigemptyset
+         U _sigismember
+         U _sigprocmask
+         U _sigsuspend
+
+tcdrain.o:
+         U _ioctl
+00000000 W _libc_tcdrain
+00000000 T _tcdrain
+
+tsd.o:
+         U ___errno
+000002b0 T _libc_pthread_getspecific
+0000022c T _libc_thr_getspecific
+000001e8 T _libc_thr_key_delete
+00000098 T _libc_thr_keycreate
+00000268 T _libc_thr_setspecific
+00000010 C _libc_tsd_common
+         U _memcpy
+         U atexit
+         U free
+         U malloc
+
+syncinit.o:
+00000044 T _libc_cond_init
+00000000 T _libc_mutex_init
+000000c4 T _libc_pthread_cond_init
+000000a4 T _libc_pthread_mutex_init
+000000e4 T _libc_pthread_rwlock_init
+00000084 T _libc_rwlock_init
+00000064 T _libc_sema_init
+         U memcpy
+
+usleep.o:
+         U _alarm
+00000008 W _libc_usleep
+         U _setitimer
+         U _sigaction
+         U _sigaddset
+         U _sigdelset
+         U _sigemptyset
+         U _sigismember
+         U _sigprocmask
+         U _sigsuspend
+         U _sysconf
+00000008 T _usleep
+
+sigsetops.o:
+         U ___errno
+         U __sigfillset
+000000f0 T _sigaddset
+00000148 T _sigdelset
+000000d4 T _sigemptyset
+0000007c T _sigfillset
+000001a4 T _sigismember
+000000f0 W sigaddset
+00000148 W sigdelset
+000000d4 W sigemptyset
+0000007c W sigfillset
+000001a4 W sigismember
+
+wait3.o:
+00000000 W _libc_wait3
+00000000 T _wait3
+         U wait4
+
+wait4.o:
+         U ___errno
+         U _memset
+         U _sysconf
+         U _times
+         U _waitid
+00000000 T wait4
+
+waitpid.o:
+         U _getpgid
+00000018 W _libc_waitpid
+         U _waitid
+00000018 T _waitpid
+
+lockf64.o:
+         U ___errno
+         U _fcntl
+00000000 W _libc_lockf64
+00000000 T _lockf64
+
+fsync.o:
+         U __fdsync
+00000000 T _fsync
+00000000 W _libc_fsync
+
+libc_open.o:
+         U __minor
+         U __open
+         U __open64
+         U __xpg4
+         U _fstat64
+         U _ioctl
+00000000 T _libc_open
+00000058 T _libc_open64
+00000000 W _open
+00000058 W _open64
+         U _stat64
+         U strcpy
+         U strlen
+
+mkdev.o:
+         U ___errno
+000000d4 T __major
+00000000 T __makedev
+0000017c T __minor
+
+lockf.o:
+         U ___errno
+         U _fcntl
+00000000 W _libc_lockf
+00000000 T _lockf
+
+fcntl.o:
+         U __fcntl
+00000050 W _fcntl
+         U _fstat64
+         U _ioctl
+00000050 T _libc_fcntl
+00000050 W _s_fcntl
+00000000 T _s_ioctl
+         U _so_getsockopt
+         U _so_setsockopt
+00000050 W s_fcntl
+00000000 W s_ioctl
+
+msgsys.o:
+         U __set_errno
+         U __systemcall
+000000f4 W _libc_msgrcv
+0000013c W _libc_msgsnd
+0000003c T _msgctl
+00000098 T _msgctl64
+00000000 T _msgget
+00000180 T _msgids
+000000f4 T _msgrcv
+000001c0 T _msgsnap
+0000013c T _msgsnd
+0000003c W msgctl
+00000098 W msgctl64
+00000000 W msgget
+00000180 W msgids
+000001c0 W msgsnap
+
+putmsgxpg.o:
+00000000 T ___xpg4_putmsg
+00000010 T ___xpg4_putpmsg
+00000000 W _libc_xpg4_putmsg
+00000010 W _libc_xpg4_putpmsg
+         U _putmsg
+         U _putpmsg
+
+set_errno.o:
+         U ___errno
+00000000 T __set_errno
+
+atfork.o:
+         U _libc_child_atfork
+         U _libc_parent_atfork
+         U _libc_prepare_atfork
+000003d4 T _lpostfork_child_handler
+00000360 T _lpostfork_parent_handler
+000002ec T _lprefork_handler
+00000248 T _lpthread_atfork
+         U _mmap
+         U _mutex_lock
+         U _mutex_unlock
+000003bc T _postfork_child_handler
+00000348 T _postfork_parent_handler
+000002d4 T _prefork_handler
+0000020c T _pthread_atfork
+00000150 T _register_forkhandler
+         U _sysconf
+00000168 T _unregister_forkhandler
+0000020c W pthread_atfork
+
+sysconf.o:
+         U ___errno
+00000ac8 T __sysconf_xpg5
+         U __xpg4
+00000000 T _sysconf
+         U _sysconfig
+         U _thr_min_stack
+00000000 W sysconf
+
+xpg4.o:
+00000000 D __xpg4
+
+creat64.o:
+         U _cerror
+         U _cerror64
+00000000 T _creat64
+00000000 W _libc_creat64
+
+open64.o:
+00000000 T __open64
+         U _cerror
+         U _cerror64
+
+pread64.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_pread64
+00000000 T _pread64
+
+pwrite64.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_pwrite64
+00000000 T _pwrite64
+
+stat64.o:
+         U _cerror
+         U _cerror64
+00000000 T _stat64
+00000000 W stat64
+
+__clock_timer.o:
+00000000 T __clock_getres
+00000024 T __clock_gettime
+00000070 T __clock_settime
+00000094 T __timer_create
+000000b8 T __timer_delete
+000000dc T __timer_getoverrun
+00000100 T __timer_gettime
+00000124 T __timer_settime
+         U _cerror
+         U _cerror64
+00000148 T _libc_nanosleep
+
+__fcntl.o:
+00000000 T __fcntl
+         U _cerror
+         U _cerror64
+00000000 W _private_fcntl
+
+__sigrt.o:
+00000000 T __sigqueue
+         U _cerror
+         U _cerror64
+00000028 T _libc_sigtimedwait
+
+_so_getsockopt.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_getsockopt
+
+_so_setsockopt.o:
+         U _cerror
+         U _cerror64
+00000000 T _so_setsockopt
+
+alarm.o:
+         U _cerror
+         U _cerror64
+00000000 T _libc_alarm
+
+creat.o:
+         U _cerror
+         U _cerror64
+00000000 T _creat
+00000000 W _libc_creat
+
+fdsync.o:
+00000000 T __fdsync
+         U _cerror
+         U _cerror64
+
+fork.o:
+         U _cerror
+         U _cerror64
+00000000 T _libc_fork
+
+fork1.o:
+         U _cerror
+         U _cerror64
+00000000 T _libc_fork1
+
+getmsg.o:
+         U _cerror
+         U _cerror64
+00000000 T _getmsg
+00000000 W _libc_getmsg
+
+getpmsg.o:
+         U _cerror
+         U _cerror64
+00000000 T _getpmsg
+00000000 W _libc_getpmsg
+
+memcntl.o:
+         U _cerror
+         U _cerror64
+00000000 T _memcntl
+00000000 W memcntl
+
+open.o:
+00000000 T __open
+         U _cerror
+         U _cerror64
+
+pause.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_pause
+00000000 T _pause
+
+poll.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_poll
+00000000 T _poll
+
+pread.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_pread
+00000000 T _pread
+
+putmsg.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_putmsg
+00000000 T _putmsg
+
+putpmsg.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_putpmsg
+00000000 T _putpmsg
+
+pwrite.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_pwrite
+00000000 T _pwrite
+
+read.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_read
+00000000 T _read
+
+readv.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_readv
+00000000 T _readv
+
+setitimer.o:
+         U _cerror
+         U _cerror64
+00000000 T _libc_setitimer
+
+setsid.o:
+         U _cerror
+         U _cerror64
+00000014 T _getpgid
+00000000 T _getsid
+00000020 T _setpgid
+0000000c T _setsid
+00000014 W getpgid
+00000000 W getsid
+00000020 W setpgid
+0000000c W setsid
+
+sigaction.o:
+         U ___errno
+         U __sigaction
+00000090 T _libc_sigaction
+         U _setcontext
+00000000 D _siguhandler
+
+_sigaction.o:
+00000000 T __sigaction
+         U _cerror
+         U _cerror64
+
+sigpending.o:
+0000000c T __mt_sigpending
+00000018 T __sigfillset
+         U _cerror
+         U _cerror64
+00000000 W _libc_sigpending
+00000000 T _sigpending
+
+sigprocmsk.o:
+         U _cerror
+         U _cerror64
+00000000 T _libc_sigprocmask
+00000000 T _private_sigprocmask
+
+sigsuspend.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_sigsuspend
+00000000 T _sigsuspend
+
+sigwait.o:
+         U _cerror
+         U _cerror64
+00000000 T _libc_sigwait
+
+syscall.o:
+00000054 T __systemcall
+         U _cerror
+         U _cerror64
+00000000 T _syscall
+00000000 W syscall
+
+sysconfig.o:
+         U _cerror
+         U _cerror64
+00000000 T _sysconfig
+
+times.o:
+         U _cerror
+         U _cerror64
+00000000 T _times
+00000000 W times
+
+ucontext.o:
+00000000 T __getcontext
+0000000c T __setcontext
+         U _cerror
+         U _cerror64
+0000000c W _libc_setcontext
+
+wait.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_wait
+00000000 T _wait
+
+waitid.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_waitid
+00000000 T _waitid
+
+writev.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_writev
+00000000 T _writev
+
+gettext_util.o:
+         U _memcpy
+         U _munmap
+         U calloc
+         U category_name
+         U category_name_len
+00000344 T check_cache
+000004b0 T connect_entry
+00000538 T connect_invalid_entry
+00000618 T create_cnp
+000005b8 T create_mnp
+00000754 T doswap32
+         U free
+00000658 T free_mnp_mp
+000006e8 T get_hashid
+         U global_gt
+         U malloc
+000001f8 T mk_msgfile
+00000118 T setmsg
+         U strcmp
+
+gettext_real.o:
+         U _close
+         U _memcpy
+         U _memset
+         U _mmap
+         U _munmap
+00000f94 T _real_bindtextdomain_u
+0000008c T _real_gettext_u
+         U _strdup
+00001138 T _textdomain_u
+         U calloc
+         U category_name
+         U check_cache
+         U check_format
+         U connect_entry
+         U connect_invalid_entry
+         U create_cnp
+         U create_mnp
+         U default_domain
+         U defaultbind
+         U free
+         U free_mnp_mp
+         U get_hashid
+         U getenv
+         U global_gt
+         U gnu_key_2_text
+         U handle_lang
+         U malloc
+         U mk_msgfile
+         U nls_safe_open
+         U setmsg
+         U strcat
+         U strchr
+         U strcmp
+         U strlen
+
+strcat.o:
+00000000 T strcat
+
+setlocale.o:
+         U __C_locale
+         U __lc_charmap
+         U __lc_collate
+         U __lc_ctype
+         U __lc_locale
+         U __lc_messages
+         U __lc_monetary
+         U __lc_numeric
+         U __lc_time
+         U _lflag
+         U _locale_lock
+         U _memcpy
+         U _mutex_lock
+         U _mutex_unlock
+00000050 T _setlocale
+         U _strdup
+         U _thr_getspecific
+         U _thr_keycreate
+         U _thr_main
+         U _thr_setspecific
+00000004 D category_name
+00000000 R category_name_len
+         U free
+         U getenv
+         U malloc
+00000050 W setlocale
+         U strchr
+         U strcmp
+         U strlen
+         U strncmp
+
+strncmp.o:
+00000000 T strncmp
+
+getenv.o:
+         U __environ_lock
+         U _environ
+         U _mutex_lock
+         U _mutex_unlock
+         U clean_env
+         U env_cleaned
+00000060 T getenv
+00000000 T nvmatch
+
+env_data.o:
+00000000 D _environ
+00000000 V environ
+
+strdup.o:
+00000000 T _strdup
+         U malloc
+         U strcpy
+00000000 W strdup
+         U strlen
+
+strcpy.o:
+00000000 T strcpy
+
+loadtab.o:
+00000000 D _lflag
+00000000 T _loadtab
+00000010 D _locale_lock
+00000004 D _wcptr
+
+gettext_gnu.o:
+         U __ctype
+         U _close
+         U _memcpy
+         U _mmap
+         U check_cache
+         U check_format
+         U connect_entry
+         U connect_invalid_entry
+         U create_cnp
+         U create_mnp
+         U doswap32
+         U free
+         U free_mnp_mp
+         U get_hashid
+         U global_gt
+00000b40 T gnu_key_2_text
+00000310 T handle_lang
+         U memchr
+         U mk_msgfile
+         U nls_safe_open
+         U plural_eval
+         U plural_expr
+         U realloc
+         U setmsg
+         U strchr
+         U strcmp
+         U strlen
+         U strstr
+         U strtol
+
+strcmp.o:
+00000000 T strcmp
+
+strlen.o:
+00000000 T strlen
+
+memchr.o:
+00000000 T memchr
+
+strchr.o:
+00000000 T strchr
+
+strstr.o:
+00000000 T strstr
+
+strtol.o:
+         U ___errno
+         U __ctype
+00000000 T strtol
+
+gettext.o:
+         U ___errno
+00000084 T _bind_textdomain_codeset
+00000000 T _bindtextdomain
+00000300 T _dcgettext
+00000504 T _dcngettext
+00000258 T _dgettext
+00000454 T _dngettext
+000001b0 T _gettext
+         U _mutex_lock
+         U _mutex_unlock
+000003a8 T _ngettext
+         U _real_bindtextdomain_u
+         U _real_gettext_u
+00000110 T _textdomain
+         U _textdomain_u
+00000084 W bind_textdomain_codeset
+00000000 W bindtextdomain
+         U calloc
+00000300 W dcgettext
+00000504 W dcngettext
+00000000 R default_domain
+00000000 D defaultbind
+00000258 W dgettext
+00000454 W dngettext
+000001b0 W gettext
+00000004 D global_gt
+00000008 D gt_lock
+000003a8 W ngettext
+00000110 W textdomain
+
+plural_parser.o:
+         U __ctype
+         U calloc
+         U free
+         U malloc
+00001370 T plural_eval
+000008a4 T plural_expr
+
+_ctype.o:
+00000000 D __ctype
+00000000 V _ctype
+00000209 D _numeric
+
+mmap.o:
+         U _cerror
+         U _cerror64
+00000000 T _mmap
+00000000 W mmap
+
+munmap.o:
+         U _cerror
+         U _cerror64
+00000000 T _munmap
+00000000 W munmap
+
+putc.o:
+         U __flsbuf
+         U __threaded
+         U _flockget
+         U _mutex_unlock
+000000b8 T _putc_unlocked
+         U _setorientation
+00000000 T putc
+000000b8 W putc_unlocked
+
+_flsbuf.o:
+00000000 T __flsbuf
+00000000 W _flsbuf
+         U _putc_unlocked
+         U _realbufend
+         U _write
+         U _wrtchk
+         U _xflsbuf
+
+_wrtchk.o:
+         U ___errno
+         U _findbuf
+         U _realbufend
+00000000 T _wrtchk
+
+_findbuf.o:
+00000000 T _findbuf
+         U _fstat64
+         U _isatty
+         U _setbufend
+         U _sibuf
+         U _smbuf
+         U _sobuf
+         U malloc
+
+isatty.o:
+         U ___errno
+         U _ioctl
+00000000 T _isatty
+00000000 W isatty
+
+ioctl.o:
+         U _cerror
+         U _cerror64
+00000000 T _ioctl
+00000000 W ioctl
+
+flush.o:
+         U ___errno
+00000000 D __first_link
+         U __iob
+         U __threaded
+         U _bufendtab
+000005c0 T _bufsync
+00000000 T _cleanup
+         U _close
+00000850 T _fflush_u
+000000a8 T _findiop
+00000010 D _first_link_lock
+         U _flockget
+00000010 T _flushlbf
+         U _fstat64
+00000bec T _getmbstate
+         U _lseek64
+         U _memset
+         U _mutex_init
+         U _mutex_trylock
+         U _mutex_unlock
+00000560 T _realbufend
+00000584 T _reallock
+         U _rw_rdlock
+         U _rw_unlock
+         U _rw_wrlock
+00000510 T _setbufend
+         U _setorientation
+         U _write
+000005fc T _xflsbuf
+         U _xftab
+00000a50 T close_fd
+000008f8 T fclose
+000006e0 T fflush
+         U free
+         U malloc
+
+mse.o:
+         U __lc_charmap
+         U __lc_locale
+0000036c T __mbst_get_consumed_array
+000003e8 T __mbst_get_locale
+0000034c T __mbst_get_nconsumed
+000003a8 T __mbst_set_consumed_array
+000003f0 T __mbst_set_locale
+00000354 T __mbst_set_nconsumed
+000000f8 T _clear_internal_mbstate
+0000016c T _get_internal_mbstate
+         U _getmbstate
+00000000 T _getorientation
+         U _memcpy
+         U _mutex_lock
+         U _mutex_unlock
+00000264 T _set_orientation_wide
+00000030 T _setorientation
+         U calloc
+         U free
+
+calloc.o:
+         U ___errno
+         U _memset
+00000000 T calloc
+         U malloc
+
+memset.o:
+00000000 T _memset
+00000000 W memset
+
+malloc.o:
+         U ___errno
+         U __malloc_lock
+00000f40 T _free_unlocked
+         U _memcpy
+         U _memmove
+         U _mutex_lock
+         U _mutex_unlock
+         U _sbrk
+00000f1c T free
+000000a0 T malloc
+00000374 T realloc
+
+memcpy.o:
+00000000 T _memcpy
+00000000 W memcpy
+
+memmove.o:
+00000000 T _memmove
+00000000 W memmove
+
+sbrk.o:
+         U ___errno
+         U __sbrk_lock
+000000b8 T _brk
+         U _brk_unlocked
+         U _mutex_lock
+         U _mutex_unlock
+         U _nd
+00000000 T _sbrk
+00000030 T _sbrk_unlocked
+000000b8 W brk
+00000000 W sbrk
+
+sh_locks.o:
+         U __environ_lock
+00000018 D __malloc_lock
+00000000 D __sbrk_lock
+         U _first_link_lock
+00000028 T _libc_child_atfork
+00000050 T _libc_parent_atfork
+00000000 T _libc_prepare_atfork
+         U _mutex_lock
+         U _mutex_unlock
+         U _rw_unlock
+         U _rw_wrlock
+
+_env_data.o:
+00000000 D __environ_lock
+
+flockf.o:
+         U ___errno
+000001c8 T __fsetlocking
+         U __iob
+000000e8 T _flockfile
+00000000 T _flockget
+00000078 T _ftrylockfile
+00000158 T _funlockfile
+         U _mutex_lock
+         U _mutex_trylock
+         U _mutex_unlock
+         U _reallock
+         U _xftab
+000000e8 W flockfile
+00000078 W ftrylockfile
+00000158 W funlockfile
+
+data.o:
+0000055c D __iob
+00000508 D _bufendtab
+0000055c V _iob
+0000069c D _lastbuf
+00000408 C _sibuf
+00000000 D _smbuf
+00000408 C _sobuf
+000000a8 D _xftab
+
+errno.o:
+00000000 T ___errno
+         U _thr_errnop
+         U _thr_main
+         U errno
+
+sparc_data.o:
+00000004 C errno
+
+fstat64.o:
+         U _cerror
+         U _cerror64
+00000000 T _fstat64
+00000000 W fstat64
+
+lseek64.o:
+         U _cerror
+         U _cerror64
+00000000 T _lseek64
+00000000 W lseek64
+
+brk.o:
+00000000 T _brk_unlocked
+         U _cerror
+         U _cerror64
+         U _end
+00000000 D _nd
+
+close.o:
+         U _cerror
+         U _cerror64
+00000000 T _close
+00000000 W _libc_close
+00000000 W _private_close
+
+write.o:
+         U _cerror
+         U _cerror64
+00000000 W _libc_write
+00000000 T _write
+
+cerror.o:
+         U ___errno
+00000000 T _cerror
+         U _cerror64
+         U errno
+
+cerror64.o:
+         U ___errno
+         U _cerror
+00000000 T _cerror64
+         U errno
+
+cuexit.o:
+         U __exit_frame_monitor
+         U _cerror
+         U _cerror64
+         U _exithandle
+00000000 T exit
+
+fpsetmask.o:
+00000000 T _fpsetmask
+00000000 W fpsetmask
+
+getpid.o:
+         U _cerror
+         U _cerror64
+00000000 T _getpid
+00000000 W getpid
+
+kill.o:
+         U _cerror
+         U _cerror64
+00000000 T _kill
+00000000 W _libc_kill

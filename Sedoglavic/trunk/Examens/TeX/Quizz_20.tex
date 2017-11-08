@@ -1,0 +1,33 @@
+Quel est l'affichage produit par l'ex\'ecution du fichier produit par
+la compilation du source suivant~:
+\begin{verbatim}
+#include<stdio.h>
+enum bool {false, true } ;
+
+int main(void){
+  enum bool test ;
+  int i,j ;
+  for (i = 2; i < 10; i++){
+   test = false ;
+   j    = 2     ;
+    while (!test && j < i){
+      if (i % j == 0)
+        test = true;
+      j++;
+    }
+    if (!test)
+      putchar(i+'0') ;
+  }
+  putchar('\n');
+  return 0 ;
+}
+\end{verbatim}
+\ifcorrection
+\begin{correction}
+La correction est binaire, soit on trouve~:
+\[
+2357,
+\]
+soit c'est~$0$.
+\end{correction}
+\fi

@@ -1,0 +1,26 @@
+\section{Allocation dynamique}
+Donner la d\'efinition d'une fonction de prototype~:
+\begin{verbatim}
+int * SupprimeDoublon( const int *, int );
+\end{verbatim}
+qui prend en param\`etre un tableau d'entiers et sa taille pour 
+retourner un autre tableau d'entiers contenant les m\^emes entiers
+dans le m\^eme ordre mais tel que chaque \'el\'ement n'apparait qu'une
+fois. 
+\par
+Par exemple, si le tableau d'entr\'ee
+est
+\begin{verbatim}
+ 1,8,25,8,67,1,100,8,14,
+\end{verbatim}
+le tableau retourn\'e sera
+\begin{verbatim}
+ 1,8,25,67,100,14.
+\end{verbatim}
+\par\smallskip
+Vous pouvez utiliser la fonction \verb+malloc+ d'allocation m\'emoire de la librairie standard.
+\ifcorrection
+\begin{correction}
+  
+\end{correction}
+\fi

@@ -1,0 +1,1 @@
+void *monmalloc(unsigned int);

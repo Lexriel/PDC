@@ -1,0 +1,54 @@
+\section{Makefile}
+On dispose d'un r\'epertoire dont le contenu est~:
+\begin{verbatim}
+% ls 
+Makefile foo.c foo.o main.c main.o 
+module.c module.h module.o prog
+\end{verbatim}
+Le fichier \verb+Makefile+ contient le code suivant~:
+\begin{verbatim}
+% cat Makefile 
+CC=gcc 
+CFLAGS = -Wall -ansi -pedantic
+OBJS = main.o module.o foo.o
+
+.PHONY: doit clean
+
+prog: $(OBJS)
+     $(CC) -o prog $(OBJS) -lm
+
+main.o: main.c module.h
+     $(CC) -c $(CFLAGS) main.c
+
+clean:
+    -rm *.o
+
+doit:
+     make prog 
+     rm -f prog 
+     make clean
+\end{verbatim}
+\paragraph{Questions.}
+\begin{enumerate}
+\item En supposant qu'il n'y a pas d'erreur de compilation, d'\'edition de
+liens ou d'acc\`es aux fichiers, donner l'ensemble des commandes que le
+shell ex\'ecute si l'utilisateur tape l'instruction~:
+\begin{verbatim}
+make doit
+\end{verbatim}
+\item Que se passe-t-il si on recommence cette instruction~? Justifier.
+\item Modifiez ce Makefile pour corriger le probl\`eme (\verb+foo.c+ est le seul source n'incluant pas l'ent\^ete \verb?module.h?).
+\end{enumerate}
+
+\ifcorrection
+\paragraph{Corrections.}
+\begin{enumerate}
+\item la compilation de tous les objets, la suppression de
+  l'ex\'ecutable produit et de tous les objets.
+\item Comme tous les objets ont \'et\'e d\'etruits et que \verb+foo.o+
+  et \verb+module.o+ ne sont pas reconstruit, la compilation de
+  l'ex\'ecutable \verb+prog+ ne peut qu'\'echouer.
+\item il faut imposer la production des objets  \verb+foo.o+
+  et \verb+module.o+ sur le m\^eme mod\`ele que celle de \verb|main.o|.
+\end{enumerate}
+\fi

@@ -1,0 +1,19 @@
+Il n'y a aucun commentaire dans votre texte. Cela ne facilite pas sa lecture.
+
+Votre archive contient un ex\'ecutable inutile puisque je suis sur une architecture mac alors que votre ex\'ecutable est ELF (Executable and Linkable Format i.e. unix like).
+
+Votre README contient des informations mais aussi des accents qui risque de le rendre illisible.
+
+Il n'y a pas de traitement de saut de ligne apr\`es un ; terminant une instruction.
+
+Pas de probl\`eme avec la maitrise du langage. Insistez sur la pratique et soyez plus exigent avec votre propre code.
+
+
+
+
+Les remarques ci-dessus sont sommaires.
+L'objectif principale est de vous incitez \`a pers\'ev\'erer en \'enum\'erant ce qui visiblement pose probl\`eme.
+Nous pourrons en discuter demain en TP.
+Bon courage et bonne continuation.
+
+AS

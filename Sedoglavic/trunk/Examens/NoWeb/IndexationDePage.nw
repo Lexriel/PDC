@@ -1,0 +1,40 @@
+\section{Indexation de fichiers}
+Le principe d'un moteur de recherche textuel peut \^etre d\'ecompos\'e en au
+moins~$2$ \'etapes~:
+\begin{itemize}
+\item la copie de pages en m\'emoire locale~;
+\item l'indexation de ces pages.
+\end{itemize}
+Cet exercice est l'occasion d'expliciter le second point.
+\par
+On suppose donc disposer de fichiers textes~:
+\par
+\begin{center}
+  \begin{figure}
+    \centering
+\begin{tabular}{cc}
+fichier~$1$ & fichier~$2$
+\\
+  \mbox{
+    \begin{itemize}
+    \item kaamelott
+    \end{itemize}
+} 
+&
+  \mbox{
+    \begin{itemize}
+    \item Programmation
+    \end{itemize}
+} 
+\end{tabular}
+    \caption{Fichiers textes}
+  \end{figure}
+\end{center}
+\ifcorrection%
+Pour fournir une proposition de corrig\'e, nous pouvons coder les
+items suivants~:
+@
+<<*>>=
+/* */
+@ %def
+\fi%

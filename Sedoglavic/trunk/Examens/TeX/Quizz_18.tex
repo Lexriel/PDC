@@ -1,0 +1,20 @@
+Consid\'erons les fonctions~:
+\begin{verbatim}
+int foo(int a) { | int bar(int *b) { | int foobar(int *c) {     | int barfoo(int d) {   
+    a=a*2 ;      |     *b=(*b)*3 ;   |     return foo(bar(c)) ; |    int t ;            
+    return a+3 ; |     return *b+7 ; | }                        |    t = foo(d);        
+}                | }                 |                          |    return bar(&t) ;   
+                 |                   |                          |  }                     
+\end{verbatim}
+   Donnez la valeur des diff\'erentes variables d\'efinies ci-dessous
+   apr\`es ex\'ecution du code suivant~:
+\begin{verbatim}
+int a,b,c,d,ra,rb,rc,rd ;
+a = 10; b = 20; c = 50; d = 70;
+ra = foo(a); rb = bar(&b); rc = foobar(&c); rd = barfoo(d);
+\end{verbatim}
+\ifcorrection
+\begin{correction}
+   a = 10, b = 60, c = 150, d = 70, ra = 23, rb = 67, rc = 317, rd = 436 
+\end{correction}
+\fi

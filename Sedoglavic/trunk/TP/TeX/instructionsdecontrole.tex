@@ -1,0 +1,373 @@
+% TODO
+% dans la section branchement multiple, dire que valeur i est de type variable
+\section{Instructions de contr\^ole}
+\label{sec:InstructionsDeControle}
+On appelle \textit{instruction de   contr\^ole} toute instruction  qui
+permet de contr\^oler la succession des actions d'un programme.  Parmi
+les instructions   de  contr\^ole, on  distingue  les  instructions de
+\textit{branchement} et les instructions de \textit{boucle}. L'\'etude
+de ce type d'instruction va occuper cette section et la suivante.
+\subsection{Les instructions de branchement conditionnel}
+\label{sec:BranchementConditionnel}   
+Il existe deux type d'instructions de branchement.
+\subsubsection{Branchement\qquad \texttt{if \dots\ then \dots\ else}}
+\label{sec:BranchementIfThenElse}
+La forme g\'en\'erale d'une conditionnelle en~C est~:
+\par
+\begin{center}
+  \begin{tabular}{l}
+    \textbf{if(} \texttt{condition 1} \textbf{)}\\
+    \qquad \texttt{instruction 1} \\
+    \textbf{else if(} \texttt{condition 2} \textbf{)}\\
+    \qquad \texttt{instruction 2} \\
+    \textbf{\vdots} \\
+    \textbf{else} \texttt{instruction n} \\
+  \end{tabular}
+\end{center}
+%------------------------------------------------------------------------------
+\begin{exercice}[Correction d'une erreur]
+  Corriger le programme suivant~:
+  \input{Verbatim/if.c.verb}
+\end{exercice}
+%------------------------------------------------------------------------------
+\begin{exercice}[Indice de masse corporelle]
+  Le statisticien et sociologue belge Qu\'etelet a observ\'e au milieu
+  du~XIXi\`eme    si\`ecle,   que  le      rapport~(I)  du poids    en
+  kilogrammes~(P) par la taille   en m\`etres~(T) au   carr\'e \'etait
+  constant chez   des individus de   constitution moyenne.  En~$1998$,
+  l'Organisation Mondiale de la Sant\'e a \'etablit une classification
+  suivant ce rapport~${I=P/T^{2}}$~:
+  \begin{itemize}
+  \item maigreur pour~${I<18.5}$
+  \item limite moyenne pour~${18.5 \ldots 24.9}$
+  \item surpoids pour~${I>25}$
+  \end{itemize}
+  \par
+  Construisez une proc\'edure qui demande  \`a l'utilisateur son poids
+  en  kilogrammes  et sa  taille en m\`etres,   calcul l'indice~$I$ et
+  affiche sa condition par rapport \`a la classification de l'OMS.
+  \par
+  N'oublions pas le seul indice qui compte~: \^etre bien dans sa peau~!
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/indicemassecorporelle.c.verb}
+  \end{correction}
+  \fi
+  \paragraph{Indication~:} pour saisir au clavier un flottant et le stocker 
+  dans une variable puis l'afficher, on peut s'inspirer du code~:
+  \begin{verbatim}
+  #include<stdio.h>
+  int main(void){
+     float var ;
+     scanf("%f",&var) ;
+     printf("%f\n",var) ;
+     return 0 ;
+  }
+  \end{verbatim}
+\end{exercice}
+
+\begin{exercice}[Proc\'edure de tarification]
+  Les tarifs d'une piscine sont les suivants~:
+  \begin{itemize}
+  \item trois euros si vous avez entre~$18$ et~$65$ ans~;
+  \item deux euros si vous avez plus de~$65$ ans~;
+  \item un euros si vous avez moins de~$18$ ans.
+  \end{itemize}
+  De plus, vous pouvez b\'en\'eficier  d'une r\'eduction de~$20$\%  si
+  vous avez une carte de r\'eduction.
+  \par\medskip\noindent
+  Construire une proc\'edure principale qui  prend en entr\'ee l'\^age
+  du client et un entier indiquant  s'il a une  carte (0 pour non et 1
+  pour oui), et qui renvoie  la somme  \`a payer. L'exercice  consiste
+  \`a compl\'eter le squelette suivant~:
+\begin{verbatim}
+#include <stdio.h>  /* pour afficher et saisir au clavier scanf */
+
+int main(void){
+
+       int    Age    ;      /* variable locale stockant l'age */
+       int    Carte  ;      /* 1 si carte, 0 sinon            */
+       float  APayer ;      /* variable locale stockant le r\'esultat */
+
+       /* On collecte les donn\'ees concernant le client */
+       printf("Age du client ? ") ; /* on affiche la cha\^ine a l'\'ecran */
+       scanf("%d", &Age);           /* nous expliciterons plus tard la */
+                                    /* syntaxe &Age                    */
+       printf("Le client a-t-il une carte ? ") ;
+       scanf("%d", &Carte);
+
+       /* La partie de conditionnelle proprement dite */
+
+       /* (a completer) */
+
+        /* L'affichage du r\'esultat */
+        printf("La somme a payer est %f",APayer) ;
+        return 0 ;
+}
+\end{verbatim}
+  Les affectations  et les op\'erations  usuelles sont classiques.  On
+  affecte la  valeur~$3$  \`a la  variable  \texttt{foo}  en utilisant
+  l'instructions \mbox{\texttt{foo=3.0;}} et on  a des instructions du
+  type \mbox{\texttt{foo=foo*5.0;}}.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/tarificationpiscine.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\subsubsection{Branchement multiple\qquad  \texttt{switch \dots\ case \dots\ default}}
+\label{sec:BranchementMultiple}
+La forme g\'en\'erale d'une conditionnelle multiple en~C est~:
+\par
+\begin{center}
+  \begin{tabular}{l}
+    \textbf{switch(} \texttt{expression} \textbf{)}\\
+    \index{switch}
+    \textbf{\{} \\
+    \qquad  \textbf{case} \texttt{cste} \textbf{:} 
+    \texttt{instruction(s) 1} \textbf{break~;}\\
+    \textbf{\ldots} \\
+    \qquad \textbf{default} \textbf{:} \texttt{instruction(s)} 
+    \index{default}
+    \textbf{break} \\
+    \textbf{\}}
+  \end{tabular}
+\end{center}
+\begin{exercice}[Association entre nombres et jours]
+  On se propose de construire une proc\'edure qui  prend au clavier un
+  entier  correspondant \`a un  jour de  la semaine ---~$1$ correspond
+  \`a lundi --- et retourne sa traduction en  anglais.  Pour ce faire,
+  on d\'ecide d'utiliser une instruction de branchement multiple et de
+  compl\'eter le squelette suivant~:
+\begin{verbatim}
+#include <stdio.h>  /* pour saisir au clavier et afficher */
+
+int main(void){
+
+      int jour ;
+
+       /* On collecte un entier correspondant \`a un jour */
+       printf("Le jour de la semaine (entrer un entier, lundi = 1) ? ") ;
+       scanf("%d", &jour);
+
+       /* La partie de conditionnelle proprement dite */
+
+       /* \`a compl\'eter */
+
+       return 0 ;
+}
+\end{verbatim}
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/joursfr2gb.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\begin{exercice}[Tarification h\^otel]
+  Pour   conclure cette  s\'eance, on  se   propose de  programmer une
+  proc\'edure   de  tarification  d'un  h\^otel.  Les  tarifs sont les
+  suivants~:
+  \begin{itemize}
+  \item 40 euros pour un adulte en chambre individuelle~;
+  \item 38 euros par chambre pour  trois chambres individuelles ou plus
+    r\'eserv\'ees~;
+  \item 60 euros pour deux adultes en chambre double~;
+  \item 58   euros par chambre   pour quatre chambres doubles  ou plus
+    r\'eserv\'ees~;
+  \item gratuit\'e pour les deux premiers enfants~;
+  \item 30 euros par  enfant  \`a partir  du troisi\`eme. Les  enfants
+    dorment en  r\'efectoire   et ne  comptent pas dans   le  prix des
+    chambres individuelles ou doubles~;
+  \item le petit d\'ejeuner est obligatoire et fix\'e \`a~$6$ euros.
+  \end{itemize}
+  Pour calculer le   prix total \`a payer,  on  saisit au  clavier les
+  informations  suivantes~: nombre de  chambre individuelle, nombre de
+  chambre double, nombre d'enfant, nombre de nuit.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/tarificationhotel.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\subsection{It\'erations}
+\label{sec:Iterations}
+\subsubsection{It\'eration \'enum\'erative}
+\par
+Ceci  \'etant  dits, on  peut  maintenant d\'efinir   la syntaxe  d'une
+it\'eration \'enum\'erative.
+\par
+\begin{center}
+  \begin{tabular}{l}
+    \textbf{for(} \texttt{expr 1} \textbf{;} \texttt{expr 2} \textbf{;} 
+    \texttt{expr 3} \textbf{)} \\
+    \qquad \texttt{instructions} \\
+  \end{tabular}
+\end{center}
+\par
+Par exemple, si l'on ex\'ecute la boucle~:
+\begin{verbatim}
+int N ;
+for( N=1 ; N<11 ; N++)
+    putchar('A') ;
+\end{verbatim}
+On obtiendra l'affichage de~$10$ lettre~A.
+\begin{exercice}[Calcul de factorielle]
+  Construire un programme qui calcule la factorielle d'un nombre saisi
+  au clavier.
+  \par
+  Calculer la factorielle  de~$13$ puis celle  de~$12$.  Que constatez
+  vous~? Comment expliquez vous ce ph\'enom\`ene~?
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/factorielle.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\begin{exercice}[Suite de Fibonacci]
+  Pour un entier~$n$ saisi    au clavier, nous allons  construire  une
+  proc\'edure qui calcule et affiche le~$n$i\`eme terme de la suite de
+  Fibonacci.   Cette suite est d\'efinie   par la r\'ecurrence et  les
+  conditions initiales suivantes~:
+  \par
+  $$
+  u_{j+1}=u_{j}+u_{j-1}, \quad u_{0}=0,\quad u_{1} =1.
+  $$
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/fibonacci.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\subsubsection{It\'eration conditionnelle test\'ee en d\'ebut de boucle}
+Une instruction  sp\'ecifique existe pour le  cas fr\'equent  o\`u une
+condition est test\'e au  d\'ebut de chaque  it\'eration. Il s'agit de
+l'instruction \texttt{while} dont la forme g\'en\'erale est~:
+%HEVEA \par
+\begin{center}
+  \begin{tabular}{l}
+    \textbf{while} (\texttt{condition}) \\
+    \qquad \texttt{instructions} \\
+  \end{tabular}
+\end{center}
+%HEVEA \par
+La condition est ainsi \'evalu\'ee \`a chaque it\'eration.
+\begin{exercice}[Implantation it\'erative de l'algorithme d'Euclide]
+  \label{ex:AlgorithmeEuclideIteratif}\index{pgcd!Implantation it\'erative}
+  On se propose de calculer le plus grand commun diviseur --- pgcd ---
+  de  deux entiers par l'algorithme  d'Euclide.  Cet algorithme repose
+  sur le fait que,  \'etant donn\'e deux  entiers~$a$ et~$b$,  le pgcd
+  de~$a$ et de~$b$ est \'egal au  pgcd de~$b$ et de~$r$ o\`u~${r}$ est
+  le reste  de la division  euclidienne  de~$a$ par~$b$ et  ceci  tant
+  que~$r$  est  diff\'erent de z\'ero.   Le  pgcd est alors le dernier
+  diviseur utilis\'e.
+  \par
+  \'Ecrivez une proc\'edure qui, \`a partir de  deux entiers saisis au
+  clavier, calcule leur pgcd. Pour information,  en C la condition~$b$
+  diff\'erent de z\'ero   s'\'enonce \texttt{b!=0} et  le reste  de la
+  division   euclidienne  de~$a$ par~$b$  s'obtient  par l'instruction
+  \texttt{a\%{}b}.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/pgcd.c.verb}
+  \end{correction}
+  \fi
+  \paragraph{Remarque.}
+  Il est \'evident que  la justesse de l'implantation  de l'algorithme
+  d'Euclide que nous venons de faire repose sur la relation~:
+\begin{verbatim}
+pgcd(a,b) == pgcd(b,a%b).
+\end{verbatim}
+  De  m\^eme,   cet algorithme  se  termine  bien car  le  reste de la
+  division   euclidienne  de~$a$   par~$b$  est  nul   ou  strictement
+  inf\'erieur \`a~$b$.
+  \par
+  Par contre, la complexit\'e de  cet algorithme i.e.~le nombre de pas
+  n\'ecessaire, n'est   pas  \'evident. Bien  que cet  algorithme soit
+  mill\'enaire, il a fallut attendre~$1845$ et un r\'esultat de Lam\'e
+  pour avoir la proposition~:
+  \par
+  Soient~$a$ et~$b$ deux entiers  avec~${0\leq b\leq a}$. L'algorithme
+  d'Euclide  calculant  le     pgcd  de~$a$  et~$b$   n\'ecessite   au
+  plus~${3\,(log b)/2+1}$ pas d'ex\'ecution.
+  \par
+  La   d\'emonstration    repose   sur     la   suite   de   Fibonacci
+  (cf.~\cite[\S~1.4.4]{Demazure1997}).
+\end{exercice}
+\begin{exercice}[Racine carr\'ee par d\'efaut d'un entier positif]
+  La racine carr\'ee par    d\'efaut d'un entier positif~$n$  est   un
+  entier positif~$p$ qui v\'erifie~:
+  $$
+  p^{2}\leq n <(p+1)^{2}.
+  $$
+  Construire un programme qui permet \`a l'utilisateur de saisir un
+  entier et qui affiche sa racine carr\'ee par d\'efaut.
+  \par
+  Vous pouvez tester deux  approches~:  la recherche lin\'eaire de  la
+  racine par d\'efaut et la recherche dichotomique.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/racine_par_defaut.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+
+%------------------------------------------------------------------------------
+%\chapter{Exercices }
+%\label{cha:ExerciceSynthese}
+Nous allons consacr\'e  cette section  \`a  consolider les acquis  des
+s\'eances pr\'ec\'edentes en traitant quelques exercices.
+%------------------------------------------------------------------------------
+\input{TeX/AffichageEtoiles}
+%------------------------------------------------------------------------------
+\section{Suites r\'ecurrentes}
+\label{sec:SuitesRecurrentes}
+%------------------------------------------------------------------------------
+\input{TeX/SuiteNumeriquementInstable}
+%------------------------------------------------------------------------------
+\input{TeX/PredateursProies}
+%------------------------------------------------------------------------------
+\section{Conversions}
+\label{sec:Conversions}
+%------------------------------------------------------------------------------
+\begin{exercice}[Saisie d'entier avec getchar] 
+\label{sec:getchar}
+Construire un programme dont la fonction principale permette de saisir
+un entier stock\'e dans l'entr\'ee standard (sous forme d'une
+cha\^\i{}ne de caract\`eres termin\'ee par un retour chariot) et qui
+le retourne.
+\ifcorrection
+\begin{correction}
+\input{Verbatim/conversionASCIIEntier.c.verb}
+\end{correction}
+\fi 
+Stocker votre cha\^\i{}ne de caract\`eres en utilisant une commande
+interne du shell.  Puis, en utilisant une variable pr\'e-d\'efinie du
+shell, v\'erifiez que votre programme marche correctement (attention,
+la variable \$? est cod\'ee non sign\'ee sur un octet ).
+\end{exercice}
+
+\begin{exercice}[Affichage d'entier avec putchar] 
+Construire un programme dont la fonction principale permette d'afficher
+un entier machine stock\'e dans une variable.
+\ifcorrection
+\begin{correction}
+\input{Verbatim/conversionEntierASCII.c.verb}
+\end{correction}
+\fi 
+\end{exercice}
+
+\paragraph{Remarque.}
+Vous utiliserez syst\'ematiquement ces codes chaque fois que vous
+aurez \`a saisir ou \`a afficher des entiers.
+%------------------------------------------------------------------------------
+\input{TeX/FanTan}
+%------------------------------------------------------------------------------
+\input{TeX/ConversionFrancEuro}
+%------------------------------------------------------------------------------
+\input{TeX/ConversionTemperature}
+%------------------------------------------------------------------------------
+\input{TeX/Zeller}
+%------------------------------------------------------------------------------
+\input{TeX/Otan}
+%------------------------------------------------------------------------------
+\input{TeX/Filtre}

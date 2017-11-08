@@ -1,0 +1,20 @@
+ \'Etant donn\'e les d\'eclarations suivantes~:
+\begin{verbatim}
+char a[14] = "pointeur en c";
+char c = 'b';
+char *p1 = &c, **p2 = &p1;
+\end{verbatim}
+  D\'eterminer --- en justifiant vos r\'eponses --- si les affectations
+  suivantes sont syntaxiquement correctes en~C~:
+\begin{verbatim}
+p1 = a + 5; &p1 = &a[0]; p2 = a; *(a + 10) = 't'; *p2 = %c;
+\end{verbatim}
+\ifcorrection
+\begin{verbatim}
+p1 = a + 5 ; /* syntaxiquement correct */
+&p1 = &a[0] ; /* incorrect, on ne peut pas affecter au membre gauche */
+p2 = a ; /* incorrect, a n'est pas un pointeur de pointeur */
+*(a+10) = 't' ; /* est correct */
+*p2 = %c ; /* % est incorrect */
+\end{verbatim}
+\fi

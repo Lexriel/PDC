@@ -1,0 +1,37 @@
+\newif{\ifcorrection}
+\correctionfalse
+%\correctiontrue
+
+\newcounter{exercicecounter}
+\setcounter{exercicecounter}{1}
+
+\def\name#1#2{\mbox{#1 \textsc{#2}}}
+
+\newtheorem{definition}{D\'efinition}
+\newtheorem{theoreme}{Th\'eor\`eme}
+
+
+\newenvironment{exercice}[1][]%
+{\par\medskip\noindent%
+ %HEVEA\par
+  \textbf{Exercice \theexercicecounter\ --- #1.}\par\smallskip}%
+{\addtocounter{exercicecounter}{1}%
+  \par\smallskip%
+  }
+
+\newenvironment{correction}[1][]%
+{\par\medskip\noindent%
+ % \ifhtml%
+ % \textbf{Correction~\ref{cor:\theexercicecounter}.}%
+ % \begin{cutflow}{cor:\theexercicecounter}
+ %   \label{cor:\theexercicecounter}
+ %   \else%
+    \textbf{Correction.}
+  %  \fi%
+    }
+  {%\ifhtml%
+ % \end{cutflow}%
+  \par%
+ % \fi%
+  }
+

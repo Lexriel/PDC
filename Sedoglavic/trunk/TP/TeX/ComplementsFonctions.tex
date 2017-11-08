@@ -1,0 +1,109 @@
+\section{Une implantation sommaire de la fonction printf}
+\label{sec:printf}
+Dans cette section, on se propose d'implanter la fonction printf dans
+une architecture Intel~x86 dans laquelle le passage des param\`etres
+se fait par une pile.
+
+Par ailleurs, on suppose ne disposer que d'une seule fonction externe
+dont le prototype est \verb?int putchar(int);? et qui \'ecrit dans la
+sortie standard un caract\`ere dont le code ascii est pass\'e en
+param\`etre. Par exemple, pour afficher le caract\`ere~\~\, on peut
+utiliser le code suivant~:
+\begin{verbatim}
+#include<stdio.h>
+
+int main(){
+  char c = '~' ;
+  putchar( c) ;
+  return 0 ;
+}
+\end{verbatim}
+L'objectif est d'implanter la fonction de prototype~:
+\verb?void mprintf(const char *format, ...)?
+permettant d'afficher sur la sortie standard~:
+\begin{itemize}
+\item des caract\`eres ascii~;
+\item des cha\^\i{}nes de caract\`eres~;
+\item des entiers machines dans les bases d\'ecimale et binaire~;
+\item des entiers machines de Gauss nomm\'es i.e.\ des nombres
+  complexes dont les parties r\'eelles et imaginaires sont des entiers
+  machines et auxquels on associe une cha\^\i{}ne de caract\`eres.
+\end{itemize}
+\par
+Cette fonction a un param\`etre obligatoire et un nombre variable de
+param\`etres. 
+\par
+Le param\`etre obligatoire est constitu\'e par une cha\^\i{}ne de
+caract\`eres qui est compos\'ee de caract\`eres ordinaires et
+de~${0, 1}$ ou plusieurs directives.  Un caract\`ere ordinaire est un
+caract\`ere ascii \`a l'exception du caract\`ere~\%.  Une directive
+commence par le caract\`ere~\% et peut \^etre de plusieurs formes~:
+\begin{itemize}
+\item  la directive~\%c indique que l'on souhaite afficher un caract\`ere~;
+\item la directive~\%s indique que l'on souhaite afficher une
+  cha\^\i{}ne de caract\`eres~;
+\item la directive~\%d indique que l'on souhaite afficher un entier en
+  base d\'ecimale~;
+\item la directive~\%b indique que l'on souhaite afficher un entier en
+  base binaire (cette base est indiqu\'ee par la lettre
+  minuscule~b~: l'entier d\'ecimal~$2$ est affich\'e comme~$10b$)~;
+\item la directive~\%Gd indique que l'on souhaite afficher un entier de
+  Gauss en base d\'ecimale (par exemple~$2 + 2 I$)~;
+\item la directive~\%Gb indique que l'on souhaite afficher un entier
+  de Gauss en base binaire (par exemple~$ 10b + 10b I$)~;
+\item toute autre lettre suivant un~\% est affich\'ee (ce qui permet
+  d'afficher le caract\`eres ascii \%).
+\end{itemize}
+
+\paragraph{Questions}
+\begin{enumerate}
+\item Donnez la d\'efinition d'une fonction %
+  \verb?void PrintInt(int i,int b)? qui \'ecrit sur la sortie
+  standard l'entier~$i$ dans la base~${b\in\{2,10\}}$.
+\item 
+  Donnez la d\'efinition d'une fonction %
+  \verb?void PrintString(char *s)? qui \'ecrit sur la sortie standard
+  la cha\^\i{}ne de caract\`eres associ\'ee \`a~s.
+\item Donnez la d\'efinition de la fonction de prototype %
+  \verb?int *parpt(int,...);? qui prend en entr\'ee un entier
+  indiquant la position d'un param\`etre
+dans la liste des param\`etres\footnote{dans la fonction %
+  \verb?void PrintInt(int i,int b)? i est le premier param\`etre,~b est le second.}
+et qui retourne un pointeur sur ce param\`etre.
+\item Donnez la d\'efinition de la fonction \verb?mprintf?.
+\end{enumerate}
+
+\paragraph{Indications.}
+Rappelons que les param\`etres d'une fonction sont pass\'es par la
+pile. Cette pile est compos\'ee de cellules dont la taille en octet
+correspond au type \verb?int?, elle croit vers les adresses
+d\'ecroissantes et elle a la structure suivante~:
+\begin{center}
+  \begin{tabular}{l|c|}
+    \hline 
+    0000 & $\cdots$ \\ \hline
+    & seconde variable locale \\ \hline
+    & premi\`ere variable locale \\ \hline
+    & ancien pointeur de contexte \\ \hline
+    & adresse de retour \\ \hline
+    & premier param\`etre \\ \hline
+    & second param\`etre \\ \hline
+    FFFF &$\cdots$ \\ \hline
+  \end{tabular}
+\end{center}
+Ainsi si \verb?foo? est la premi\`ere variable locale automatique
+d\'efinie dans la fonction appel\'ee et que \verb?ptr?  est un
+pointeur sur cette variable, \verb?ptr+1? pointe sur l'ancien pointeur
+de contexte.
+\par
+De plus, lors de l'appel d'une fonction, ses param\`etres sont
+empil\'es du dernier au premier et on note qu'un param\`etre de type
+\begin{itemize}
+\item entier occupe une cellule~;
+\item pointeur occupe une cellule~;
+\item caract\`ere occupe une cellule~;
+\item entier de Gauss occupe~$3$ cellules, les champs sont empil\'es
+  du dernier au premier.
+\end{itemize}
+\section{scanf}
+\`A vous d'implantez la fonction scanf sur le m\^eme principe

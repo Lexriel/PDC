@@ -1,0 +1,145 @@
+Les  pr\'esentes  notes  constituent un support   de travaux pratiques
+consacr\'es au langage~C et destin\'es  \`a des \'etudiants de Licence.
+\par
+Ces travaux pratiques occupent  un  semestre.  Les machines mises  \`a
+disposition sont des  ordinateurs    personnels   sous  linux.     
+\ifcorrection
+\par
+Afin  de facilite les  choses, une correction   de chaque exercice est
+disponible. Il est fortement conseill\'e de r\'ediger du code avant de la
+consulter.
+\fi
+\section*{Bref historique}
+\label{sec:BrefHistorique}
+Le langage~C a \'et\'e  \'elabor\'e  en~$1972$ par Dennis  Ritchie aux
+laboratoires Bell pour  le syst\`eme d'exploitation \texttt{UNIX}.  Ce
+syst\`eme d'exploitation,   le   compilateur~C  et  la    plupart  des
+programmes d'application \texttt{UNIX} sont \'ecrits en~C.
+\par
+En~$1983$,  l'ANSI d\'ecida de normaliser ce   langage et d\'efinit la
+norme ANSI~C  en~$1989$.   Elle fut reprise  int\'egralement en~$1990$
+par l'ISO.
+\par
+Les outils li\'es au langage C (compilateur, etc.) sont gratuit sous
+Linux.  Il est disponible --- parmi beaucoup d'autres choses --- dans
+la distribution Mandrake par exemple.  Des versions libres sont
+disponibles sous Windows.
+\section*{Orientation g\'en\'erale du langage}
+\label{Orientation}
+Le langage~C  est un  langage  imp\'eratif~;  les instructions  qui le
+composes se succ\`edent les unes apr\`es les  autres et des structures
+de  contr\^ole permettent de  manipuler   ce flot.  Comme la plupart
+des langages, C permet
+\begin{itemize}
+\item l'abstraction des  donn\'ees~: la repr\'esentation des donn\'ees
+  est   s\'epar\'ee des op\'erations d\'efinies    sur celles-ci et de
+  leurs implantations machine~;
+\item l'abstraction des structures de  contr\^ole~: il est inutile  de
+  nommer   individuellement les points  de  contr\^ole  (comme dans un
+  programme assembleur).
+\end{itemize}
+C n'est pas un langage de \textit{haut niveau}. Ainsi, il ne pr\'evoit
+pas d'instruction traitant des objets compos\'es comme des cha\^\i{}nes
+de caract\`eres, des listes, etc.  Pour comparer deux cha\^\i{}nes, il
+faut  utiliser une  fonction.   Le   langage~C  est ind\'ependant   de
+l'architecture de toute machine. Malgr\`es tout,  c'est un langage qui
+reste efficace et puissant.
+\section*{Bibliographie}
+\label{Bibliographie}
+En ce qui concerne la bibliographie, on peut citer comme ouvrage de
+r\'ef\'erence~\cite{KernighanRitchie1986} pour la compr\'ehension du
+langage et~\cite{Sedgewick2001} pour un aper\c{c}u des algorithmes
+fondamentaux.
+
+%\section*{Calendrier premier semestre~2005}
+%\label{sec:Calendrier}
+%Cette section pr\'esente un calendrier pr\'evisionnel de progression
+%pour le semestre en cours. Si vous d\'ecrochez de ce calendrier,
+%n'h\'esitez pas \`a venir m'en parler.
+
+% \newcounter{pub}
+
+%\begin{list}{Semaine~\arabic{pub}.}%
+%{\usecounter{pub}\setcounter{pub}{2}%
+%\setlength{\itemsep}{\smallskipamount}%
+%\setlength{\labelsep}{1.5\labelsep}}
+%\item Shell
+%  \begin{itemize}
+%  \item[Cours-TD]~: l'interpr\'eteur de commandes interactif~;
+%  \item[TP]~: th\`eme~\ref{cha:Shell} sur l'utilisation du shell.
+%  \end{itemize}
+%\item Premiers pas en~C
+%  \begin{itemize}
+%  \item[Cours-TD]~: premier programme, expressions et instructions~;
+%  \item[TP]~: th\`eme~\ref{cha:PremierPas} sur les premiers pas en~C
+%    (compilation, expressions, instructions).
+%  \end{itemize}
+%\item Exercices
+%  \begin{itemize}
+%   \item[Cours-TD]~: exercices~;
+%   \item[TP]~: th\`eme~\ref{cha:InstructionDeControle} sur les
+%     instructions de contr\^ole.
+%  \end{itemize}
+%\item Modularit\'es et tableau  
+%  \begin{itemize}
+%  \item[Cours-TD]~: notions de fonctions, de tableaux, compilation
+%    s\'epar\'ee, make et gdb~;
+%  \item[TP]~: th\`eme~\ref{cha:Recursivite} sur les fonctions et
+%    th\`eme~\ref{cha:Tableaux} sur les tableaux.
+%  \end{itemize}
+%\item Interruption p\'edagogique.
+%\item Types compos\'es.
+%  \begin{itemize}
+%  \item[Cours-TD]~: structures, unions. \'Enum\'erations et champs de
+%    bits. D\'efinitions de nouveaux types. Directives au
+%    pr\'eprocesseur~;
+%  \item[TP]~: th\`eme~\ref{cha:TypesComposes} sur les types
+%    compos\'es.
+%  \end{itemize}
+%\item Premier contact avec les pointeurs.
+%  \begin{itemize}
+%  \item[Cours-TD]~: pointeurs, notions de bases~;    
+%  \item[TP]~: d\'ebut du th\`eme~\ref{cha:Pointeurs} sur les pointeurs.
+%  \end{itemize}
+%\item Pointeurs~: compl\'ements~;    
+%  \begin{itemize}
+%  \item[Cours-TD]~: pointeurs, compl\'ements~;    
+%  \item[TP]~:  fin du th\`eme~\ref{cha:Pointeurs} sur les pointeurs.
+%  \end{itemize}
+%\item Premier projet~: manipulation d'images.
+%  \begin{itemize}
+%  \item[Cours-TD]~: structures auto-r\'ef\'erentes~;
+%  \item[TP]~: th\`eme~\ref{cha:StructuresAutoreferencees} les
+%    structures auto-r\'ef\'erentes.
+%  \end{itemize}
+%\item Pile d'ex\'ecution.
+%  \begin{itemize}
+%  \item[Cours-TD]~: pile d'ex\'ecution~;
+%  \item[TP]~: th\`eme~\ref{cha:ComplementsFonctions} compl\'ement sur les fonctions.
+%  \end{itemize}
+%\item Contr\^ole continu et remise du premier projet.
+%  \begin{itemize}
+%   \item[Cours-TD]~: \'evaluation \'ecrite pour le contr\^ole continu~;
+%  \item[TP]~:  \'evaluation --- programme \`a faire et \`a rendre en temps limit\'e~;
+%  \end{itemize}
+%\item Pr\'esentation du second projet.
+%  \begin{itemize}
+%   \item[Cours-TD]~: les classes d'allocations en~C~;
+%  \item[TP]~: pr\'esentation du second projet et bilan du contr\^ole continu.
+%  \end{itemize}
+%\item Interruption p\'edagogique.
+%\item Interruption p\'edagogique.
+%\item Remise du second projet. 
+%  \begin{itemize}
+%   \item[Cours-TD]~: le d\'ebordement de pile~;
+%  \item[TP]~: exercices de synth\`ese.
+%  \end{itemize}
+%\item Derni\`ere semaine --- r\'evisions.
+%  \begin{itemize}
+%   \item[Cours-TD]~: un exemple de synth\`ese. B\'etisier~;
+%  \item[TP]~: exercices de synth\`ese.
+%  \end{itemize}
+%\item Pas de cours.
+%\item Premi\`ere session d'examens.
+%\item Premi\`ere session d'examens.
+%\end{list}

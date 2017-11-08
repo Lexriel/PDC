@@ -1,0 +1,32 @@
+\documentclass[11pt]{beamer}
+%\documentclass[11pt,handout]{beamer}
+\usetheme{Goettingen}
+\usefonttheme{structurebold}
+\usepackage[french]{babel}
+\usepackage{svn-multi}
+%------------------------------------------------------------------------------
+% Use a small font for the verbatim environment
+\makeatletter  % makes '@' an ordinary character
+\renewcommand{\verbatim@font}{%
+  \ttfamily\footnotesize\catcode`\<=\active\catcode`\>=\active%
+}
+\makeatother   % makes '@' a special symbol again
+%------------------------------------------------------------------------------
+\input{../Stuff/macro}
+\input{../Stuff/environment}
+%------------------------------------------------------------------------------
+% 12 should be substitute by Makefiles
+\input{12_title}
+\date{Semestre~$5$~---~$2007$-$08$}
+\institute{
+{
+Licence --- Universit\'e Lille~1
+\\
+Pour toutes remarques~: Alexandre.Sedoglavic@lifl.fr} 
+}
+\begin{document}
+\frame{\titlepage}
+\input{12}
+\end{document}
+%------------------------------------------------------------------------------
+% That's all folks

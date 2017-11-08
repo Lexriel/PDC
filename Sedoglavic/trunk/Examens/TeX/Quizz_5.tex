@@ -1,0 +1,27 @@
+Qu'affiche le programme suivant~?
+\begin{verbatim}
+int 
+main
+(void)
+{
+  int tab[5] = {1,2,3,4,5};
+  int *p, *q, i;
+  
+  i = 2; tab[i++] = 0;
+  p = tab; q = p + i - 1;
+  *(q+1) = tab[i-1] + (q-p);
+
+  for(i=0;i<5;i++)
+     printf("%d ",tab[i]);
+
+   return 0 ;
+}
+\end{verbatim}
+\ifcorrection
+\begin{correction}
+  Ce code affiche
+\begin{verbatim}
+1 2 0 2 5 
+\end{verbatim}
+\end{correction}
+\fi

@@ -1,0 +1,36 @@
+\section{Correction d'erreurs}
+\label{sec:CorrectionDErreurs}
+Indiquez toutes les erreurs contenues dans le code suivant~:
+\begin{verbatim}
+     1  #define <string.h>
+     2  #define <stdio.h>
+     3  char *dico[taille_dico] := { "drap", "nuee", /* etc. */ , "emut" }; 
+     4  void PetitElement(int g){
+     5    int pos := g ;
+     6    for( g++ , g<taille_dico , g++)
+     7      if strcmp(*(dico)+g,dico[pos])<0
+     8      then pos := g ;
+     9    return pos 
+    10  }
+    11  void TriSelection(void){
+    12    char *tmp ;
+    13    for( i:=0 , i < taille_dico , i++ ) {
+    14      min := PlusPetitElement(i) ;
+    15      tmp       := dico[min] ;
+    16      dico[min] := *(dico+i) ;
+    17      dico[i]   := tmp       ;
+    18    }  
+    19  }
+    20  void affichage(void){
+    21    int i ;
+    22    for ( , i < taille_dico , i++)
+    23      print("%d\n",dico[i]) ;
+    24  }
+    25  char main(void){
+    26    print("D\'ebut du tri\n") ;
+    27    TriSelection;
+    28    print("Fin du tri\n") ;
+    29    affichage ;
+    30    return 1 
+    31  }
+\end{verbatim}

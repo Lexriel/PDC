@@ -1,0 +1,11 @@
+Jules IVANIC
+
+Commande pour le compiler :
+	$ make
+	
+Commande pour l'exécuter :
+	$ ./pp < fichierDentrée > fichierDeSortie
+
+Remarque : Programme non fonctionnelle. Je n'ai pas réussi à implémenter
+	le premier point du TP qui est l'indentation correct du texte donné au filtre, 
+	ni le reste dans le temps imparti.

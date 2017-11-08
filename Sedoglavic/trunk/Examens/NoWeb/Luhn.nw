@@ -1,0 +1,71 @@
+\section{Algorithme de Luhn}
+L'algorithme de Luhn est une formule de somme de contr\^ole utilis\'ee pour le calcul de validit\'e des num\'eros \textsc{siret} ou \testsc{imei}.
+\par
+Cet algorithme comporte~$3$ composantes~:
+\begin{enumerate}
+\item L'algorithme multiplie par deux un chiffre sur deux, en
+  commen{\c c}ant par l'avant dernier et en se d{\'e}pla{\c c}ant de droite {\`a}
+  gauche. Si un chiffre qui est multipli{\'e} par deux est plus grand que
+  neuf (comme c'est le cas par exemple pour 8 qui devient 16), alors
+  il faut le ramener {\`a} un chiffre entre 1 et 9. Pour ce faire, on lui soustrait 9. 
+\item La somme de tous les chiffres obtenus est effectu{\'e}e. 
+\item Le r{\'e}sultat est divis{\'e} par 10. Si le reste de la division est {\'e}gal {\`a} z{\'e}ro, alors le nombre original est valide.
+\end{enumerate}
+Donnez la d\'efinition de la fonction de prototype
+\begin{verbatim}
+int LuhnCheck(const char *) ;
+\end{verbatim}
+qui prend en param\`etre une cha\^\i{}ne de caract\`eres codant un
+num\'ero et retournant~$1$ si le nombre est valide (au sens ci-dessus)
+et~$0$ sinon.
+\ifcorrection
+@
+Pour donner la d\'efinition de la fonction \verb+LuhnCheck+, nous
+allons compl\'eter le squelette suivant~:
+<<*>>=
+int 
+LuhnCheck
+(const char *str) 
+{
+<<variables automatiques>>
+<<analyse de la cha\^\i{}ne de caract\`eres>>
+<<r\'esultat de l'analyse>>
+}
+@ %def
+@
+Pour commencer, il nous faut trouver le dernier terme et pour ce
+faire, nous allons utiliser un compteur 
+<<variables automatiques>>=
+int i;
+@ %def
+@
+Ensuite,  pour se positionner sur le dernier entier, il nous suffira de faire un parcours de boucle~:
+<<analyse de la cha\^\i{}ne de caract\`eres>>=
+for(i=0; str[i] ; i++) 
+   str[i]=str[i]-'0';
+@ %def
+on en profite d'ailleurs pour convertir les caract\`eres en entiers.
+@
+De plus, on peut s'occuper du cas ou un seul caract\`ere est pr\'esent
+<<analyse de la cha\^\i{}ne de caract\`eres>>=
+if(i==1) return 0 ;
+@ %def
+
+@
+Reste \`a faire maintenant le parcours de la cha\^\i{}ne~:
+<<analyse de la cha\^\i{}ne de caract\`eres>>=
+for(somme=0;i>0;i--)
+somme += str[i--]+2*str[i]-(str[i]>=5?9:0) ;
+@ %def
+@ 
+On utilise ici une variable
+<<variables automatiques>>=
+int somme ;
+@ %def
+@
+Pour finir, il ne reste qu'a consid\'erer le modulo de cette variable
+par~$10$~:
+<<r\'esultat de l'analyse>>=
+return ((somme %10)==0)
+@ %def
+\fi%

@@ -1,0 +1,28 @@
+\section{Que font ces programmes~?}
+Consid\'erons les d\'eclarations suivantes~:
+\begin{verbatim}
+typedef struct Point{
+  int x ;
+  int y ;
+} Point ;
+Point p[100], *p1 = p, *p2 = p+99 , *p3 ;
+int i = 50 ;
+\end{verbatim}
+Les expressions suivantes  sont-elles correctes~? Si oui, donnez leurs
+types et leurs valeurs \'eventuelles.
+\par
+\begin{center}
+  \begin{tabular}{lllll}
+    \verb^p1+i^ & \verb^p1++^ & \verb^p++ + i^ & \verb^p2-p1^ & \verb^p3>p2^ \\
+    \verb^*p2+p1^ & \verb^p1+p2^ & \verb^p1 + (p2-p3)^ & \verb^p2->x-*p1.x^ & \verb^*p2 - i^
+  \end{tabular}
+\end{center}
+\par
+M\^eme exercice avec les expressions suivantes~:
+\begin{verbatim}
+int b[3][5] ;
+int *a = *b , c ;
+for(c=0;c<15; *a++=c++) ;
+**b = 15       ; **(b+1) = 16     ; *(b[0]+1) = 17 ; *(*b+8) = 18 ;
+*(b[1]+2) = 19 ; *(*(b+1)+5) = 20 ; *(b[2]+3) = 21 ; *(*(b+2)+2) = 22 ;
+\end{verbatim}

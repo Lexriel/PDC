@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec emacs `find ./src/ -iname '*.c'` `find ./src/ -iname '*.h'` Makefile

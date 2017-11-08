@@ -1,0 +1,71 @@
+
+\section{Exercice sur l'allocation dynamique}
+On se propose de donner les structures de donn\'ees et les fonctions
+permettant de repr\'esenter une partie de morpion. Ce jeu oppose~$2$
+joueurs autour d'une grille de~$9$ cases~:
+\begin{center}
+  \begin{tabular}{|c|c|c|}
+    \hline 
+    X & & O   \\  \hline 
+    O & X & \\    \hline
+    O &  & O   \\  \hline
+    \end{tabular}
+\end{center}
+On tire au hasard le joueur qui commence. Puis successivement, chaque
+joueur marque une case de son signe et l'objectif est d'aligner~$3$
+signes identiques.
+
+\par\medskip\noindent\textbf{Travail \`a rendre.}  \'Ecrivez un
+programme permettant de repr\'esenter une partie de morpion en
+utilisant les d\'eclarations de la figure~\ref{fig:declaration}
+page~\pageref{fig:declaration} et en vous conformant strictement aux
+sp\'ecifications des questions.
+\begin{figure}[htbp]
+  \centering
+\begin{verbatim}
+#define NULL 0
+typedef enum{X,O,fini} joueur_t ; 
+
+typedef struct position_s *ptrposition_t;
+
+partie_t * partie ;
+
+typedef struct position_s *ptrposition_t;
+\end{verbatim}
+  \caption{D\'eclarations (exercice de la repr\'esentation du jeu de morpion)}
+  \label{fig:declaration}
+\end{figure}
+Ce programme utilisera une liste cha\^\i{}n\'ee de type
+\verb+partie_t+ pour stocker la suite ordonn\'ee de toutes les
+positions qui ont \'et\'e jou\'ees. Vous devez donc
+\begin{enumerate}
+\item Donnez la d\'eclaration de \verb+position_s+ repr\'esentant une
+  position. Une position permet d'avoir l'\'etat de la grille \`a un
+  seul moment du jeu.
+\item Donnez une d\'efinition de la fonction
+\begin{verbatim}
+ptrposition_t creerNouvellePosition( ptrposition_t b, joueur_t p, 
+                                     int ligne, int colonne);
+\end{verbatim}
+  qui \`a partir d'une position ant\'erieure et d'un coups d'un joueur
+  construit la position ainsi obtenue. Si le coup n'est pas valide,
+  cette fonction retourne \verb+NULL+.
+\item Donnez une d\'eclarations du type \verb+partie_t+ permettant de
+  construire une liste cha\^\i{}n\'ee repr\'esentant une partie.
+\item la fonction %
+  \verb+joueur_t aQuiLeTour(partie_t *encours);+%
+  qui d\'etermine \`a partir d'une partie, le prochain joueur \`a
+  jouer. Cette fonction retourne \verb+fini+ \`a la fin du jeu et
+  lorsqu'elle est appell\'ee avec une position dans laquelle aucun
+  joueur n'a jou\'e.
+%\item Donnez la d\'efinition de la fonction
+%  \verb+insererPositionDansPartie+ qui ajoute une cellule contenant
+%  une position qui lui est pass\'ee en param\`etre \`a une liste
+%  cha\^\i{}n\'ee elle aussi pass\'ee en param\`etre.
+\item Donnez la d\'efinition de la fonction \verb+detruirePartie+
+  permettant de lib\'erer l'espace m\'emoire associ\'e \`a une partie.
+\end{enumerate}
+
+\par\medskip\noindent\textbf{Attention.}
+Ce programme n'est pas sens\'e ni d\'ecider des coups ni les afficher 
+mais seulement les enregistrer.

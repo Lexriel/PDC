@@ -1,0 +1,26 @@
+\newcounter{exercicecounter}[chapter]
+\setcounter{exercicecounter}{1}
+
+\newenvironment{exercice}[1][]%
+{\par\medskip\noindent%
+                                %HEVEA\par
+  \textbf{Exercice \thechapter.\theexercicecounter\ --- #1.}\par\smallskip}%
+{\addtocounter{exercicecounter}{1}%
+  \par\smallskip%
+  }
+
+\newenvironment{correction}[1][]%
+{\par\medskip\noindent%
+  \ifhtml%
+  \textbf{Correction~\ref{cor:\theexercicecounter}.}%
+  \begin{cutflow}{cor:\theexercicecounter}
+    \label{cor:\theexercicecounter}
+    \else%
+    \textbf{Correction.}
+    \fi%
+    }
+  {\ifhtml%
+  \end{cutflow}%
+  \par%
+  \fi%
+  }

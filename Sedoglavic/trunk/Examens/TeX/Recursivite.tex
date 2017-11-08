@@ -1,0 +1,26 @@
+\section{Un programme r\'ecursif}
+ \'Ecrire une fonction \textbf{r\'ecursive} qui r\'ecup\`ere  les caract\`eres de 
+l'entr\'ee standard et les reproduit sur la sortie standard en ordre inverse.
+Par exemple, si on a en entr\'ee la suite de caract\`eres \verb+1234A+ alors
+la fonction retourne sur la sortie standard la suite de caract\`eres
+\verb+A4321+.
+\paragraph{Remarque~:} vous disposez des fonctions \verb+getchar+ et \verb+putchar+.
+\ifcorrection
+\par
+Une solution un peu acrobatique~:
+\begin{verbatim}
+#include <stdio.h>
+
+int
+main
+(int argc, char **argv)
+{
+        if (argc==EOF)
+                return 0 ;
+
+        main(getchar(),NULL) ;
+        putchar(argc);
+        return 0 ;
+}
+\end{verbatim}
+\fi

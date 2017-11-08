@@ -1,0 +1,20 @@
+Un readme minimaliste.
+Vous pourriez mettre dans le readme ce que fait votre programme et ce que vous avez implant\'e plut\^ot que de me laisser tout lire pour le deviner.
+Donc comme on ne sait pas ce que vous attendez comme specification de votre code, l'utilisateur se construit sa propre specification que votre code a peu de chance de remplir.
+Fournir un fichier d'essai que l'on a fait soi-meme est une bonne facon de mettre son travail en valeur.
+
+votre makefile est bien.
+
+Il n'y a aucun commentaire dans votre texte. Cela ne facilite pas sa lecture.
+
+Il n'y a pas de traitement de saut de ligne apr\`es un ; terminant une instruction.
+
+Le fichier en sortie de votre filtre n'est pas lisible.
+
+
+Les remarques ci-dessus sont sommaires.
+L'objectif principale est de vous incitez \`a pers\'ev\'erer en \'enum\'erant ce qui visiblement pose probl\`eme.
+Nous pourrons en discuter demain en TP.
+Bon courage et bonne continuation.
+
+AS

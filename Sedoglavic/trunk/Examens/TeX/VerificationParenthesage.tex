@@ -1,0 +1,26 @@
+%\section{V\'erification du parenth\'esage}
+  On consid\`ere   une cha\^\i{}ne de caract\`eres  repr\'esentant une
+  expression arithm\'etique du type~:
+\begin{verbatim}
+"(x+1)*(x+2)*(y+1)+2".
+\end{verbatim}
+  \par
+  On d\'esire donner la d\'efinition d'une fonction qui v\'erifie que l'expression est
+  valide du  simple point  de vue  du  parenth\'esage.  Il  faut  donc
+  v\'erifier que le nombre  de parenth\`eses ouvrantes est \'egale \`a
+  celui des parenth\`eses fermantes et  qu'il n'y a, \`a aucun endroit
+  de la cha\^\i{}ne, plus de parenth\`eses fermantes qu'ouvrantes.
+  \par
+  Par exemple, \texttt{"(((x+1))"} est incorrecte car il y a~$3$
+  parenth\`eses ouvrantes et seulement~$2$ fermentes.  L'expression
+  \texttt{"(x+1))+((y+2)} est incorrecte \'egalement car il y a~$2$
+  fermetures de parenth\`eses (apr\`es le \texttt{x+1}) alors qu'une
+  seule est ouverte.
+  \par
+  Donnez la d\'efinition de la fonction de prototype \texttt{int
+    estValide(char ch[MAX])} qui d\'etermine si le parenth\'esage de
+  \texttt{ch} est correct (on renvoie~$1$ si oui et~$0$ sinon).
+  \par
+  Notez qu'on ne v\'erifie que le parenth\'esage, la fonction renverra
+  donc~$1$ pour les   expressions   du type  \texttt{"(x++-3)*+y}   ou
+  \texttt{"()()x"}.

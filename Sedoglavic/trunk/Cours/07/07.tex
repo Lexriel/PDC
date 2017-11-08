@@ -1,0 +1,722 @@
+%---------------------------------------------------------------------------
+\svnidlong 
+{$HeadURL: https://svn.fil.univ-lille1.fr/svn/sedoglav_PDC/trunk/Cours/07/07.tex $} 
+{$LastChangedDate: 2012-11-09 14:42:57 +0100 (Fri, 09 Nov 2012) $} 
+{$LastChangedRevision: 81 $} 
+{$LastChangedBy: sedoglav $} 
+\svnid{$Id: 07.tex 81 2012-11-09 13:42:57Z sedoglav $} 
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\section{Principes g\'en\'eraux}%
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{D\'efinition d'objets auto-r\'ef\'erents}%
+  L'id\'ee de base est d'inclure dans la d\'efinition de l'objet des
+  r\'ef\'erences \`a des objets de m\^eme type~;
+\begin{itemize}
+  \item arbres, listes, graphes, etc.~: ce sont des n\oe{}uds
+    r\'ef\'eren\c{c}ant d'autres n\oe{}uds~;
+  \item ce sont des types r\'ecursifs. Par exemple, pour arbre binaire de
+    recherche on a~:
+\begin{verbatim}
+struct noeud {
+   int value;
+   struct noeud *gauche, *droit;
+};
+\end{verbatim}
+  \item mais l'espace m\'emoire est r\'eserv\'e pour un {\em pointeur}
+    sur une structure {\tt noeud}~;
+    \begin{it}
+      pas pour stocker un objet de type {\tt noeud}. 
+    \end{it}
+\end{itemize}
+On peut d\'efinir des objets en r\'ef\'erence crois\'ee~:
+\begin{verbatim}
+  struct s {            struct t {         
+    ...                   ...              
+    struct t *p_t;        struct s *p_s;   
+  };                    };            
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\section{Manipulation hardie de liste cha\^\i{}n\'ee}%
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  Nous allons implanter les outils de manipulation d'une liste
+  cha\^\i{}n\'ee en nous imposant une contrainte forte~: nous ne nous
+  servirons pas des fonctions \verb+malloc+ et \verb+free+.
+  \par\medskip
+  Le seul espace m\'emoire disponible sera constitu\'e d'un tableau de
+  caract\`eres~:
+\begin{verbatim}
+  #define SIZE 1<<16
+  char memoire[SIZE] ;
+\end{verbatim}
+  Ce type est uniquement choisi pour d\'esigner des octets.
+  \par\medskip
+  Nous devrons donc g\'erer l'allocation dynamique de la m\'emoire.
+  Notez bien qu'il ne s'agit pas ici de donner des implantations
+  rudimentaires des fonctions \verb+malloc+ et \verb+free+.
+  \par\medskip
+  En effet, dans notre cas, nous allouerons toujours la m\^eme taille
+  de m\'emoire correspondant \`a une cellule.
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Les d\'eclarations et d\'efinitions basiques des types et variables}%
+\begin{verbatim}
+#define NULL 0  /* pour d\'esigner la fin d'une liste */
+struct cellule_m
+{
+  unsigned int contenu ;
+  struct cellule_m *next ;
+} ;
+
+typedef struct cellule_m cellule_t ;
+
+/* pour compenser l'absence de fonction free, on utilise */
+cellule_t *ListeDesCellulesLibres = NULL ;  
+
+/* on peut ensuite avoir autant de listes que n\'ecessaire */
+cellule_t *maliste = NULL ;  
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Les fonctions classiques de manipulation de ces listes (suppos\'ees tri\'ees)}%
+\begin{verbatim}
+int suisvide(cellule_t *liste){  return !liste ; }
+
+void inserer( cellule_t *cell, cellule_t **liste ){
+  cellule_t *tmp=NULL, *ptr = *liste ;
+  while(ptr && ptr->contenu < cell->contenu){
+    tmp = ptr ;       
+    ptr = ptr->next;  }
+  cell->next= ptr ;
+  if(tmp) tmp->next= cell ;
+  else *liste = cell  ;
+}
+
+void extraire( cellule_t *cell, cellule_t **liste ){
+  cellule_t *tmp=NULL, *ptr = *liste ;
+  while(ptr && ptr != cell){
+    tmp = ptr ;
+    ptr = ptr->next ;      }
+  if(tmp) tmp->next = cell ->next ;
+  else *liste = NULL ;
+}
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Les fonctions d'allocations de cellules}%
+\begin{verbatim}
+char *sommet = memoire ;
+void FreeCellule(cellule_t *cell){
+  inserer( cell, &ListeDesCellulesLibres ) ;
+} 
+
+cellule_t *MallocCellule(unsigned int stuff){
+  cellule_t *tmp = ListeDesCellulesLibres ;
+  if( suisvide(ListeDesCellulesLibres) ){
+    extraire( tmp, &ListeDesCellulesLibres ) ;
+    tmp->contenu = stuff ; 
+    tmp->next = NULL ;
+    return tmp ; 
+  }
+  if(SIZE-(sommet-memoire)<sizeof(cellule_t))
+     return NULL ;
+  tmp = (cellule_t *) sommet ;
+  tmp->contenu = stuff ; tmp->next = NULL ; 
+  sommet = (char *) ((cellule_t *) sommet +1)  ;
+  return tmp;
+}
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\section{Parcours de labyrinthe par pile}%
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  On se propose  de parcourir un labyrinthe que l'on
+  aura pr\'ealablement repr\'esent\'e par un tableau. 
+\begin{verbatim}
+#define FERME 0
+#define OUVERT 1 
+#define PARCOURU 2
+#define LONGUEUR 5
+#define LARGEUR 6
+char petitlab[LONGUEUR][LARGEUR] =  {
+   {FERME, OUVERT, FERME, FERME, FERME, FERME},
+   {FERME, OUVERT, OUVERT, OUVERT, OUVERT, FERME},
+   {FERME, OUVERT, FERME, FERME, FERME, FERME},
+   {FERME, OUVERT, OUVERT, OUVERT, OUVERT, FERME},
+   {FERME,  FERME, FERME, FERME, OUVERT, FERME}} ;
+/*
+XXXXX
+    X 
+X X X
+X X X
+X X  On commence et on termine toujours aux m\^emes endroits
+XXXXX */ 
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Implantation d'une pile}%
+  Pour ce faire, nous utilisons une pile contenant des \textit{pas} et
+  implanter par une liste (sans s'occuper de la base mais uniquement
+  du sommet)~:
+\begin{verbatim}
+struct Pas
+{
+  int x ;
+  int y ;
+} ;
+typedef struct Pas Pas_t ;
+
+struct cell
+{
+  struct cell * next ;
+  Pas_t pas ;
+ char *chemin ; /* nous verrons plus tard */
+} ;              /* \`a quoi \c{c}a sert   */
+
+typedef struct cell cell_t ;
+
+typedef cell_t * Pile_t ;
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  Il nous faut maintenant implanter les fonctions classiques de
+  manipulations de pile~:
+\begin{verbatim}
+int estVide (Pile_t pile) { return !((int) pile) ; }
+
+void empiler(Pas_t step, Pile_t *pile)
+{
+   cell_t *tmp = (cell_t *) malloc (sizeof(cell_t)) ;
+   tmp->pas = step ; /* justifie le choix du type Pas_t */
+   tmp->next = *pile ;
+   *pile = tmp ;
+}
+
+Pas_t depiler(Pile_t *pile)
+{
+    cell_t *tmp = *pile ;
+    Pas_t res = tmp->pas ; /* un test est possible pour */
+    *pile = tmp->next ;    /* ne pas d\'epiler null     */
+    free(tmp) ;
+    return res ;
+}
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Algorithme pour savoir si on peut sortir}%
+  Pour  parcourir  notre labyrinthe, nous   allons utiliser une variable
+  globale   repr\'esentant  notre pile et qui    contiendra  les pas \`a
+  explorer.   Au d\'ebut du parcours, elle  ne  contient que le seul pas
+  allant de~${(0,1)}$ \`a~${(1,1)}$.
+  \par
+  Tant que notre pile n'est pas vide, on retire le pas de t\^ete. S'il
+  est possible, on r\'eaffiche le labyrinthe en prenant soin de
+  marquer d'un signe les cases d\'ej\`a visit\'ees pour ne pas
+  boucler.  Puis on ajoute \`a la pile tous les pas possibles (pour
+  lesquels la case d'arriv\'ee est franchissable) \`a partir du point
+  d'arriv\'ee du pas consid\'er\'e.
+  \par
+  Il suffit d'it\'erer ce qui pr\'ec\`ede pour sortir du labyrinthe.
+  De plus, si on stocke \`a chaque pas la direction prise, on peut
+  m\'emoriser la sortie.
+  \par
+  Par exemple, on peut utiliser une cha\^\i{}ne de caract\`eres
+  initialement vide \`a laquelle, on peut ajouter les lettres~: 'n',
+  'e', 's', 'w' pour signifier nord, etc.\ (par convention, on ne se
+  d\'eplace pas en diagonale).
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Fonctions auxiliaires}%
+  Pour g\'erer les chemins \textbf{inefficacement}, on utilise la fonction 
+  \verb?char * concat(char *, char)? qui prend en entr\'ee un chemin
+  (disons~\verb?"ws"?), un d\'eplacement (\verb?'s'?) et retourne un
+  pointeur sur la nouvelle solution ainsi form\'ee (\verb?"wss"?) pour
+  laquelle de la m\'emoire aura \'et\'e r\'eserv\'ee (l'ancien
+  chemin n'est pas modifi\'e). Ceci modifie l'empilement et le d\'epilement~:
+\begin{verbatim}
+void empiler(Pas_t step, Pile_t *pile, char *chemin){
+    cell_t *tmp = (cell_t *) malloc (sizeof(cell_t)) ;
+    tmp->chemin = chemin ;
+    tmp->pas = step ; 
+    tmp->next = *pile ;
+    *pile = tmp ; }
+
+Pas_t depiler(Pile_t *pile){
+    cell_t *tmp = *pile ;
+    Pas_t res = tmp->pas ;
+    *pile = tmp->next ;
+    free(tmp->chemin) ;
+    free(tmp) ; return res ; }
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Le d\'ebut de la fonction principale}%
+\begin{verbatim}
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include"Labyrinthe.h"
+#include"LabyrintheExemple.h"
+
+extern void empiler(Pas_t, Pile_t *, char *);
+extern Pas_t depiler(Pile_t *) ;
+extern int estVide(Pile_t *) ;
+
+char * concat(char *,char);
+void affichage(char lab[LONGUEUR][LARGEUR]) ;
+char * parcourir(Pile_t *, char lab[LONGUEUR][LARGEUR]) ;
+
+void mystrcpy(char **, char *);
+/* exercice~: donner la d\'efinition de cette fonction
+   adapt\'ee \`a la situation d\'ecrite dans les 
+   transparents suivants */
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{La fonction principale}%
+\begin{verbatim}
+int 
+main
+(void)
+{
+  char *path = "" ;
+  /* Le  premier pas */
+  Pas_t PointDeDepart = {.x = 0 ,.y = 1 } ;
+  Pile_t mapile = NULL ; 
+  empiler(PointDeDepart, &mapile, path) ;
+  /* On considere que l'entr\'ee est parcouru */
+  petitlab[PointDeDepart.x][PointDeDepart.y]=PARCOURU ;
+
+  /* Parcours et analyse du resultat */
+  path = parcourir(&mapile,petitlab) ;
+  if( path )
+    printf("\n Felicitation, 
+             vous \\^etes sorti par le chemin %s\n",path); 
+  else
+    printf("\n ;-( ce labyrinthe n'a pas de sortie\n"); 
+  return 0 ;
+}
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{La fonction de parcours}%
+\begin{verbatim}
+char * parcourir(Pile_t *pile, char lab[LONGUEUR][LARGEUR]){
+  Pas_t pos,nextpos, pas[4] = { {0,1},{1,0},{0,-1},{-1,0}} ;
+  char dep[4] = {  's',  'e',   'n',   'w'} ;
+  char *path = NULL;  int i ;
+  do{  mystrcpy(&path,(*pile)->chemin) ;
+    pos = depiler(pile) ;
+    if (pos.x==LONGUEUR-1 && pos.y==LARGEUR-2)
+      return path ; /* C'est gagn\'e on est sorti */
+    for(i=0; i<4 ; i++){
+      nextpos.x = pos.x+pas[i].x ; /* On prepare les pas */
+      nextpos.y = pos.y+pas[i].y ; /* \`a empiler        */       
+      if (lab[nextpos.x][nextpos.y]==OUVERT){ 
+        lab[nextpos.x][nextpos.y]=PARCOURU; 
+        empiler(nextpos,pile,concat(path,dep[i])) ;
+        affichage(lab) ;
+        printf("\n") ;
+      }
+    }
+  } while (estVide(pile)) ;
+  return 0 ; }
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\section{Arbre binaire de recherche}%
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+ \frametitle{Un programme qui affiche ses arguments tri\'es}%
+ L'option {\tt -r} indique que l'ordre est d\'ecroissant.
+ \par\medskip
+Le fichier {\tt abr.h}~:
+\begin{verbatim}
+ struct noeud 
+ {
+    int v ;
+    struct noeud *fg, *fd ;
+ } ;
+
+   typedef struct noeud Noeud ;
+   typedef Noeud * Abr ;
+
+   void init(Abr *);
+   void inserer(Abr *, int);
+   void imprimer_croissant(Abr);
+   void imprimer_decroissant(Abr);
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Le fichier {\tt abr.c}~:}%
+\begin{verbatim}
+   #include <stdlib.h>
+
+   void 
+   init 
+   (Abr *a)
+   {
+      *a = NULL ;
+   }
+
+  void 
+  inserer 
+  (Abr *a, int v)
+  {
+    if (! *a) {
+       *a = (Abr) malloc (sizeof (struct noeud)) ;
+       (*a)->v = v ;
+       (*a)->fg = (*a)->fd = NULL ;
+    } else if (v <= (*a)->v)
+       inserer (& (*a)->fg, v) ;
+    else
+      inserer (& (*a)->fd, v) ;
+ }
+\end{verbatim}
+\index{Arbre binaire de recherche}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Suite du fichier {\tt abr.c}}%
+\begin{verbatim}
+#include <stdio.h>
+void 
+imprimer_croissant 
+(Abr a)
+{
+   if (a) {
+      imprimer_croissant (a->fg) ;
+      printf ("%d\n", a->v) ;
+      imprimer_croissant (a->fd) ;
+   }
+}
+
+void 
+imprimer_decroissant 
+(Abr a)
+{
+   if (a) {
+      imprimer_decroissant (a->fd) ;
+      printf ("%d\n", a->v) ;
+      imprimer_decroissant (a->fg) ;
+   }
+}
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Le fichier \texttt{main.c}}% 
+\begin{verbatim}
+   int 
+   main
+   (int argc, char *argv[]) 
+   {
+     char order = 0;
+     Abr a;
+     if (argc < 2) return 1 ;
+
+     if (!(strcmp(argv[1], "-r"))) 
+     {
+       order=1;
+       argc-=1; argv+=1;
+     }
+     init(&a);
+     while (--argc) inserer(&a, atoi(*++argv));
+     if (order)
+       imprimer_decroissant(a);
+     else
+       imprimer_croissant(a);
+     return 0 ;
+   }
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+    \frametitle{Arbre binaire~: insertion it\'erative}%
+ Insertion it\'erative dans l'arbre
+\begin{verbatim}
+#define allouer (struct noeud *) malloc(sizeof(struct noeud))
+void inserer_iter(Abr *a, int v) {
+enum {doite, gauche} direction;
+Abr pere = NULL, current = *a;
+while (current) {
+  pere = current;
+  if (v <= current->v) {
+    dir = gauche;
+    current = current->fg;
+  } else {
+    dir = droite;
+    current = currrent->fd;
+  } } /* fin du while. Tonev dixit ;-) */
+  if (pere) 
+    if (dir == gauche) current = pere->fg = allouer ;
+    else current = pere->fd = allouer ;
+  else current = *a = allouer ;
+  current->v = v;
+  current->fg = current->fd = NULL;
+}
+\end{verbatim}
+\index{Arbre binaire de recherche}
+\end{frame}
+%------------------------------------------------------------------------------
+\end{document}
+%------------------------------------------------------------------------------
+\begin{frame}
+  \frameheading{B\^etisier~: petit bestiaire d'erreurs}%
+Attention les bouts de codes suivants contiennent des erreurs.
+\begin{verbatim}
+/* int a,b */
+if(a=0) 
+  printf("Attention z\\'ero)") ;
+else b /= a ;
+\end{verbatim}
+  L'affectation est un op\'erateur et non une instruction.
+\begin{verbatim}
+#define MAX = 10 ;
+ x = MAX;
+int t[MAX];
+\end{verbatim}
+  Un \verb?#define? n'est ni une d\'eclaration ni une initialisation
+  mais provoque une substitution textuelle.
+\begin{verbatim}
+#define add (a,b) (a + b)
+\end{verbatim}
+  L'espace est le s\'eparateur entre l'identificateur de macro et la
+  cha\^\i{}ne \`a substituer.
+\newpage
+\begin{verbatim}
+#define CARRE(a) ((a) * (a))
+CARRE(x++) 
+\end{verbatim}
+M\^eme bien constitu\'ee une macro n'immunise pas contre l'effet lat\'eral.
+\begin{verbatim}
+if (a > b) ;
+   if ( x > y)  x = y;
+else ...
+\end{verbatim}
+Il est difficile de savoir \`a quel \verb?if? se vouer.
+\begin{verbatim}
+while (c = getchar() != EOF) ...
+\end{verbatim}
+Une priorit\'e~: rendre lisible la priorit\'e entre les op\'erateurs.
+\begin{verbatim}
+switch(a){
+   case 1 : a = b;
+   defau1t : return 1 ; }
+\end{verbatim}
+L'existence du \verb?goto? et l'usage du \verb?break? induisent cette
+erreur difficilement d\'etectable.
+\newpage
+\begin{verbatim}
+int tab[10][10] = ......
+int i,j ; ....
+tab[i++,j++]
+\end{verbatim}
+La   virgule   est   l'op\'erateur  qui  d\'elivre   comme  r\'esultat
+l'op\'erande droit apr\`es avoir \'evalu\'e l'op\'erande gauche.
+\begin{verbatim}
+int tab[10]; /* dans le fichier foo */
+.....
+extern int * tab ; /* dans le fichier bar */
+\end{verbatim}
+Il n'y a pas d'allocation de m\'emoire lors de la d\'eclaration d'un
+pointeur (hormis la m\'emoire utilis\'ee pour contenir l'adresse).
+\begin{verbatim}
+int main(void){fct() ; return 0 ;}
+void fct(void){ int i=0 ; }
+\end{verbatim}
+De l'utilit\'e des prototypes de fonction.
+\newpage
+\begin{verbatim}
+extern foo; /* ceci est valide (c'est un entier) */
+\end{verbatim}
+Il existe beaucoup de r\`egles implicites en~C.
+\begin{verbatim}
+int MaVar ;
+Mavar++ ;
+\end{verbatim}
+Les identificateurs sont sensibles \`a la casse.
+\begin{verbatim}
+int var(void){ return 2;}
+fct(void){ int a = 10, var = 0, cinq = a/var ;}
+\end{verbatim}
+La port\'e des identificateurs n'est pas un vain mot.
+\begin{verbatim}
+int fct(void){ return 2 ; }
+int main(void){ int (*fct) = fct ; return 0 ;}
+\end{verbatim}
+Cela peut m\^eme devenir illisible.
+\begin{verbatim}
+int a ;
+scanf("%d",a) ;
+\end{verbatim}
+Le type des param\`etres, tu respecteras.
+\newpage
+\begin{verbatim}
+int SommeDes10Premiers(int tab[10]) {
+int i, res =0 ;
+for(i=1;i<11;i++)
+   res += tab[i] ;
+   return res ;
+}
+\end{verbatim}
+Les indices de tableaux commencent \`a~$0$ et rien ne vous emp\^eche
+de passer outre.
+\begin{verbatim}
+/* qu'est qui est affich\'e */
+     int i = 7;
+     printf( "%d", i++ * i++ );
+/* comment est modifi\'e ce tableau */
+     int a[5], i = 1;
+     a[i] = i++;
+/* ce code peut il s'arr\^eter */
+char c = getchar();
+while(c != EOF) { c = getchar();}
+\end{verbatim}
+Si on ne lit pas l'assembleur, il existe des questions sans r\'eponses.
+\newpage
+\begin{verbatim}
+i=3 ; j=10 ;
+while(i<100) ;
+  i=i+j ;
+\end{verbatim}
+Attention aux trivialit\'es.
+\begin{verbatim}
+char foo[10] = '\0' ;
+char bar[10] = "\0" ;
+
+int * ptr1, * ptr2 ; 
+int * ptr1, ptr2 ;
+\end{verbatim}
+De petites  diff\'erences produisent de grands effets.
+\begin{verbatim}
+/* Emboitemement de /* commentaire */ */
+int a,b,c = 3;
+int *pointer = &c ;
+   /*divise c par lui m\^eme */
+   a=c/*pointer ;
+   b=c /*met b \`a 3*/ ;
+\end{verbatim}
+Attention aux commentaires.
+\newpage
+\begin{verbatim}
+#include<stdio.h>
+char *foo(void){
+    char str[31]="Pourquoi vais-je disparaitre~?" ;
+    return str ;
+}
+
+int main(void){
+   printf("%d %d %s\n",1,2,foo()) ;
+   return 0;
+}
+\end{verbatim}
+C n'est pas de la magie (le compilateur indique que 
+\verb+warning: function returns address of local variable+).
+\begin{verbatim}
+char *ch1;
+char *ch2 = "Hello world";
+ch1 = (char *) malloc(sizeof(ch2)+1); 
+strcpy(ch1,ch2);
+\end{verbatim}
+N'utilisez \verb?sizeof? que sur des types.
+\newpage
+Tenez compte des avertissements du compilateur.
+\begin{verbatim}
+#include<stdio.h>
+#include <stdlib.h>
+ 
+/* strtod, strtof, strtold - convert ASCII string to floating point number
+float strtof(const char *, char **); */
+
+int main(int argc, char **argv){
+  printf("%f\n", strtof(argv[1], NULL)) ;  
+  return 0 ;
+}
+\end{verbatim}
+Si on compile avec l'option ansi, le prototype de la fonction strtof
+--- n'\'etant pas dans cette norme et \'etant \`a l'int\'erieur d'une
+directive conditionnelle --- n'est pas pris en compte.  Sans
+prototype, la valeur de retour de la fonction est suppos\'ee \^etre un
+entier machine et le r\'esultat n'est pas cod\'e comme un flottant et
+donc faux.
+\newpage
+Le code
+\begin{verbatim}
+int main(void){
+    int tab[10] ;
+    int i = 0 ;
+    for(;i<300;i++) 
+        tab[i] = i ;
+    return 0 ;
+}
+\end{verbatim}
+donne l'ex\'ecution suivante~:
+\begin{verbatim}
+espoir % gcc code.c 
+espoir % a.out
+Segmentation fault
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\end{document}
+%------------------------------------------------------------------------------
+\begin{frame}
+\printindex
+\end{frame}
+%------------------------------------------------------------------------------
+% Modele
+%------------------------------------------------------------------------------
+\begin{frame}
+  \frameheading{}%
+\end{frame}
+%------------------------------------------------------------------------------
+
+typedef struct list_node
+{
+        int val;
+        struct list_node* next;
+} NODE;
+
+NODE* push( NODE* stack, int v)
+{
+        NODE* new_node;
+
+        new_node = (NODE*)malloc( sizeof(NODE));
+        new_node->val = v;
+        new_node->next = stack;
+        return( new_node);
+}
+
+NODE* pop( NODE* stack, int* v)
+{
+        NODE* tmp;
+
+        if( stack == NULL)
+                return( NULL);
+        *v = stack->val;
+        tmp = stack->next;
+        free( stack);
+        return( tmp);
+}
+
+
+\begin{frame}
+  \frameheading{}%
+\end{frame}
+%------------------------------------------------------------------------------

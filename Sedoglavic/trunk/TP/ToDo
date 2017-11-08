@@ -1,0 +1,16 @@
+
+faire un exercice sur les operateurs
+
+Lors de l'exercice de la racine  par defaut d'un entier, implanter une
+procedure du  genre Newton  et faire l'analyse  de la   complexite des
+differentes approches.
+
+Analyse de complexite de tous les tris.
+
+Analyse de complexite du crible d'Erasthotene
+
+Utiliser Sources/queen.c pour faire l'exercice sur les reines
+
+Faire un exercice sur Sources/Zeller.c (le texte existe en exemen).
+
+voir ce bug (?) de scanf

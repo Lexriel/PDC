@@ -1,0 +1,20 @@
+\section{Recherche du pgcd de deux entiers positifs sans utiliser l'algorithme d'Euclide}
+\begin{enumerate}
+\item Donner une structure de donn\'ee de type \verb+cell_t+ permettant de construire une liste cha\^\i{}n\'ee permettant de stocker des entiers positifs.
+\item Donner la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+cell_t * liste_des_diviseurs(unsigned int);
+\end{verbatim}
+qui retourne la liste cha\^\i{}n\'ee des entiers divisant le param\`etre.
+\item Donner la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+cell_t * elements_communs(cell_t *, cell_t *);
+\end{verbatim}
+qui retourne une liste compos\'e des \'el\'ements communs aux listes pass\'ees en param\`etres.
+Cette fonction d\'etruit les listes pass\'ees en param\`etres.
+\item Donner le prototype de la fonction de prototype~:
+\begin{verbatim}
+unsigned int plus_grand_element(cell_t *) ;
+\end{verbatim} 
+qui retourne le plus grand \'el\'ement de la liste pass\'ee en param\`etre et qui d\'etruit cette derni\`ere.
+\end{enumerate}

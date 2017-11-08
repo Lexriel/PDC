@@ -1,0 +1,455 @@
+\section{Une m\'ethode de cryptage~: le renversement des fr\'equences}
+\'Etant donn\'e un texte cod\'e par une cha\^\i{}ne de caract\`eres
+\verb+char *text+, on se propose de le coder par le remplacement de
+chacune des lettres du texte clair par un autre caract\`ere fourni par
+une table (cf.\ figure~\ref{fig:GrilleCodage} page~\pageref{fig:GrilleCodage}). Contrairement au
+chiffrement de C\'esar, on souhaite faire dispara\^\i{}tre les
+indications fournies par les fr\'equences d'apparitions des lettres.
+\subsection{Calcul des fr\'equence des lettres d'un texte}
+\label{sec:frequence}
+Pour commencer, on se propose de construire une liste cha\^\i{}n\'ee
+dont chaque cellule contient un des caract\`eres pr\'esents dans le
+texte et sa fr\'equence d'apparition (le nombre d'occurences divis\'e
+par le nombre total de caract\`eres dans le texte, le tout multipli\'e
+par~$100$). Au final, cette liste cha\^\i{}n\'ee doit \^etre
+ordonn\'ee~: le premier (en t\^ete) \'el\'ement \'etant la cellule
+associ\'ee \`a la lettre la moins fr\'equente et le dernier (en queue)
+\`a la lettre la plus fr\'equente.
+\paragraph{Question.}
+\begin{enumerate}
+\item Donnez la d\'eclaration \verb+struct cellule_s+ permettant
+  de repr\'esenter une cellule d\'ecrite ci-dessus. Pour la suite du
+  probl\`eme, on souhaite ajouter \`a cette d\'eclaration un
+  champs \verb+struct cellulecode_s *listecirculaire+ dont nous
+  verrons l'usage dans la section~\ref{sec:codesub}.
+\ifcorrection
+  \begin{correction}
+\begin{verbatim}
+struct cellule_s
+{
+  char caractere ;
+  float frequence ;
+  struct cellulecode_s *listecirculaire ;
+  struct cellule_s *next ;
+}
+\end{verbatim}
+  \end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+    struct cellule_s *analyseDeFrequence(char *);
+\end{verbatim}
+  qui prend en param\`etres le texte \`a analyser et qui retourne la
+  liste cha\^\i{}n\'ee d\'ecrite ci-dessus non tri\'ee (comme d\'ecrit
+  ci-dessus). Les pointeurs \verb+listecirculaire+ devront \^etre
+  affect\'es \`a \verb+NULL+.
+\ifcorrection
+  \begin{correction}
+\begin{verbatim}
+struct cellule_s *
+analyseDeFrequence
+(char *txt)
+{
+  register int  i ;
+  float nbtotal ;
+  char occurencelettres[255] ;
+  struct cellule_s *head,*tmp ;
+
+  /* on commence par faire des statistiques */
+  for(i=0 ; i<256 ; i++)
+    occurencelettres[i]=0;
+
+  while(*txt)
+    occurencelettres[(int) (*(txt++))]++ ;
+
+  nbtotal = 0 ;
+  for(i=0 ; i<256 ; i++)
+    nbtotal += occurencelettres[i];
+
+  /* on construit maintenant la chaine */
+  head = 0 ;
+  for(i=0 ; i < 256 ; i++)
+    if(occurencelettres[i])
+      {
+	tmp = (struct cellule_s *) malloc(sizeof(struct cellule_s));
+	tmp->next = head ;
+	tmp->caractere = (char) i ;
+	tmp->frequence = 100.*((float) occurencelettres[i])/nbtotal ;
+	tmp->listecirculaire = NULL ;
+	head = tmp ;
+      }
+
+  return head ;
+}
+\end{verbatim}
+  \end{correction}
+\fi
+ \item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+    struct cellule_s *TriSuivantFrequence(struct cellule_s *);
+\end{verbatim}
+   qui prend en param\`etre une liste cha\^\i{}n\'ee non tri\'ee et
+   qui retourne une liste cha\^\i{}n\'ee tri\'ee (comme d\'ecrit
+   ci-dessus). (Vous \^etes libre de la m\'ethode~; si votre tri ne
+   d\'etruit pas la liste d'origine vous devrez tout de m\^eme
+   lib\'erer la m\'emoire correspondante).
+\ifcorrection
+   \begin{correction}
+\begin{verbatim}
+struct cellule_s *
+TriSuivantFrequence
+(struct cellule_s **oldhead)
+{
+  struct cellule_s *newhead, *tmp, *newcell, *previouscell, *newend ;
+  float minfreq ;
+  newhead = NULL ;
+  while(*oldhead)
+    /* tant que la liste non triee est non vide */
+    {
+      tmp = *oldhead ;
+      newcell=tmp ;
+      previouscell= 0;
+      /* on cherche la cellule de frequence minimale */
+      minfreq = tmp->frequence ;	  
+      while(tmp->next) 
+	{
+	  if(tmp->next->frequence < minfreq)
+	    {
+	      minfreq = tmp->next->frequence ;	  
+	      previouscell = tmp ;
+	      newcell = tmp->next ;
+	    }
+	  tmp = tmp->next ;
+	} 
+      /* on la retire de la liste */
+      if(previouscell)
+	previouscell->next = newcell->next ;
+      else *oldhead = newcell->next ;
+      /* on la rajoute a la fin de la liste triee */
+      if(newhead)
+	{
+	  newend -> next = newcell ;
+	  newend = newcell ;
+	}
+      else newend = newhead = newcell ;
+    }
+  return newhead ;
+}
+\end{verbatim}
+   \end{correction}
+\fi
+\end{enumerate}
+\subsection{Intermezzo~: empilement d'une suite al\'eatoire}
+\label{sec:pileentier}
+On suppose disposer d'une macro~\verb+MaxPile+ et de ne pas avoir
+besoin de plus de~\verb+MaxPile+ caract\`eres (dans la suite cette
+macro d\'esigne~$255$).  Nous allons utiliser une pile cod\'ee par un
+tableau afin d'empiler des caract\`eres.  Cette pile utilise la
+structure~:
+\begin{verbatim}
+struct pile_s{
+      unsigned int sommet ;
+      char tab[MaxPile] ;
+} ;
+\end{verbatim}
+La pile vide correspond \`a une valeur nulle de \texttt{sommet}.
+\paragraph{Question.}
+\begin{enumerate}
+% \item Donnez la d\'efinition de la fonction de prototype~:
+% \begin{verbatim}
+% struct pile_s *initpile(void)
+% \end{verbatim}
+% qui construit une pile.
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+     int empile(char, struct pile_s *) ;
+\end{verbatim}
+  qui empile l'entier donn\'e en premier param\`etre sur la pile
+  fournie en second. Cette fonction retourne~$0$ si la pile est
+  pleine,~$1$ sinon.
+\ifcorrection
+  \begin{correction}
+\begin{verbatim}
+int
+empile
+(char entier, struct pile_s *mapile)
+{
+  if(mapile->sommet==MaxPile)
+    return 0  ;
+  mapile->tab[mapile->sommet] = entier ;
+  mapile->sommet++ ;
+  return 1 ;
+}
+\end{verbatim}
+  \end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+     int depile(struct pile_s *,char *) ;
+\end{verbatim}
+  qui d\'epile l'entier du sommet de la pile fournie en param\`etre et
+  le retourne dans son second param\`etre. Cette fonction retourne~$0$
+  si la pile est vide,~$1$ sinon.
+\ifcorrection
+  \begin{correction}
+\begin{verbatim}
+int 
+depile
+(struct pile_s *mapile, char *entier)
+{
+  if(!mapile->sommet)
+    return 0 ;
+  mapile->sommet-- ;
+  *entier = mapile->tab[mapile->sommet] ;
+  return 1 ;
+}
+\end{verbatim}
+  \end{correction}
+\fi
+\end{enumerate}
+On suppose que la fonction \verb+int constrand(struct pile_s *)+ remplit
+la pile par des entiers al\'eatoires tous distincts en retournant~$1$
+si c'est possible,~$0$ sinon.
+\subsection{Construction et utilisation d'une table de symboles de substitution}
+\label{sec:codesub}
+Il nous faut maintenant construire la clef de chiffrement qui est le
+secret utilis\'e pour coder et d\'ecoder le texte. \'Etant donn\'ee
+une liste cha\^\i{}n\'ee \verb+struct cellule_s *code+, nous allons
+adjoindre \`a chaque lettre i.e.\ \`a chaque cellule une liste
+circulaire compos\'ee de cellule de d\'eclaration %
+\verb+struct cellulecode_s+. Ces structures sont compos\'ees de~$2$
+champs~: un caract\`ere~$n$ et un pointeur %
+\verb+struct cellulecode_s *+.
+\par
+Une liste circulaire est une liste dans laquelle on a remplac\'e le
+pointeur NULL du dernier \'el\'ement de la liste par un pointeur vers
+la t\^ete de liste (le premier \'el\'ement).
+\paragraph{Question.}
+\begin{enumerate}
+\item Donnez la d\'efinition de \verb+struct cellulecode_s+.
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+struct cellulecode_s
+{
+  char n ;
+  struct cellulecode_s * next;
+} ;
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+     void construirecode(struct pile_s *,struct cellule_s *) ;
+\end{verbatim}
+  qui prend en argument  la pile d'entiers al\'eatoires
+  construite dans la section~\ref{sec:pileentier} et la liste
+  cha\^\i{}n\'ee d'analyse des fr\'equences construites dans la
+  section~\ref{sec:frequence}.
+  \par
+  Cette fonction parcours la liste d'analyse et \`a chaque
+  cellule~$c$~:
+  \begin{itemize}
+  \item d\'etermine l'entier~$n$ imm\'ediatement sup\'erieur \`a la
+    fr\'equence de~$c$ (on rappelle que la conversion de type
+    explicite de flottant machine \`a entier revient \`a supprimer la
+    partie d\'ecimale dans notre contexte)~;
+  \item construit une liste circulaire de~$n$ cellules, chaque
+    cellule contenant un entier d\'epil\'e de la pile des entiers
+    al\'eatoires (si cette pile est vide, le programme se termine par
+    un \verb+exit(2)+)~;
+  \item fait pointer \verb+listecirculaire+ de~$c$ sur une cellule de
+    la liste circulaire ainsi construite.
+  \end{itemize}
+\ifcorrection
+  \begin{correction}
+\begin{verbatim}
+void 
+construirecode
+(struct pile_s *pile, struct cellule_s *head)
+{
+  int n ;
+  struct cellulecode_s *tmp ;
+
+  while(head)
+    {
+      n = 1+(int) head->frequence ;
+      while(n--)
+	{
+	  tmp = (struct cellulecode_s *) malloc(sizeof(struct cellulecode_s));
+	  if(!depile(pile,&(tmp->caractere)))
+	    exit(2) ;
+
+	  if(!head->listecirculaire)
+	    {
+	      head->listecirculaire=tmp ;
+	      tmp->next = head->listecirculaire ;
+	    }
+	  else 
+	    {
+	      tmp->next = head->listecirculaire->next ;
+	      head->listecirculaire->next = tmp ;
+	    }
+	}
+      head=head->next ;
+    }
+}
+\end{verbatim}
+  \end{correction}
+\fi
+\item Donnez le prototype et la d\'efinition de la fonction
+  \verb+clean+ qui lib\`ere la m\'emoire associ\'ee \`a une clef de
+  chiffrement (repr\'esent\'ee ici par la liste cha\^\i{}n\'ee
+  construite par la fonction \verb+construirecode+).
+\ifcorrection
+  \begin{correction}
+\begin{verbatim}
+void
+clean
+(struct cellule_s *head)
+{
+  struct cellulecode_s *tmp  ;
+  if(head)
+    {
+      clean(head->next) ;
+      if(head->listecirculaire)
+	while(head->listecirculaire->next!=head->listecirculaire) 
+	  {
+	    tmp = head->listecirculaire->next ;
+	    head->listecirculaire->next = tmp->next ;
+	    free(tmp) ;
+	  }
+      free(head->listecirculaire) ;
+      free(head) ;
+    }
+}
+\end{verbatim}
+  \end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+char *codage(char *,struct cellule_s **) ; 
+\end{verbatim}
+  qui prend en param\`etre un texte et un pointeur pour stocker le
+  code associ\'e (avant l'appel de cette fonction, il n'y a pas de
+  m\'emoire r\'eserv\'ee pour ce code).
+  \par
+  Cette fonction regroupe les \'etapes de ce probl\`eme (analyse,
+  construction de pile d'entier, construction de la clef). Elle
+  retourne un pointeur sur un texte chiffr\'e par la m\'ethode
+  propos\'ee (bien que le pointeur retourn\'e soit de type %
+  \verb+char *+, ce texte est~$4$ fois plus long que l'original car
+  physiquement constitu\'e d'entiers \verb+int+).
+  \par
+  Si la clef est donn\'ee par la grille de la
+  figure~\ref{fig:GrilleCodage} page~\pageref{fig:GrilleCodage}, le mot \emph{abracadabra} sera
+  chiffr\'e par la suite d'entiers ``33 24 92 15 03 96 61 55 24 21 57"
+  i.e.\ chaque fois que l'on d\'esire coder une lettre, on utilise un
+  entier de la liste circulaire et au prochain codage de cette m\^eme
+  lettre, on utilise l'entier suivant.
+\ifcorrection
+  \begin{correction}
+\begin{verbatim}
+char *
+codage
+(char *texte, struct cellule_s **clef)
+{
+  int i ;
+  struct cellule_s *grille, *foo ;
+  char * res,*tmp ;
+  struct pile_s *pile = initpile() ;
+  for(i=0; texte[i] ; i++) ;
+  res = (char *) malloc(i) ;
+
+  for(i=33; i<MaxPile; i++)
+    empile(i,pile) ;
+
+  grille = analyseDeFrequence(texte) ;
+  grille = TriSuivantFrequence(&grille) ;
+  construirecode(pile,grille) ;
+
+  affichegrille(grille) ;
+  *clef = grille ;
+
+  /* le codage proprement dit */
+  tmp = res ;
+  while(*texte)
+    {
+      foo=grille ;
+      while(foo->caractere!=*texte)
+	foo=foo->next ;
+      *tmp = foo->listecirculaire->caractere ;
+      foo->listecirculaire=foo->listecirculaire->next ;
+      tmp++ ;
+      texte++ ;
+    }
+  return res ;
+}
+\end{verbatim}
+  \end{correction}
+\fi
+\item Critiquez l'usage de liste circulaire et proposez un codage plus
+  simple en le justifiant.
+\ifcorrection
+  \begin{correction}
+    L'utilisation de liste cha\^\i{}n\'ee en g\'en\'eral dans cet
+    exercice est purement p\'edagogique, puisque l'on conna\^\i{}t a
+    priori le nombre de caract\`eres a utiliser dans chaque situation,
+    on devrait plut\^ot utiliser des tableaux (un calcul modulaire sur
+    l'indice permettant d'implanter une liste circulaire avec un
+    tableau).
+  \end{correction}
+\fi
+\end{enumerate}
+\paragraph{Fonctions auxiliaires.} 
+L'allocation m\'emoire se fait par le biais de la fonction
+\texttt{malloc} et la d\'esallocation par le biais de la fonction
+\texttt{free}.
+
+\begin{figure}[htbp]
+  Une grille\footnote{la r\`egle donnant le nombre d'entier associ\'es
+    \`a chaque fr\'equence n'a pas \'et\'e respect\'e dans cet
+    exemple.} de substitution pour la langue fran\c{c}aise qui utilise
+  tous les nombres de~$00$ \`a~$99$. \par\medskip {\centering
+ \par
+\begin{tabular}{c|c|l}
+Lettre &        Fr\'equence     &       Symboles de substitution \\ \hline
+a &     8.40 \% &       33, 15, 37, 96, 55, 57, 72, 91    \\
+b &     1.06 \% &               24 \\
+c &     3.03 \% &               03, 39, 67 \\
+d &     4.18 \% &               61, 04, 43, 88 \\
+e &     17.26 \% &              08, 12, 20, 46, 47, 48, 53, 59, 64, 76, 79, 80, 81, 85, 90, 94, 97 \\
+f &     1.12 \% &               40 \\
+g &     1.27 \% &               29 \\
+h &     0.92 \% &               05 \\
+i &     7.34 \% &               14, 45, 50, 73, 82, 93, 99 \\
+j &     0.31 \% &               11 \\
+k &     0.05 \% &               77 \\
+l &     6.01 \% &               01, 16, 26, 60, 71, 98 \\
+m &     2.96 \% &               34, 87 \\
+n &     7.13 \% &               06, 17, 22, 30, 31, 49, 58 \\
+o &     5.26 \% &               02, 10, 41, 66, 89 \\
+p &     3.01 \% &               13, 18, 83 \\
+q &     0.99 \% &               36 \\
+r &     6.55 \% &               92 21, 25, 65, 68, 95 \\
+s &     8.08 \% &               00, 28, 51, 52, 63, 74, 78, 84 \\
+t &     7.07 \% &               07, 19, 23, 35, 38, 54, 70 \\
+u &     5.74 \% &               09, 32, 42, 69, 75 \\
+v &     1.32 \% &               44 \\
+w &     0.04 \% &               56 \\
+x &     0.45 \% &               86 \\
+y &     0.30 \% &               62 \\
+z &     0.12 \% &               27
+\end{tabular}
+  \caption{Grille de codage}
+  \label{fig:GrilleCodage}}
+\end{figure}
+
+
+% \paragraph{Commentaires.}
+% On remarque que la lettre~\emph{a} est chiffr\'ee \`a chaque fois
+% diff\'eremment dans le mot \emph{abracadabra}. Cette m\'ethode
+% emp\^eche donc un d\'ecryptement par l'analyse des fr\'equences,
+% puisque ces derni\`eres seront quasiment identiques mais impose la
+% transmission de la table.
+

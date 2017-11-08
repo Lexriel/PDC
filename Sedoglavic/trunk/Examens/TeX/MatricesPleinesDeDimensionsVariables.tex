@@ -1,0 +1,214 @@
+\section{Implantation de matrices de dimensions variables}
+La taille d'une matrice pleine de dimensions variables n'est pas
+connue \`a la compilation mais seulement lors de sa cr\'eation lors de
+l'ex\'ecution.  Les coefficients de cette matrice sont des entiers machines sign\'es.
+
+On se donne la description des types suivante~:
+\begin{itemize}
+\item le type \verb+matrix_t+ est un pointeur sur des objets
+  d\'efinis suivant le mod\`ele d'identificateur \verb+matrix_m+~;
+\item un tel objet est~:
+  \begin{itemize}
+  \item soit un objet d'identificateur \verb+zero+ \'etant vrai si la
+    matrice est nulle et faux dans le cas contraire,
+  \item soit un objet suivant le mod\`ele d'identificateur
+    \verb+truematrix_m+.
+  \end{itemize}
+\item un objet de la famille d'identificateur \verb+truematrix_m+ est
+  compos\'e~:
+  \begin{itemize}
+  \item d'un entier sign\'e d'identificateur \verb+nblig+ codant le
+    nombre de lignes~;
+  \item d'un entier sign\'e d'identificateur \verb+nbcol+ codant le
+    nombre de colonnes~;
+  \item d'un pointeur sur des entiers sign\'es d'identificateur
+    \verb+body+.
+  \end{itemize}
+\end{itemize}
+On souhaite disposer de l'op\'eration d'addition de telles matrices~:
+l'addition de deux matrices n'est possible que si ces matrices ont le
+m\^eme nombre de colonnes et le m\^eme nombre de lignes.
+\par
+Une variable du type \verb+matrix_t+ vaut NULL si elle ne repr\'esente
+pas une matrice valide (par exemple, si on tente de construire une
+matrice avec une dimension n\'egative ou si on tente d'additionner~$2$
+matrices de tailles diff\'erentes).
+\paragraph{Question.}
+\begin{enumerate}
+\item Donnez les d\'eclarations des types d\'ecrits ci-dessus.
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+ struct truematrix_m
+ {
+ unsigned int nblig ;
+ unsigned int nbcol ;
+ int *body ;
+ } ;
+
+ union matrix_m 
+ {
+   int zero ;
+   struct truematrix_m matrix ;
+ } ;
+
+ typedef struct truematrix_m truematrix_t;
+ typedef union matrix_m *matrix_t ;
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition d'une fonction de prototype
+\begin{verbatim}
+matrix_t makenullmatrix ();
+\end{verbatim}
+qui construit une matrice z\'ero~;
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+ matrix_t
+ makenullmatrix
+ (void)
+ {
+  matrix_t res ;
+  res =  (matrix_t) malloc(sizeof(union matrix_m)); 
+  res->zero = TRUE ;
+  return res ;
+ }
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition d'une fonction de prototype
+\begin{verbatim}
+matrix_t makematrix (int, int);
+\end{verbatim}
+  qui construit une matrice dont le nombre de lignes est pass\'e en
+  premier param\`etre et le nombre de colonnes en second (si un de ces
+  entiers est n\'egatif ou nul, on retourne \verb+NULL+).  Cette
+  fonction r\'eserve de l'espace pour les coefficients mais n'affecte
+  pas cet espace.
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+ #define TRUE (1==1)
+ #define FALSE !TRUE
+
+ matrix_t 
+   makematrix
+ (int nblig, int nbcol)
+ {
+   matrix_t res ;
+ 
+   if(nblig<=0 || nbcol <=0)
+     return NULL ;
+   
+   res =  (matrix_t) malloc(sizeof(union matrix_m)); 
+   res->matrix.nblig = nblig ;
+   res->matrix.nbcol = nbcol ;
+   res->matrix.body = (int*) malloc(nblig*nbcol*sizeof(int)) ;
+   res->zero = FALSE ;
+   
+   return res ;
+ }
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition d'une fonction de prototype
+\begin{verbatim}
+void killmatrix (matrix_t);
+\end{verbatim}
+qui d\'esalloue une matrice.
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+ void
+ killmatrix
+ (matrix_t mat)
+ {
+   if(!mat)
+     return ;
+   if((mat->zero==FALSE) && mat->matrix.body)
+     free(mat->matrix.body) ;
+   free(mat) ;
+ }
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition d'une fonction de prototype
+\begin{verbatim}
+matrix_t addmatrices (matrix_t,matrix_t);
+\end{verbatim}
+  qui retourne la matrice r\'esultant de l'addition des matrices
+  pass\'ees en param\`etres. Si ces matrices sont de dimensions
+  diff\'erentes, cette fonction retourne \verb+NULL+. Si chaque
+  coefficient de la somme de ces matrices est z\'ero, on retourne une
+  matrice z\'ero.
+\ifcorrection
+\begin{correction}
+ \begin{verbatim}
+ #include <stdlib.h>
+
+ matrix_t
+ addmatrix
+ (matrix_t a, matrix_t b)
+ {
+   int pos,i,j, nblig, nbcol, null ;
+   int *body ;
+   matrix_t res ;
+   if(!a || !b)
+   /* a ou b n'est pas valide, la somme n'est pas valide */
+    return NULL ;
+
+   if(a->zero)
+     return b ;
+   if(b->zero)
+     return a ;
+   nblig = a->matrix.nblig ;
+   nbcol = a->matrix.nbcol ;
+   if( ! ((nblig==b->matrix.nblig) &&
+          (nbcol==b->matrix.nbcol) ))
+     return NULL ;
+  
+   body = (int*) malloc(nblig*nbcol*sizeof(int)) ;  
+  
+   for(i=0 ; i<nblig ; i++) 
+     for(j=0 ; j<nbcol ; j++) 
+       { 
+ 	pos = i*nbcol+j ;
+ 	body[pos] = a->matrix.body[pos]+b->matrix.body[pos] ;
+       }
+ 
+   null = TRUE ;
+   for(i=0 ; i<nblig ; i++) 
+     for(j=0 ; j<nbcol ; j++) 
+       { 
+ 	pos = i*nbcol+j ;
+ 	null = null && !body[pos] ;
+       }
+ 
+   if(null)
+     {
+       free(body) ;
+       return makenullmatrix();
+    }
+ 
+   res = (matrix_t) malloc(sizeof(union matrix_m)); 
+   res->matrix.nblig = nblig ;
+   res->matrix.nbcol = nbcol ;
+   res->matrix.body = body ;
+   res->zero = FALSE ;
+   return res ;
+ }
+
+ int
+ main
+ (void)
+ {
+     return 0 ;
+ }
+\end{verbatim}
+\end{correction}
+\fi
+\end{enumerate}
+\paragraph{Rappels~:} L'allocation m\'emoire se fait par le biais de
+la fonction \texttt{malloc} et la d\'esallocation par le biais de la
+fonction \texttt{free}.

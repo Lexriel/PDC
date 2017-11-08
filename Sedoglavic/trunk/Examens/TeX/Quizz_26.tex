@@ -1,0 +1,25 @@
+La suite  de Mallows~$(a_{j})_{j\in\mathbb{N}}$  est d\'efinie par  la
+r\'ecurrence~:
+\[
+a_{1}=a_{2}=1,\quad
+a_{n}=a_{a_{n-2}}+a_{n-a_{n-2}}.
+\]
+Donnez la d\'efinition d'une fonction~C qui prend en argument un
+entier~$n$ et implante r\'ecursivement de cette suite~; elle retourne
+le~$n$i\`eme terme de cette suite.
+\ifcorrection%
+\begin{correction}
+Cette suite s'implante difficilement s\'equentiellement et est donc un bon exemple pour une
+implantation r\'ecursive~:
+\begin{verbatim}
+int
+Mallows
+(unsigned int n)
+{
+  if(n<3)
+  return 1 ;
+  return Mallows(Mallows(n-2))+Mallows(n-Mallows(n-2)) ;
+}
+\end{verbatim}
+\end{correction}
+\fi%

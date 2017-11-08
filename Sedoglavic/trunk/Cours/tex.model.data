@@ -1,0 +1,22 @@
+%------------------------------------------------------------------------------
+\setbeamertemplate{footline}
+{%
+\begin{tiny}
+V\svnfilerev~(\svnday-\svnmonth-\svnyear)
+\hfill
+% XX should be substitute by Makefiles
+www.fil.univ-lille1.fr/\~{}sedoglav/C/CoursXX.pdf
+\end{tiny}
+}
+%------------------------------------------------------------------------------
+\newcounter{nextyear}
+\setcounter{nextyear}{\the\year}
+\addtocounter{nextyear}{1}
+\date{Semestre~$5$~---~$\the\year$-$\thenextyear$}
+\institute{
+{
+Licence Informatique --- Universit\'e Lille~1
+\\
+Pour toutes remarques~: Alexandre.Sedoglavic@univ-lille1.fr} 
+}
+%------------------------------------------------------------------------------

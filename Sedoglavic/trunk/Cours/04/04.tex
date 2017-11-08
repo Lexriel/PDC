@@ -1,0 +1,675 @@
+%---------------------------------------------------------------------------
+\svnidlong 
+{$HeadURL: https://svn.fil.univ-lille1.fr/svn/sedoglav_PDC/trunk/Cours/04/04.tex $} 
+{$LastChangedDate: 2012-11-20 17:19:55 +0100 (Tue, 20 Nov 2012) $} 
+{$LastChangedRevision: 83 $} 
+{$LastChangedBy: sedoglav $} 
+\svnid{$Id: 04.tex 83 2012-11-20 16:19:55Z sedoglav $} 
+%----------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \section{Les directives au pr\'eprocesseur}%
+  Le pr\'eprocesseur permet d'inclure dans le code source des fichiers
+  texte complets.
+  \par\medskip
+  Deux types d'inclusion de fichiers d'ent\^ete~:
+  \begin{enumerate}
+  \item \verb?#include <file.h>?~: recherche du fichier {\tt file.h}
+    \begin{itemize}
+    \item dans les r\'epertoires sp\'ecifi\'es par l'option {\tt -I}
+      du compilateur~;
+    \item dans le r\'epertoire de la librairie standard ({\tt /usr/include}).
+    \end{itemize}
+  \item[]
+  \item {\tt \#include "file.h"}~: recherche du fichier {\tt file.h}
+    \begin{itemize}
+    \item dans le r\'epertoire du fichier qui fait l'inclusion~;
+    \item comme pr\'ec\'edemment ensuite.
+    \end{itemize}
+  \end{enumerate}
+  Ceci permet d'inclure des prototypes de fonctions, des macros, etc.
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Substitution de texte} Le pr\'eprocesseur permet de
+  d\'efinir des macros constantes et des fonctions sur la base de la
+  substitution de cha\^\i{}ne de caract\`eres.
+  \begin{itemize}
+  \item macros sans param\`etres: {\tt \#define A 20} (sans rien ajouter). 
+    Attention \`a l'usage du point virgule (;)
+  \item macros avec param\`etres: \verb+#define MAX(a,b) \+
+    \hspace*{52mm}      \verb+((a)<(b)?(b):(a))+
+   \item on peut supprimer une macro par {\tt \#undef A}.
+\end{itemize}
+ Remarques:
+    \begin{itemize}
+      \item manipulation {\em purement syntaxique}~;
+      \item toujours utile de parenth\'eser les param\`etres~;
+      \item imbrication possible des macros~;
+      \item pas de blanc entre {\tt MAX} et la parenth\`ese ouvrante~;
+      \item pas d'effet sur les cha\^\i{}nes de caract\`eres constantes~;
+      \item si la macro n\'ecessite plusieurs lignes, utiliser le \verb+'\'+.
+    \end{itemize}  
+\index{Pr\'eprocesseur}
+\index{{\bf cpp}}
+\index{\verb?#include?}
+\index{\verb?#define?}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Macro avec param\`etres~: attention aux effets lat\'eraux}%
+  Consid\'erons l'exemple classique~: \verb+#define MAX(a,b) a>b?a:b+.
+  \par\medskip
+  Supposons que les param\`etres soient des expressions incluant des
+  op\'erateurs de priorit\'e inf\'erieur \`a~\verb?>? et~\verb+?+ %
+  (\verb?MAX( x=y , ++z )? par exemple).
+\par\medskip
+  Le r\'esultat est \verb|x = ( y> ++z ? x=y : ++z)| ce qui n'a pas
+  grand rapport avec ce que l'on attendait. Ainsi, on a tout
+  int\'er\^et \`a d\'efinir la macro plus pr\'ecis\'ement~: %
+  \verb+#define MAX(a,b) (((a)>(b))?(a):(b))+.
+\par\medskip
+  Mais m\^eme dans ce cas, on doit bien remarquer que l'\'evaluation
+  de cette macro implique une double incr\'ementation de~z qui n'est pas 
+  explicite dans l'appel \`a cette macro.
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}
+  \frametitle{Directives conditionnelles} 
+  Il est possible de conditionner la compilation par~:
+  \begin{itemize}
+  \item l'insertion optionnelle de code
+    \begin{tabular}[h]{l|l}
+      {\tt \#if} {\it expression\_constante} & {\tt \#ifdef} {\it
+        identificateur} \\
+      lignes \`a ins\'erer si & lignes \`a ins\'erer si \\  
+      {\it expression\_constante} vraie & {\it identificateur} est d\'efini \\
+      {\tt \#endif} & {\tt \#endif}
+    \end{tabular}
+  \item un test de non d\'efinition: {\tt \#ifndef};
+    \newpage
+  \item l'usage de l'alternative
+    \begin{tabular}[h]{l|l}
+      {\tt \#if} {\it expression\_constante} & {\tt \#ifdef} {\it
+        identificateur} \\
+      lignes \`a ins\'erer si & lignes \`a ins\'erer si \\  
+      {\it expression\_constante} vraie & {\it identificateur} est d\'efini \\
+      {\tt \#else} & {\tt \#else} \\
+      lignes \`a ins\'erer si & lignes \`a ins\'erer si \\  
+      {\it expression\_constante} fausse & {\it identificateur} non d\'efini \\
+      {\tt \#endif} & {\tt \#endif}
+    \end{tabular}
+  \end{itemize}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  Un petit exemple~:
+\begin{verbatim}
+ #ifdef ERREUR        /* Attention \`a l'utilisation des */  
+ #define SQR(x) x * x /* param\`etres et aux effets      */
+ #else                /* lat\'eraux                      */
+ #define SQR(x) ((x) * (x))
+ #endif
+ a=SQR(4 + 5);  t[i]=SQR(t[i++]);
+\end{verbatim}
+  Une macro peut \^etre d\'eclar\'ee depuis le shell lors de la compilation~:
+\begin{verbatim}
+  % gcc -D ERREUR fichiersource.c
+\end{verbatim}
+  et ainsi conditionner la compilation du code.
+\par\medskip
+On peut aussi interrompre ou commenter la compilation
+\begin{verbatim}
+#ifndef MAMACRO
+#error "MAMACRO inconnue"
+#else
+#warning "MAMACRO est connue"
+#endif
+\end{verbatim}
+\index{Compilation conditionnelle}
+\index{Pr\'eprocesseur}
+\index{{\bf cpp}}
+\index{\verb?#error?}
+\index{\verb?#ifdef?}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Macro pr\'ed\'efinie du pr\'eprocesseur}%
+  Il existe un certain nombre de macro pr\'ed\'efinies~:
+  \begin{itemize}
+  \item\textbf{\_\_FILE\_\_} correspond au nom du fichier source~;
+  \item\textbf{\_\_FUNCTION\_\_} correspond au nom de la fonction
+    contenant la ligne courante dans le code~;
+  \item\textbf{\_\_LINE\_\_} correspond \`a la ligne courante dans le code~;
+  \item\textbf{\_\_DATE\_\_} correspond \`a la date du pr\'eprocessing~;
+  \item\textbf{\_\_TIME\_\_} correspond \`a l'heure du pr\'eprocessing~;
+  \item etc.    
+  \end{itemize}
+  Par exemple
+\begin{verbatim}
+% nl preprocessing.c                 % gcc -E preprocessing.c   
+     1  int main (void) {                  int main (void) {               
+     2   int a = __LINE__ ;            int a = 2 ;             
+     3    return 0;                    return 0;               
+     4  }                            }                         
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+ \frametitle{Attributs de fonctions}%
+  Le comportement vis \`a vis des fonctions du compilateur \textsc{gcc} peut \^etre finement manipul\'e 
+  par le biais de la macro \`a param\`etre \verb+__attribute__ ((param))+. 
+  Par exemple,  on peut utiliser comme param\`etre~:
+\begin{itemize}
+\item \verb+deprecated+ afin de lancer un avertissement si la fonction correspondante est utilis\'ee~;
+\item \verb+constructor+ afin de lancer la fonction correspondante avant le \texttt{main}~;
+\item \verb+destructor+ afin de lancer la fonction correspondante apr\`es le \texttt{main}~;
+\item \verb+always_inline+ afin d'inliner la fonction correspondante quelque soit l'option d'optimisation utilis\'ee.
+\end{itemize}
+  Ces fonctionnalit\'es ne sont pas standardis\'ees. Consultez la documentation pour plus d'informations.
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+	La compilation et l'ex\'ecution du code suivant~:
+  \begin{verbatim}
+  #include<stdio.h>
+  void foo(void) __attribute__ ((constructor)) ;
+  void bar(void) __attribute__ ((destructor)) ;
+  int old(int) __attribute__ ((deprecated)) ;
+  void foo(void) { printf("%s ",__FUNCTION__); return ; }
+  void bar(void) { printf("%s ",__FUNCTION__); return ; }
+  int toinline(int dummy) { return dummy+1 ; }   
+  int old(int dummy) { int res ; res = dummy++ ; return res ;}
+  int main (void) { int tmp ; tmp = old(1) ; 
+       tmp = toinline(1)  ; printf("%s ",__FUNCTION__) ; return tmp ; }
+  \end{verbatim}
+donnent~:
+\begin{verbatim}
+% gcc foo.c ; ./a.out ; echo $? 
+foo.c: In function ‘main’:
+foo.c:9: warning: ‘old’ is deprecated (declared at foo.c:8)
+foo main bar 2
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Usage avanc\'e (e.g.\ assert.h)}
+  On peut convertir l'argument d'une macro en une cha\^\i{}ne de
+  caract\`eres en utilisant l'op\'erateur \#.
+  \par\smallskip
+  Ceci permet des utilisations du type~:
+\begin{verbatim}
+#include<stdio.h>
+#define STRING(x) #x
+#define ASSERT(x) if(!x) \
+printf("%s not true in file: %s, line: %d,%function %s\n",\
+STRING(x),__FILE__,__LINE__,__func__);
+int main (void){
+        int i = 3 ;
+        ASSERT(i==0) 
+        return i ;
+}
+\end{verbatim}
+qui, si le source est \verb+essai.c+ produit, comme r\'esultat~:
+\begin{verbatim}
+% gcc essai.c ; ./a.out 
+% i==0 not true in file: essai.c, line: 8, function main
+\end{verbatim}
+(\`a utiliser en phase de conception durant laquelle le message est pertinent).
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}
+  \section{Le type structures} 
+  Une \textit{structure} est le regroupement de plusieurs variables de
+  types diff\'erents dans une m\^eme entit\'e.
+  \begin{itemize}
+  \item cet objet est compos\'e d'une s\'equence de membres de types divers~;
+  \item chaque membre porte un nom interne \`a la structure~;
+  \item le type des membres peut \^etre quelconque (imbrication)~;
+  \item les membres sont stock\'es de mani\`ere contigu\"e en m\'emoire~;
+  \item d\'eclaration~:\\
+    \quad{\tt struct}\;{\it identificateur\_du\_mod\`ele}\;
+    \par\quad {\tt \{}\\
+    \qquad{\it type}\;{\it liste\_identificateur\_de\_membre}\;{\tt ;}\\
+    \qquad{\it type}\;{\it liste\_identificateur\_de\_membre}\;{\tt ;}\\
+    \qquad \ldots\\
+    \quad {\tt \};}
+  \end{itemize}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+    \begin{itemize}
+  \item d\'eclaration de variable d'un type structure~:\\
+    \centerline{
+      {\tt struct} {\it identificateur\_de\_mod\`ele}
+      {\it liste\_identif\_variable}\ {\tt ;}
+    }
+  \item d\'efinition et d\'eclaration  simultan\'ees de variables~:\\
+    \hspace*{10mm} {\tt struct}\hspace{3mm}{\it identificateur\_de\_mod\`ele}
+    \hspace{3mm}{\tt \{}\\
+    \hspace*{15mm} {\it type}\hspace{3mm}{\it liste\_identificateur\_de\_membre}
+      \hspace{3mm}    {\tt ;}\\
+    \hspace*{15mm} {\it type}\hspace{3mm}{\it liste\_identificateur\_de\_membre}
+    \hspace{3mm} {\tt ;}\\
+    \hspace*{15mm}\ldots\\
+    \hspace*{10mm} {\tt \}}\hspace{3mm}
+    {\it liste\_identificateur\_de\_variable}
+    \hspace{3mm}{\tt ;}
+  \item le nommage de la structure est alors facultatif~;
+  \item acc\`es \`a un membre: op\'erateur {\tt .} de s\'election de champs\\
+    \quad {\it identificateur\_de\_variable}
+    {\tt .}
+    {\it identificateur\_de\_membre};
+  \end{itemize}
+\begin{verbatim}
+   struct mastructure {
+         char o ;
+         int  six ;
+   } ;
+   struct mastructure mavariable ; 
+   mavariable.o='o' ; mavariable.six = 6 ;
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Une sp\'ecificit\'e du compilateur gcc}%
+  La norme ISO ne permet pas de faire de l'initialisation des
+  structures lors de leurs d\'eclarations.
+  \par\medskip
+  Mais le compilateur \texttt{gcc} pr\'evoit tout de m\^eme cette
+  possibilit\'e~:
+\begin{verbatim}
+ struct complexe {
+   int re ;
+   int im ;
+ } foo = {
+   .im = 2,
+   .re = 1
+ } ;
+\end{verbatim}
+  Plus canoniquement, l'initialisation peut se faire en donnant la
+  liste entre {\tt \{} {\}} de constantes~:
+\begin{verbatim}
+ struct complexe {
+   int re ;
+   int im ;
+ } foo = { 1, 2 } ; /* il faut respecter l'ordre */
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Exemple de repr\'esentation en m\'emoire d'une structure}%
+\begin{verbatim}
+   struct adresse {                                         
+     int num;                  .globl bibi                  
+     char rue[40];                     .data                
+     long int code;                    .align 32            
+     char ville[20];                   .type   bibi,@object 
+   };                                  .size   bibi,120     
+                               bibi:                        
+   struct personne {                   .string "Moi"        
+     char nom[20];                     .zero   16           
+     char prenom[25];                  .string "Idem"       
+     int age;                          .zero   20           
+     struct adresse adr;               .zero   3            
+   } bibi = {                          .long   100          
+     .nom = "Moi",                     .long   39           
+     .prenom = "Idem",                 .string "Publique"   
+     .age = 100,                       .zero   31           
+     .adr.num = 39,                    .long   59000
+     .adr.rue = "Publique",            .string "Lille"      
+     .adr.ville = "Lille",             .zero   14           
+     .adr.code = 59000 };      
+\end{verbatim} 
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Ne pas confondre~C et ses h\'eritiers}%
+  \textbf{Attention}~: C n'est pas un langage orient\'e objet et donc,
+  il n'y a pas de constructeur en~C. 
+  \par\medskip
+  Il n'y a pas d'initialisation ``g\'en\'erique'' associ\'ee \`a un
+  type. Le code suivant n'est pas du~C valide~:
+\begin{verbatim}
+struct adresse 
+{
+  int num = 36 ;
+  char rue[40] = "Quai des Orf\'evres";
+  long int code = 75001;
+  char ville[20] = "Paris" ;
+};
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Copie et affectation d'une structure comme un tout}% 
+Contrairement aux tableaux, l'affectation
+\begin{verbatim}
+#include "les_definitions_des_transparents_precedents"
+struct personne bobo;
+int main(void){
+  bobo = bibi ;
+  return 0 ;
+}
+\end{verbatim}
+est possible et provoque une copie physique des donn\'ees de l'espace
+m\'emoire associ\'e \`a \texttt{bibi} dans celui associ\'e \`a
+\texttt{bobo}.
+\par\medskip
+En cons\'equence, on peut~:
+\begin{itemize}
+\item passer des structures en argument de fonction (copie)~;
+\item utiliser une structure comme valeur de retour de fonction~;
+\item mais C \'etant un langage de bas niveau, les structures ne se
+  comparent pas.
+\end{itemize}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}
+  \section{Le type union}%
+  Un type \texttt{union} permet~:
+\begin{itemize}
+\item de d\'efinir une variable qui peut contenir \`a des moments
+  diff\'erents des objets de type et de taille diff\'erents~;
+  \item la manipulation de diff\'erents types de donn\'ees dans un
+    m\^eme espace m\'emoire.
+\end{itemize}
+\par\medskip
+La manipulation des unions est semblable \`a celle des structures~:
+\begin{itemize}
+  \item syntaxe similaire \`a celle des structures~:\\
+\qquad {\tt union}\hspace{3mm}{\it identificateur\_de\_mod\`ele\_d'union} \\
+\qquad {\tt \{}\\
+\qquad {\it type}\hspace{3mm}{\it liste\_identificateur\_de\_champs}
+\hspace{3mm}
+{\tt ;}\\
+\qquad {\it type}\hspace{3mm}{\it liste\_identificateur\_de\_champs}
+\hspace{3mm}
+{\tt ;}\\
+\begin{center}
+	$\cdots$
+\end{center}
+\qquad {\tt \}}\hspace{3mm}
+{\it liste\_identificateur\_de\_variable}\hspace{3mm}{\tt ;}
+
+  \item acc\`es \`a un champs~: {\it identificateur\_de\_variable}{\tt .}{\it identificateur\_de\_champs}
+\end{itemize}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Exemple de repr\'esentation en m\'emoire d'une union}%
+  Les champs potentiels sont stock\'es de mani\`ere superpos\'e en m\'emoire.
+\begin{verbatim}
+union nombre{                  .globl bar                    
+                                         .data                 
+  int entier ;                           .align 4              
+                                         .type   bar,@object   
+  struct complexe {                      .size   bar,20        
+    float re ;                   bar:                          
+    float im ;                           .long   999           
+  } comp_var ;                           .zero   16            
+                                         .text                 
+  char symbol[20] ;
+
+}  bar = { .entier = 999 } ;
+\end{verbatim}
+
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Exemple d'affectation en m\'emoire d'une union}%
+\begin{verbatim}
+                                   .data                
+union nombre{                      .size   bar,20       
+                             bar:                         
+  int entier ;                       .long   999          
+                                     .zero   16           
+  struct complexe {          foo:    .zero   20           
+    float re ;                       .text                
+    float im ;               .globl main                  
+  } comp_var ;               main:   ......               
+                                     movl    bar, %eax    
+  char symbol[20] ;                  movl    %eax, foo    
+                                     movl    bar+4, %eax  
+}  foo,bar={.entier=999};            movl    %eax, foo+4  
+                                     movl    bar+8, %eax  
+int main(void)                       movl    %eax, foo+8  
+{                                    movl    bar+12, %eax 
+   foo=bar ;                         movl    %eax, foo+12 
+                                     movl    bar+16, %eax 
+   return 0 ;                        movl    %eax, foo+16 
+}                                    ......               
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \section{Type \'enum\'er\'e}
+\begin{itemize}
+  \item Syntaxe~:
+{\it type-\'enum\'er\'e} : \\
+\quad $\Rightarrow$ \;{\tt enum}\;{\it
+  identificateur}\;{\tt \{} {\it
+  liste-d-\'enum\'erateurs}\;{\tt \}}  \\
+{\it liste-d-\'enum\'erateurs} : \\
+\hspace*{10mm} $\Rightarrow$ \hspace{3mm}{\it
+  liste-d-\'enum\'erateurs\/$_{option}$}\hspace{3mm}{\it \'enum\'erateur} \\ 
+{\it \'enum\'erateur} : \\
+\hspace*{10mm} $\Rightarrow$ \hspace{3mm}{\it identificateur} \\
+\hspace*{10mm} $\Rightarrow$ \hspace{3mm}{\it identificateur} {\tt =}
+{\it expression-constante}
+\newpage
+  \item S\'emantique~:
+    \begin{itemize}
+      \item type dont les valeurs possibles font partie des {\it
+          \'enum\'erateurs}~;
+      \item {\it identificateur} dans {\it \'enum\'erateur}: constante enti\`ere~;
+      \item nom d'un {\it identificateur}~: distinct d'une variable
+        ordinaire~;
+      \item valeur enti\`ere nulle au d\'epart et incr\'ement\'ee pour chaque
+        nouvel {\it identificateur}~;
+      \item sp\'ecifier une valeur ({\it expression-constante}).
+    \end{itemize}
+  \end{itemize}
+\begin{verbatim}
+enum {VRAI, FAUX} test=FAUX; /* contraire aux
+                                  conventions du C */ 
+enum mois_m { jan=1, feb=2, mar, avr, may, jun, jul,
+              aug, sep, oct, nov, dec};  
+enum mois_m mavariable ;
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+\begin{verbatim}
+enum {VRAI,FAUX} test=FAUX; .globl test                                                       
+                                    .data                                                     
+int main(void){                     .align 4                                                  
+  test = VRAI ;                     .type   test,@object                                      
+  return 0 ;                        .size   test,4                                            
+                            test:                                                             
+}                                   .long   1                                                 
+                                    .text                                                     
+                            .globl main                                                       
+                                    .type main,@function               
+                            main:                                      
+                                   ...
+                                   movl    $0, test
+                                   ....
+\end{verbatim}
+
+\index{D\'efinition!de nouveaux types}
+\index{Types!\'enum\'er\'es}
+\index{\verb?enum?}
+\end{frame}
+%------------------------------------------------------------------------------
+  \section{D\'efinition de nouveaux types}    
+\begin{frame}[fragile]
+\frametitle{Types d\'efinis par l'utilisateur}
+\begin{itemize}
+  \item ajoute un nom d\'esignant un type existant;
+  \item lisibilit\'e: utilis\'e pour les structures complexes;
+  \item portabilit\'e: param\'etrer un programme ({\tt size\_t});
+  \item syntaxe: identique \`a celle d'une variable\\
+ \hspace*{10mm}{\tt typedef}\hspace{3mm}{\it type}\hspace{3mm} {\it
+ identificateur\_de\_type}
+  \item ne cr\'ee pas un nouveau type, plut\^ot un synonyme.
+\end{itemize}
+Par exemple, la d\'eclaration du nouveaux type \verb+entier+~:
+\begin{verbatim}
+typedef int entier ;
+\end{verbatim}
+permet les d\'eclarations~:
+\begin{verbatim}
+entier i,j=2 ;
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+ \begin{frame}[fragile]
+ \frametitle{Exemples de d\'efinition de type}
+ On peut maintenant substituer des synonymes aux mod\`eles que l'on d\'eclare~:
+\begin{verbatim}
+   typedef enum mois_m mois_t; /*d\'efinit pr\'ec\'edement*/
+   
+   mois_t mois;
+
+   typedef enum {FALSE, TRUE} bool_t; /* conforme \`a la
+                                          norme C        */
+   bool_t b, btab[30] ;
+
+   typedef struct point { int x; int y;} point_t;
+   typedef struct rectangle {point_t P1, P2;} rectangle_t;
+   rectangle_t carre_unite = {{ 0, 0}, { 1, 1}};
+\end{verbatim}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+\begin{verbatim}
+                                       .file   "typedef.c"  
+ typedef struct point {             .globl carre_unite                              
+       int x;                        .data                                                     
+       int y;                        .align 4                                                  
+ } point_t;                          .type carre_unite,@object                               
+ typedef struct rectangle {          .size carre_unite,16                                    
+       point_t P1;                   carre_unite:             
+       point_t P2;                     .long   0                                                 
+} rectangle_t ;                        .long   0                                                 
+                                       .long   1                                                 
+rectangle_t carre_unite = {{ 0, 0},    .long   1                                                 
+                         { 1, 1}};     .text                                                     
+                                    .globl main                                          
+int main(void)                      .type main,@function                                    
+{                                   main:
+  return 0 ;                           ........
+}
+\end{verbatim}
+\index{D\'efinition!de nouveaux types}
+\index{Types!d\'efinis par l'utilisateur}
+\index{\verb?typedef?}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Mod\`ele de tableaux}
+  En utilisant \verb+typedef+, il est possible de d\'eclarer un type
+  (mod\`ele) permettant de d\'eclarer des tableaux. 
+  Par exemple~:
+\begin{verbatim}
+typedef int TableauDe10Entiers[10] ;
+\end{verbatim}
+ne d\'eclare pas un tableau de~$10$ entiers mais permet de construire
+un synonyme (\verb+TableauDe10Entiers+) utilisable dans la
+d\'eclaration ult\'erieure de tableaux. Ainsi, la d\'eclaration
+\begin{verbatim}
+TableauDe10Entiers a,b ;
+\end{verbatim}
+correspond \`a la d\'eclaration de~$2$ tableaux~\verb+a+ et~\verb+b+
+de~$10$ cellules de type \verb+int+.
+\par\bigskip
+La construction de ce genre de synonyme se base sur la d\'eclaration
+classique d'une variable~; l'usage de \verb+typedef+ permet de
+consid\'erer que ce qui aurait \'et\'e l'identificateur de variable
+(sans \verb+typedef+) est un identificateur de type (cf.\ le cours sur
+les pointeurs de fonctions pour en autre exemple).
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+    \section{Les champs de lettres binaires}
+ R\'ealiser un codage d'informations en utilisant une suite de shannons
+\begin{itemize}
+\item Par exemple, identificateur dans une table des symboles:
+  mot-cl\'e, externe, statique~:
+\begin{verbatim}
+   #define MOT_CLE 01
+   #define EXTERNE 02
+   #define STATIQUE 04
+\end{verbatim}
+ou bien~:
+\begin{verbatim}
+   enum { MOT_CLE = 01, EXTERNE = 02, STATIQUE = 04};
+\end{verbatim}
+  \item assignation
+{\normalsize
+\begin{verbatim}
+   int drapeaux;
+   drapeaux |= EXTERNE | STATIQUE; /* Mise a 1 */
+   drapeaux &= ~(EXTERNE | STATIQUE); /* Mise \`a 0 */
+\end{verbatim}
+}
+  \item test
+{\normalsize
+\begin{verbatim}
+   if ((drapeaux & (EXTERNE|STATIQUE))==0) /*Test \`a 0*/
+\end{verbatim}
+}
+\end{itemize}
+\par\medskip
+Dans cet exemple, seuls~$3$ shannons sont utilis\'es sur~$32$.
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+Comme alternative, on peut utiliser des champs de lettres binaires 
+\begin{itemize}
+  \item champ dans une structure dont on sp\'ecifie la longueur~;
+  \item consid\'er\'e comme un petit entier~;
+  \item pas d'adresse pour les membres~;
+  \item exemple
+\begin{verbatim}
+   struct 
+   {
+     unsigned int est_mot_cle : 1;
+     unsigned int est_externe : 1;
+     unsigned int est_statique : 1;
+   } drapeaux;
+   /* Mise \'a 1 */
+   drapeaux.est_externe = drapeaux.est_statique = 1; 
+   /* Test \'a 0 */
+   if ( drapeaux.est_externe  == 0 && 
+        drapeaux.est_statique == 0    ) ;
+\end{verbatim}
+\end{itemize}
+\end{frame}
+%------------------------------------------------------------------------------
+\begin{frame}[fragile]
+\begin{verbatim}
+struct {                                   .data                         
+  unsigned int est_mot_cle : 1;    .globl drapeaux 
+  unsigned int est_externe : 1;    drapeaux:                             
+  unsigned int est_statique : 1;           .byte   6                     
+} drapeaux = {                             .zero   3                     
+/* Mise a 1 */                             .text                         
+   .est_externe = 1,               .globl main                           
+   .est_statique = 1                                                     
+};                                 main:                                 
+                                     pushl   %ebp                    
+int                                  movl    %esp, %ebp            
+main                                 subl    $8, %esp              
+(void)                               andl    $-16, %esp            
+{                                    movl    $0, %eax              
+   /* Test \`a 0 */                  subl    %eax, %esp            
+   drapeaux.est_externe = 0 ;        andb    $-3, drapeaux         
+   return 0 ;                        movl    $0, %eax              
+}                                    leave                         
+                                     ret                           
+\end{verbatim}
+\index{Champs de bit}
+\index{\verb?:?}
+\end{frame}
+%------------------------------------------------------------------------------

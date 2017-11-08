@@ -1,0 +1,21 @@
+
+Il n'y a pas de makefile dans votre code.
+Il en faut un.
+
+Vous utilisez '\t' au lieu de ' ' dans votre fonction indentation.
+
+Il n'y a aucun commentaire dans votre texte. Cela ne facilite pas sa lecture.
+
+Votre code est assez minimaliste. Il faudrait en faire plus. Je ne sais pas en lisant votre fichier README si c'est un probl\`eme de temps, de maitrise du langage ou de l'algorithmique.
+Soyez plus pr\'ecis.
+
+Pers\'everez. Bon courage.
+
+
+
+Les remarques ci-dessus sont sommaires.
+L'objectif principale est de vous incitez \`a pers\'ev\'erer en \'enum\'erant ce qui visiblement pose probl\`eme.
+Nous pourrons en discuter demain en TP.
+Bon courage et bonne continuation.
+
+AS

@@ -1,0 +1,45 @@
+Originally Posted by ISO committee
+— restricted character set support in <iso646.h> (originally specifed in AMD1)
+— wide-character library support in <wchar.h> and <wctype.h> (originally specifed in AMD1)
+— restricted pointers
+— variable-length arrays
+— fexible array members
+— complex (and imaginary) support in <complex.h>
+— type-generic math macros in <tgmath.h>
+— the long long int type and library functions
+— increased translation limits
+— remove implicit int
+— the vscanf family of functions
+— reliable integer division
+— universal character names
+— extended identifers
+— binary foating-point literals and printf/scanf conversion specifers
+— compound literals
+— designated initializers
+— // comments
+— extended integer types in <inttypes.h> and <stdint.h>
+— remove implicit function declaration
+— preprocessor arithmetic done in intmax_t/uintmax_t
+— mixed declarations and code
+— integer constant type rules
+— integer promotion rules
+— vararg macros
+— additional math library functions in <math.h>
+— foating-point environment access in <fenv.h>
+— IEC 60559 (also known as IEC 559 or IEEE arithmetic) support
+— trailing comma allowed in enum declaration
+— %lf conversion specifer allowed in printf
+— inline functions
+— the snprintf family of functions
+— boolean type in <stdbool.h>
+— idempotent type qualifers
+— empty macro arguments
+— new struct type compatibility rules (tag compatibility)
+— _Prama preprocessing operator
+— standard pragmas
+— __func__ predefned identifer
+— VA_COPY macro
+— additional strftime conversion specifers
+— LIA compatibility annex
+— deprecate ungetc at the beginning of a binary file
+— remove deprecation of aliased array parameters

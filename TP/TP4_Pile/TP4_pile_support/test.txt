@@ -1,0 +1,4 @@
+Bienvenue dans ce fichier
+Ici j'affiche un nombre : 52.
+Ici j'affiche une chaine : L'informatique, c'est fantastique.
+Ici j'affiche le flottant 3.140000 et le caractère k.

@@ -1,0 +1,23 @@
+y
+Un readme minimaliste.
+Vous pourriez mettre dans le readme ce que fait votre programme et ce que vous avez implant\'e plut\^ot que de me laisser tout lire pour le deviner.
+Donc comme on ne sait pas ce que vous attendez comme specification de votre code, l'utilisateur se construit sa propre specification que votre code a peu de chance de remplir.
+Fournir un fichier d'essai que l'on a fait soi-meme est une bonne facon de mettre son travail en valeur.
+
+Le make file est bien mais il n'efface pas l'executable.
+
+La compilation pose un petit probl\`eme (mixed declaration and code)
+
+Il n'y a aucun commentaire dans votre texte. Cela ne facilite pas sa lecture.
+	
+Le resultat est plut\^ot pas mal.
+	l'indentation est bien prise en compte mais il y a un probl\`eme avec 
+	la fermeture des }.
+	les commentaires sont bien g\'eres.
+	les ; sont bien pris en compte mais pas dans le for.
+
+
+Il y a beaucoup de duplication de code (for(cpt = 0 ; cpt<nbrAcc; cpt++)) vous devriez faire une fonction pour cela ou une macro. En effet, vous utilisez une tabulation (qui depend donc du reglage de la machine) pour indenter. Si je vous demande de modifier cela, vous aller devoir modifier a peu pres la meme ligne partout dans le code. Cela ne devrait se faire qu'une seule fois (dans un monde ideal).
+
+Globalement, c'est du bon boulot. Vous \^etes bien \`a niveau sur le langage.
+Je pense qu'il vous faut investir dans la phase de conception de votre code.

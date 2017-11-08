@@ -1,0 +1,28 @@
+  Reportez le code suivant sur vos copies en corrigeant les erreurs.
+\begin{verbatim}
+#include <stdio.h>
+
+char main(){
+
+  int tab[Max] ;
+  int i,j ;
+
+  /* Initialisation du tableau des entiers */
+  for (i:=0, i<=Max, i++) 
+    tab[i]:=i+2 
+  
+  /* Determination des multiples */
+
+  for(i:= 0 , i<=Max, i++)
+    if (tab[i]=!0){
+      for(j:= 2 ,tab[i]*j-2<=Max,j++);
+        tab[tab[i]*j-2]:=0 
+    }
+
+  /* Affichage des nombres premiers */
+  for(i:=0, i<=Max, i++) 
+    if tab[i]=!0
+      then printf("%f\n",tab[i]) 
+    end if ;
+}
+\end{verbatim}

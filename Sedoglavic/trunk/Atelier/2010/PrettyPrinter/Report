@@ -1,0 +1,99 @@
+abdolmohammadi-prettyprinter.c.jar rien si ce n'est le squelette du tp d'origine.
+
+amriou-pprinter.tar.gz 
+pas de makefile mais un script bash permettant de faire les test
+un avertissement de compilation
+du bon boulot
+
+anselin-pretty-printer_Anselin.tar.gz
+un makefile
+pas mal. du bon boulot.
+
+couturier-couturier_boris_tp2.tar.gz
+Un executable fourni avec l'archive (-1)
+Le makefile est present.
+C'est du bon boulot.
+
+delahayea-tp3-delahayea.tar.gz 
+Makefile bien fait.
+
+denis-pretty-printer.tar.gz
+Un makefile un peu miteux
+ne marche pas.
+
+djebien-DjebienTarik.tar.gz
+Un makefile un peu bizarre mais fonctionnel.
+du code de sortie pas tres jolie.
+Une erreur de compilation en recompilant la sortie.
+
+dufresne-Yoann_Dufresne_pp.zip
+(Du zip, avec des identificateurs de fichiers contenant des espaces).
+un executable fourni dans le source (-1)
+Un Makefile bien fait.
+ne fonctionne pas sur mon exemple.
+
+flamant-flamant_printer.tgz 
+Un makefile standard.
+Le code produit est moche (for .. {pas de saut de ligne ..)
+des erreurs lors de la compilation du code de sorties.
+
+gaza-pp.tar.gz 
+Un makefile bien fait
+Mais le code boucle et ne termine pas sur mon exemple.
+
+ivanov-pp.tar.gz
+Le makefile s'appelle Make~???
+Il ne marche pas.
+Le code source de sortie est potable
+Mais ne compile pas car pas de saut de ligne apres #include ...
+Ceci corrige il compile.
+
+kaya-b1_yasar_b2_kaya_tp2.zip
+Des executables sont dans l'archive (-1)
+il y a un makefile bien fait.
+Le code est pas mal. Il y a une erreur sur le decalage de l'indentation (-1)
+Ne compile pas car pas de saut de ligne apres #include.
+Un probleme d'espace manquant entre struct et les identificateurs de modele.
+etc.
+
+louis-LOUIS_BONTE_TP3.tgz 
+un Makefile correct
+le code produit est bien.
+il compile impec.
+Seul probl\`eme  c'est un travail a deux (-1)
+
+noufli-TP2_noufli_pp.tar.gz 
+Presence d'un executable dans l'archive (-1)
+un makefile present et bien fait
+un code moche.
+qui ne compile pas a cause d'un saut de ligne abscent apres #include
+un probleme avec les commentaires.
+
+petre-TP3-Augustin-Petre.tar.gz
+un makefile bien fait
+produit un code pas mal.
+Mais Ne compile pas.
+
+pollaert-kevin_pollaert_tp3.tar.gz
+Un makefile pas mal
+Du code vraiment bien.
+et le code compile
+Du bon boulot
+
+rouault-rouault_tp02.zip
+pas de makefile
+le code compile avec avertissement
+le code de sortie est potable et il compile
+
+saintgeorges-TP3.tar.gz
+un makefile
+le code compile, le code de sortie est potable
+et il compile
+
+youlhajen-pp_YOULHAJEN.tar.gz 
+un makefile standard
+le code source de sortie est un peu moche
+il ne compile pas (toujours la meme erreur de saut de ligne)
+meme probleme avec les commentaires mal forme.
+
+

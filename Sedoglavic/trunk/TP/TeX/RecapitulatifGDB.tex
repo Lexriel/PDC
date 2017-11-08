@@ -1,0 +1,85 @@
+\subsection*{Lancement et arr\^et de gdb}
+\index{Gnu debugger}
+\par
+\begin{tabular}{lcl}
+  \shell{gdb fichier} &:& lancement de l'environnement gdb \\
+  \commande{quit} &:& sortie de l'environnement gdb
+\end{tabular}
+\par
+\paragraph{Remarque.}
+Le raccourci clavier \texttt{CTRL-C} ne provoque pas la terminaison de
+\texttt{gdb} mais interrompt la commande courante.
+\subsection*{Commandes g\'en\'erales}
+\par
+\begin{tabular}{lcl}
+  \commande{run} &:& lancement d'un programme dans l'environnement gdb \\
+  \commande{kill} &:& arr\^et d\'efinitif d'un programme
+\end{tabular}
+\par
+\subsection*{Manipulation des points d'arr\^et}
+\par
+\begin{tabular}{lcl}
+  \commande{break FCT} &:& placer un point d'arr\^et au d\'ebut de la fonction FCT \\
+  \commande{break *ADDR} &:& placer un point d'arr\^et \`a l'adresse ADDR \\
+  \commande{break NUML} &:& placer un point d'arr\^et \`a la ligne NUML \\[\bigskipamount]
+  \commande{disable NUM} &:& inactive le point d'arr\^et NUM \\
+  \commande{enable NUM} &:& r\'eactive le point d'arr\^et NUM \\
+  \commande{delete NUM} &:& supprime le point d'arr\^et NUM \\
+  \commande{delete} &:& supprime tous les point d'arr\^ets \\
+\end{tabular}
+\par
+\subsection*{Ex\'ecution d'un programme pas \`a pas}
+\par
+\begin{tabular}{lcl}
+  \commande{step} &:& ex\'ecute une instruction \'el\'ementaire \\
+  \commande{step NUM} &:& ex\'ecute NUM instructions \'el\'ementaires \\[\bigskipamount]
+  \commande{next} &:& ex\'ecute une instruction (y compris les fonctions appel\'ees) \\
+  \commande{next NUM} &:& ex\'ecute NUM instructions (y compris les fonctions appel\'ees) 
+  \\[\bigskipamount]
+  \commande{until LOC} &:& ex\'ecute les instructions jusqu`\`a ce que LOC soit atteint 
+  \\[\bigskipamount]
+  \commande{continue} &:& reprend l'ex\'ecution \\
+  \commande{continue NUM} &:& reprend l'ex\'ecution en ignorant les points d'arr\^et NUM fois
+  \\[\bigskipamount]
+  \commande{finish} &:& ex\'ecute jusqu`\`a ce que la fin de la fonction en cours
+  \\[\bigskipamount]
+  \commande{where} &:& affiche la position actuelle
+\end{tabular}
+\par
+\subsection*{Affichage du code et des donn\'ees}
+\par
+\begin{tabular}{lcl}
+  \commande{list} &:& affiche le code source par paquet de~$10$ lignes\\
+  \commande{list NUML} &:& affiche le code source \`a partir de NUML\\
+  \commande{disas} &:& affiche le code autour de la position courante \\
+  \commande{disas ADDR} &:& affiche le code autour l'adresse ADDR \\
+  \commande{disas ADDR1 ADDR2} &:& affiche le code entre les adresses ADDR1 et ADDR2
+  \\[\bigskipamount]
+  \commande{print \$REG} &:& affiche le contenu du registre REG\\
+  \commande{print /x \$REG} &:& affiche le contenu du registre REG en hexad\'ecimal\\
+  \commande{print /t \$REG} &:& affiche le contenu du registre REG en binaire \\
+  \commande{print /c \$REG} &:& affiche le contenu du registre REG sous forme de caract\`ere \\
+  \commande{print /a \$REG} &:& affiche le contenu du registre REG sous forme d'adresse\\
+  \\[\bigskipamount]
+  \commande{printf "DESC",OBJ} &:& affichage \`a la~C
+  \\[\bigskipamount]
+  \commande{x /NFU ADDR} &:& affichage du contenu de la m\'emoire \`a l'adresse ADDR\\
+   && N est le nombre d'unit\'e \`a afficher \\
+   && F est le format d'affichage \\
+   && U indique le groupement~: \\ 
+   && b pour~$1$ octet, \\ && h pour~$2$ octets et\\&& w pour~$4$ octets
+\end{tabular}
+\par
+\subsection*{Commandes d'aide}
+\par
+\begin{tabular}{lcl}
+  \commande{help} &:& affiche l'aide \\
+  \commande{info program} &:& affiche des informations sur le programme\\
+  \commande{info functions} &:& affiche la liste des fonctions d\'efinies \\
+  \commande{info variables} &:& affiche les variables et les symbols pr\'ed\'efinies \\
+  \commande{info registers} &:& affiche les informations sur les registres\\
+  \commande{info breakpoints} &:& affiche les informations sur les points d'arr\^ets
+\end{tabular}
+\par
+
+

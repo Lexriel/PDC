@@ -1,0 +1,27 @@
+\section{Compression de texte par ajout de pr\'efixe}
+On consid\`ere dans la suite des cha\^\i{}nes de caract\`eres
+\textsc{ascii} exclusivement compos\'ees de lettres (elles ne
+comportent aucun chiffre).
+\par
+Une m\'ethode  primaire  de  compression  consiste \`a  rep\'erer  les
+motifs   r\'ep\'et\'es dans  la cha\^\i{}ne   \`a  compresser puis \`a
+construire  une   nouvelle  cha\^\i{}ne  constitu\'ee  du    nombre de
+r\'ep\'etition suivit du motif. Par exemple, la cha\^\i{}ne~:
+\begin{verbatim}
+AAAAAAAAAABABABCCD
+\end{verbatim}
+est compress\'ee en
+\begin{verbatim}
+10A2BA1B2C1D
+\end{verbatim}
+\paragraph{Questions.}
+\begin{enumerate}
+\item  Construire une fonction qui  prend  en argument un pointeur sur
+  une  cha\^\i{}ne de caract\`eres    compress\'ee et qui   renvoit un
+  pointeur  sur   une  nouvelle    cha\^\i{}ne  de caract\`eres    non
+  compress\'ee.
+\item Construire une fonction qui lit  une cha\^\i{}ne de caract\`eres
+  au  clavier et  qui  affiche sa    compression  suivant le  principe
+  ci-dessus. Cette fonction   devra  retourner  un pointeur   sur   la
+  cha\^\i{}ne de caract\`eres comprim\'ee.
+\end{enumerate}

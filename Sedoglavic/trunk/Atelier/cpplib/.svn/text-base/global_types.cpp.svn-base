@@ -1,0 +1,10 @@
+// $Id$
+
+#ifdef VISUAL_STUDIO
+#include "stdafx.h"
+#endif
+#include "global_types.h"
+
+#ifdef BORLAND
+#pragma package(smart_init)
+#endif

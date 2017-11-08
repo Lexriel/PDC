@@ -1,0 +1,58 @@
+\begin{exercice}[Syst\`eme proies-pr\'edateurs]
+  Nous allons mod\'eliser  l'\'evolution   de  lapins et  de   renards
+  virtuels.
+  \par
+  On  consid\`ere une population  initiale  de  lapins  constitu\'ee
+  de~$38195$ lapins et une population initiale de renards constitu\'ee
+  de~$200$ renards.
+  \par
+  Dans notre  mod\`ele,  ces deux populations  sont virtuelles  car on
+  suppose     qu'elles     sont    d\'ecrites    par     deux   suites
+  r\'ecurrentes~$(u_{j})$   et~$(v_{j})$.     Ainsi,    elles  ne   se
+  renouvellent qu'une fois par cycle (par an, par exemple).
+  \par
+  Les    terme~$u_{i}$  et~$v_{i}$  des  suites~$(u_{j})$ et~$(v_{j})$
+  d\'ecrivent le nombre de lapins et de  renards la~$i$i\`eme ann\'ee. 
+  Mais pour les  calculer, on doit  utiliser des nombres flottants car
+  si deux couples de lapins ont en moyenne  trois petits lapins sur un
+  an, le taux de reproduction de  la population est le nombre flottant
+  associ\'e  \`a~$3/4$. Avec  ce taux,   si  une ann\'ee le  nombre de
+  lapins est~$u_{j}$, l'ann\'ee suivante  le nombre de lapin~$u_{j+1}$
+  sera l'entier le plus proche de~${3u_{j}/4}$.
+  \par
+  Les d\'emographes  lapins et renards ont  constat\'e que  le taux de
+  reproduction des lapins est~:
+  $$
+  L_{j}=C(1-\frac{u_{j}}{10^{5}}  -\frac{v_{j}}{5000})
+  $$
+  et que celui des renards est
+  $$
+  R_{j}=\frac{1-\frac{v_{j}}{25000} + \min(4,\frac{u_{n}}{1000})}{4}.
+  $$
+  Ces taux sont des nombres flottants~;~$C$ repr\'esente le taux de
+  reproduction des lapins (un entier compris entre~$1$ et~$4$ inclus).
+  \par
+  Ainsi, les populations \'evoluent suivant les r\'ecurrences~:
+  $$
+  u_{j+1} = L_{j}u_{j}\quad 
+  \mathrm{et}\quad   v_{j+1}   =  R_{J}v_{j}.
+  $$
+  Les populations sont des nombres entiers,  il faut donc convertir
+  en entier les r\'esultats flottants obtenus apr\`es multiplication.
+  \par
+  Construire  une proc\'edure qui permet  de saisir au clavier le taux
+  de reproduction des  lapins et qui affiche  les nombres de lapins et
+  de   renards pour les     deux  cents premi\`eres ann\'ees.    Cette
+  proc\'edure devra   permettre   \`a l'utilisateur   de faire  autant
+  d'exp\'erience qu'il le souhaite.
+  \ifcorrection\begin{correction}
+  \input{Verbatim/lapinsEtRenards.c.verb}
+  \end{correction}
+\fi
+\par
+\textbf{Remarques bibliographiques.} %
+Ce   probl\`eme   est  tir\'e  de  travaux   pratiques  propos\'es par
+\url{http://www.ircam.fr/equipes/analyse-synthese/tassart}{St\'ephan
+  Tassart}. Il est inspir\'e par un  article de \textit{La Recherche},
+num\'ero~$296$.
+\end{exercice}

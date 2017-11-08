@@ -1,0 +1,25 @@
+\section{Carr\'e magique}
+Un carr\'e magique d'ordre~$n$ est compos\'e des~$n^{2}$ premiers entiers (distincts) \'ecrits sous la forme d'une matrice carr\'ee et tels que la sommes des nombres soient \'egales sur chaque lignes, colonnes et sur les~$2$ diagonales principales.
+Par exemple, on a~:
+\[
+\begin{array}{cccccccc}
+&&  2 & 7 & 6 &\rightarrow & 15 \\
+& & 9 & 5 & 1 &\rightarrow & 15 \\
+& & 4 & 3 & 8 &\rightarrow & 15 \\
+& \swarrow& \downarrow &  \downarrow &  \downarrow & \searrow \\
+ 15 & & 15 & 15 & 15 &  &15 
+\end{array}
+\]
+Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+int EstMagique(unsigned int ** tab, unsigned int n) ;
+\end{verbatim}
+qui retourne~$1$ si le carr\'e magique \verb+tab+ d'ordre~\verb+n+ est
+magique et qui retourne~$0$ sinon.
+\ifcorrection
+\begin{correction}
+  \verbatiminput{C/CarreMagique.c}
+\end{correction}
+\fi
+
+

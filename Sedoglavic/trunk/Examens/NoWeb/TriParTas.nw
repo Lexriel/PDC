@@ -1,0 +1,585 @@
+\section{Tri utilisant un tas binaire}
+L'objectif de l'exercice est d'implanter le tri d'un tableau d'entier en utilisant un \emph{tas binaire}.
+(On souhaite trier le tableau afin d'avoir le plus petit \'el\'ement au d\'ebut et le plus  grand \`a la fin).
+\subsection*{Tas binaire}
+\begin{definition}
+  Un \emph{tas binaire} est un arbre binaire complet --- i.e.\ les
+  n\oe{}uds de l'arbre peuvent \^etre stock\'es de fa\c{c}on
+  contigu\"e dans un tableau --- ordonn\'e en tas --- les n\oe{}uds
+  sont ordonn\'es par leurs clefs et les clefs des fils sont
+  inf\'erieures \`a celles des p\`eres.
+\end{definition}
+\subsubsection*{Repr\'esentation d'un tas binaire par un tableau}
+Comme tout arbre binaire, un tas binaire peut \^etre repr\'esent\'e
+dans un tableau unidimensionnel indic\'es \`a partir de~$0$~: le
+p\`ere d'un n\oe{}ud en position~$i$ a pour enfants un fils gauche
+en position~${2i+1}$ et un fils droit en position~${2(i+1)}$.
+\paragraph{Exemple.}
+L'arbre
+\begin{center}
+\begin{tikzpicture}[node distance   = 2 cm]
+     \GraphInit[vstyle=Normal]
+     \Vertex{12}
+     \SOEA(12){6}
+     \SOWE(12){9}
+     \SOWE(9){2}
+     \EA(2){7}
+     \EA(7){5}
+     \Edge(12)(9)
+     \Edge(12)(6)
+     \Edge(9)(2)
+     \Edge(9)(7)
+     \Edge(6)(5)
+  \end{tikzpicture}
+\end{center}
+est cod\'e par le tableau
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    12 & 9 & 6 & 2 & 7 & 5
+    \\ \hline
+  \end{tabular}
+\end{center}
+Les tas binaires sont utilis\'es pour implanter les files de
+priorit\'es car ils permettent des insertions en temps
+logarithmiques et un acc\`es direct au plus grand \'el\'ement.
+\subsubsection*{Insertion dans un tas binaire}
+L'insertion d'un \'el\'ement dans un tas binaire se ram\`ene \`a~$2$ type d'op\'erations~:
+\begin{enumerate}
+\item l'insertion de l'\'el\'ement dans premi\`ere cellule vide du
+  tableau codant l'arbre.
+\item la \emph{percolation} de cet \'el\'ement depuis une feuille de l'arbre jusqu'\`a la racine (si n\'ecessaire). Ces op\'erations consistent \`a \'echanger autant que n\'ecessaire l'\'el\'ement qui \emph{percole}
+  avec son p\`ere \emph{courant} si ce dernier est plus petit que lui. 
+\end{enumerate}
+Dans l'exemple suivant, on ajoute l'\'el\'ement~$15$
+  au tas en~$3$ \'etapes~:
+\begin{center}
+  \begin{tabular}{ccc}
+    \begin{tikzpicture}[node distance   = 1.5 cm]
+     \GraphInit[vstyle=Normal]
+     \Vertex{12}
+     \SOEA(12){6}
+     \SOWE(12){9}
+     \SOWE(9){2}
+     \EA(2){7}
+     \EA(7){5}
+     \EA(5){15}
+     \Edge(12)(9)
+     \Edge(12)(6)
+     \Edge(9)(2)
+     \Edge(9)(7)
+     \Edge(6)(5)
+     \Edge(6)(15)
+  \end{tikzpicture}
+&
+\begin{tikzpicture}[node distance   = 1.5 cm]
+     \GraphInit[vstyle=Normal]
+     \Vertex{12}
+     \SOEA(12){15}
+     \SOWE(12){9}
+     \SOWE(9){2}
+     \EA(2){7}
+     \EA(7){5}
+     \EA(5){6}
+     \Edge(12)(9)
+     \Edge(12)(15)
+     \Edge(9)(2)
+     \Edge(9)(7)
+     \Edge(15)(5)
+     \Edge(15)(6)
+  \end{tikzpicture}
+&
+\begin{tikzpicture}[node distance   = 1.5 cm]
+     \GraphInit[vstyle=Normal]
+     \Vertex{15}
+     \SOEA(15){12}
+     \SOWE(15){9}
+     \SOWE(9){2}
+     \EA(2){7}
+     \EA(7){5}
+     \EA(5){6}
+     \Edge(15)(9)
+     \Edge(15)(12)
+     \Edge(9)(2)
+     \Edge(9)(7)
+     \Edge(12)(5)
+     \Edge(12)(6)
+  \end{tikzpicture} \\
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    12 & 9 & 6 & 2 & 7 & 5 & 15
+    \\ \hline
+  \end{tabular}
+& 
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    12 & 9 & 15 & 2 & 7 & 5 & 6
+    \\ \hline
+  \end{tabular}
+&
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    15 & 9 & 12 & 2 & 7 & 5 & 6
+    \\ \hline
+  \end{tabular}
+  \end{tabular}
+\end{center}
+\subsubsection*{Retirer un \'el\'ement d'un tas binaire}
+Pour retirer un \'el\'ement d'un tas binaire on utilise~$3$ type d'op\'erations~:
+\begin{enumerate}
+\item on retire la racine de l'arbre (i.e.\ le premier \'el\'ement du tableau codant cet arbre) laissant ainsi la premi\`ere cellule vide et deux sous-arbres.
+\item on place la derni\`ere feuille (i.e.\ le dernier \'el\'ement du tableau codant l'arbre) \`a la racine (i.e.\ le premier \'el\'ement du tableau codant l'arbre)
+\item le \emph{tamissage} de cet \'el\'ement depuis la racine jusqu'\`a une feuille (si n\'ecessaire)~; c'est en quelque sorte l'op\'eration inverse de la percolation. Ces op\'erations consistent \`a \'echanger autant que n\'ecessaire l'\'el\'ement que l'on a plac\'e dans la racine
+  avec le  plus grand fils \emph{courant} qui lui est inf\'erieur.
+\end{enumerate}
+Dans l'exemple suivant, on retire l'\'el\'ement~$15$
+  au tas que l'on a construit ci-dessus~:
+\begin{center}
+  \begin{tabular}{ccc}
+    \begin{tikzpicture}[node distance   = 1.5 cm]
+     \GraphInit[vstyle=Normal]
+     \Vertex{vide}
+     \SOEA(vide){12}
+     \SOWE(vide){9}
+     \SOWE(9){2}
+     \EA(2){7}
+     \EA(7){5}
+     \EA(5){6}
+     \Edge(vide)(9)
+     \Edge(vide)(12)
+     \Edge(9)(2)
+     \Edge(9)(7)
+     \Edge(12)(5)
+     \Edge(12)(6)
+  \end{tikzpicture}
+&
+\begin{tikzpicture}[node distance   = 1.5 cm]
+     \GraphInit[vstyle=Normal]
+     \Vertex{6}
+     \SOEA(6){12}
+     \SOWE(6){9}
+     \SOWE(9){2}
+     \EA(2){7}
+     \EA(7){5}
+     \EA(5){vide}
+     \Edge(6)(9)
+     \Edge(6)(12)
+     \Edge(9)(2)
+     \Edge(9)(7)
+     \Edge(12)(5)
+     \Edge(12)(vide)
+  \end{tikzpicture}
+&
+\begin{tikzpicture}[node distance   = 1.5 cm]
+     \GraphInit[vstyle=Normal]
+          \Vertex{12}
+     \SOEA(12){6}
+     \SOWE(12){9}
+     \SOWE(9){2}
+     \EA(2){7}
+     \EA(7){5}
+     \EA(5){vide}
+     \Edge(12)(9)
+     \Edge(12)(6)
+     \Edge(9)(2)
+     \Edge(9)(7)
+     \Edge(6)(5)
+     \Edge(6)(vide)
+  \end{tikzpicture} \\
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    & 9 & 12 & 2 & 7 & 5 & 6
+    \\ \hline
+  \end{tabular}
+& 
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    6 & 9 & 12 & 2 & 7 & 5 & 
+    \\ \hline
+  \end{tabular}
+&
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    12 & 9 & 6 & 2 & 7 & 5 & 
+    \\ \hline
+  \end{tabular}
+  \end{tabular}
+\end{center}
+\subsection{Pr\'esuppos\'es}
+On suppose disposer de deux pointeurs
+\begin{verbatim}
+int *DebutTableau ;
+int *FinTableau ;
+\end{verbatim}
+le premier pointant au d\'ebut d'un tableau d'entier et le second sur sa fin.
+On ne souhaite pas utiliser d'autre espace m\'emoire que ce tableau (notre tri est donc destructif). De plus, les tas binaires interm\'ediaires
+utilisent donc ce tableau comme espace de stockage.
+\paragraph{Questions~:}
+\begin{enumerate}
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+void permuter(int *, int *) ;
+\end{verbatim}
+qui prend en argument~$2$ pointeurs d'entiers et qui permute les valeurs sur lesquelles ils pointent.
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+void percolation(int *, int *) ;
+\end{verbatim}
+qui prend en premier param\`etre un pointeur sur la  cellule d'un tableau codant la racine du tas consid\'er\'e
+et en second param\`etre un pointeur sur la cellule  o\`u l'on suppose avoir d\'ej\`a 
+plac\'e l'entier \`a ins\'erer dans le tas (cette cellule correspond \`a la derni\`ere feuille du tas que l'on obtient apr\`es percolation).
+Cette fonction implante les actions de percolation d\'ecrites ci-dessus.
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+void ConstruireTas(int *, int *) ;
+\end{verbatim}
+qui prend en premier param\`etre un pointeur sur la premi\`ere cellule d'un tableau contenant les entiers \`a trier
+et en second param\`etre un pointeur sur la  derni\`ere cellule de ce tableau. Cette fonction utilise la fonction \verb+percolation+
+ci-dessus pour construire un tas binaire stock\'e au final dans ce tableau.
+\item  Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+void Trier(int *, int *) ;
+\end{verbatim}
+qui prend en param\`etres un pointeur sur la premi\`ere cellule d'un tableau contenant les entiers \`a trier
+et un pointeur sur la  derni\`ere cellule de ce tableau. Cette fonction 
+\begin{itemize}
+\item utilise la fonction \verb+ConstruireTas+ 
+pour construire un tas binaire \`a partir des entiers en utilisant l'espace m\'emoire du tableau~;
+\item place un pointeur \verb+ptr+ sur le dernier \'el\'ement du tableau~;
+\item[1)] interverti le premier \'el\'ement avec l'\'el\'ement point\'e~;
+\item[2)] utilise la fonction \verb+tamissage+ (cf. ci-dessous) pour reconstituer la structure de tas binaire
+du tableau consid\'er\'e sans les \'el\'ements au-del\`a de \verb+ptr+~;
+\item[3)] recule le pointeur \verb+ptr+ et recommence \`a l'\'etape~$1$ jusqu'\`a ce que le tableau soit tri\'e.
+\end{itemize}
+\item Donnez la d\'efinition de la fonction de prototype~:
+\begin{verbatim}
+void tamissage(int *, int *) ;
+\end{verbatim}
+qui prend en premier param\`etre un pointeur sur la cellule correspondant \`a la racine du tas que l'on veut construire ---
+cette  racine est  suppos\'ee d\'ej\`a contenir l'\'el\'ement que l'on va tamiser --- et 
+ en second param\`etre un pointeur sur la premi\`ere cellule du tableau d'entiers qui ne fait pas partie du codage du tas que l'on
+ veut obtenir.
+  Cette fonction implante les actions de tamissage d\'ecrites plus haut.
+\end{enumerate}
+@ 
+\ifcorrection%
+Pour donner un corrig\'e, nous pouvons coder les items suivants~:
+<<*>>=
+<<directives au pr\'eprocesseur>>
+<<fonctions d'entr\'ee sortie>>
+<<fonctions d\'efinies dans l'examen>>
+<<fonction principale>>
+@ %def 
+
+@ 
+Le nombre d'entiers \`a trier~$n$ est cod\'e par une macro~:
+<<directives au pr\'eprocesseur>>=
+/* #define NBEntier 10 */
+@ %def 
+
+
+@ 
+Afin de faciliter d'\'eventuels tests, nous allons
+donner la d\'efinition d'une fonction qui construit un tableau de~$n$ entiers et d'une fonction d'affichage de ce tableau~:
+<<fonctions d'entr\'ee sortie>>=
+<<fonction d'entr\'ee>>
+<<fonction de sortie>>
+@ %def 
+
+Pour faire simple, on convient que le premier entier transmis
+correspond aux nombres d'entiers constituant l'ensemble \`a trier.
+@ 
+La fonction d'entr\'ee va donc r\'ecup\'erer cet entier, allouer un espace m\'emoire permettant de stocker
+les entiers puis les r\'ecup\'erer~:
+<<fonction d'entr\'ee>>=
+int *
+loadintegers
+(unsigned int n)
+{
+  <<variables automatiques de loadintegers>>
+  <<allocation dynamique>>
+  <<chargement>>
+  <<valeur retourn\'ee par loadintegers>>
+}
+@ %def 
+@ 
+Le param\`etre de notre fonction est par convention le nombre
+d'entiers que nous allons trier et on peut donc maintenant r\'eserver
+l'espace m\'emoire correspondant sur le tas.
+<<allocation dynamique>>=
+res = (int *) malloc(sizeof(int)*n) ;
+@ %def 
+@ 
+Bien sur, il nous faut d\'eclarer un pointeur \`a cet effet~:
+<<variables automatiques de loadintegers>>=
+  int * res ;
+@ %def 
+
+@ 
+et inclure le fichier d'ent\^ete donnant par exemple le prototype de la fonction d'allocation.
+<<directives au pr\'eprocesseur>>=
+#include <stdlib.h>
+@ %def 
+
+@ 
+Reste \`a obtenir les entiers en questions. Pour faire simple, on les r\'ecup\`ere depuis le fichier \verb+/dev/random+
+qui nous fournit un g\'en\'erateur d'entiers al\'eatoire~:
+<<chargement>>=
+  if(!(rand = fopen("/dev/random","r")))
+     exit(1) ;
+  fread(res,sizeof(int),n,rand) ;   
+@ %def 
+@ 
+Ces op\'erations n\'ecessitent la variable automatique~:
+<<variables automatiques de loadintegers>>=
+FILE * rand ;
+@ %def 
+
+@ 
+De plus, il nous faut inclure le fichier d'ent\^ete
+<<directives au pr\'eprocesseur>>=
+#include <stdio.h>
+@ %def 
+
+
+@ 
+Pour finir, il nous reste \`a fermer le fichier ouvert et \`a 
+retourner le pointeur sur la zone m\'emoire que nous venons de remplir~:
+<<valeur retourn\'ee par loadintegers>>=
+  fclose(rand) ;
+  return res ;
+@ %def 
+
+@ 
+La fonction d'affichage est bien plus simple~:
+<<fonction de sortie>>=
+void
+printintegers
+(int *ptr,int size)
+{
+ int i ;
+ for(i=0;i<size;i++)
+   printf("%d \n",ptr[i]) ;
+ printf("\n\n");
+}
+@ %def 
+
+@ 
+Les fonctions demand\'ees sont~:
+<<fonctions d\'efinies dans l'examen>>=
+<<permuter>>
+<<percolation>>
+<<ConstruireTas>>
+<<tamissage>>
+<<Trier>>
+@ %def 
+@ 
+\begin{enumerate}
+\item La fonction de permutation est un grand classique~:
+<<permuter>>=
+void
+permuter
+(int *a, int *b)
+{
+  int stck ;
+  stck = *a ;
+  *a = *b ;
+  *b = stck ;
+  return ;
+}
+@ %def 
+@ 
+\item Pour faire simple, on peut utiliser une implantation r\'ecursive~:
+<<percolation>>=
+void
+percolation
+(int *head, int *tail)
+{
+<<variables automatiques de la fonction percolation>>
+<<conditions d'arr\^et de la fonction percolation>>
+<<permutation>>
+<<appel r\'ecursif>>
+}
+@ %def 
+
+@ 
+Notre r\'ecursivit\'e doit s'arr\^eter si l'\'el\'ement courant est sur la racine du tas~:
+<<conditions d'arr\^et de la fonction percolation>>=
+if (tail==head)
+   return ;
+@ %def 
+@ 
+Si ce n'est pas le cas, nous devons d\'eterminer le p\`ere de l'\'el\'ement courant et pour ce
+faire conna\^\i{}tre l'indice de l'\'el\'ement courant dans le tableau. On commence \`a calculer l'indice
+dans le tableau de l'\'el\'ement courant et son p\`ere probable~:
+<<conditions d'arr\^et de la fonction percolation>>=
+pere = (tail-head)/2 ;
+@ %def 
+
+@ 
+Suivant que cet indice est pair ou impair, le calcul de l'indice du p\`ere est l\'eg\'erement diff\'erent~:
+<<conditions d'arr\^et de la fonction percolation>>=
+if(pere && !((tail-head) % 2))
+   pere -- ;
+@ %def 
+
+@ 
+et pour ce faire d\'efinir la variable automatique [[index]]
+<<variables automatiques de la fonction percolation>>=
+unsigned int pere ;
+@ %def 
+
+@ 
+Avec cette d\'efinition, il ne faut plus rien faire si le p\`ere de l'\'el\'ement courant est plus grand ou \'egal que cet \'el\'ement~:
+<<conditions d'arr\^et de la fonction percolation>>=
+if(head[pere]>= *tail)
+   return ;
+@ %def 
+
+@ 
+Dans le cas contraire, il faut intervertir p\`ere et fils~:
+<<permutation>>=
+  permuter(head+pere,tail) ;
+@ %def 
+
+@ 
+On peut maintenant positionner l'\'el\'ement courant sur ce nouveau p\`ere et recommencer la percolation~:
+<<appel r\'ecursif>>=
+   percolation(head,head+pere) ;
+@ %def 
+@ 
+\item Avec la fonction de percolation, on peut construire un tas \`a partir des entiers consid\'er\'es.
+<<ConstruireTas>>=
+void
+ConstruireTas
+(int *head, int *tail)
+{
+ int *tmp = head ;
+ while(tmp<=tail)
+  percolation(head,tmp++) ;
+}
+@ %def 
+
+@ 
+\item Le tamissage est l'op\'eration inverse de la percolation et donc, on peut la coder de mani\`ere similaire. Pour changer,
+on va coder sans r\'ecursion~:
+<<tamissage>>=
+void
+tamissage
+(int * head, int * tail)
+{
+<<variables automatiques de la fonction de tamissage>>
+<<corps de la fonction de tamissage>>
+return ;
+}
+@ %def 
+
+@ 
+On va d\'efinir un entier pointant sur l'\'el\'ement que l'on tamise~:
+<<variables automatiques de la fonction de tamissage>>=
+int current ;
+@ %def 
+
+@ 
+Au d\'ebut, l'\'el\'ement est la racine~:
+<<corps de la fonction de tamissage>>=
+current = 0 ;
+@ %def 
+
+
+@ 
+Notre t\^ache se r\'esume \`a une boucle~:
+<<corps de la fonction de tamissage>>=
+while(head+2*current+1<tail)
+{
+<<chercher avec qui permuter>>
+<<permuter ou sortir>>
+<<r\'eactualiser la position de l'\'el\'ement que l'on tamise>>
+}
+@ %def 
+
+@ 
+On cherche le maximun des clefs des n\oe{}uds  fils  sup\'erieur au p\`ere~:
+<<chercher avec qui permuter>>=
+max=0 ;
+if (head[2*current+1]>head[current])
+   max = 2*current+1 ;
+if( head+2*(current+1)<tail)
+{
+if (max)
+{
+   if(head[2*(current+1)]>head[2*current+1])
+      max = 2*(current+1) ;
+}
+else
+{
+   if (head[2*(current+1)]>head[current])
+      max = 2*(current+1) ;
+}
+}
+@ %def 
+@ 
+L'implantation que nous donnons de cette op\'eration n\'ecessite la 
+variable automatique~:
+<<variables automatiques de la fonction de tamissage>>=
+int  max ;
+@ %def 
+
+@ 
+Si le p\`ere est plus petit que ces fils, on arr\^ete et sinon, le pointeur [[max]] pointant sur
+le fils \`a permuter avec le p\`ere,  il nous suffit de faire une permutation~:
+<<permuter ou sortir>>=
+  if (!max)
+    return ;
+  else 
+  permuter(head+current,head+max) ;
+@ %def 
+
+@ 
+Pour finir, il nous suffit maintenant de positionner [[current]] sur la nouvelle cellule
+contenant l'\'el\'ement tamis\'e~:
+<<r\'eactualiser la position de l'\'el\'ement que l'on tamise>>=
+  current = max ;
+@ %def 
+\item
+@ 
+Pour conclure, on peut implanter la fonction de tri en suivant les \'etapes indiqu\'es dans l'\'enonc\'e~:
+<<Trier>>=
+void
+Trier
+(int *head,int *tail)
+{
+  int n ; 
+  ConstruireTas(head,tail) ;
+  n = NBEntier ;
+  while(tail>head)
+  { 
+    permuter(head,tail) ;
+    tamissage(head,tail) ;
+    tail-- ;
+  }
+  return ;
+}
+@ %def 
+\end{enumerate}
+
+@ 
+<<fonction principale>>=
+int
+main
+(int argc, char **argv)
+{
+  int *head = loadintegers(NBEntier) ;
+  printf("L'ensemble de depart\n");
+  printintegers(head,NBEntier);
+  Trier(head,head+NBEntier-1);
+  printf("L'ensemble trie\n") ;
+  printintegers(head,NBEntier);
+  return 0;
+}
+@ %def 
+
+
+\fi%
+
+

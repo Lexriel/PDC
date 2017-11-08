@@ -1,0 +1,245 @@
+K 25
+svn:wc:ra_dav:version-url
+V 27
+/svnroot/cpplib/!svn/ver/66
+END
+error.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svnroot/cpplib/!svn/ver/54/error.hpp
+END
+validation.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svnroot/cpplib/!svn/ver/39/validation.hpp
+END
+html_util.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svnroot/cpplib/!svn/ver/40/html_util.cpp
+END
+telefone.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svnroot/cpplib/!svn/ver/40/telefone.cpp
+END
+posix_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svnroot/cpplib/!svn/ver/9/posix_util.h
+END
+io_util.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svnroot/cpplib/!svn/ver/40/io_util.cpp
+END
+cpplib.layout
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svnroot/cpplib/!svn/ver/66/cpplib.layout
+END
+string_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svnroot/cpplib/!svn/ver/57/string_util.h
+END
+mg.h
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svnroot/cpplib/!svn/ver/4/mg.h
+END
+FixedColumnsParser_test_file.txt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/cpplib/!svn/ver/14/FixedColumnsParser_test_file.txt
+END
+config.h
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svnroot/cpplib/!svn/ver/65/config.h
+END
+fixed_columns_parser.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/cpplib/!svn/ver/9/fixed_columns_parser.cpp
+END
+CSVParser.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svnroot/cpplib/!svn/ver/61/CSVParser.hpp
+END
+log.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svnroot/cpplib/!svn/ver/40/log.cpp
+END
+filesystem_util.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svnroot/cpplib/!svn/ver/40/filesystem_util.cpp
+END
+serialization.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svnroot/cpplib/!svn/ver/66/serialization.hpp
+END
+constantes.h
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svnroot/cpplib/!svn/ver/40/constantes.h
+END
+cpplib.depend
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svnroot/cpplib/!svn/ver/66/cpplib.depend
+END
+algorithm_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svnroot/cpplib/!svn/ver/40/algorithm_util.h
+END
+global_types.h
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svnroot/cpplib/!svn/ver/4/global_types.h
+END
+cpplib.cbp
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svnroot/cpplib/!svn/ver/66/cpplib.cbp
+END
+sys_user_info.h
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svnroot/cpplib/!svn/ver/40/sys_user_info.h
+END
+posix_util.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svnroot/cpplib/!svn/ver/9/posix_util.cpp
+END
+distance.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svnroot/cpplib/!svn/ver/54/distance.hpp
+END
+validation.h
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svnroot/cpplib/!svn/ver/32/validation.h
+END
+my_boost.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svnroot/cpplib/!svn/ver/12/my_boost.hpp
+END
+time_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svnroot/cpplib/!svn/ver/55/time_util.h
+END
+string_util.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svnroot/cpplib/!svn/ver/59/string_util.cpp
+END
+html_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svnroot/cpplib/!svn/ver/40/html_util.h
+END
+telefone.h
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svnroot/cpplib/!svn/ver/40/telefone.h
+END
+io_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svnroot/cpplib/!svn/ver/40/io_util.h
+END
+fixed_columns_parser.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/cpplib/!svn/ver/40/fixed_columns_parser.h
+END
+constantes.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svnroot/cpplib/!svn/ver/40/constantes.cpp
+END
+global_types.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svnroot/cpplib/!svn/ver/9/global_types.cpp
+END
+system.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svnroot/cpplib/!svn/ver/40/system.cpp
+END
+log.h
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svnroot/cpplib/!svn/ver/50/log.h
+END
+filesystem_util.h
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svnroot/cpplib/!svn/ver/59/filesystem_util.h
+END
+sys_user_info.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svnroot/cpplib/!svn/ver/40/sys_user_info.cpp
+END
+validation.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svnroot/cpplib/!svn/ver/32/validation.cpp
+END
+time_util.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svnroot/cpplib/!svn/ver/55/time_util.cpp
+END

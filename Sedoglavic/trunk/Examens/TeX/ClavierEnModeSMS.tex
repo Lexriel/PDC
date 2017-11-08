@@ -1,0 +1,261 @@
+\section{Utilisation du clavier d'un t\'el\'ephone en mode SMS}
+\ifcorrection%
+\subsection*{\'Enonc\'e}%
+\fi%
+Vous  avez  d\'ej\`a  remarqu\'e  que  le   clavier d'un t\'el\'ephone
+outre la touche~\#, ressemblait \`a~:
+\par
+\begin{center}
+\begin{tabular}{ccc}
+ 1 &  2  & 3 \\
+   & ABC & DEF \\[\smallskipamount]
+ 4 & 5 & 6 \\
+GHI & JKL & MNO  \\[\smallskipamount]
+ 7 & 8 & 9 \\
+PQRS &TUV  &WXYZ
+\end{tabular}
+\end{center}
+\par
+Cette disposition permet   \`a l'utilisateur de taper   du texte.  Par
+exemple, presser  la touche~$7$ une fois  correspond \`a la lettre~$P$
+alors que presser cette touche~$4$ fois correspond  \`a la lettre~$S$. 
+La touche~\#  du t\'el\'ephone sert \`a s\'eparer  les lettres et peut
+\^etre  omise lorsqu'il est clair qu'une  lettre se termine et l'autre
+commence.
+\par
+Par exemple, la s\'equence
+\begin{verbatim}
+777666222559996#6668866#8244466
+\end{verbatim}
+correspond donc au mot
+\begin{verbatim}
+ROCKYMOUNTAIN
+\end{verbatim}
+\paragraph{Question.}
+Donnez une fonction qui prend en param\`etre une cha\^\i{}ne de
+caract\`eres --- stock\'ees dans un tableau --- correspondant au texte
+tap\'e en mode SMS (comme la s\'equence ci-dessus) et qui affiche le texte 
+ correspondant sur la sortie standard
+\paragraph{Indications.}
+Le prototype de la fonction \verb+int putchar(int)+ est d\'efini dans
+le fichier d'ent\^ete \verb+#include <stdio.h>+. Cette fonction prend
+en argument un entier, le converti en caract\`ere et l'affiche sur la
+sortie standard et retourne ce caract\`ere en cas de succ\`es ou EOF
+en cas d'\'echec.
+\ifcorrection
+\begin{correction}
+\subsection*{Proposition de correction}%
+En un seul bloc, cela donne
+\verbatiminput{C/ClavierEnModeSMS.c}
+\`A vous d'estimer comment la r\'eponse de l'\'etudiant remplit les objectifs.
+\subsection*{D\'etails de cette correction}%
+Pour d\'efinir le code, nous allons suivre les \'etapes~:
+\nwfilename{NoWeb/ClavierEnModeSMS.nw}\nwbegindocs{1}\nwdocspar
+\nwenddocs{}\nwbegincode{2}\moddef{*}\endmoddef
+\LA{}Ent\^ete\RA{}
+\LA{}Structure de donn\'ee\RA{}
+\LA{}FonctionDeTraduction\RA{}
+\nwendcode{}\nwbegindocs{3}%def
+
+\nwenddocs{}\nwbegindocs{4}\nwdocspar
+Il ne reste plus qu'\`a \'ecrire la fonction de traduction en se basant
+sur le squelette suivant~:
+\nwenddocs{}\nwbegincode{5}\moddef{FonctionDeTraduction}\endmoddef
+\LA{}Ent\^eteDeFonction\RA{}
+\{
+\LA{}Variables automatiques\RA{}
+\LA{}conversion\RA{}
+putchar('\\n');
+\}
+\eatline
+\nwendcode{}\nwbegindocs{6}\nwdocspar
+\nwenddocs{}\nwbegindocs{7}\nwdocspar
+Cette fonction d'identificateur {\tt{}Traduction} prend une cha\^\i{}ne
+de caract\`eres en param\`etre et ne retourne rien~:
+\nwenddocs{}\nwbegincode{8}\moddef{Ent\^eteDeFonction}\endmoddef
+void
+Traduction
+(char *texte)
+\eatline
+\nwendcode{}\nwbegindocs{9}\nwdocspar
+\subsubsection*{Gestion de l'entr\'ee}
+On commence par s'assurer que l'entr\'ee correspond bien \`a nos attentes.
+\nwenddocs{}\nwbegindocs{10}\nwdocspar
+Si la cha\^\i{}ne donn\'ee en param\`etre est vide, on quitte la fonction~:
+\nwenddocs{}\nwbegincode{11}\moddef{Initialisation}\endmoddef
+if(!*texte)
+   return ;
+\eatline
+\nwendcode{}\nwbegindocs{12}\nwdocspar
+\nwenddocs{}\nwbegindocs{13}\nwdocspar
+L'expression bool\'eenne suivante~:
+\nwenddocs{}\nwbegincode{14}\moddef{caract\`ere invalide}\endmoddef
+(*texte<'1' || *texte>'9') && *texte!='#'
+\eatline
+\nwendcode{}\nwbegindocs{15}est vrai si le caract\`ere consid\'er\'e est invalide.
+
+\nwenddocs{}\nwbegindocs{16}\nwdocspar
+On va chercher le premier caract\`ere valide de la cha\^\i{}ne en utilisant 
+une r\'ecursion~:
+\nwenddocs{}\nwbegincode{17}\moddef{Initialisation}\plusendmoddef
+if(\LA{}caract\`ere invalide\RA{})
+   Traduction(texte+1) ;
+\eatline
+\nwendcode{}\nwbegindocs{18}\nwdocspar
+\nwenddocs{}\nwbegindocs{19}\nwdocspar
+\subsubsection{Structure de donn\'ee}
+Nous allons utiliser la structure suivante~:
+\nwenddocs{}\nwbegincode{20}\moddef{Structure de donn\'ee}\endmoddef
+struct data_m
+\{
+char chiffre ;
+int iteration ;
+char modulo ;
+\};
+\eatline
+\nwendcode{}\nwbegindocs{21}\nwdocspar
+\nwenddocs{}\nwbegindocs{22}\nwdocspar
+et pour faire simple, on d\'efini le type suivant~:
+\nwenddocs{}\nwbegincode{23}\moddef{Structure de donn\'ee}\plusendmoddef
+typedef struct data_m data_t ;
+\eatline
+\nwendcode{}\nwbegindocs{24}\nwdocspar
+\nwenddocs{}\nwbegindocs{25}\nwdocspar
+Notre implantation se base principalement sur la manipulation de la variable
+automatique suivante~:
+\nwenddocs{}\nwbegincode{26}\moddef{Variables automatiques}\endmoddef
+data_t data ;
+\eatline
+\nwendcode{}\nwbegindocs{27}qui est modifi\'ee \`a chaque nouveau caract\`ere rencontr\'e suivant
+les r\`egles que nous allons implanter ci-dessous.
+
+Pour bien comprendre cette structure de donn\'ee, nous allons tout de suite
+voir comment l'utiliser lors de l'affichage de la conversion.
+
+\nwenddocs{}\nwbegindocs{28}\nwdocspar
+\subsubsection*{Affichage}
+Pour l'affichage, on va se servir du tableau suivant allou\'e automatiquement~:
+\nwenddocs{}\nwbegincode{29}\moddef{Variables automatiques}\plusendmoddef
+char tab[10] = "  ADGJMPTW" ;
+\eatline
+\nwendcode{}\nwbegindocs{30}\nwdocspar
+L'affichage proprement dit correspond au code suivant~:
+\nwenddocs{}\nwbegincode{31}\moddef{afficher}\endmoddef
+putchar(tab[data.chiffre-'0']+(data.iteration % data.modulo)) ;
+\eatline
+\nwendcode{}\nwbegindocs{32}qui explicite l'usage de notre structure {\tt{}data}.
+
+\nwenddocs{}\nwbegindocs{33}\nwdocspar
+Le prototype de la fonction {\tt{}putchar} utilis\'ee est d\'eclar\'e 
+dans le fichier d'ent\^ete suivant~:
+\nwenddocs{}\nwbegincode{34}\moddef{Ent\^ete}\endmoddef
+#include <stdio.h>
+\eatline
+\nwendcode{}\nwbegindocs{35}\nwdocspar
+\subsubsection*{Affectation de {\tt{}data}}
+
+\nwenddocs{}\nwbegindocs{36}\nwdocspar
+On initialise l'ensemble des champs de la variable {\tt{}data} en
+traitant le premier caract\`ere de la cha\^\i{}ne donn\'ee en
+param\`etre~:
+\nwenddocs{}\nwbegincode{37}\moddef{Affectation de data}\endmoddef
+data.chiffre = *texte;
+data.iteration = 0 ;
+if(*texte=='1')
+  data.modulo = 1 ;
+else 
+  data.modulo=(*texte=='9' || *texte=='7')?4:3 ;
+\eatline
+\nwendcode{}\nwbegindocs{38}\nwdocspar
+\nwenddocs{}\nwbegindocs{39}\nwdocspar
+La conversion commence par l'initialisation de {\tt{}data}
+et la prise en compte du caract\`ere suivant~:
+\nwenddocs{}\nwbegincode{40}\moddef{conversion}\endmoddef
+\LA{}Initialisation\RA{}
+\LA{}Affectation de data\RA{}
+texte++ ;
+\eatline
+\nwendcode{}\nwbegindocs{41}\nwdocspar
+\nwenddocs{}\nwbegindocs{42}\nwdocspar
+Le reste correspond l'application des r\`egles de conversion~:
+\nwenddocs{}\nwbegincode{43}\moddef{conversion}\plusendmoddef
+while(1)
+\{
+\LA{}r\`egles de conversion\RA{}
+\}
+\eatline
+\nwendcode{}\nwbegindocs{44}d\'efinies dans la section suivante.
+\nwenddocs{}\nwbegindocs{45}\nwdocspar
+\subsubsection*{R\`egles de conversion}
+Notre conversion ob\'eit aux r\`egles suivantes~:
+\begin{enumerate}
+\item si le caract\`ere consid\'er\'ee est le caract\`ere de terminaison
+de cha\^\i{}ne (de code \textsc{ascii}~$0$), on affiche la traduction en cours (si le caract\`ere pr\'ec\'edent n'est pas un di\`ese) et
+on sort de la boucle~:
+\nwenddocs{}\nwbegincode{46}\moddef{r\`egles de conversion}\endmoddef
+if(!*texte)
+\{ 
+\LA{}afficher\RA{}
+break ;
+\}
+\eatline
+\nwendcode{}\nwbegindocs{47}\nwdocspar
+\nwenddocs{}\nwbegindocs{48}\nwdocspar
+\item on passe les caract\`eres non valides~:
+\nwenddocs{}\nwbegincode{49}\moddef{r\`egles de conversion}\plusendmoddef
+if(\LA{}caract\`ere invalide\RA{})
+\{
+  texte++ ;
+  continue ;
+\}
+\eatline
+\nwendcode{}\nwbegindocs{50}\nwdocspar
+\item si on consid\`ere de nouveau le m\^eme chiffre, on enregistre une it\'eration
+suppl\'ementaire, on passe ce caract\`ere et on recommence la boucle~:
+\nwenddocs{}\nwbegincode{51}\moddef{r\`egles de conversion}\plusendmoddef
+if(*texte==data.chiffre)
+\{
+  data.iteration++ ;
+  texte++;
+  continue ;
+\}
+\nwendcode{}\nwbegindocs{52}%def
+\nwenddocs{}\nwbegindocs{53}\nwdocspar
+\item si le caract\`ere consid\'er\'e est le di\`ese, on le passe~:
+\nwenddocs{}\nwbegincode{54}\moddef{r\`egles de conversion}\plusendmoddef
+while(*texte=='#')
+  texte++ ;
+\eatline
+\nwendcode{}\nwbegindocs{55}\nwdocspar
+Remarquons que l'on peut tomber sur une cha\^\i{}ne avec un di\`ese terminal.
+La r\`egle suivante g\`ere ce cas~:
+\nwenddocs{}\nwbegincode{56}\moddef{r\`egles de conversion}\plusendmoddef
+if(!*texte)
+  continue ;
+\eatline
+\nwendcode{}\nwbegindocs{57}\nwdocspar
+\nwenddocs{}\nwbegindocs{58}\nwdocspar
+\item la derni\`ere r\`egle est implicite --- pas besoin de conditionnelle puisque qu'on 
+se trouve forcement dans ce cas --- et correspond \`a la prise en compte 
+d'un nouveau chiffre. Dans ce cas, il faut afficher et r\'eactualiser data~:
+\nwenddocs{}\nwbegincode{59}\moddef{r\`egles de conversion}\plusendmoddef
+\LA{}afficher\RA{}
+\LA{}r\'eactualiser data\RA{}
+\eatline
+\nwendcode{}\nwbegindocs{60}\end{enumerate}
+
+\nwenddocs{}\nwbegindocs{61}\nwdocspar
+\subsubsection*{R\'eactualisation de data}
+En ce qui concerne la r\'eactualisation, on ne modifie {\tt{}data} que
+face \`a un chiffre compris entre~$2$ et~$9$ inclus.
+\nwenddocs{}\nwbegincode{62}\moddef{r\'eactualiser data}\endmoddef
+if(*texte>'0' && *texte<'9'+1)
+\{
+\LA{}Affectation de data\RA{}
+\}
+texte++ ;
+\eatline
+\nwendcode{}\nwbegindocs{63}\nwdocspar
+\end{correction}
+\fi
+\nwenddocs{}

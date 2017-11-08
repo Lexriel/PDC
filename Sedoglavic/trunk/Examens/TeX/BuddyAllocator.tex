@@ -1,0 +1,416 @@
+\section{Partitionnement de m\'emoire en blocs siamois (buddy allocator)}
+\label{sec:FrereSiamois}
+Dans cette section, nous allons nous int\'eresser \`a une m\'ethode
+d'allocation dynamique d'une m\'emoire.  Pour ce faire, on suppose
+disposer d'un bloc unique de m\'emoire de taille~$2^{\mathrm{SIZE}}$.
+Par exemple,
+\begin{verbatim}
+#define NULL 0
+#define SIZE 10
+#define TRUE 1==1
+#define false !TRUE
+char MEMOIRE[1024] ;
+\end{verbatim}
+Les cellules de ce tableau sont de type \verb+char+ uniquement pour
+signifier qu'il s'agit d'octets.  \`A chaque requ\^ete d'allocation
+dynamique, un bloc sera consid\'er\'e dans ce tableau et un pointeur
+retourn\'e \`a la fonction appelante.
+
+Dans notre implantation, chaque bloc de m\'emoire que l'on peut
+utiliser est constitu\'e d'un nombre d'octets qui est une puissance
+de~$2$.
+
+\paragraph{Exemple.}
+La figure suivante montre cette m\'ethode en action. Consid\'erons un
+bloc de m\'emoire de~${1024(=2^{10})}$ octets. La premi\`ere colonne indique
+les allocations~$A, B, C$ et~$D$ correspondant \`a l'\'etat de la
+m\'emoire repr\'esent\'ee dans les autres colonnes~:
+\begin{figure}[htbp]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+ \hline
+     d\'ebut &  \multicolumn{16}{|c|}{1024} \\ \hline
+    \verb+char *A=(char *)SiamoisAlloc(70)+
+    & \multicolumn{2}{|c|}{bloc A} & \multicolumn{2}{|c|}{128} &
+    \multicolumn{4}{|c|}{256} & \multicolumn{8}{|c|}{512} \\ \hline
+    \verb+char *B=(char *)SiamoisAlloc(35)+
+    & \multicolumn{2}{|c|}{bloc A} & bloc B & 64 &
+    \multicolumn{4}{|c|}{256} & \multicolumn{8}{|c|}{512} \\ \hline
+    \verb+char *C=(char *)SiamoisAlloc(80)+ 
+    & \multicolumn{2}{|c|}{bloc A} & bloc B & 64 &
+    \multicolumn{2}{|c|}{bloc C} & 
+    \multicolumn{2}{|c|}{128} & \multicolumn{8}{|c|}{512} \\ \hline
+    Siamoisfree(A) & \multicolumn{2}{|c|}{128} & bloc B & 64 &
+    \multicolumn{2}{|c|}{bloc C} & \multicolumn{2}{|c|}{128} & \multicolumn{8}{|c|}{512} \\ \hline
+    \verb+char *D=(char *)SiamoisAlloc(48)+
+    & \multicolumn{2}{|c|}{128} & bloc B & bloc D &
+    \multicolumn{2}{|c|}{bloc C} & \multicolumn{2}{|c|}{128} & \multicolumn{8}{|c|}{512} \\ \hline
+    Siamoisfree(B) & \multicolumn{2}{|c|}{128} & 64 & bloc D &
+    \multicolumn{2}{|c|}{bloc C} & \multicolumn{2}{|c|}{128} & \multicolumn{8}{|c|}{512} \\ \hline
+    Siamoisfree(D) & \multicolumn{4}{|c|}{256} &
+    \multicolumn{2}{|c|}{bloc C} & \multicolumn{2}{|c|}{128} & \multicolumn{8}{|c|}{512} \\ \hline
+
+    Siamoisfree(C) & \multicolumn{16}{|c|}{1024} \\ \hline
+  \end{tabular}
+  \caption{Exemple de~$4$ allocations et d\'esallocations de m\'emoire.}
+  \label{fig:Allocation}
+\end{figure}
+\par
+Au final, le probl\`eme consiste \`a disposer de fonctions de
+prototype~:
+\begin{verbatim}
+void * SiamoisAlloc(unsigned int) ;
+void SiamoisFree(void *) ;
+\end{verbatim}
+permettant l'allocation sur le mod\`ele explicit\'e par la suite.
+\paragraph{R\`egles de partitionnenemt.}
+Les fonctions d'allocation dynamique de la m\'emoire que nous allons
+implanter ob\'eissent aux r\`egles suivantes~:
+\begin{itemize}
+\item chaque bloc commence par une ent\^ete de taille~$\tau$ (cf.\ la
+  description des structures de donn\'ees)~;
+\item si une requ\^ete est faite pour allouer un espace m\'emoire de
+  taille~$n$ telle qu'il existe un entier~$i$ --- strictement
+  inf\'erieur \`a~$\mathrm{SIZE}$ --- avec~$2^i-\tau< n \leq
+  2^{i+1}-\tau$~; alors, un bloc de taille~$2^{i+1}$ est allou\'e
+  m\^eme si cet espace m\'emoire est plus grand que la requ\^ete~;
+\item si aucun bloc de taille~$2^{i+1}$ n'est disponible pour
+  r\'epondre \`a une requ\^ete alors qu'au moins un bloc de taille
+  plus grande l'est, le premier de ces blocs est scind\'e en~$2$
+  parties \'egales~: les blocs ainsi obtenus sont dits
+  \textit{siamois}. Ce processus se r\'ep\`ete jusqu'\`a obtention
+  d'un bloc de taille~$2^{i+1}$~;
+\item si aucun bloc de taille sup\'erieure \`a~$\tau$ et \`a la
+  requ\^ete n'est disponible, le pointeur~\verb+NULL+ est retourn\'e~;
+\item si lorsqu'un bloc est d\'esallou\'e, son siamois est libre,
+  ces~$2$ blocs sont regroup\'es en un seul bloc qui est alors
+  d\'esallou\'e (ce processus se poursuit r\'ecursivement autant que
+  faire ce peut).
+\end{itemize}
+
+\paragraph{Structure de donn\'ees.}
+Des listes doublement cha\^\i{}n\'ees de blocs libres doivent \^etre
+utilis\'ees. Ces listes sont construites de la mani\`ere suivante~:
+\begin{itemize}
+\item la macro \verb+NULL+ correspond \`a la fin d'une liste~;
+\item chaque bloc libre commence par une ent\^ete i.e.\ une structure de donn\'ees de
+  type~\verb+BlocHeader_t+ compos\'es~:
+  \begin{itemize}
+  \item d'un entier non sign\'e~\verb+isfree+ indiquant si le bloc est
+    libre (\verb+isfree=1+) ou allou\'e (\verb+isfree=0+)~;
+  \item d'un entier non sign\'e~\verb+size+ indiquant la taille du
+    bloc (\verb+size==k+~; indique que le bloc est compos\'e de~$2^k$
+    octets)~;
+  \item d'un pointeur \verb+next+ pointant sur l'ent\^ete du bloc libre de
+    m\^eme taille suivant  s'il existe (\verb+NULL+ sinon)~;
+  \item d'un pointeur \verb+previous+ pointant sur l'ent\^ete du bloc libre de
+    m\^eme taille pr\'ec\'edent s'il existe (\verb+NULL+ sinon)~;
+  \end{itemize}
+  Ainsi, l'espace disponible dans un bloc correspond \`a sa taille
+  moins~${\tau=}$\verb+sizeof(BlocHeader_t)+ octets ($\tau$ est \'egal
+  \`a $2\times$(\verb?sizeof(unsigned int)+sizeof(BlocHeader_t*)?)) qui sont
+  r\'eserv\'es pour la gestion de la m\'emoire~;
+\item un tableau global~\verb+BlocHeader_t *ROOT[SIZE];+ est
+  suppos\'e exister. La cellule d'indice~$k$ de ce tableau
+  d'octets pointe sur le d\'ebut de la liste cha\^\i{}n\'ee des blocs
+  libres de taille~$2^{k+1}$ s'il y en a et sur \verb+NULL+ sinon.
+\end{itemize}
+
+\paragraph{Questions.}
+\begin{enumerate}
+\item Donnez les d\'eclarations correspondant \`a la structure de
+  donn\'ees~\verb+BlocHeader_t+~;
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+  struct BlocHeader_m {
+	unsigned int    isfree, size;
+	struct BlocHeader_m *next;
+	struct BlocHeader_m *previous;
+};
+
+typedef struct BlocHeader_m BlocHeader_t;
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype~: %
+\verb+void Retirer(BlocHeader_t *);+ % 
+(resp.\ \verb+void Inserer(BlocHeader_t *);+) qui prend en argument
+une ent\^ete de bloc libre et retire ce dernier de (resp.\ l'ins\`ere
+dans)  la liste correspondante des blocs libres.
+\ifcorrection
+\begin{correction}
+\newpage
+\begin{verbatim}
+void
+Retirer(BlocHeader_t * ptr)
+{
+
+	if (ptr->previous)
+		(ptr->previous)->next = ptr->next;
+	else
+		ROOT[ptr->size - 1] = ptr->next;
+
+	if (ptr->next)
+		(ptr->next)->previous = ptr->previous;
+
+	return;
+}
+
+void
+Inserer(BlocHeader_t * ptr)
+{
+
+	ptr->next = ROOT[ptr->size - 1];
+
+	if (ptr->next)
+		(ptr->next)->previous = ptr;
+
+	ptr->previous = NULL;
+	ROOT[ptr->size - 1] = ptr;
+
+	return;
+}
+\end{verbatim}
+\end{correction}
+\fi
+\item Que fait la fonction d\'efinie ci-dessous~:
+\begin{verbatim}
+static void SiamoisInit(void){
+  unsigned int i ;
+  BlocHeader_t * tmp = (BlocHeader_t *) MEMOIRE ;  
+  tmp->isfree = TRUE ;
+  tmp->size = SIZE ;
+  tmp->next = tmp->previous = NULL ;
+  for(i=0;i<SIZE-1;i++)
+    ROOT[i] = NULL ;
+  ROOT[i] = tmp ;
+  return ;
+}
+\end{verbatim}
+\ifcorrection
+\begin{correction}
+  Cette fonction construit le premier bloc et initialise les structures de donn\'ees permettant la gestion
+du m\'ecanisme d'allocation.
+\end{correction}
+\fi
+% Donnez la d\'efinition de la fonction de prototype %
+%  \verb+void SiamoisInit(void);+ qui~:
+%  \begin{itemize}
+%  \item initialise l'espace m\'emoire disponible en pla\c{c}ant les
+%    donn\'ees d'ent\^ete au d\'ebut du seul bloc libre \`a l'origine~;
+%  \item affecte l'ensemble des adresses utiles du tableau~\verb+ROOT+.
+%  \end{itemize}
+\item Donnez la d\'efinition de la fonction de prototype %
+  \verb+void *SiamoisAlloc(unsigned int taille);+ qui --- apr\`es
+  avoir trouv\'ee et r\'eserv\'ee un bloc de m\'emoire --- retourne un
+  pointeur sur la partie de ce bloc utilisable (apr\`es la structure
+  de type~\verb+BlocHeader_t+ stock\'ee au d\'ebut). Pour ce faire,
+  vous pourrez utiliser l'algorithme suivant~:
+  \begin{enumerate}
+  \item\textbf{Trouver un bloc.} D\'eterminer le plus petit
+    entier~$i$ tel que~$2^i>$\verb?taille+sizeof(BlocHeader_t)? et tel
+    que \verb+ROOT[i]+ soit diff\'erent de~\verb+NULL+ (i.e.\ pour
+    lequel existe au moins un bloc de taille suffisante pour satisfaire
+    la requ\^ete). Si c'est impossible, l'allocation l'est aussi et la
+    fonction retourne~\verb+NULL+. Sinon, passer \`a la suite~;
+  \item \textbf{Retirer ce bloc de la liste des blocs libres
+      correspondantes.} Ce bloc est maintenant le bloc courant.
+  \item \textbf{Si le bloc courant ne doit pas \^etre d\'ecoup\'e en~$2$.} 
+    Il faut rafra\^\i{}chir l'ent\^ete du bloc (mettre les pointeurs et
+    \verb+isfree+ \`a~$0$) et terminer la fonction en retournant un
+    pointeur sur l'espace m\'emoire commen\c{c}ant juste apr\`es
+    l'ent\^ete.
+  \item \textbf{Sinon.}  On le d\'ecoupe en cr\'eant un nouveau bloc
+    libre moiti\'e moins grand que le bloc pr\'ec\'edant et commen\c{c}ant
+    \`a sa moiti\'e.  Principalement, on construit une ent\^ete au bon
+    endroit dans l'ancien bloc de telle mani\`ere \`a ce que le
+    nouveau bloc rejoigne la liste des blocs libres de sa taille.
+  \item Recommencer l'\'etape~(c) en consid\'erant la premi\`ere
+    moiti\'e du bloc courant comme nouveau bloc courant.
+  \end{enumerate}
+\ifcorrection
+\begin{correction}
+\newpage
+\begin{verbatim}
+void           *
+SiamoisAlloc(unsigned int taille)
+{
+
+	register unsigned int i = 1;
+	BlocHeader_t   *ptr, *siamois;
+
+	/* Pour commencer, tenons compte de l'ent\^ete du bloc */
+	taille += sizeof(BlocHeader_t) - 1;
+
+	/*
+	 * et calculons la puissance de 2 im\'ediatement sup\'erieure \`a
+	 * taille
+	 */
+
+	while (taille /= 2)
+		i++;
+
+	taille = i;
+
+	for (i = taille - 1; i <= SIZE; i++)
+		if (ROOT[i])
+			break;
+
+	if (i > SIZE)
+		return NULL;
+
+	/*
+	 * On retire le bloc que l'on vient de trouver de la liste des blocs
+	 * libres correspondante
+	 */
+	ptr = ROOT[i];
+	Retirer(ptr);
+
+	while (i != taille - 1) {
+		/* Ce bloc doit-il \^etre coup\'e en~$2$~?   */
+		i--;
+		(ptr->size)--;
+		/* Cr\'eer une ent\^ete au bon endroit */
+		siamois = (BlocHeader_t *) ((char *) ptr + (1 << (i + 1)));
+		siamois->size = i + 1;
+		siamois->isfree = TRUE;
+
+		/* et adjoindre ce bloc \`a la bonne liste */
+		Inserer(siamois);
+	}
+
+	/* Marquer le bloc ocmme allou\'e */
+	ptr->isfree = FALSE;
+	ptr->next = ptr->previous = NULL;
+
+	return (void *) ((char *) ptr + sizeof(BlocHeader_t));
+}
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype %
+  \verb+void *EstSiamoisDe(void *);+
+  qui prend en param\`etre l'adresse d'un bloc et retourne l'adresse
+  du bloc siamois. Si~\verb+ptr+ est l'adresse d'un bloc de
+  taille~$2^k$ avec~${k<\mathrm{SIZE}}$, cette fonction implante la
+  formule~:
+  $$
+  \mathrm{EstSiamoisDe}(\mathrm{ptr}) =
+  \left\lbrace
+    \begin{array}{l}
+      \mathrm{ptr} + 2^{k}, \ \mathrm{si}\ \mathrm{ptr}\, \mathrm{mod}\, 2^{k+1} = 0,\\
+      \mathrm{ptr} - 2^{k}, \ \mathrm{si}\ \mathrm{ptr}\, \mathrm{mod}\,  2^{k+1} = 2^{k}.
+    \end{array}
+  \right.
+  $$
+  Attention, cette formule ne marche que si les adresses~\verb+ptr+
+  de blocs vont de~$0$ \`a~$2^{\mathrm{SIZE}}$.
+\ifcorrection
+\begin{correction}
+\begin{verbatim}
+static void    *
+EstSiamoisDe(void *ptr)
+{
+
+	/*
+	 * On doit disposer de la taille du bloc qui est cod\'ee en t\^ete de
+	 * ce dernier
+	 */
+
+	unsigned int    blocsize = ((BlocHeader_t *) ptr)->size;
+
+	/* Pour obtenir la taille en octets du bloc */
+
+	blocsize = 1 << (blocsize + 1);
+
+	/* On ram\`ene l'adresse du bloc \`a 0 pour appliquer la formule */
+
+	if ((((char *) ptr - MEMOIRE) % blocsize) == 0)
+		return (void *) ((char *) ptr + blocsize / 2);
+	else
+		return (void *) ((char *) ptr - blocsize / 2);
+
+	return NULL;
+}
+\end{verbatim}
+\end{correction}
+\fi
+\item Donnez la d\'efinition de la fonction de prototype %
+  \verb+void SiamoisFree(void *ptr);+ qui lib\`ere le bloc
+  correspondant \`a l'espace m\'emoire point\'e par~\verb+ptr+ (cet
+  espace doit avoir \'et\'e allou\'e par l'interm\'ediaire de la
+  fonction \verb+SiamoisAlloc+). Pour d\'efinir cette fonction,
+  vous pourrez utiliser l'algorithme suivant~:
+  \begin{enumerate}
+  \item \textbf{Le bloc courant peut il \^etre concaten\'e \`a son
+      siamois~?}  Si la taille du bloc courant est maximale ou si le
+    bloc siamois n'est pas libre, effectuer l'\'etape~(c). Sinon passez \`a l'\'etape~(b).
+  \item \textbf{Construction d'un nouveau bloc libre.} Retirez le bloc
+    siamois de la liste des blocs libres, supprimer l'ent\^ete inutile
+    et r\'eactualiser l'ent\^ete du nouveau bloc courant ainsi
+    constitu\'e. Recommencer l'\'etape~(a).
+  \item \textbf{Ajouter le bloc courant \`a la liste des blocs libres
+      correspondante.} Cette op\'eration consiste \`a modifier
+    l'ent\^ete du bloc courant et \`a l'ins\'erer dans la liste
+    cha\^\i{}n\'ee correspondante.
+  \end{enumerate}
+\ifcorrection
+\begin{correction}
+\newpage
+\begin{verbatim}
+void
+SiamoisFree(void *ptr)
+{
+
+	BlocHeader_t   *current = (BlocHeader_t *) ((char *) ptr - sizeof(BlocHeader_t));
+	BlocHeader_t   *siamois = (BlocHeader_t *) EstSiamoisDe((void *) current);
+
+	while (current->size != SIZE) {
+
+		if (!siamois->isfree)
+			break;
+		/*
+		 * On retire le siamois de la liste des blocs libres
+		 * correspondantes
+		 */
+		Retirer(siamois);
+
+		/* On consid\`ere le bloc courant */
+		if (siamois < current)
+			current = siamois;
+
+		(current->size)++;
+		siamois = (BlocHeader_t *) EstSiamoisDe((void *) current);
+	}
+
+	/* Le bloc courant est libre */
+	current->isfree = TRUE;
+
+	/*
+	 * On ins\`ere le bloc courant dans la liste des blocs libres
+	 * correspondantes
+	 */
+	Inserer(current);
+
+	return;
+}
+\end{verbatim}
+\end{correction}
+\fi
+\item Que risque-t-il de se passer si un bloc de~$n$ octets de
+  m\'emoire est allou\'e et que l'on manipule ce bloc sans
+  pr\'ecaution comme dans l'allocation de~D suivante~:
+\begin{verbatim}
+   unsigned int i, n = 48 ; 
+   char *D = (char *) SiamoisAlloc(n) ;
+   for(i=0;i<66000;i++)
+   *(D+i) = 1 ;
+\end{verbatim}
+\ifcorrection
+\begin{correction}
+  On risque d'endomager l'ent\^ete et donc les m\'eta-donn\'ees permettant
+la gestion de l'allocation dynamique.
+\end{correction}
+\fi
+\end{enumerate}

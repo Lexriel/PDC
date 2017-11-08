@@ -1,0 +1,18 @@
+\begin{enumerate}
+\item Donner la d\'efinition d'une fonction de prototype~:
+\begin{verbatim}
+int palindrome(unsigned int);
+\end{verbatim}
+qui retourne~$1$ si l'\'ecriture d\'ecimale de l'entier pass\'e en param\`etre est un palindrome.
+\par\medskip
+Un palindrome (substantif masculin), du grec \textgreek{p\'alin}  (en arri{\`e}re) et \textgreek{dr\'omos} (course) est un texte ou un mot dont l'ordre des symboles (lettres, chiffres, etc.) reste le m{\^e}me qu'on le lise de gauche {\`a} droite ou de droite {\`a} gauche comme dans l'expression ``Esope reste ici et se repose''. Ainsi, en base~$10$, l'entier~$121$ est un palindrome.
+\item Donner la d\'efinition d'une fonction de prototype~:
+\begin{verbatim}
+unsigned int InverseEtAdditionne(unsigned int) ;
+\end{verbatim}
+qui prend en argument un entier non sign\'e et retourne un entier non sign\'e somme de ce nombre et de son \'ecriture d\'ecimale inverse obtenu en inversant l'ordre des chiffres (par exemple~${56 + 65 = 121}$, ${125 + 521 = 646}$).
+\end{enumerate}
+\paragraph{Remarques~:} on peut it\'erer la fonction \verb+InverseEtAdditionne+ sur des nombres.
+Tout nombre d'un (et de~$2$) chiffre(s) est \emph{non-Lychrel} i.e.~en it\'erant cette fonction sur ce chiffre il devient palindromique (son \'ecriture d\'ecimale est un palindrome). 90\% des nombres inf\'erieurs \`a~$10\, 000$ sont non-Lychrel (au bout de~$7$ it\'erations le r\'esultat est palindromique). Un nombre dont les it\'er\'es ne sont jamais palindromiques est un nombre Lychrel~; (on n'en connait aucun --- $196$ est soup\c{c}onn\'e d'\^etre Lychrel).
+
+

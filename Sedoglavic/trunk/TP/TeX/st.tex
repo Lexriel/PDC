@@ -1,0 +1,99 @@
+
+\documentclass{article}
+\usepackage[french]{babel}
+\usepackage{hevea}
+\usepackage{graphicx}
+\usepackage{makeidx}
+
+\begin{document}
+%------------------------------------------------------------------------------
+\section{Listes cha\^\i{}n\'ees}
+\label{sec:ListesChaines}\index{Listes cha\^\i{}n\'ees}
+Une  liste  cha\^\i{}n\'ee est   constitu\'ee de cellules d'un type
+\texttt{struct} contenant~:
+\begin{itemize}
+\item un pointeur/l'adresse sur/de la cellule suivante~;
+\item des champs d'informations.
+\end{itemize}
+On peut ainsi d\'efinir une cellule par le type suivant~:
+\begin{verbatim}
+typedef struct cellule{
+  struct cellule *suivante ;
+  type_1 el_1 ;
+    .... 
+  type_n el_n ;
+} cellule ;
+\end{verbatim}
+Ceci fait,   il     nous  reste  \`a   d\'efinir    les  manipulations
+\'el\'ementaires associ\'ee \`a une liste~; il nous faut des fonctions 
+qui permettent~:
+\begin{itemize}
+\item de cr\'eer d'une cellule~;
+\item d'ins\'erer une cellule dans la liste~;
+\item de supprimer une cellule de la liste~;
+\item de d\'etruire d'une cellule~;
+\end{itemize}
+Pour cr\'eer une cellule, il faut allouer de l'espace m\'emoire~:
+\begin{verbatim}
+cellule * CreerCellule(type_1 data_1, ... type_n data_n){
+
+  cellule * cell = (cellule *) malloc(sizeof(cellule)) ;
+
+  cell->suivante = NULL   ; /* la cellule nouvellement cr\'ee
+                             * ne pointe sur rien             */
+  cell->el_1     = data_1 ;
+     ....
+  cell->el_n     = data_n ;
+
+  return cell ;
+}
+\end{verbatim}
+Cette fonction cr\'ee (et remplit) une cellule. Remarquez que l'espace
+m\'emoire allou\'e gr\^ace  \`a la fonction  \texttt{malloc} n'est pas
+d\'etruit    \`a   la   fin de    la   fonction  \texttt{CreerCellule}
+contrairement  \`a l'ensemble  des   variables et  arguments de  cette
+fonctions.  Pour  \'eviter d'encombrer  la   m\'emoire, il nous   faut
+disposer d'une fonction permettant de  d\'etruire une cellule. Pour ce
+faire, on   utilise  la   fonction  \texttt{free} de   la    librairie
+standrard~:
+\begin{verbatim}
+void DetruireCellule( cellule * cell) {
+  free( (void *) cell) ;
+}
+\end{verbatim}
+Pour ins\'erer une cellule  dans  une liste cha\^\i{}n\'ee  apr\`es la
+cellule \verb+cell_courante+, il suffit d'utiliser le code~:
+\begin{verbatim}
+void InsererCellule( cellule * cell_a_inserer, 
+                     cellule * cell_courante){
+  cell_a_inserer -> suivante = cell_courante -> suivante ;
+  cell_courante -> suivante = cell_a_inserer ;
+}
+\end{verbatim}
+De m\^eme,    pour  extraire une  cellule  apr\`es  une  cellule  (ici
+qualifi\'ee de m\`ere), on peut utiliser le code~:
+\begin{verbatim}
+cellule * ExtraireCellule (cellule * cell_mere){
+  cellule * tmp ;
+  tmp = cell_mere->suivante ;
+  cell_mere -> suivante = tmp -> suivante ;
+  return tmp ;
+}
+\end{verbatim}
+\paragraph{Manipulations \'el\'ementaires}
+  Construire un  crible   d'\'Eratosth\`ene  \`a l'aide   d'une  liste
+  cha\^\i{}n\'ee  qui  au d\'epart   stockera  l'ensemble  des nombres
+  inf\'erieurs \`a un entier saisi au clavier.
+  \par
+  Apr\`es une \'etape   de     construction, il   faudra     consid\'erer
+  successivement  les \'el\'ements  de  la   liste  et supprimer   les
+  multiples.
+  \par
+  Pour   finir, l'ensemble  des  nombres   premiers  est afficher  \`a
+  l'\'ecran.
+  \subparagraph{Imp\'eratif~:}  
+  on  prendra  soin     de  d\'etruire les   cellules     de  la liste
+  cha\^\i{}n\'ee associ\'ees \`a des nombres compos\'es.
+
+\end{document}
+

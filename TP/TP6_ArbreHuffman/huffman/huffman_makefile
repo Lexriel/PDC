@@ -1,0 +1,9 @@
+PAR= -g -Wall -ansi -pedantic
+
+all: huffman_codage huffman_decodage
+
+huffman_decodage: huffman_decodage.c
+	gcc  $(PAR) -o $@ $^
+
+huffman_codage: huffman_codage.c
+	gcc  $(PAR) -o $@ $^

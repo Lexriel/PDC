@@ -1,0 +1,79 @@
+\section{Correspondance entre v\oe{}ux et stock}
+\label{sec:Correspondance}
+Un vendeur de voitures d'occasions d\'esire utiliser un programme en~C
+permettant de  faire correspondre  les  voitures  en stock  avec   les
+v\oe{}ux de ses clients. La boutique de notre vendeur ne peut contenir
+plus de~$500$ voitures.
+\par
+\`A chacune  de  ses  voitures,  on associe  les informations suivantes~:
+\begin{enumerate}
+\item le num\'ero d'inventaire cod\'e par un entier~;
+\item l'ann\'ee du mod\`ele cod\'e par un entier~;
+\item le nom du mod\`ele stock\'e dans une cha\^\i{}ne de caract\`eres
+  n'exc\`edent pas~$50$ caract\`eres~;
+\item la couleur qui est cod\'ee par un entier associ\'e au type
+\begin{verbatim}
+typedef enum {rose, fushia, saumon, jaune } couleur ;
+\end{verbatim}
+\item le coefficient de consommation au kilom\`etre (km/l)~;
+\item le style  qui est  cod\'e par  un entier  associ\'e au  type
+\begin{verbatim}
+typedef enum {roadster, suppositoire_a_camion, quatrequatre } style ;
+\end{verbatim}
+\item le prix qui est cod\'e par un nombre flottant.
+\end{enumerate}
+Chaque fois qu'un client se   pr\'esente, le vendeur s'informe de  son
+nom et de ses  pr\'ef\'erences  concernant ~$4$ crit\`eres et  cherche
+dans la  liste  des voitures si l'une    d'entre elle correspond.   On
+suppose que cette correspondance existe si, et seulement si,
+\begin{itemize}
+\item le code couleur existant et celui d\'esir\'e sont les m\^emes~;
+\item le coefficient  de consommation de  la voiture est sup\'erieur ou
+  \'egal \`a celui que sp\'ecifie le client~;
+\item le code style existant et celui d\'esir\'e sont les m\^emes~;
+\item le prix de la voiture ne d\'epasse pas le prix du client de plus
+  de~$15$ pour cent.
+\end{itemize}
+
+\paragraph{Exemple d'entr\'ees~:}
+\mbox{}\par
+\begin{tabular}{rllrrrr}
+  7210002 & 1985 & Sab 9000 Turbo    &      rose & 27 & roadster& 18000.00 \\
+  2215 & 1983 & Plymouth Gran Fury &   rose & 25 & roadster & 3500.00 \\
+  200110 & 1976 & Volvo 265GL        &    jaune & 27 & quatrequatre & 1200.00
+\end{tabular}
+\paragraph{V\oe{}ux des clients~:}
+\mbox{}\par
+\begin{tabular}{lrrrr}
+Alan Turing &                rose& 26 & roadster& 17000.00 \\
+Jean-Paul Sartre &          jaune& 25 & quatrequatre &  300.00 \\
+Carl Gauss     &           rose & 20&  roadster& 20000.00
+\end{tabular}
+\paragraph{Correspondance existante~:}
+\mbox{}\par
+\begin{tabular}{ll}
+Alan Turing & 7210001 '85 Saab 9000 Turbo\\
+Jean-Paul Sartre & Pas de correspondance \\
+Carl Gauss & 2215 '83 Plymouth Gran Fury \\
+  &        7210001 '85 Saab 9000 Turbo
+\end{tabular}
+\paragraph{Questions.}
+\begin{enumerate}
+\item Donnez la  d\'efinition d'un type  \texttt{struct} qui permet de
+  coder l'ensemble   des  informations associ\'ees  \`a  une voiture.  
+  Donnez  la  d\'efinition d'un   autre type   \texttt{donnee\_client}
+  permettant  de coder  l'ensemble  des informations  fournies par  le
+  client.   Pour finir, donnez   la  d\'efinition d'un tableau  global
+  \texttt{stock} permettant  de  stocker  l'ensemble  des informations
+  concernant le  stock de voitures  (vous  n'avez pas \`a  entrer  les
+  informations concernant les exemples de voitures dans ce tableau).
+%\item Donnez le code d'une fonction~C qui ne renvoie rien et qui prend
+%  en argument l'adresse d'une variable de type \texttt{donnee\_client}.
+%  Cette fonction permet au vendeur de saisir les v\oe{}ux du client.
+\item On    suppose que le   tableau  global \texttt{stock}  a \'et\'e
+  construit. Donnez le code d'une fonction~C qui prend en argument une
+  variable du  type \texttt{donnee\_client} et  qui  affiche le nom du
+  client ainsi que toutes  les voitures correspondant \`a sa recherche
+  (si cette recherche n'aboutit pas, on affichera le message \og Pas de
+  correspondance \fg).
+\end{enumerate}

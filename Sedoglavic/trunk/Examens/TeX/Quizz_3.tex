@@ -1,0 +1,28 @@
+On consid\`ere les d\'eclarations suivantes~:
+\begin{verbatim}
+int a[8] = {5, 15, 34, 54, 14, 2, 52, 72};
+int *p = &a[1], *q = &a[5];
+\end{verbatim}
+\begin{enumerate}
+\item Quelle est la valeur de \verb?*(p+3)?~?
+\item Quelle est la valeur de \verb?q-p?~?
+\item La condition \verb+p<q+ est-elle vraie ou fausse~?
+\item La condition \verb+*p<*q+ est-elle vraie ou fausse?
+\item R\'eecrivez le code \verb+int *p = &a[1], *q = &a[5];+ sans
+  utiliser de crochets.
+\end{enumerate}
+\ifcorrection
+\begin{correction}
+\begin{enumerate}
+\item 14
+\item  4
+\item c'est vrai
+\item c'est faux
+\item 
+\begin{verbatim}
+int *p = a+1;
+int *q = a+5;
+\end{verbatim}
+\end{enumerate}
+\end{correction}
+\fi

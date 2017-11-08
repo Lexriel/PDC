@@ -1,0 +1,21 @@
+
+Votre makefile n'a pas le bon nom (il est en majuscule alors que ce devrait \^etre Makefile ou makefile).
+Sa syntaxe n'est pas bonne (apres le liens cible:dependance, il faut faire un saut de ligne puis une tabulation).
+Il produit un ex\'ecutable qui s'appelle a.out et efface PP.
+
+Il n'y a aucun commentaire dans votre texte. Cela ne facilite pas sa lecture.
+
+Votre filtre ajoute le code ascii FF au code qu'il produit.
+
+Vous utilisez une suite de if(c==cste) qui s'exprimerait mieux avec un switch case.
+
+Votre utilisation du C est un peu maladroite ce qui rend le code peu lisible peu manipulable et peu efficace.
+
+Pers\'everez. Bon courage.
+
+Les remarques ci-dessus sont sommaires.
+L'objectif principale est de vous incitez \`a pers\'ev\'erer en \'enum\'erant ce qui visiblement pose probl\`eme.
+Nous pourrons en discuter demain en TP.
+Bon courage et bonne continuation.
+
+AS

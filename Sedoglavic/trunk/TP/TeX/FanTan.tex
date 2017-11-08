@@ -1,0 +1,21 @@
+Dans le jeux de Fan Tan, deux joueurs disposent de~$2$ d'allumettes. A
+tour de r\^ole, chaque joueur peut enlever (selon la r\`egle choisie)
+un certain nombre d'allumettes de l'un des tas. Le joueur qui retire
+la derni\`ere allumette perd la partie.
+\paragraph{Question.}
+Construisez une interface permettant de faire jouer~$2$ joueurs.
+Ainsi, votre programme doit~:
+\begin{itemize}
+\item Demander le cardinal du premier tas d'allumettes~;
+\item Demander le cardinal du second tas d'allumettes~;
+\item D\'eclarer une variabe~$i$ et la positionner \`a~$0$~;
+\item Tant qu'aucun des tas n'est vides~:
+  \begin{itemize}
+  \item Demander au~${i+1}$\`eme joueur combien d'allumettes il veut
+    retirer et de quel tas. R\'ep\'eter cette \'etape tant que la
+    r\'eponse du joueur n'est pas correcte~;
+  \item Retirer les allumettes du tas choisi~;
+  \item positionner~$i$ \`a~${i+1}$ modulo~$2$
+  \end{itemize}
+\item Annoncer la victoire du joueur~${i+1}$.
+\end{itemize}

@@ -1,0 +1,42 @@
+# Générer les exécutables
+-------------------------
+Lancer la commande :
+$ make
+La compilation s'effectue sans problème.
+
+# Utiliser les exécutables
+--------------------------
+Voici ce que le terminal affiche lorsque l'on rentre les commandes suivantes :
+$ ./mcu_wl < contrepets.txt
+6
+$ ./mcu_ww < contrepets.txt
+49
+$ ./mcu_wc < contrepets.txt
+248
+
+# Comparaison avec la commande UNIX wc
+--------------------------------------
+À titre comparatif, la commande wc donne :
+$ wc contrepets
+  6  46 248 contrepets.txt
+
+Les commandes mcu_wl et mcu_wc fournissent le nombre exact de lignes et de caractères respectivement. La commande mcu_ww ne fournit pas le même nombre de mots que dans wc. Ceci est dû à notre définition d'un mot qui diffère de celle utilisée dans wc (ce n'est qu'un détail et on se contentera de cela).
+
+# Commande mon_wc à créer
+-------------------------
+On veut désormais que les trois commandes mcu_wc, mcu_wl, mcu_ww ne fassent qu'une et ressemble un peu plus à ce qu'affiche la commande UNIX wc.
+
+* 1ère étape : regrouper les trois fichiers en un seul pour calculer les nombres wc, wl et ww simultanément (en une seule lecture du fichier).
+* 2ème étape : considérer l'exécutable comme un "int main(int argc, char *argv[])" afin de pouvoir récupérer les éventuels arguments donnés en paramètre lors de l'éxécution.
+* 3ème étape : créer une fonction identifiant un paramètre (en s'assurant qu'il est correct). Seuls les argument "-l", "-c" et "-w" sont valides. On affichera wl, ww et wc si aucun paramètre n'est rentré.
+
+# Paramètres
+------------
+On voudrait pouvoir effectuer par exemple :
+$ ./mon_wc -l < contrepets.txt
+6
+Ici argv[0] = "./mon_wc", argv[1] = "-l" et argc = 2 car il y a deux arguments.
+Attention, "< contrepets.txt" étant une redirection, elle n'est pas considérée comme un argument.
+On veut aussi que s'il n'y a pas de paramètres, on affiche un peu comme wc :
+$ ./mon_wc < contrepets.txt
+  6  46 248

@@ -1,0 +1,456 @@
+\section{Le type tableau}
+\label{sec:TypeTableau}
+Dans les sections pr\'ec\'edentes, nous avons utilis\'e des variables de type
+\textbf{int} et   \textbf{float}.  Ces types   sont qualifi\'es de
+\textit{scalaire} car \`a chaque variable est associ\'ee une seule une
+information   simple.  Ainsi,  si  on la   d\'eclaration~:~\texttt{int
+  A=0;}, la variable \texttt{A} ne contient qu'une seule valeur \`a un
+moment donn\'e.      Par    opposition,  une   variable     d'un  type
+\texttt{compos\'e} est associ\'ee \`a plusieurs informations.
+\subsection{Tableaux monodimensionnel}
+\label{sec:Tableaumonodimensionel}
+Si on veut stocker un tableau contenant~$n$ entiers dans une variable,
+il  nous  faut  tout  d'abord   d\'efinir la   structure  de donn\'ees
+correspondante.  Ainsi, on va d\'efinir un tableau \texttt{nom}
+\`a~$10$ entr\'ees enti\`eres par la commande~:%
+\par
+\centerline{\textbf{type}   \texttt{nom}\textbf{[}\texttt{n}\textbf{]}
+  \textbf{;}}
+\par
+On   peut affecter~$7$   \`a la   troisi\`eme  composante du   tableau
+associ\'e \`a cette variable par l'instruction~\texttt{var[3]=7;}.  On
+peut  affecter  un   tableau  d'entiers  \texttt{var2}   lors  de   sa
+d\'eclaration en utilisant l'instruction~:
+\begin{verbatim}
+int var2[10] = {1,2,3,4,5,6,7,8,9,10} ;
+\end{verbatim}
+\begin{exercice}[Crible d'\'Eratosth\`ene]
+  Construire un programme qui affiche tous les nombres premiers de~$2$
+  \`a~$1000$.      Pour  ce  faire,   on   va    utiliser   le  crible
+  d'\'Eratosth\`ene~: on construit   un  tableau contenant  tous   les
+  entiers de~$2$ \`a~$1000$,  puis on supprime  (par exemple remplacer
+  par~$0$) les multiples de~$2$, puis ceux de~$3$, etc.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/crible_Eratosthene.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\begin{exercice}[Fr\'equence d'incidence dans un tableau]
+  Lors d'une  enqu\^ete de satisfaction pour  un produit,  des clients
+  \'etaient invit\'es \`a donner une note enti\`ere entre~$0$ et~$20$.
+  Les~$500$    r\'eponses ont  \'et\'e    collect\'ees dans un tableau
+  d'entiers.
+\begin{verbatim}
+#define NbNote 500
+
+int resultat[NbNote]={3, 7, 9,  0, 18, 5, 4, 19,  8, 3, 10, 7, 14, 13,
+0, 18, 17, 5, 16, 4, 5, 1, 20, 6, 16, 10, 13, 12,  6, 5, 20, 8, 9, 15,
+3, 17, 12, 10, 19, 3, 13, 4, 13, 14 , 17, 17, 15, 14, 18, 6, 17, 9, 9,
+6, 15, 17, 11, 8, 8, 0, 19,  19, 13, 18, 11, 1,  16, 5, 16, 7, 18, 20,
+3, 16, 3, 9, 1, 3, 20, 11, 6, 19, 0, 13, 10, 14, 13,  5, 1, 16, 2, 19,
+10, 2, 14, 6, 8, 15, 4, 6, 8, 20, 4, 2, 0, 18,  19, 20, 13, 1, 13, 16,
+12, 12, 7, 19, 13, 11, 3, 18, 10, 7, 20, 0, 4, 4, 16, 14, 19, 0, 0, 16,
+  4, 0, 7, 18, 15, 8, 8, 6, 1, 12, 17,  9, 1, 4, 13,  0, 8, 15, 19, 4,
+3, 1, 3, 1, 1, 1, 6, 10, 15, 8, 14, 17, 14, 3, 5, 0, 19, 6, 8, 13, 14,
+2, 1, 12, 4, 1, 10, 17, 11, 7,  11, 12, 6, 10,  8, 18, 13, 15, 12, 14,
+8, 2, 2, 3, 17, 6,  9, 17, 9, 19,  16, 8, 18, 0, 10,  15, 2, 17, 2, 3,
+13, 19, 13, 12, 12, 2, 2, 4, 17, 17, 17, 2, 11, 19, 13, 8, 0, 9, 8, 5,
+4, 13, 9, 9, 19, 15, 19, 1, 19, 10, 20, 1, 11, 8,  13, 0, 10, 6, 5, 1,
+11, 0, 8, 13, 5, 0, 15, 9, 7, 0, 10, 0, 1,  12, 12, 10,  19, 17, 0, 6,
+16, 12, 8, 12, 14, 13, 15, 20, 7, 17, 1, 18, 15, 13, 6, 14, 18, 8, 13,
+14, 8, 14, 7, 16, 2, 19, 14, 6, 17, 8, 11, 14, 16, 11,  19, 2, 20, 16,
+2, 13, 14, 20, 6, 13, 20, 9, 3, 19, 3, 0, 7, 0, 16,  7, 4, 15, 16, 17,
+2, 14, 3, 15, 12, 16, 18, 1, 5,  9, 2, 1, 5, 9,  5, 13, 10, 11, 16, 6,
+16, 8, 13, 11, 6, 8, 2, 5, 2, 5, 9, 1,  7, 20, 19, 4, 14,  2, 8, 9, 5,
+9, 9, 5, 15, 12, 3, 7, 15, 17, 6, 0, 7, 2, 17, 19,  20, 15, 1, 11, 11,
+18, 9, 7, 1, 1, 17, 1, 17, 10, 2, 5, 1,  14, 7, 2, 3, 0,  4, 2, 9, 17,
+3, 6, 7, 18, 14, 14,  4, 10, 3, 15,  16, 17, 6, 15, 12,  17, 9, 5, 14,
+14, 6, 4, 4, 4, 17, 10, 10, 11, 13, 16, 3, 0, 2, 18, 3,  20, 5, 16, 6,
+0, 8, 3, 3, 10, 2, 0, 6, 11, 12, 9, 18, 8, 6, 2, 0, 0,  19, 12, 17, 5,
+19, 12, 17, 4, 0, 20, 8, 3, 7,  6, 10, 0,  3, 4, 4,  6, 11, 0, 13, 14,
+17, 20, 12, 3, 18, 3, 13, 14 };
+\end{verbatim}
+  Construisez une proc\'edure qui  permet d'afficher les notes qui  ont
+  \'et\'e donn\'ees  le  plus et   le   moins souvent ainsi  que   les
+  fr\'equences  correspondantes.    De plus, affichez   un histogramme
+  horizontal des fr\'equences des notes donn\'ees en entr\'ees.
+  \par
+  \textbf{Indications.} Pour ce   faire,   on va cr\'eer    un tableau
+  de~$21$  \'el\'ements  indic\'e  de~$0$   \`a~$20$ dont la~$n$i\`eme
+  composante contiendra  le nombre de fois  o\`u la note~$i$ a \'et\'e
+  donn\'ee.  Ensuite,  il  nous faudra d\'eterminer  le  maximum et le
+  minimum de ce tableau  et en d\'eduire les notes  les plus et  moins
+  fr\'equentes.
+  \par
+  L'exemple  a \'et\'e choisi  afin que le  maximum  et le minimum des
+  fr\'equences soient uniques.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/frequencenote.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\subsection{Tableaux bidimensionnel}
+\label{sec:TableauMultidimensionel}
+Un tableau peut  \^etre multidimensionnel et coder une matrice~$6$x$6$
+\`a coefficients flottant.
+\par
+On  peut d\'efinir  le tableau  \`a  deux dimensions correspondant par
+l'instruction~:
+\begin{verbatim}
+float matrice[6][6];
+\end{verbatim}
+et   affecter   \`a~$1$   le  coefficient~${(i,j)}$  de   la  variable
+\texttt{matrice}   par     l'instruction~\texttt{matrice[i][j]=1;}.    
+Remarquons  que  l'on peut d\'eclarer  et  affecter la matrice~$2$x$2$
+identit\'e              par            l'instruction~:
+\begin{verbatim}
+int id[2][2]={{1,0},{0,1}};
+\end{verbatim}
+\begin{exercice}[Matrice~: saisie, produit et affichage]
+  \'Ecrivez    une proc\'edure      qui   permet    de  saisir    deux
+  matrices~$3$x$3$, de faire leurs produit et de l'afficher.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/matrice.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\begin{exercice}[Jeu de la vie]
+  Le  jeu  de la vie  a  \'et\'e \'elabor\'e par  John~H.\  Conway. On
+  consid\`ere un tableau bidimensionnel    dont chaque  cellule   peut
+  \^etre dans l'un des deux \'etats suivants~:
+  \begin{itemize}
+  \item occup\'ee (par une cellule vivante)~;
+  \item vide (cellule morte).
+  \end{itemize}
+  Chacune des huits cases  qui  entourent une  case donn\'ee  est dite
+  \textit{adjacente} ou \textit{voisine}.
+  Les r\`egles du jeu sont les suivantes~:
+  \begin{enumerate}
+  \item \textbf{R\`egle de  la survie~:} chaque cellule vivante ayant,
+    \`a l'\'etape~$n$, deux  ou  trois  cellules  vivantes  adjacentes
+    survit \`a l'\'etape~${n+1}$~;
+  \item \textbf{R\`egles  de  la mort~:} chaque  cellule vivante ayant
+    pour voisines,   \`a   l'\'etape~$n$,  quatre  cellules   vivantes
+    adjacentes ou plus, dispara\^\i{}t \`a l'\'etape~${n+1}$ (mort par
+    surpopulation).   Une  cellule vivante   n'ayant qu'une  ou aucune
+    cellule vivante adjacente meurt  \`a l'\'etape suivante  (mort par
+    isolement)~;
+  \item \textbf{R\`egle  de naissances~:}  chaque cellule  morte ayant
+    exactement trois  cellules   vivantes   adjacentes, engendre   \`a
+    l'\'etape suivante une cellule vivante.
+  \end{enumerate}
+  Le jeu de la vie est un  exemple d'automate cellulaire.  Nous allons
+  construire un programme  permettant  d'initialiser, de repr\'esenter
+  les \'etats, de g\'erer et d'afficher cet automate.
+  Pour ce faire, il nous faut~:
+  \begin{itemize}
+  \item repr\'esenter les  cellules par un tableau bidimensionnel  (le
+    plan de jeu). Le  plan du jeu  est suppos\'e infini.  Il nous faut
+    donc le repr\'esenter par  un tore de taille~${20\times 20}$ (pour
+    fixer  les id\'ees).  Pour  travailler dans  ce tore, vous  pouvez
+    supposer que les coordonn\'ees sont dans un corps fini et utiliser
+    le reste de la division euclidienne \texttt{\%}~;
+  \item initialiser ce tableau~;
+  \item construire  un code qui  permet  la transition d'un \'etat  au
+    suivant (n'oubliez pas  que cette transition n\'ecessite une copie
+    du plan de jeu~;
+  \item construire du code qui permettent l'affichage.
+  \end{itemize}
+  Pour tester votre programme voici quelques configurations classiques~:
+  \begin{itemize}
+  \item le clignotant
+\begin{verbatim}
+     
+ XXX 
+     
+\end{verbatim}
+  \item le glisseur
+\begin{verbatim}
+     
+  X  
+   X 
+ XXX 
+     
+\end{verbatim}
+  \item le t\'etramino
+\begin{verbatim}
+     
+ XXX 
+  X  
+     
+\end{verbatim}
+  \item le goinfre
+\begin{verbatim}
+      
+   XX 
+    X 
+ XXX  
+ X    
+      
+\end{verbatim}
+  \end{itemize}
+  Enfin, vous pouvez choisir des  conditions initiales al\'eatoires en
+  utilisant la fonction \texttt{random()} (cf.\ \texttt{man random}).
+  \Ifcorrection
+  \begin{correction}
+    \input{Verbatim/JeuDeLaVie.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+%------------------------------------------------------------------------------
+\section{Recherche en table}
+\label{sec:RechercheEntable}
+Une table  contient   des informations  sur   certaines  clefs.   Dans
+l'exemple suivant, les clefs  sont des abr\'eviations et l'information
+est  constitu\'ee par le sens   des ces abr\'eviations.  L'instruction
+\texttt{char bar[32]="foo"} d\'efinit une  variable \texttt{bar} et on
+lui affecte la cha\^\i{}ne de  caract\`eres \texttt{``foo''}. On  peut
+donc d\'efinir deux tableaux~:
+\begin{verbatim}
+#define N 100
+
+char *ABR[N] ;
+char *EXP[N] ;
+
+int NbTotal = 13 ;
+
+ABR[1]="ANSI";
+EXP[1]="American National Standards Institute";
+ABR[2]="ASCII";
+EXP[2]="American Standard Code for Information Interchange";
+ABR[3]="BIOS";
+EXP[3]="Basic Input/Output System";
+ABR[4]="GRUB";
+EXP[4]="Grand Unified Bootloader";
+ABR[5]="IDE";
+EXP[5]="Integrated Drive Electronics";
+ABR[6]="ISA";
+EXP[6]="Instruction Set Architecture";
+ABR[7]="ISO";
+EXP[7]="International Standards Organization";
+ABR[8]="OS";
+EXP[8]="Operating System";
+ABR[9]="PCI";
+EXP[9]="Peripheral Component Interconnect";
+ABR[10]="ROM";
+EXP[10]="Read Only Memory";
+ABR[11]="RTFM";
+EXP[11]="Read The F... Manuel";
+ABR[12]="SCSI";
+EXP[12]="Small Computer System Interface";
+ABR[13]="VLSI";
+EXP[13]="Very Large Scale Integration";
+\end{verbatim}
+Une table peut \^etre construite \`a partir d'une liste ou d'un arbre.
+Pour l'instant, nous allons utiliser deux tableaux --- \texttt{ABR} et
+\texttt{EXP}  --- indic\'es en   parall\`ele pour coder  notre table~:
+l'abr\'eviation de \texttt{EXP[i]} \'etant \texttt{ABR[i]}.
+\par
+La table ci-dessus  peut contenir~$100$ \'el\'ements au maximum  mais,
+on n'utilise que~$nbtotal$  cellules.  On ne  g\`ere pas ici la taille
+courante de  la table dans notre  exemple par une  variable car  on se
+propose    d'utiliser une \textit{sentinelle}   en  bout  de table qui
+indique qu'apr\`es elle, il n'y a plus de cellule affect\'ee.
+\subsection{Recherche s\'equentielle}
+\label{sec:RechercheSequentielle}
+La premi\`ere  m\'ethode  pour rechercher le sens  d'une abr\'eviation
+est  d'examiner successivement tous les  \'el\'ements de  la table. Il
+s'agit  d'une  recherche s\'equentielle~; cette  recherche  est  aussi
+qualifi\'ee de   lin\'eaire    parce que le   nombre    d'op\'erations
+n\'ecessaires est lin\'eaire dans la taille de la table.
+\begin{exercice}[Recherche s\'equentielle]
+  \'Ecrivez une  proc\'edure  bas\'ee sur  la recherche s\'equentielle
+  qui  affiche le sens d'une abr\'eviation  saisie au clavier tant que
+  l'utilisateur le demande.
+  \par
+  Il faut  noter que  
+  \begin{itemize}
+  \item si la variable \texttt{chaine} est d\'efinit par l'instruction
+    \texttt{char  *chaine}, la  fonction \texttt{scanf}  s'utilise par
+    l'appel   \texttt{scanf("\%s",chaine)} (ce  point sera  \'eclairci
+    dans la section~\ref{cha:Pointeurs})~;
+  \item  l'\'egalit\'e de deux  cha\^\i{}nes  de caract\`eres se teste
+    \`a l'aide de  la  fonction \texttt{strcmp}.  Cette  fonction  est
+    d\'efinie  dans la  librairie  \texttt{string.h}~; elle   prend en
+    argument   deux  cha\^\i{}nes de   caract\`eres et retourne~$0$ si
+    elles sont identiques, une valeur positive  si le premier argument
+    est plus grand que le second et une valeur  n\'egative dans le cas
+    contraire.  N'h\'esitez     pas  \`a utiliser  le   manuel  d'unix
+    \texttt{man strcmp} \`a partir de votre shell.
+  \item la conditionnel  \texttt{if} consid\`ere qu'une expression est
+    fausse     si elle  retourne~$0$.   La   boucle  for  ex\'ecute  les
+    instructions  sp\'ecifi\'ees tant  que  la seconde expression  est
+    fausse~;
+  \end{itemize}
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/rechercheSequentielle.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\par
+\paragraph{Insertion d'\'el\'ements}
+Si on  utilise  une recherche s\'equentielle dans  une  table, on peut
+rajouter  des  \'el\'ements nouveaux en  bout  de  table et produire une
+erreur s'il n'y  a plus de place.   Afin que cette op\'eration  puisse
+\^etre  r\'ealis\'ee  en   temps constant  (ne  pas  n\'ecessiter  de
+parcours dans  la table),  on  se  doit  d'utiliser  une variable  qui
+indique la derni\`ere cellule affect\'ee. 
+\begin{exercice}[Recherche s\'equentielle avec insertion d'\'el\'ements]
+  Modifiez votre programme afin  que l'utilisateur puisse ins\'erer  ses
+  propres donn\'ees dans la table.
+\end{exercice}
+\subsection{Recherche dichotomique}
+\label{sec:RechercheDichotomique}
+Supposons  que la table soit  tri\'ee en ordre alphab\'etique. On peut
+alors utiliser une   recherche dichotomique pour  explorer notre table
+i.e.\ utiliser la m\'ethode suivante~:
+\begin{enumerate}
+\item on compare  notre cl\'e \`a une abr\'eviation  qui se trouve au
+  milieu de la table des abr\'eviations~;
+\item si c'est la m\^eme, on retourne son  sens tir\'e de la table des
+  expressions~;
+\item   sinon, on recommence l'\'etape~$1$  sur  la premi\`ere (resp.\ 
+  seconde) moiti\'e  de table  si  le nom  recherch\'e est  plus petit
+  (resp.\ plus grand) que le nom rang\'e au milieu de la table.
+\end{enumerate}
+\begin{exercice}[Recherche dichotomique]
+  \'Ecrivez une proc\'edure bas\'ee  sur la recherche dichotomique qui
+  affiche le  sens d'une   abr\'eviation  saisie au clavier   tant que
+  l'utilisateur le demande.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/rechercheDichotomique.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\paragraph{Remarques sur la complexit\'e}
+\begin{itemize}
+\item Notons~$u_{n}$ le nombre de  comparaisons n\'ecessaires pour une
+  table   de taille~$n$.  On  a~${u_{1}=1}$ et~${u_{n}=1+u_{n/2}}$. Le
+  nombre~$u_{n}$ est   logarithmique dans la  taille~$n$  de la table. 
+  C'est donc   une   am\'elioration  par   rapport \`a    la recherche
+  s\'equentielle~;
+\item  Si on veut ins\'erer un  nouvel \'el\'ement  dans la table afin
+  d'effectuer une   recherche dichotomique,  cette  derni\`ere  devant
+  \^etre ordonn\'ee, il  nous faut trouver  sa place dans la table  et
+  d\'eplacer tous les  \'el\'ements  plus grand. On retombe  ainsi sur
+  une complexit\'e lin\'eaire en la taille de la table.
+\end{itemize}
+%------------------------------------------------------------------------------
+\section{Tris s\'equentiels}
+\label{sec:TrisSequentiels}
+Dans la suite, on consid\`ere un dictionnaire de mots de quatre lettres.
+\input{Verbatim/dico4lettres.h.verb}
+Ce dictionnaire  est  stock\'e dans  une  variable  globale  et on  se
+propose de le trier.
+\par
+Pour ce faire,   on  rappelle qu'il est    possible de comparer   deux
+cha\^\i{}nes de caract\`eres en  utilisant la fonction \texttt{strcmp}
+dont   la  d\'eclaration  est   dans   \texttt{string.h} (pour plus   de
+d\'etails, \texttt{man strcmp}).
+\subsection{Tri par s\'election}
+\label{sec:TriSelection}
+L'algorithme de tri le  plus simple consiste \`a trouver l'emplacement
+du plus petit \'el\'ements dans  la table consid\'er\'ee. Une fois cet
+emplacement trouv\'e, on \'echange le  premier \'el\'ement de la table
+avec le plus petit. Pour continuer, on recommence ces op\'erations sur
+la table compos\'ee des \'el\'ements restant.
+\begin{exercice}[Tri par s\'election]
+  Implantez le tri par s\'election de la  table \texttt{dico}. Pour ce
+  faire,  construisez une    fonction principale   et deux   fonctions
+  auxiliaires (recherche du plus petit \'el\'ement et tri).%
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/TriSelection.c.verb}
+  \end{correction}
+  \fi
+\paragraph{\'Etude de la complexit\'e.}
+\`A  chaque it\'eration~$i$,     on compare  l'\'el\'ement~$i$     \`a
+l'\'el\'ement class\'e apr\`es lui.  Si~$t$  repr\'esente la taille de
+la  table, on fait     donc~${t-i}$ comparaisons.  Comme  il  y  a~$t$
+it\'erations, on a~${t(t-1)/2}$ comparaisons et~${n-1}$ \'echanges. La
+complexit\'e est donc de l'ordre de~$t^{2}$.
+\end{exercice}
+\subsection{Tri bulle}
+\label{sec:TriBulle}
+\begin{exercice}[Tri bulle]
+  Le  tri  bulle  consiste \`a     parcourir  la table  \`a trier   en
+  intervertissant   toute   paire  d'\'el\'ements   cons\'ecutifs  non
+  ordonn\'es afin qu'apr\`es un parcours, le plus grand \'el\'ement se
+  retrouve \`a la  fin de la   table. On recommence cette  op\'eration
+  avec la table consid\'er\'ee sans le dernier \'el\'ements.
+  \par
+  Implantez un tri bulle.%
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/TriBulle.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\subsection{Tri par insertion}
+\label{sec:TriParInsertion}
+\begin{exercice}[Tri par insertion]
+  Dans la m\'ethode du tri par insertion, on ordonne les deux premiers
+  \'el\'ements de la table. Puis, on  consid\`ere le troisi\`eme et on
+  le met \`a sa  place parmi les  deux premiers. Ainsi, on consid\`ere
+  les~${j-1}$ premiers  \'el\'ements de  la  table comme tri\'es.   On
+  prend la~$j$i\`eme et on le met \`a sa place dans la partie d\'ej\`a
+  tri\'ee.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/TriInsertion.c.verb}n
+  \end{correction}
+  \fi
+\end{exercice}
+\subsection{Tri Shell}
+\label{sec:TriShell}
+\begin{exercice}[Tri Shell]
+  Une variante du  tri par insertion  a \'et\'e introduite par D.~L.\ 
+  Shell en~$1959$. Le principe est de supposer  que la table \`a trier
+  est \textit{presque} en ordre. Au lieu  de comparer les \'el\'ements
+  adjacents  pour   l'insertion, on  les   compares  tous  les~$u_{n}$
+  \'el\'ements avec~${u_{n+1}=3u_{n}+1}$.
+  \par
+  Implantez un tri shell.%
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/TriShell.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\section{Tris r\'ecursifs}
+\label{sec:TrisRecursifs}
+\subsection{Quicksort}
+\label{sec:Quicksort}
+\begin{exercice}[Quicksort]
+  Le tri Quicksort a \'et\'e introduit par C.A.R.~Hoare en~$1960$. Il
+  consiste \`a prendre un \'el\'ement au hasard dans le table \`a
+  trier.  Soit~$v$ cet \'el\'ement.  On partitionne le reste du
+  tableau en deux zones~:
+  \begin{enumerate}
+  \item les \'el\'ements plus petit ou \'egaux \`a~$v$~;
+  \item les \'el\'ements plus grand \`a~$v$.
+  \end{enumerate}
+  Il  faut maintenant mettre les  \'el\'ements plus  petits ou \'egaux
+  \`a~$v$ en  t\^ete de la table, les  \'el\'ements plus grands en fin
+  de  table  et mettre~$v$ \`a  sa  place  d\'efinitive entre les deux
+  zones.
+  \par
+  On peut recommencer r\'ecursivement cette  manipulation sur les deux
+  partitions ainsi cr\'e\'es tant  qu'elles ne sont pas r\'eduites \`a
+  un \'el\'ements.
+  \par
+  Implanter un tri Quicksort.
+  \ifcorrection
+  \begin{correction}
+    \input{Verbatim/qsort.c.verb}
+  \end{correction}
+  \fi
+\end{exercice}
+\subsection{Tri par fusion}
+\label{sec:TriParFusion}
+Cette notion ne sera pas abord\'ee dans ce cours.
