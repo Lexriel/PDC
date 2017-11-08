@@ -1,0 +1,343 @@
+\documentclass[12pt]{article}
+\usepackage{url}
+\usepackage[francais]{babel}
+\usepackage{epsf}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}	% pour \varnothing
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{times}
+\usepackage{fullpage}
+\usepackage{epic,eepic}
+\usepackage{mathrsfs}   % pour la commande \mathscr
+% \usepackage{moreverb}   % pour verbatiminput
+\usepackage{ifthen}     % pour les versions enseignant/étudiant
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{multicol}
+
+
+%% Environnements
+
+\newtheorem{notation}{Notation}
+\newtheorem{abus}{Abus de langage}
+\newtheorem{corollary}{Corollaire}
+\newtheorem{theorem}{Théorème}
+\newtheorem{lemma}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newtheorem{convention}{Convention}
+\newtheorem{definition}{Définition}
+\newcommand{\Algf}{\bfseries \sffamily }
+\newcommand{\algf}{\sffamily }
+\newenvironment{proof}{{\bf Preuve} }{\ensuremath{\Box}\normalsize}
+\newcommand{\marginlabel}[1]{\mbox{}\marginpar{\raggedleft\hspace{0pt}#1}}
+
+%% Algorithmes
+
+\newcommand{\BEGIN}{{\algf begin}}
+\newcommand{\END}{{\algf end}}
+\newcommand{\IF}{{\algf if}}
+\newcommand{\THEN}{{\algf then}}
+\newcommand{\ELSE}{{\algf else}}
+\newcommand{\ELIF}{{\algf elif}}
+\newcommand{\FI}{{\algf fi}}
+\newcommand{\WHILE}{{\algf while}}
+\newcommand{\FOR}{{\algf for}}
+\newcommand{\DO}{{\algf do}}
+\newcommand{\OD}{{\algf od}}
+\newcommand{\RETURN}{{\algf return}}
+\newcommand{\PROCEDURE}{{\algf procedure}}
+\newcommand{\FUNCTION}{{\algf function}}
+\newcommand{\INDENTER}{{\algf si} \=\+\kill}
+
+%% Opérateurs
+
+\newcommand{\initial}{\mathop{\mathsf{init}}}
+\newcommand{\separant}{\mathop{\mathsf{sep}}}
+\newcommand{\rem}{\mathop{\mathsf{rem}}}
+\newcommand{\quo}{\mathop{\mathsf{quo}}}
+\newcommand{\lcoeff}{\mathop{\mathsf{lcoeff}}}
+\newcommand{\mvar}{\mathop{\mathsf{mvar}}}
+\newcommand{\ld}{\mathop{\mathrm{ld}}}
+\newcommand{\rank}{\mathrm{\mathsf{rank}}}
+\newcommand{\prem}{\mathop{\mathsf{prem}}}
+\newcommand{\remp}{\mathrel{\mathsf{partial\_rem}}}
+\newcommand{\remf}{\mathrel{\mathsf{full\_rem}}}
+\renewcommand{\gcd}{\mathop{\mathrm{gcd}}}
+\renewcommand{\deg}{\mathop{\mathrm{deg}}}
+\newcommand{\ord}{\mathop{\mathrm{ord}}}
+\newcommand{\pairs}{\mathop{\mathrm{pairs}}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ideal}[1]{(#1)}
+\newcommand{\cont}{\mathop{\mathrm{contenu}}}
+\newcommand{\pp}{\mathop{\mathrm{partie\_primitive}}}
+\newcommand{\init}{\mathop{\mathrm{coefficient\_dominant}}}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}}
+\newcommand{\ppmc}{\mathop{\mathrm{ppcm}}}
+\newcommand{\NF}{\mathop{\mathrm{NF}}}
+\newcommand{\rang}{\mathop{\mathrm{rang}}}
+\newcommand{\card}{\mathop{\mbox{card}}}
+
+%% Ensembles mathématiques
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\emptyset}{\varnothing}
+
+%% Réécriture
+
+\newcommand{\egaldef}{\mathop{\underset{\mathrm{def}}{=}}}
+\newcommand{\fleche}{\hbox to 1cm {\rightarrowfill}}
+\newcommand{\chefle}{\hbox to 1cm {\leftarrowfill}}
+\newcommand{\mafleche}{\mathrel{\fleche}}
+\newcommand{\machefle}{\mathrel{\chefle}}
+\def\build#1_#2^#3{\mathrel{\mathop{\kern 0pt#1}\limits_{#2}^{#3}}}
+
+%% Saturations
+
+\newbox\deuxpoints
+\setbox\deuxpoints=\hbox{:}
+\def\dv{\mathbin{\raisebox{1pt}{\copy\deuxpoints}}}
+\newbox\infini
+\setbox\infini=\hbox{\footnotesize $\infty$}
+\def\sat#1{#1^{\copy\infini}}
+\def\H#1{H_{\!{#1}}}
+\def\S#1{S_{\!{#1}}}
+\def\HH#1{\sat{\H{#1}}}
+\def\SS#1{\sat{\S{#1}}}
+
+%% \question -> numérote les question
+%% \Question{k} -> indique en plus que la question vaut k points
+%% \Section{intitulé} -> rajoute à l'intitulé la somme des points des 
+%%    questions qui figurent dans la section (faire deux compilations).
+
+\newcounter{question_counter}
+\setcounter{question_counter}{0}
+\newcommand{\question}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter}.}}
+\newcommand{\questiondiff}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter} (plus difficile).}}
+
+\newcounter{points_counter}
+\newcounter{section_points_counter}
+\newcommand{\Question}[1]{\addtocounter{question_counter}1 %
+    \addtocounter{points_counter}{#1} %
+    \addtocounter{section_points_counter}{#1} %
+    \typeout{Question \arabic{question_counter}. Total des points \arabic{points_counter}} %
+    \typeout{points_counter_\Alph{section} \arabic{section_points_counter}} %
+    \paragraph{\bf Question \arabic{question_counter}}{[#1\,\ifnum #1 = 1 pt\else pts\fi]}.}
+
+\newcommand{\Section}[1]{\setcounter{section_points_counter}0 %
+    \section{{#1} (\ref{points_counter_\Alph{section}} points)}}
+
+%% \solution{...}
+%% \progsol{fichier_source}
+
+\newboolean{corrige}
+\setboolean{corrige}{false}
+\newcommand{\solution}[1]{%
+\ifthenelse{\boolean{corrige}}%
+{\small\begin{quote}{\sc Solution. }#1\end{quote}\normalsize}{}}
+\newcommand{\progsol}[1]{%
+\ifthenelse{\boolean{corrige}}%
+{\small\begin{quote}{\sc Solution. }\footnotesize\verbatiminput{#1}\end{quote}\normalsize}{}}
+
+%% Fait en sorte que la font verbatim soit \footnotesize
+
+\makeatletter %
+\renewcommand{\verbatim@font}{ %
+    \ttfamily\footnotesize\catcode`\<=\active\catcode`\>=\active %
+}
+\makeatother
+
+\begin{document}
+\begin{center}
+{\bf Polytech'Lille --- GIS 3 --- Structures de Données --- Feuille de TP numéro 4}
+ 
+\end{center}
+\medskip
+\hrule
+ 
+\bigskip
+
+\section{Manipulations simples des files de priorité}
+
+Les questions qui suivent montrent que les files de priorité
+généralisent les files et les piles simples et qu'elles permettent
+de réaliser facilement un algorithme de tri. Donc, dans toutes
+ces questions, seule la fonction de priorité doit être changée.
+
+\question
+Télécharger directement sur le site \url{www.lifl.fr/~boulier} 
+ou par la commande suivante le module de file de priorité suivant~:
+\begin{verbatim}
+wget --no-cache http://www.lifl.fr/~boulier/polycopies/SD/priorite.tgz
+tar xzf priorite.tgz
+\end{verbatim}
+
+\question
+Compiler le programme et l'exécuter. Vérifier qu'il trie une suite
+de {\tt double} par ordre croissant.
+
+\question
+Modifier le programme pour qu'il trie la suite de {\tt double} par ordre
+décroissant.
+
+\question
+Modifier le programme (et éventuellement le type {\tt struct element})
+pour que la file de priorité se comporte comme une file ordinaire.
+
+\question
+Modifier le programme (et éventuellement le type {\tt struct element})
+pour que la file de priorité se comporte comme une pile ordinaire.
+
+\section{L'algorithme de Dijkstra}
+
+\subsection{Principe}
+
+Il s'applique à des graphes orientés, valués positivement.
+Il calcule la longueur minimale des chemins partant de la racine~$A$
+vers tous les autres sommets du graphe, accessibles à partir de~$A$.
+
+Chaque sommet est muni d'un {\em potentiel}, qui vaut initialement
+$+\infty$, à l'exception du potentiel de~$A$, qui est initialisé à~$0$. 
+À la fin de l'exécution de l'algorithme, ce potentiel est égal à la 
+longueur minimale recherchée.
+L'algorithme de Dijkstra s'implante efficacement avec une file
+de priorité. Plus le potentiel d'un sommet est petit, plus il
+est prioritaire.
+L'algorithme en pseudo-code est donné Figure~\ref{Dijkstra}.
+\begin{figure}[h!t]
+\begin{tabbing}
+\BEGIN \\
+\INDENTER
+    Mettre le potentiel de $A$ à $0$, tous les autres à $+\infty$ \\
+    Enfiler tous les sommets de~$T$ dans la file de priorité $F$ \\
+    \WHILE\ $F$ n'est pas vide \DO \\
+    \INDENTER
+        $X$ = defiler un sommet de $F$ \\
+        imprimer ``dist. min. de $A$ à $X$ = le potentiel de $X$'' \\
+        Soit $\ell$ l'indice de~$X$ dans~$T$ \\
+        \FOR\ $c$ variant de $0$ à $N-1$ \DO\\
+        \INDENTER
+            \IF\ $B(\ell,c) \neq 0$ \THEN \\
+            \INDENTER
+            \IF\ $\mbox{\em potentiel}\,(T[c]) > \mbox{\em potentiel}\,(X) + B(\ell,c)$ \THEN \\
+            \INDENTER
+                $\mbox{\em potentiel}\,(T[c])$ = 
+                        $\mbox{\em potentiel}\,(X) + B(\ell,c)$ \\
+                reporter un changement de priorité pour $T[c]$ dans $F$ (utiliser
+pour cela la \\ \hspace*{2 cm} fonction {\tt changement\_priorite} et le champ {\tt indice} de $T[c]$) \-\\
+            \FI \-\\
+            \FI \-\\
+        \OD \-\\
+    \OD \-\\
+\END
+\end{tabbing}
+\caption{\footnotesize L'algorithme de Dijkstra en pseudo-code.
+Le graphe est implanté ainsi~:
+il y a~$N$ sommets indicés de~$0$ à~$N-1$,
+un tableau~$T$ contenant tous les sommets,
+une fonction~$B(\ell,c)$ qui retourne la valeur de l'arc de 
+$T[\ell]$ vers $T[c]$, ou~$0$ si cet arc n'existe pas.}\label{Dijkstra}
+\end{figure}
+
+\subsection{Implantation des graphes}
+
+L'archive {\tt graphe.tgz} (disponible sur le site du cours)
+contient les types nécessaires à une implantation minimaliste des graphes.
+Le fichier {\tt sommet.h} contient la déclaration du type ci-dessous,
+inspiré du type {\tt struct element}. Il permet de représenter un
+sommet d'un graphe~:
+\begin{verbatim}
+struct sommet {
+    char nom;
+    int potentiel;    /* Pour Dijkstra */
+    int indice;       /* Ce champ est utilisé par les files de priorité */
+};
+\end{verbatim}
+Les fichiers {\tt graphe.h} et {\tt graphe.c} contiennent un codage du
+graphe de la Figure~\ref{fig-tp4}. Voici les prototypes déclarés
+dans {\tt graphe.h}~:
+\begin{verbatim}
+#include "sommet.h"
+/*
+ * L'entier N est égal au nombre de sommets du graphe
+ * Les sommets sont dans T, (indices de 0 à N-1).
+ * La fonction B(l,c) implante la matrice d'adjacence du graphe.
+ * Elle retourne le « poids » de l'arc  T[l] -> T[c], 0 si l'arc n'existe pas.
+ * La fonction dessin dessine le graphe dans une fenêtre graphique.
+ */
+extern int N;                              
+extern struct sommet T [];                 
+extern int indice_dans_T (struct sommet*); 
+extern int B (int, int);
+extern void dessin (void);
+\end{verbatim}
+\begin{figure}[h!t]
+\centerline{\includegraphics[width=10cm]{fig-tp4.pdf}}
+\caption{Le graphe donné dans l'archive.}\label{fig-tp4}
+\end{figure}
+
+\question
+Adapter le type {\tt struct file\_priorite\_element} pour obtenir
+une file avec priorité de sommets, et donc un type
+{\tt struct file\_priorite\_sommet}.
+
+\question
+Il manque une fonction dans le module {\tt file\_priorite\_sommet},
+pour implanter l'algorihtme de Dijkstra. Rajouter cette fonction.
+
+\question
+Programmer l'algorithme de Dijkstra dans {\tt main.c}.
+À l'exécution, sur le graphe de la Figure~\ref{fig-tp4} on doit avoir~:
+\begin{verbatim}
+$ ./main
+distance minimale de A -> A = 0
+distance minimale de A -> C = 5
+distance minimale de A -> E = 7
+distance minimale de A -> B = 8
+distance minimale de A -> D = 9
+\end{verbatim}
+
+\question
+Modifier {\tt graphe.c} pour représenter le graphe de la
+Figure~\ref{fig-tp4-2}. Tester votre programme sur cet exemple.
+\begin{figure}[h!t]
+\centerline{\includegraphics[width=14cm]{fig-tp4-2.pdf}}
+\caption{Un autre graphe.}\label{fig-tp4-2}
+\end{figure}
+
+\subsection{Développements}
+
+\question
+Plutôt que d'enfiler initialement tous les sommets, il est possible
+de n'enfiler que les sommets dont les potentiels sont différents de $+\infty$.
+Modifier l'algorithme en conséquence.
+
+\question
+Implanter la file de priorité dans un tableau redimensionnable.
+
+\question
+On souhaite implanter la matrice d'adjacence en utilisant des
+listes chaînées. Proposer des types.
+
+\question
+Modifier l'implantation des files de priorités pour que les
+fonctions retournent le nombre de comparaisons de potentiels effectuées.
+Compter le nombre total de comparaisons de potentiels effectuées
+par l'algorithme de Dijkstra.
+Comparer avec une implantation naïve où, à chaque itération, le sommet
+de potentiel minimal est déterminé par un parcours complet du tableau~$T$.
+
+{\em Mutatis mutandis}, appliquer les deux méthodes sur des graphes aléatoires
+de plus en plus grands, fabriquer des fichiers de mesures et analyser
+les algorithmes à la façon du TP précédent.
+\end{document}
+
+

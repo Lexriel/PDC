@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: tp5.aux
+The style file: plain.bst
+Database file #1: reecriture.bib
+You've used 3 entries,
+            2118 wiz_defined-function locations,
+            519 strings with 4359 characters,
+and the built_in function-call counts, 883 in all, are:
+= -- 80
+> -- 43
+< -- 0
++ -- 17
+- -- 14
+* -- 59
+:= -- 159
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 15
+chr.to.int$ -- 0
+cite$ -- 3
+duplicate$ -- 35
+empty$ -- 72
+format.name$ -- 14
+if$ -- 181
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 5
+newline$ -- 18
+num.names$ -- 6
+pop$ -- 20
+preamble$ -- 1
+purify$ -- 13
+quote$ -- 0
+skip$ -- 20
+stack$ -- 0
+substring$ -- 36
+swap$ -- 3
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 8
+warning$ -- 0
+while$ -- 7
+width$ -- 4
+write$ -- 35

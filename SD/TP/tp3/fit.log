@@ -1,0 +1,48 @@
+
+
+*******************************************************************************
+Thu Feb 14 14:42:51 2013
+
+
+FIT:    data read from "Kara_n0=25.time"
+        #datapoints = 4099
+        residuals are weighted equally (unit weight)
+
+function used for fitting: a*x**log2(3)+b*x+c
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 2.83422e+14       delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 150474
+
+initial set of free parameter values
+
+a               = 1
+b               = 1
+c               = 1
+
+After 7 iterations the fit converged.
+final sum of squares of residuals : 761.542
+rel. change during last iteration : -1.9054e-06
+
+degrees of freedom    (FIT_NDF)                        : 4096
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.431188
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.185923
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 1.07556e-05      +/- 2.584e-07    (2.402%)
+b               = -0.000255917     +/- 3.489e-05    (13.63%)
+c               = 0.0871455        +/- 0.02198      (25.22%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      c      
+a               1.000 
+b              -0.987  1.000 
+c               0.790 -0.866  1.000 

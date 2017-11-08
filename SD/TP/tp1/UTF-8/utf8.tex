@@ -1,0 +1,182 @@
+\documentclass[12pt]{article}
+\usepackage{xunicode}
+\usepackage{fontspec}
+\usepackage{xltxtra}
+\usepackage{url}
+\usepackage[francais]{babel}
+\usepackage{fullpage}
+
+
+\newtheorem{definition}{Définition}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+
+%% \Section{intitulé} -> rajoute à l'intitulé la somme des points des 
+%%    questions qui figurent dans la section (faire deux compilations).
+
+\newcounter{question_counter}
+\setcounter{question_counter}{0}
+\newcommand{\question}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter}.}}
+\newcommand{\questiondiff}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter} (plus difficile).}}
+
+\newcounter{points_counter}
+\newcounter{section_points_counter}
+\newcommand{\Question}[1]{\addtocounter{question_counter}1 %
+    \addtocounter{points_counter}{#1} %
+    \addtocounter{section_points_counter}{#1} %
+    \typeout{Question \arabic{question_counter}. Total des points \arabic{points_counter}} %
+    \typeout{points_counter_\Alph{section} \arabic{section_points_counter}} %
+    \paragraph{\bf Question \arabic{question_counter}}{[#1\,\ifnum #1 = 1 pt\else pts\fi]}.}
+
+\newcommand{\Section}[1]{\setcounter{section_points_counter}0 %
+    \section{{#1} (\ref{points_counter_\Alph{section}} points)}}
+
+\title{Polytech-Lille \\ Le codage UTF-8}
+\author{François Boulier}
+
+\begin{document}
+\maketitle
+
+\section{Travail à réaliser}
+
+Écrire un programme C qui vérifie qu'un fichier texte vérifie
+bien le format UTF-8. Le nom du fichier à tester doit être récupéré
+sur la ligne de commande. Il peut éventuellement être précédé de
+l'option «~{\tt -v}~» pour provoquer un affichage «~verbeux~».
+
+Si l'option «~{\tt -v}~» n'est pas précisée, le programme doit
+recopier le contenu du fichier sur la sortie standard et imprimer
+un «~{\tt replacement character}~» (codage UTF-8 {\tt 0xef 0xbf 0xbd},
+valeur {\tt 0xfffd}) à la place de tout caractère non UTF-8.
+Le programme doit retourner~$0$ si aucune erreur n'a été détectée,~$1$
+sinon.
+
+Si l'option «~{\tt -v}~» est précisée, le programme doit
+recopier le contenu du fichier sur la sortie standard et imprimer
+davantage d'informations en cas d'erreur (le codage hexadécimal
+de la séquence d'octets fautive et une raison pour laquelle
+la séquence est considérée comme fautive). De plus, en fin d'analyse,
+le programme doit imprimer le nombre d'erreurs rencontrées ainsi
+qu'un caractère UTF-8 rencontré parmi ceux qui comportent le
+plus d'octets.
+
+Voici quelques exemples.
+\begin{verbatim}
+# Message à afficher si le nombre d'arguments est incorrect
+boulier@ciney:~/utf8$ ./a.out 
+usage: ./a.out [-v] file-name
+
+# Le programme à réaliser
+boulier@ciney:~/utf8$ ./a.out -v utf8-tester.c 
+[...]
+longest encoding: 3 bytes [€]  e2 82 ac
+number of errors: 0
+
+# Un fichier plein d'erreurs
+./a.out -v UTF-8-test.txt 
+[...]
+5.3.2  U+FFFF = ef bf bf = "[noncharacter: ef bf bf]"                                                |
+                                                                              |
+THE END                                                                       |
+longest encoding: 4 bytes [𐀀]  f0 90 80 80
+number of errors: 216
+
+# Le même sans l'option -v (le « replacement character » apparaît)
+5.3.2  U+FFFF = ef bf bf = "�"                                                |
+                                                                              |
+THE END                                                                       |
+boulier@ciney:~/utf8$ echo $?
+1
+\end{verbatim}
+
+\section{Consignes}
+
+Lors de la lecture du fichier, on demande que chaque caractère lu
+soit stocké dans une variable du type suivant. On demande aussi 
+d'implanter les fonctions dont les prototypes suivent.
+\begin{verbatim}
+/* 
+ * Structure pour stocker un caractère UTF-8 
+ */
+
+#define NBMAX_BYTES 8
+struct character
+{   unsigned char bytes [NBMAX_BYTES]; /* les octets */
+    int nbbytes;                       /* le nombre d'octets */
+};
+
+/* initialisation à la séquence vide */
+void init_character (struct character* c);
+
+/* ajout d'un nouvel octet en fin de séquence */
+void append_byte (struct character* c, unsigned char byte);
+
+/* imprime la séquence d'octets, c'est-à-dire, le caractère */
+void print_character (struct character* c);
+
+/* imprime la séquence d'octets en hexadécimal */
+void dump_character (struct character* c);
+\end{verbatim}
+
+\section{Le codage UTF-8}
+
+Un caractère UTF-8 est codé sur $1$ à $4$ octets.
+Il a une {\em valeur} comprise entre {\tt 0x00} et {\tt 0x10ffff}.
+
+Un caractère codé sur $1$ octet est un code ASCII. Sa valeur
+est donc comprise entre {\tt 0x00} et {\tt 0x7f}.
+
+Si un caractère est codé sur $2$, $3$ ou $4$ octets, alors chaque
+octet est composé d'une suite de bits de contrôle, puis de
+bits destinés à former la valeur du caractère.
+
+Soit un caractère codé par $n$ octets ($2 \leq n \leq 4$).
+Le premier octet commence par $n$ bits à $1$, suivi d'un bit à $0$, 
+suivi de $7-n$ bits de valeur. Les autres octets commencent par les deux
+bits $10$, suivi de $6$ bits de valeur.
+La valeur du caractère s'obtient en concaténant les bits de valeur.
+Exemple~:
+\begin{itemize}
+\item
+$2$ octets. Codage~: {\tt 110xxxxx 10yyyyyy}. Valeur~: {\tt xxx xxyyyyyy}.
+\item
+$3$ octets. Codage~: {\tt 1110xxxx 10yyyyyy 10zzzzzz}. 
+	Valeur~: {\tt xxxxyyyy yyzzzzzz}.
+\item
+$4$ octets. Codage~: {\tt 11110xxx 10yyyyyy 10zzzzzz 10wwwwww}.
+          Valeur~: {\tt xxxyy yyyyzzzz zzwwwwww}.
+\end{itemize}
+Certains codages sont interdits:
+\begin{itemize}
+\item
+le codage d'une valeur doit se faire sur un nombre minimal d'octets~:
+\begin{enumerate}
+\item
+les premiers octets {\tt 0xc0} et {\tt 0xc1} sont interdits (ils 
+	donneraient lieu à un code ASCII sur deux octets)~;
+\item
+si le premier octet est {\tt 0xe0}, la valeur finale doit être 
+supérieure ou égale à {\tt 0x800}~;
+\item
+si le premier octet est {\tt 0xf0}, la valeur finale doit être 
+supérieure ou égale à {\tt 0x10000}.
+\end{enumerate}
+\item
+la valeur ne doit pas dépasser {\tt 0x10ffff}~;
+\item
+les valeurs comprises entre {\tt 0xd800} et {\tt 0xdfff} sont réservées 
+pour coder de l'UTF-16 et ne correspondent à aucun caractère UTF-8~;
+\item
+il existe $66$ valeurs pour des «~non-caractères~»~: les valeurs
+comprises entre {\tt 0xfdd0} et {\tt 0xfdef} ainsi que les $34$
+valeurs terminant par {\tt 0xfffe} et {\tt 0xffff} (de 
+{\tt 0xfffe}, {\tt 0xffff} à {\tt 0x10fffe}, {\tt 0x10fff}). 
+\end{itemize}
+
+
+\bibliographystyle{plain}
+\bibliography{reecriture}
+\end{document}

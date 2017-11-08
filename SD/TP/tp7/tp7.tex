@@ -1,0 +1,377 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage[francais]{babel}
+\usepackage{epsf}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}	% pour \varnothing
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{times}
+\usepackage{fullpage}
+\usepackage{epic,eepic}
+\usepackage{mathrsfs}   % pour la commande \mathscr
+% \usepackage{moreverb}   % pour verbatiminput
+\usepackage{ifthen}     % pour les versions enseignant/étudiant
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{multicol}
+
+
+%% Environnements
+
+\newtheorem{notation}{Notation}
+\newtheorem{abus}{Abus de langage}
+\newtheorem{corollary}{Corollaire}
+\newtheorem{theorem}{Théorème}
+\newtheorem{lemma}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newtheorem{convention}{Convention}
+\newtheorem{definition}{Définition}
+\newcommand{\Algf}{\bfseries \sffamily }
+\newcommand{\algf}{\sffamily }
+\newenvironment{proof}{{\bf Preuve} }{\ensuremath{\Box}\normalsize}
+\newcommand{\marginlabel}[1]{\mbox{}\marginpar{\raggedleft\hspace{0pt}#1}}
+
+%% Algorithmes
+
+\newcommand{\BEGIN}{{\algf begin}}
+\newcommand{\END}{{\algf end}}
+\newcommand{\IF}{{\algf if}}
+\newcommand{\THEN}{{\algf then}}
+\newcommand{\ELSE}{{\algf else}}
+\newcommand{\ELIF}{{\algf elif}}
+\newcommand{\FI}{{\algf fi}}
+\newcommand{\WHILE}{{\algf while}}
+\newcommand{\FOR}{{\algf for}}
+\newcommand{\DO}{{\algf do}}
+\newcommand{\OD}{{\algf od}}
+\newcommand{\RETURN}{{\algf return}}
+\newcommand{\PROCEDURE}{{\algf procedure}}
+\newcommand{\FUNCTION}{{\algf function}}
+\newcommand{\INDENTER}{{\algf si} \=\+\kill}
+
+%% Opérateurs
+
+\newcommand{\initial}{\mathop{\mathsf{init}}}
+\newcommand{\separant}{\mathop{\mathsf{sep}}}
+\newcommand{\rem}{\mathop{\mathsf{rem}}}
+\newcommand{\quo}{\mathop{\mathsf{quo}}}
+\newcommand{\lcoeff}{\mathop{\mathsf{lcoeff}}}
+\newcommand{\mvar}{\mathop{\mathsf{mvar}}}
+\newcommand{\ld}{\mathop{\mathrm{ld}}}
+\newcommand{\rank}{\mathrm{\mathsf{rank}}}
+\newcommand{\prem}{\mathop{\mathsf{prem}}}
+\newcommand{\remp}{\mathrel{\mathsf{partial\_rem}}}
+\newcommand{\remf}{\mathrel{\mathsf{full\_rem}}}
+\renewcommand{\gcd}{\mathop{\mathrm{gcd}}}
+\renewcommand{\deg}{\mathop{\mathrm{deg}}}
+\newcommand{\ord}{\mathop{\mathrm{ord}}}
+\newcommand{\pairs}{\mathop{\mathrm{pairs}}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ideal}[1]{(#1)}
+\newcommand{\cont}{\mathop{\mathrm{contenu}}}
+\newcommand{\pp}{\mathop{\mathrm{partie\_primitive}}}
+\newcommand{\init}{\mathop{\mathrm{coefficient\_dominant}}}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}}
+\newcommand{\ppmc}{\mathop{\mathrm{ppcm}}}
+\newcommand{\NF}{\mathop{\mathrm{NF}}}
+\newcommand{\rang}{\mathop{\mathrm{rang}}}
+\newcommand{\card}{\mathop{\mbox{card}}}
+
+%% Ensembles mathématiques
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\emptyset}{\varnothing}
+
+%% Réécriture
+
+\newcommand{\egaldef}{\mathop{\underset{\mathrm{def}}{=}}}
+\newcommand{\fleche}{\hbox to 1cm {\rightarrowfill}}
+\newcommand{\chefle}{\hbox to 1cm {\leftarrowfill}}
+\newcommand{\mafleche}{\mathrel{\fleche}}
+\newcommand{\machefle}{\mathrel{\chefle}}
+\def\build#1_#2^#3{\mathrel{\mathop{\kern 0pt#1}\limits_{#2}^{#3}}}
+
+%% Saturations
+
+\newbox\deuxpoints
+\setbox\deuxpoints=\hbox{:}
+\def\dv{\mathbin{\raisebox{1pt}{\copy\deuxpoints}}}
+\newbox\infini
+\setbox\infini=\hbox{\footnotesize $\infty$}
+\def\sat#1{#1^{\copy\infini}}
+\def\H#1{H_{\!{#1}}}
+\def\S#1{S_{\!{#1}}}
+\def\HH#1{\sat{\H{#1}}}
+\def\SS#1{\sat{\S{#1}}}
+
+%% \question -> numérote les question
+%% \Question{k} -> indique en plus que la question vaut k points
+%% \Section{intitulé} -> rajoute à l'intitulé la somme des points des 
+%%    questions qui figurent dans la section (faire deux compilations).
+
+\newcounter{question_counter}
+\setcounter{question_counter}{0}
+\newcommand{\question}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter}.}}
+\newcommand{\questiondiff}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter} (plus difficile).}}
+
+\newcounter{points_counter}
+\newcounter{section_points_counter}
+\newcommand{\Question}[1]{\addtocounter{question_counter}1 %
+    \addtocounter{points_counter}{#1} %
+    \addtocounter{section_points_counter}{#1} %
+    \typeout{Question \arabic{question_counter}. Total des points \arabic{points_counter}} %
+    \typeout{points_counter_\Alph{section} \arabic{section_points_counter}} %
+    \paragraph{\bf Question \arabic{question_counter}}{[#1\,\ifnum #1 = 1 pt\else pts\fi]}.}
+
+\newcommand{\Section}[1]{\setcounter{section_points_counter}0 %
+    \section{{#1} (\ref{points_counter_\Alph{section}} points)}}
+
+%% \solution{...}
+%% \progsol{fichier_source}
+
+\newboolean{corrige}
+\setboolean{corrige}{false}
+\newcommand{\solution}[1]{%
+\ifthenelse{\boolean{corrige}}%
+{\small\begin{quote}{\sc Solution. }#1\end{quote}\normalsize}{}}
+\newcommand{\progsol}[1]{%
+\ifthenelse{\boolean{corrige}}%
+{\small\begin{quote}{\sc Solution. }\footnotesize\verbatiminput{#1}\end{quote}\normalsize}{}}
+
+%% Fait en sorte que la font verbatim soit \footnotesize
+
+\makeatletter %
+\renewcommand{\verbatim@font}{ %
+    \ttfamily\footnotesize\catcode`\<=\active\catcode`\>=\active %
+}
+\makeatother
+
+\begin{document}
+\begin{center}
+{\bf Polytech'Lille --- GIS 3 --- Structures de Données --- Feuille de TP numéro 7}
+ 
+\end{center}
+\medskip
+\hrule
+ 
+\bigskip
+
+Ce TP se déroule sur deux séances (quatre heures). Les étudiants qui
+se sentent en difficulté devraient réaliser la section~1, uniquement.
+Les autres peuvent réaliser la section~2 aussi. Des structures de
+données introduites dans les premiers TP sont réutilisées.
+
+\section{Petits exercices sur les tables de hachage}
+
+\subsection{Double hachage}
+
+\question
+Implanter un module de table de hachage d'entiers, à partir des 
+déclarations suivantes. La technique utilisée est le double hachage.
+Prendre comme fonction de hachage~:
+$$h(a) = (h_1(a)\,,\ h_2(a)) = (a \bmod N\,,\quad 1 + (a \bmod {(N-1)}))\,.$$
+Écrire un programme principal, comportant une boucle (boucle~$A$),
+qui lise une suite d'entiers terminée par~$-1$ et qui les enregistre 
+dans la table. À la fin de la boucle, imprimer la table.
+
+\begin{verbatim}
+#define N 11
+struct valeur_hachage {
+    int h1;
+    int h2;
+};
+typedef struct valeur_hachage fonction_hachage (int);
+enum etat_alveole { libre, occupe };
+struct alveole {
+    enum etat_alveole etat;
+    int valeur;
+};
+struct table_hachage {
+    struct alveole tab [N];
+    fonction_hachage* h;
+    int n;
+};
+\end{verbatim}
+
+\question
+Compléter le module en lui ajoutant une fonction qui recherche si
+un élément est présent dans la table. Dans le programme principal,
+ajouter une deuxième boucle (boucle~$B$), qui lise une suite d'entiers 
+terminée par~$-1$, et qui indique, pour chacun d'eux, s'il est ou non présent
+dans la table.
+
+\question
+Compléter le module en lui ajoutant une fonction qui supprime un
+élément de la table. Adapter éventuellement les types proposés
+plus haut. Dans le programme principal, insérer une troisième boucle,
+entre les boucles~$A$ et~$B$, qui lise une suite d'entiers 
+terminée par~$-1$, et qui supprime chacun d'eux de la table.
+
+\subsection{Simple hachage}
+
+Dans cette sous-section, réutiliser les listes chaînées introduites
+au premier TP.
+
+\question
+Adapter le module précédent pour qu'il s'appuie sur une technique 
+de simple hachage. Ranger les entiers ayant même valeur de hachage
+dans des listes chaînées. Supprimer les champs et les déclarations
+inutiles. Utiliser la fonction de hachage suivante~:
+$$h(a) = a \bmod N\,.$$
+
+\question
+Écrire une fonction qui permette de visualiser la table de hachage
+de la question précédente, en utilisant le logiciel {\tt dot}.
+Par exemple, les commandes
+\begin{verbatim}
+$ dot -Tpdf hachage.dot -Grankdir=LR -o hachage.pdf
+$ evince hachage.pdf 
+\end{verbatim}
+produisent l'affichage de la Figure~\ref{figdot} à partir
+du fichier {\tt hachage.dot} suivant~:
+\begin{verbatim}
+digraph G {
+    tableau [shape=record,label="<f0> 0 | <f1> 1 | <f2> 2 | <f3> 3 | <f4> 4 | 
+<f5> 5 | <f6> 6 | <f7> 7 | <f8> 8 | <f9> 9 | <f10> 10"]; 
+    tableau:f1 -> 45;
+    45 -> 56;
+    tableau:f6 -> 17;
+    17 -> 6;
+    tableau:f8 -> 8;
+    tableau:f9 -> 9;
+};
+\end{verbatim}
+
+\begin{figure}[h!t]
+\centerline{\includegraphics[width=5cm]{hachage.pdf}}
+\caption{Une table de hachage}
+\label{figdot}
+\end{figure}
+
+\question
+Reprendre la section~1, en réalisant une table de hachage de chaînes
+de caractères. Réutiliser le type {\tt chaine} introduit au TP~1.
+
+Toute la difficulté tient au fait que le type {\tt chaine} est muni d'un 
+constructeur et d'un destructeur (ce qui n'est pas le cas des types 
+{\tt int}, {\tt double} et {\tt char}). 
+
+Vérifier avec {\tt valgrind} que vos programmes ne perdent pas de mémoire.
+
+\section{Algorithme de l'éditeur de liens}
+
+\subsection{Introduction}
+
+Considérons les deux fichiers~C suivants.
+\begin{multicols}{2}
+\begin{verbatim}
+/* Fichier add.c */
+static int add_local (int x, int y)
+{
+    return x + y;
+}
+int add (int x, int y)
+{
+    return add_local (x, y);
+}
+/* Fichier main.c */
+extern int add (int, int);
+int main ()
+{   int z;
+    z = add (3, 4);
+    return 0;
+}
+
+
+\end{verbatim}
+\end{multicols}
+Compilons-les et analysons-les avec la commande~{\tt nm}.
+\begin{verbatim}
+$ gcc -c add.c main.c
+$ nm add.o
+0000000000000015 T add
+0000000000000000 t add_local
+$ nm main.o
+                 U add
+0000000000000000 T main
+\end{verbatim}
+La lettre qui précède les symboles indique leur type~:
+une lettre minuscule indique un symbole local~;
+une lettre majuscule différente de {\tt U} indique un symbole global~;
+la lettre {\tt U} indique une référence indéfinie. 
+Le fichier objet {\tt add.o} contient un symbole global, {\tt add}, et
+un symbole local {\tt add\_local} (local car précédé de {\tt static}). 
+Le fichier objet {\tt main.o} contient un symbole global, {\tt main},
+et une référence indéfinie à {\tt add}. L'une des tâches de l'éditeur 
+de liens consiste à résoudre les références indéfinies, en les faisant 
+correspondre à un symbole global de même nom.
+
+L'édition des liens entre un ensemble de fichiers objets est réussie
+si toutes les références indéfinies sont résolues, si le symbole {\tt main}
+est défini et s'il n'existe pas deux symboles globaux portant le même nom.
+
+\subsection{Travail à faire}
+
+On souhaite écrire un programme qui reproduise la gestion de la
+table des symboles d'un éditeur de liens. Le programme doit prendre
+sur sa ligne de commande une liste de fichiers objets et indiquer
+si l'édition des liens est réussie ou pas.
+
+Proposer une structure de données (fondée sur l'utilisation de tables
+de hachages) pour gérer la table des symboles.
+
+Écrire le programme.
+
+\subsection{Récupération des symboles d'un fichier objet}
+
+Pour obtenir les symboles d'un fichier objet {\tt fichier.o}, 
+le plus simple consiste à appliquer la commande {\tt nm} sur le 
+fichier (fonction {\tt system} de la bibliothèque standard du C), 
+à en rediriger la sortie sur un filtre approprié (cf. cours de 
+{\em système}) pour ne garder que le type et le nom, et à rediriger 
+la sortie du filtre vers un fichier {\tt fichier.sym}). 
+Le fichier {\tt fichier.sym} peut ensuite être 
+lu en exécutant des instructions inspirées du code C suivant~:
+\begin{verbatim}
+#include <stdio.h>
+
+int main ()
+{   FILE* f;
+    int n;
+    char type, ident [32];
+
+    f = fopen ("main.sym", "r");
+    n = fscanf (f, "%c %s\n", &type, ident);
+    while (n == 2)
+    {   printf ("type = %c, ident = %s\n", type, ident);
+        n = fscanf (f, "%c %s\n", &type, ident);
+    }
+    fclose (f);
+}
+\end{verbatim}
+
+\subsection{Les références aux fonctions de la bibliothèque standard}
+
+Tout programme réaliste contient des références indéfinies vers des
+symboles de la bibliothèque standard (fonctions {\tt printf}, {\tt malloc},
+etc.). Une façon simple de résoudre cette difficulté consiste à se
+fabriquer un faux fichier objet contenant les symboles des fonctions
+utilisées et à ajouter ce fichier à la ligne de commande.
+
+Une solution plus élégante consiste à aller chercher les définitions de
+symboles dans la bibiothèque standard (habituellement {\tt /usr/lib/libc.a}).
+Attention~: bien qu'une bibliothèque ne soit rien d'autre qu'une collection
+de fichiers objets, le mécanisme d'inclusion des symboles est un
+peu différent de celui présenté ci-dessus (cf. support de cours).
+\end{document}
+
+

@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{CLRS02}
+Thomas Cormen, Charles Leiserson, Ronald Rivest, and Clifford Stein.
+\newblock {\em {Introduction {\`a} l'algorithmique}}.
+\newblock Dunod, Paris, 2{\`e}me edition, 2002.
+
+\bibitem{SF96}
+Robert Sedgewick and Philippe Flajolet.
+\newblock {\em {An Introduction to the Analysis of Algorithms}}.
+\newblock {Addison Wesley}, 1996.
+
+\bibitem{Vitter87}
+Jeffrey~Scott Vitter.
+\newblock {Design and Analysis of Dynamic Huffman Codes}.
+\newblock {\em {Journal of the ACM}}, 34(4):825--845, 1987.
+
+\end{thebibliography}

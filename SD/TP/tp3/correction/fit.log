@@ -1,0 +1,189 @@
+
+
+*******************************************************************************
+Tue Feb 12 14:33:33 2013
+
+
+FIT:    data read from "Karatsuba.stats"
+        #datapoints = 1024
+        residuals are weighted equally (unit weight)
+
+function used for fitting: a*x**log2(3)+b*x+c
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 6.0824e+13        delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 16715.5
+
+initial set of free parameter values
+
+a               = 1
+b               = 1
+c               = 1
+
+After 7 iterations the fit converged.
+final sum of squares of residuals : 2.07722e+11
+rel. change during last iteration : -5.18378e-12
+
+degrees of freedom    (FIT_NDF)                        : 1021
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 14263.6
+variance of residuals (reduced chisquare) = WSSR/ndf   : 2.03449e+08
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 6.12836          +/- 0.1542       (2.516%)
+b               = 186.537          +/- 9.252        (4.96%)
+c               = -17284.9         +/- 1457         (8.431%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      c      
+a               1.000 
+b              -0.987  1.000 
+c               0.791 -0.867  1.000 
+
+
+*******************************************************************************
+Tue Feb 12 14:34:35 2013
+
+
+FIT:    data read from "Karatsuba.stats"
+        #datapoints = 1024
+        residuals are weighted equally (unit weight)
+
+function used for fitting: a*x**log2(3)+b*x+c
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 2.07722e+11       delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 16715.5
+
+initial set of free parameter values
+
+a               = 6.12836
+b               = 186.537
+c               = -17284.9
+
+After 1 iterations the fit converged.
+final sum of squares of residuals : 2.07722e+11
+rel. change during last iteration : -1.46916e-16
+
+degrees of freedom    (FIT_NDF)                        : 1021
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 14263.6
+variance of residuals (reduced chisquare) = WSSR/ndf   : 2.03449e+08
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 6.12836          +/- 0.1542       (2.516%)
+b               = 186.537          +/- 9.252        (4.96%)
+c               = -17284.9         +/- 1457         (8.431%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      c      
+a               1.000 
+b              -0.987  1.000 
+c               0.791 -0.867  1.000 
+
+
+*******************************************************************************
+Tue Feb 12 14:36:32 2013
+
+
+FIT:    data read from "Karatsuba.stats"
+        #datapoints = 1024
+        residuals are weighted equally (unit weight)
+
+function used for fitting: a*x**log2(3)+b*x
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 5.13659e+11       delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 20472.3
+
+initial set of free parameter values
+
+a               = 6.12836
+b               = 186.537
+
+After 4 iterations the fit converged.
+final sum of squares of residuals : 2.36341e+11
+rel. change during last iteration : -6.22232e-07
+
+degrees of freedom    (FIT_NDF)                        : 1022
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 15207
+variance of residuals (reduced chisquare) = WSSR/ndf   : 2.31253e+08
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 7.57419          +/- 0.1006       (1.328%)
+b               = 91.44            +/- 4.923        (5.383%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      
+a               1.000 
+b              -0.987  1.000 
+
+
+*******************************************************************************
+Mon Mar 25 20:32:30 2013
+
+
+FIT:    data read from "Karatsuba.stats"
+        #datapoints = 1024
+        residuals are weighted equally (unit weight)
+
+function used for fitting: a*x**log2(3)+b*x+c
+fitted parameters initialized with current variable values
+
+
+
+ Iteration 0
+ WSSR        : 6.0824e+13        delta(WSSR)/WSSR   : 0
+ delta(WSSR) : 0                 limit for stopping : 1e-05
+ lambda	  : 16715.5
+
+initial set of free parameter values
+
+a               = 1
+b               = 1
+c               = 1
+
+After 7 iterations the fit converged.
+final sum of squares of residuals : 2.07722e+11
+rel. change during last iteration : -5.18378e-12
+
+degrees of freedom    (FIT_NDF)                        : 1021
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 14263.6
+variance of residuals (reduced chisquare) = WSSR/ndf   : 2.03449e+08
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 6.12836          +/- 0.1542       (2.516%)
+b               = 186.537          +/- 9.252        (4.96%)
+c               = -17284.9         +/- 1457         (8.431%)
+
+
+correlation matrix of the fit parameters:
+
+               a      b      c      
+a               1.000 
+b              -0.987  1.000 
+c               0.791 -0.867  1.000 

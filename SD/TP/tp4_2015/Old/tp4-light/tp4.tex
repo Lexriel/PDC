@@ -1,0 +1,289 @@
+% xelatex tp1.tex
+
+\documentclass[12pt]{article}
+\usepackage{xunicode}
+\usepackage{fontspec}
+\usepackage{xltxtra}
+\usepackage{url}
+\usepackage[francais]{babel}
+\usepackage{fullpage}
+
+% \usepackage{epsf}
+% \usepackage{amsmath}
+% \usepackage{amsfonts}
+% \usepackage{amssymb}	% pour \varnothing
+% \usepackage[latin1]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{times}
+% \usepackage{epic,eepic}
+% \usepackage{mathrsfs}   % pour la commande \mathscr
+% \usepackage{moreverb}   % pour verbatiminput
+% \usepackage{ifthen}     % pour les versions enseignant/étudiant
+% \usepackage{graphics}
+% \usepackage{epsfig}
+% \usepackage{multicol}
+
+
+%% Environnements
+
+\newtheorem{notation}{Notation}
+\newtheorem{abus}{Abus de langage}
+\newtheorem{corollary}{Corollaire}
+\newtheorem{theorem}{Théorème}
+\newtheorem{lemma}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newtheorem{convention}{Convention}
+\newtheorem{definition}{Définition}
+\newcommand{\Algf}{\bfseries \sffamily }
+\newcommand{\algf}{\sffamily }
+\newenvironment{proof}{{\bf Preuve} }{\ensuremath{\Box}\normalsize}
+\newcommand{\marginlabel}[1]{\mbox{}\marginpar{\raggedleft\hspace{0pt}#1}}
+
+%% Algorithmes
+
+\newcommand{\BEGIN}{{\algf begin}}
+\newcommand{\END}{{\algf end}}
+\newcommand{\IF}{{\algf if}}
+\newcommand{\THEN}{{\algf then}}
+\newcommand{\ELSE}{{\algf else}}
+\newcommand{\ELIF}{{\algf elif}}
+\newcommand{\FI}{{\algf fi}}
+\newcommand{\WHILE}{{\algf while}}
+\newcommand{\FOR}{{\algf for}}
+\newcommand{\DO}{{\algf do}}
+\newcommand{\OD}{{\algf od}}
+\newcommand{\RETURN}{{\algf return}}
+\newcommand{\PROCEDURE}{{\algf procedure}}
+\newcommand{\FUNCTION}{{\algf function}}
+\newcommand{\INDENTER}{{\algf si} \=\+\kill}
+
+%% Opérateurs
+
+\newcommand{\initial}{\mathop{\mathsf{init}}}
+\newcommand{\separant}{\mathop{\mathsf{sep}}}
+\newcommand{\rem}{\mathop{\mathsf{rem}}}
+\newcommand{\quo}{\mathop{\mathsf{quo}}}
+\newcommand{\lcoeff}{\mathop{\mathsf{lcoeff}}}
+\newcommand{\mvar}{\mathop{\mathsf{mvar}}}
+\newcommand{\ld}{\mathop{\mathrm{ld}}}
+\newcommand{\rank}{\mathrm{\mathsf{rank}}}
+\newcommand{\prem}{\mathop{\mathsf{prem}}}
+\newcommand{\remp}{\mathrel{\mathsf{partial\_rem}}}
+\newcommand{\remf}{\mathrel{\mathsf{full\_rem}}}
+\renewcommand{\gcd}{\mathop{\mathrm{gcd}}}
+\renewcommand{\deg}{\mathop{\mathrm{deg}}}
+\newcommand{\ord}{\mathop{\mathrm{ord}}}
+\newcommand{\pairs}{\mathop{\mathrm{pairs}}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ideal}[1]{(#1)}
+\newcommand{\cont}{\mathop{\mathrm{contenu}}}
+\newcommand{\pp}{\mathop{\mathrm{partie\_primitive}}}
+\newcommand{\init}{\mathop{\mathrm{coefficient\_dominant}}}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}}
+\newcommand{\ppmc}{\mathop{\mathrm{ppcm}}}
+\newcommand{\NF}{\mathop{\mathrm{NF}}}
+\newcommand{\rang}{\mathop{\mathrm{rang}}}
+\newcommand{\card}{\mathop{\mbox{card}}}
+
+%% Ensembles mathématiques
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\emptyset}{\varnothing}
+
+%% Réécriture
+
+\newcommand{\egaldef}{\mathop{\underset{\mathrm{def}}{=}}}
+\newcommand{\fleche}{\hbox to 1cm {\rightarrowfill}}
+\newcommand{\chefle}{\hbox to 1cm {\leftarrowfill}}
+\newcommand{\mafleche}{\mathrel{\fleche}}
+\newcommand{\machefle}{\mathrel{\chefle}}
+\def\build#1_#2^#3{\mathrel{\mathop{\kern 0pt#1}\limits_{#2}^{#3}}}
+
+%% Saturations
+
+\newbox\deuxpoints
+\setbox\deuxpoints=\hbox{:}
+\def\dv{\mathbin{\raisebox{1pt}{\copy\deuxpoints}}}
+\newbox\infini
+\setbox\infini=\hbox{\footnotesize $\infty$}
+\def\sat#1{#1^{\copy\infini}}
+\def\H#1{H_{\!{#1}}}
+\def\S#1{S_{\!{#1}}}
+\def\HH#1{\sat{\H{#1}}}
+\def\SS#1{\sat{\S{#1}}}
+
+%% \question -> numérote les question
+%% \Question{k} -> indique en plus que la question vaut k points
+%% \Section{intitulé} -> rajoute à l'intitulé la somme des points des 
+%%    questions qui figurent dans la section (faire deux compilations).
+
+\newcounter{question_counter}
+\setcounter{question_counter}{0}
+\newcommand{\question}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter}.}}
+\newcommand{\questiondiff}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter} (plus difficile).}}
+
+\newcounter{points_counter}
+\newcounter{section_points_counter}
+\newcommand{\Question}[1]{\addtocounter{question_counter}1 %
+    \addtocounter{points_counter}{#1} %
+    \addtocounter{section_points_counter}{#1} %
+    \typeout{Question \arabic{question_counter}. Total des points \arabic{points_counter}} %
+    \typeout{points_counter_\Alph{section} \arabic{section_points_counter}} %
+    \paragraph{\bf Question \arabic{question_counter}}{[#1\,\ifnum #1 = 1 pt\else pts\fi]}.}
+
+\newcommand{\Section}[1]{\setcounter{section_points_counter}0 %
+    \section{{#1} (\ref{points_counter_\Alph{section}} points)}}
+
+%% \solution{...}
+%% \progsol{fichier_source}
+
+% \newboolean{corrige}
+% \setboolean{corrige}{false}
+% \newcommand{\solution}[1]{%
+% \ifthenelse{\boolean{corrige}}%
+% {\small\begin{quote}{\sc Solution. }#1\end{quote}\normalsize}{}}
+% \newcommand{\progsol}[1]{%
+% \ifthenelse{\boolean{corrige}}%
+% {\small\begin{quote}{\sc Solution. }\footnotesize\verbatiminput{#1}\end{quote}\normalsize}{}}
+
+%% Fait en sorte que la font verbatim soit \footnotesize
+
+\makeatletter %
+\renewcommand{\verbatim@font}{ %
+    \ttfamily\footnotesize\catcode`\<=\active\catcode`\>=\active %
+}
+\makeatother
+
+\begin{document}
+\begin{center}
+{\bf Polytech'Lille --- GIS 3 --- Structures de Données --- Feuille de TP numéro 4'}
+ 
+\end{center}
+\medskip
+\hrule
+
+\section{Réalisation d'une pile}
+
+Ce TP se déroule sur une séance. 
+On s'intéresse au programme principal {\tt main.c} suivant.
+\begin{verbatim}
+#include <stdio.h>
+#include "pile.h"
+
+int main ()
+{   struct pile P;
+    int i;
+
+    init_pile (&P);
+    for (i = 1; i < 10; i++)
+        empiler (&P, i);
+    while (! est_vide_pile (P))
+    {   i = depiler (&P);
+        printf ("%d\n", i);
+    }
+    clear_pile (&P);
+    return 0;
+}
+\end{verbatim}
+
+\question
+Sachant que $P$ est une pile d'entiers, qu'est-ce que ce
+programme est censé afficher sur la sortie standard~?
+
+\bigskip
+
+On souhaite réaliser un module de pile d'entiers en utilisant
+le module de liste de doubles, étudié au premier TP.
+À la fin du TP, vous devrez donc avoir~$5$ fichiers~: {\tt main.c},
+{\tt pile.c}, {\tt pile.h}, {\tt liste\_double.c} et {\tt liste\_double.h}.
+On impose le fichier {\tt pile.h} suivant.
+\begin{verbatim}
+#include <stdbool.h>
+#include "liste_double.h"
+
+struct pile
+{   struct liste_double L;
+};
+
+extern void init_pile (struct pile*);
+extern void vider_la_pile (struct pile*);
+extern void clear_pile (struct pile*);
+extern void empiler (struct pile*, int);
+extern int depiler (struct pile*);
+extern bool est_vide_pile (struct pile);
+\end{verbatim}
+
+\question
+Écrire {\tt pile.c}. 
+Compiler et tester. Utiliser un {\em Makefile} (voir sur le site du cours).
+Vérifier avec {\tt valgrind} que le programme est correct.
+
+\section{Réalisation d'une file}
+
+On s'intéresse au programme principal suivant.
+\begin{verbatim}
+#include <stdio.h>
+#include "file.h"
+
+int main ()
+{   struct file F;
+    int i;
+
+    init_file (&F);
+    for (i = 1; i < 10; i++)
+        enfiler (&F, i);
+    while (! est_vide_file (F))
+    {   i = defiler (&F);
+        printf ("%d\n", i);
+    }
+    clear_file (&F);
+    return 0;
+}
+\end{verbatim}
+
+\question
+Sachant que $P$ est une file d'entiers, qu'est-ce que ce
+programme est censé afficher sur la sortie standard~?
+
+\bigskip
+On impose le fichier {\tt file.h} suivant.
+\begin{verbatim}
+#include <stdbool.h>
+#include "liste_double.h"
+
+struct file
+{   struct liste_double L;
+};
+
+extern void init_file (struct file*);
+extern void vider_la_file (struct file*);
+extern void clear_file (struct file*);
+extern void enfiler (struct file*, int);
+extern int defiler (struct file*);
+extern bool est_vide_file (struct file);
+\end{verbatim}
+
+\question
+Écrire {\tt file.c}.
+Quelles sont la ou les fonctions de manipulation de listes,
+qui seraient souhaitables pour réaliser une file, mais qui
+ne sont pas implantées~?
+
+\question
+Compléter le module {\tt liste\_double}. Que faut-il ajouter
+à {\tt liste\_double.h}~? à {\tt liste\_double.c}~?
+
+\question
+Suggérez une variante d'implantation des listes qui optimise le 
+fonctionnement du module de file.
+
+\end{document}
+
+

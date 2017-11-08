@@ -1,0 +1,468 @@
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage[francais]{babel}
+\usepackage{epsf}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}	% pour \varnothing
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{times}
+\usepackage{fullpage}
+\usepackage{epic,eepic}
+\usepackage{mathrsfs}   % pour la commande \mathscr
+% \usepackage{moreverb}   % pour verbatiminput
+\usepackage{ifthen}     % pour les versions enseignant/étudiant
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{multicol}
+
+
+%% Environnements
+
+\newtheorem{notation}{Notation}
+\newtheorem{abus}{Abus de langage}
+\newtheorem{corollary}{Corollaire}
+\newtheorem{theorem}{Théorème}
+\newtheorem{lemma}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newtheorem{convention}{Convention}
+\newtheorem{definition}{Définition}
+\newcommand{\Algf}{\bfseries \sffamily }
+\newcommand{\algf}{\sffamily }
+\newenvironment{proof}{{\bf Preuve} }{\ensuremath{\Box}\normalsize}
+\newcommand{\marginlabel}[1]{\mbox{}\marginpar{\raggedleft\hspace{0pt}#1}}
+
+%% Algorithmes
+
+\newcommand{\BEGIN}{{\algf begin}}
+\newcommand{\END}{{\algf end}}
+\newcommand{\IF}{{\algf if}}
+\newcommand{\THEN}{{\algf then}}
+\newcommand{\ELSE}{{\algf else}}
+\newcommand{\ELIF}{{\algf elif}}
+\newcommand{\FI}{{\algf fi}}
+\newcommand{\WHILE}{{\algf while}}
+\newcommand{\FOR}{{\algf for}}
+\newcommand{\DO}{{\algf do}}
+\newcommand{\OD}{{\algf od}}
+\newcommand{\RETURN}{{\algf return}}
+\newcommand{\PROCEDURE}{{\algf procedure}}
+\newcommand{\FUNCTION}{{\algf function}}
+\newcommand{\INDENTER}{{\algf si} \=\+\kill}
+
+%% Opérateurs
+
+\newcommand{\initial}{\mathop{\mathsf{init}}}
+\newcommand{\separant}{\mathop{\mathsf{sep}}}
+\newcommand{\rem}{\mathop{\mathsf{rem}}}
+\newcommand{\quo}{\mathop{\mathsf{quo}}}
+\newcommand{\lcoeff}{\mathop{\mathsf{lcoeff}}}
+\newcommand{\mvar}{\mathop{\mathsf{mvar}}}
+\newcommand{\ld}{\mathop{\mathrm{ld}}}
+\newcommand{\rank}{\mathrm{\mathsf{rank}}}
+\newcommand{\prem}{\mathop{\mathsf{prem}}}
+\newcommand{\remp}{\mathrel{\mathsf{partial\_rem}}}
+\newcommand{\remf}{\mathrel{\mathsf{full\_rem}}}
+\renewcommand{\gcd}{\mathop{\mathrm{gcd}}}
+\renewcommand{\deg}{\mathop{\mathrm{deg}}}
+\newcommand{\ord}{\mathop{\mathrm{ord}}}
+\newcommand{\pairs}{\mathop{\mathrm{pairs}}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ideal}[1]{(#1)}
+\newcommand{\cont}{\mathop{\mathrm{contenu}}}
+\newcommand{\pp}{\mathop{\mathrm{partie\_primitive}}}
+\newcommand{\init}{\mathop{\mathrm{coefficient\_dominant}}}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}}
+\newcommand{\ppmc}{\mathop{\mathrm{ppcm}}}
+\newcommand{\NF}{\mathop{\mathrm{NF}}}
+\newcommand{\rang}{\mathop{\mathrm{rang}}}
+\newcommand{\card}{\mathop{\mbox{card}}}
+
+%% Ensembles mathématiques
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\emptyset}{\varnothing}
+
+%% Réécriture
+
+\newcommand{\egaldef}{\mathop{\underset{\mathrm{def}}{=}}}
+\newcommand{\fleche}{\hbox to 1cm {\rightarrowfill}}
+\newcommand{\chefle}{\hbox to 1cm {\leftarrowfill}}
+\newcommand{\mafleche}{\mathrel{\fleche}}
+\newcommand{\machefle}{\mathrel{\chefle}}
+\def\build#1_#2^#3{\mathrel{\mathop{\kern 0pt#1}\limits_{#2}^{#3}}}
+
+%% Saturations
+
+\newbox\deuxpoints
+\setbox\deuxpoints=\hbox{:}
+\def\dv{\mathbin{\raisebox{1pt}{\copy\deuxpoints}}}
+\newbox\infini
+\setbox\infini=\hbox{\footnotesize $\infty$}
+\def\sat#1{#1^{\copy\infini}}
+\def\H#1{H_{\!{#1}}}
+\def\S#1{S_{\!{#1}}}
+\def\HH#1{\sat{\H{#1}}}
+\def\SS#1{\sat{\S{#1}}}
+
+%% \question -> numérote les question
+%% \Question{k} -> indique en plus que la question vaut k points
+%% \Section{intitulé} -> rajoute à l'intitulé la somme des points des 
+%%    questions qui figurent dans la section (faire deux compilations).
+
+\newcounter{question_counter}
+\setcounter{question_counter}{0}
+\newcommand{\question}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter}.}}
+\newcommand{\questiondiff}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter} (plus difficile).}}
+
+\newcounter{points_counter}
+\newcounter{section_points_counter}
+\newcommand{\Question}[1]{\addtocounter{question_counter}1 %
+    \addtocounter{points_counter}{#1} %
+    \addtocounter{section_points_counter}{#1} %
+    \typeout{Question \arabic{question_counter}. Total des points \arabic{points_counter}} %
+    \typeout{points_counter_\Alph{section} \arabic{section_points_counter}} %
+    \paragraph{\bf Question \arabic{question_counter}}{[#1\,\ifnum #1 = 1 pt\else pts\fi]}.}
+
+\newcommand{\Section}[1]{\setcounter{section_points_counter}0 %
+    \section{{#1} (\ref{points_counter_\Alph{section}} points)}}
+
+%% \solution{...}
+%% \progsol{fichier_source}
+
+\newboolean{corrige}
+\setboolean{corrige}{true}
+\newcommand{\solution}[1]{%
+\ifthenelse{\boolean{corrige}}%
+{\small\begin{quote}{\sc Solution. }#1\end{quote}\normalsize}{}}
+\newcommand{\progsol}[1]{%
+\ifthenelse{\boolean{corrige}}%
+{\small\begin{quote}{\sc Solution. }\footnotesize\verbatiminput{#1}\end{quote}\normalsize}{}}
+
+%% Fait en sorte que la font verbatim soit \footnotesize
+
+\makeatletter %
+\renewcommand{\verbatim@font}{ %
+    \ttfamily\footnotesize\catcode`\<=\active\catcode`\>=\active %
+}
+\makeatother
+
+\begin{document}
+\begin{center}
+{\bf Polytech'Lille --- GIS 3 --- Structures de Données --- Feuille de TP numéro 3}
+ 
+\end{center}
+\medskip
+\hrule
+ 
+\bigskip
+
+\section{Analyse de l'algorithme de Karatsuba}
+
+On s'intéresse à la méthode de Karatsuba.
+On note~$f(n)$ le nombre d'opérations arithmétiques sur les {\tt double}
+effectuées.
+
+\paragraph{Étape 1.}
+Les deux questions qui suivent sont destinées à établir
+la fonction $f_{\mathrm{simplifie}}(n)$, qui donne le nombre
+d'opérations sur les {\tt double} par l'algorithme de Karatsuba,
+dans le cas simplifié $n = 2^k$.
+
+\question
+En analysant le code de la fonction {\tt Karatsuba} de la feuille
+de TD, écrire une relation de récurrence avec condition initiale, 
+pour la méthode de Karatsuba, dans le cas simplifié où $n = 2^k$.
+Faire attention à la condition initiale (multiplication élémentaire
+de deux polynômes constants). L'intuition peut être trompeuse. 
+Bien regarder le code donné sur la feuille de TD.
+
+\solution{Ça a été fait en TD. On trouve
+$$f(n) = 3\,f\left(\frac n 2\right) - 4\,n + 3 \,,\quad f(1)=2\,.$$}
+
+\question
+Résoudre cette relation de récurrence avec condition initiale,
+en utilisant le logiciel MAPLE (disponible sur le serveur {\tt weppes}).
+Dans la suite de cet énoncé, on appellera $f_{\mathrm{simplifie}}(n)$ 
+la formule ainsi obtenue. Compléter~:
+$$f_{\mathrm{simplifie}} (n) = \hspace*{6cm}$$
+Pour vous aider, voici la résolution, avec MAPLE, d'une autre
+relation de récurrence avec condition initiale.
+\begin{verbatim}
+fboulier@weppes$ /usr/local/maple11/bin/maple
+> syst := { f(n) = 2*f(n-1) + 3, f(0) = 1 };
+                   syst := {f(n) = 2 f(n - 1) + 3, f(0) = 1}
+
+> rsolve (syst, f(n));
+                                      n
+                                   4 2  - 3
+\end{verbatim}
+\solution{Voir ci-dessous. On trouve donc
+$$f(n) = \frac{17}{2}\,n^{\log_2(3)} - 8\, n + \frac 3 2\cdotp$$}
+\begin{quote}
+\begin{verbatim}
+ syst := { f(n) = 3*f(n/2) + 4*n - 3, f(1)=2};
+                 syst := {f(1) = 2, f(n) = 3 f(n/2) + 4 n - 3}
+
+> rsolve (syst, f(n));                         
+                                 /ln(3)\
+                                 |-----|
+                                 \ln(2)/
+                           17/2 n        + 3/2 - 8 n
+
+> evalf (%);
+                              1.584962501
+                 8.500000000 n            + 1.500000000 - 8. n
+\end{verbatim}
+\end{quote}
+
+\paragraph{Étape 2.}
+Les questions qui suivent sont destinées à fabriquer un fichier
+de mesures (une courbe mesurée) donnant le nombre d'opérations
+flottantes sur les {\tt double} effectuées par une vraie 
+implantation de l'algorithme de Karatsuba, pour des valeurs
+quelconques de~$n$.
+
+\question
+Télécharger le fichier {\tt "Karatsuba.c"}. Le compiler et l'exécuter.
+Pour le compiler, il est nécessaire d'éditer les liens avec
+la bibliothèque mathématique (option {\tt -lm}).
+\begin{verbatim}
+$ wget --no-cache http://www.lifl.fr/~boulier/polycopies/SD/Karatsuba.c
+$ gcc Karatsuba.c -lm
+\end{verbatim}
+
+\question
+Modifier le programme pour qu'il compte, à l'exécution, le nombre
+d'opérations arithmétiques sur les {\tt double} effectuées par 
+l'algorithme de Karatsuba. Afficher les mesures sur deux colonnes~:
+une pour~$n$ et une pour~$f(n)$. Aller jusqu'à $n = 600$.
+Enregistrer le résultat dans un fichier {\tt "Karatsuba.stats"}. 
+Voici un exemple (les valeurs numériques sont fausses)~:
+\begin{verbatim}
+# n f(n)
+  0 1
+  1 5
+  2 13
+  3 29
+  4 61
+  5 125
+  6 253
+  7 509
+  8 1021
+  9 2045
+\end{verbatim}
+
+\solution{Ça a été préparé en TD. Pour chaque fonction {\tt add\_poly}, 
+{\tt sub\_poly}, {\tt mul\_poly} et {\tt Karatsuba}, il faut changer
+le type de retour {\tt void} en {\tt int}, rajouter un compteur local~$c$
+initialisé à zéro et compter les opérations sur les doubles. Il faut
+modifier aussi le programme principal. Pour avoir un bon fichier de
+mesures, prendre $N = 2050$. Voir fichier en attachement. Obtenir le
+résultat en affichant sur la sortie standard et en redirigeant la
+sortie. Le fichier de données commence comme ça.}
+\begin{quote}
+\begin{verbatim}
+1 2
+2 11
+3 33
+4 46
+5 94
+6 120
+...
+1023 493681
+1024 493726
+\end{verbatim}
+\end{quote}
+
+\question
+Même question, mais pour la multiplication élémentaire.
+Le fichier doit s'appeler {\tt "Elementaire.stats"}.
+\solution{Le fichier de données commence comme ça.}
+\begin{quote}
+\begin{verbatim}
+1 2
+2 8
+3 18
+4 32
+5 50
+6 72
+...
+1023 2093058
+1024 2097152
+\end{verbatim}
+\end{quote}
+
+\question
+Chacun de ces deux fichiers définit une courbe (une courbe «~mesurée~»).
+Tracer sur un même graphique, avec GNUPLOT, les deux courbes
+mesurées. Quel est le meilleur algorithme~? 
+À partir de quelle valeur de~$n$ est-il meilleur~?
+
+Pour vous aider, voici quelques commandes GNUPLOT.
+\begin{verbatim}
+$ gnuplot
+gnuplot> plot "fichier1" with lines, "fichier2" with lines
+gnuplot> plot [0:100] "fichier1" with lines, 2*x**2 
+\end{verbatim}
+
+\solution{La méthode de Karatsuba commence à devenir meilleure 
+vers $n \simeq 43$. Voici les commandes et les graphiques.}
+\begin{quote}
+\begin{verbatim}
+plot "Karatsuba.stats" with lines, "Elementaire.stats" with lines
+plot [0:70] "Karatsuba.stats" with lines, "Elementaire.stats" with lines
+
+Pour la génération des graphiques:
+set terminal postscript
+set output "courbe1.ps"
+plot "Karatsuba.stats" with lines, "Elementaire.stats" with lines    
+set output "courbe2.ps"
+plot [0:70] "Karatsuba.stats" with lines, "Elementaire.stats" with lines
+\end{verbatim}
+\end{quote}
+
+\centerline{\includegraphics[width=.8\textwidth]{courbe1.pdf}}
+
+\centerline{\includegraphics[width=.8\textwidth]{courbe2.pdf}}
+
+\paragraph{Étape 3.}
+Les questions qui suivent sont destinées à se convaincre, au
+moins expérimentalement, que le nombre~$f(n)$ d'opérations sur les
+{\tt double} effectuées, dans tous les cas, par l'algorithme de Karatsuba,
+est bien un équivalent asymptotique de la 
+fonction~$f_{\mathrm{simplifie}} (n)$ établie dans le cas simplifié
+uniquement. 
+
+\question
+Tracer sur un même graphique, avec GNUPLOT, la courbe mesurée
+correspondant à l'algorithme de Karatsuba et la courbe théorique du 
+cas simplifié~$f_{\mathrm{simplifie}} (n)$ (attention, avec GNUPLOT,
+la variable doit être appelée~$x$ et pas~$n$). 
+Normalement, les deux courbes doivent se croiser pour tout~$n$ de la 
+forme $2^k$. Vérifier. 
+
+\solution{Voici les commandes et les graphiques.}
+\begin{quote}
+\begin{verbatim} 
+log2(x)=log(x)/log(2)
+plot "Karatsuba.stats" with lines, 8.5*x**log2(3)-8*x+1.5
+\end{verbatim}
+\end{quote}
+
+\centerline{\includegraphics[width=.8\textwidth]{courbe3.pdf}}
+
+\question
+Où se situe la courbe théorique du cas simplifié~$f_{\mathrm{simplifie}} (n)$ 
+par rapport à la courbe mesurée~$f(n)$~? 
+En faisant confiance au graphique, 
+peut-on affirmer que $f(n) \in \Omega (n^{\log_2(3)})$~? 
+que $f(n) \in O (n^{\log_2(3)})$~? 
+que $f(n) \in \Theta (n^{\log_2(3)})$~? 
+
+\solution{La courbe est en dessous. Si on fait confiance au graphique,
+on peut affirmer que $f(n) \in \Omega (n^{\log_2(3)})$.}
+
+\question
+Pour finir de se convaincre que $f(n) \in \Theta (n^{\log_2(3)})$, on
+peut appliquer deux méthodes~:
+\begin{enumerate}
+\item Chercher empiriquement une autre courbe $F (n)$, asymptotiquement
+        équivalent à~$f_{\mathrm t} (n)$, située de «~l'autre côté~» de
+        la courbe mesurée.
+\item Tester la courbe $F (n) \egaldef f(2\,n)$.
+        Développer la formule avec MAPLE.
+\end{enumerate}
+
+\solution{Si on remplace le coefficient $17/2$ par~$11$, il semble
+que la courbe soit au-dessus.}
+\begin{quote}
+\begin{verbatim} 
+log2(x)=log(x)/log(2)
+plot "Karatsuba.stats" with lines, 8.5*x**log2(3)-8*x+1.5, 11*x**log2(3)
+\end{verbatim}
+Avec MAPLE, on trouve bien une courbe de la forme $a\,n^{\log_2(3)}$.
+\begin{verbatim} 
+> f := 17/2*n^(log[2](3)) - 8*n + 3/2;
+                                   /ln(3)\
+                                   |-----|
+                                   \ln(2)/
+                        f := 17/2 n        - 8 n + 3/2
+
+> F := subs (n = 2*n, f);
+                                     /ln(3)\
+                                     |-----|
+                                     \ln(2)/
+                      F := 17/2 (2 n)        - 16 n + 3/2
+
+> simplify (%);
+                                /ln(3)\
+                                |-----|
+                                \ln(2)/
+                          51/2 n        - 16 n + 3/2
+\end{verbatim}
+\end{quote}
+
+\centerline{\includegraphics[width=.8\textwidth]{courbe4.pdf}}
+
+\paragraph{Étape 4.}
+Cette étape apporte quelques compléments aux questions précédentes.
+
+\question
+S'il fallait approximer la courbe mesurée par une formule de la
+forme $a\,n^{\log_2(3)}$, quelle serait la meilleure valeur pour~$a$~?
+Une solution consiste à utiliser la fonction {\tt fit} de GNUPLOT.
+Quelle valeur obtient-on~?
+$$a = \hspace*{6 cm}$$
+\begin{verbatim}
+$ gnuplot
+gnuplot> log2(x)=log(x)/log(2)
+gnuplot> fit a*x**log2(3)+b*x+c "fichier" via a,b,c
+\end{verbatim}
+
+\solution{Voici la solution avec gnuplot. On trouve $a \simeq 6.13$}
+\begin{quote}
+\begin{verbatim} 
+log2(x)=log(x)/log(2)
+fit a*x**log2(3)+b*x+c "Karatsuba.stats" via a,b,c
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+
+a               = 6.12836          +/- 0.1542       (2.516%)
+b               = 186.537          +/- 9.252        (4.96%)
+c               = -17284.9         +/- 1457         (8.431%)
+\end{verbatim}
+\end{quote}
+
+\question
+Dans notre implantation de l'algorithme de Karatsuba, on appelle
+la multiplication élémentaire quand~$n = 1$. Or, la multiplication
+élémentaire reste meilleure que l'algorithme de Karatsuba pour
+des valeurs de~$n$ plus élevées que~$1$.
+
+Modifier en conséquence le seuil à partir duquel l'algorithme de 
+Karatsuba devrait appeler la multiplication élémentaire.
+
+Le seuil optimal n'est pas celui qu'on a déterminé graphiquement
+quelques questions plus haut. Voyez-vous pourquoi~? Déterminer ce seuil
+expérimentalement.
+
+Le nouvel algorithme est-il toujours équivalent asymptotiquement
+à~$n^{\log_2(3)}$~?
+Si oui, quelle nouvelle valeur donner à la constante~$a$ de
+la question précédente~?
+
+\solution{Pas fait.}
+
+\end{document}
+
+

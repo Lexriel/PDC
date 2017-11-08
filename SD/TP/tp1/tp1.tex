@@ -1,0 +1,523 @@
+% xelatex tp1.tex
+
+\documentclass[12pt]{article}
+\usepackage{xunicode}
+\usepackage{fontspec}
+\usepackage{xltxtra}
+\usepackage{url}
+\usepackage[francais]{babel}
+\usepackage{fullpage}
+
+% \usepackage{epsf}
+% \usepackage{amsmath}
+% \usepackage{amsfonts}
+% \usepackage{amssymb}	% pour \varnothing
+% \usepackage[latin1]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{times}
+% \usepackage{epic,eepic}
+% \usepackage{mathrsfs}   % pour la commande \mathscr
+% \usepackage{moreverb}   % pour verbatiminput
+% \usepackage{ifthen}     % pour les versions enseignant/étudiant
+% \usepackage{graphics}
+% \usepackage{epsfig}
+% \usepackage{multicol}
+
+
+%% Environnements
+
+\newtheorem{notation}{Notation}
+\newtheorem{abus}{Abus de langage}
+\newtheorem{corollary}{Corollaire}
+\newtheorem{theorem}{Théorème}
+\newtheorem{lemma}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newtheorem{convention}{Convention}
+\newtheorem{definition}{Définition}
+\newcommand{\Algf}{\bfseries \sffamily }
+\newcommand{\algf}{\sffamily }
+\newenvironment{proof}{{\bf Preuve} }{\ensuremath{\Box}\normalsize}
+\newcommand{\marginlabel}[1]{\mbox{}\marginpar{\raggedleft\hspace{0pt}#1}}
+
+%% Algorithmes
+
+\newcommand{\BEGIN}{{\algf begin}}
+\newcommand{\END}{{\algf end}}
+\newcommand{\IF}{{\algf if}}
+\newcommand{\THEN}{{\algf then}}
+\newcommand{\ELSE}{{\algf else}}
+\newcommand{\ELIF}{{\algf elif}}
+\newcommand{\FI}{{\algf fi}}
+\newcommand{\WHILE}{{\algf while}}
+\newcommand{\FOR}{{\algf for}}
+\newcommand{\DO}{{\algf do}}
+\newcommand{\OD}{{\algf od}}
+\newcommand{\RETURN}{{\algf return}}
+\newcommand{\PROCEDURE}{{\algf procedure}}
+\newcommand{\FUNCTION}{{\algf function}}
+\newcommand{\INDENTER}{{\algf si} \=\+\kill}
+
+%% Opérateurs
+
+\newcommand{\initial}{\mathop{\mathsf{init}}}
+\newcommand{\separant}{\mathop{\mathsf{sep}}}
+\newcommand{\rem}{\mathop{\mathsf{rem}}}
+\newcommand{\quo}{\mathop{\mathsf{quo}}}
+\newcommand{\lcoeff}{\mathop{\mathsf{lcoeff}}}
+\newcommand{\mvar}{\mathop{\mathsf{mvar}}}
+\newcommand{\ld}{\mathop{\mathrm{ld}}}
+\newcommand{\rank}{\mathrm{\mathsf{rank}}}
+\newcommand{\prem}{\mathop{\mathsf{prem}}}
+\newcommand{\remp}{\mathrel{\mathsf{partial\_rem}}}
+\newcommand{\remf}{\mathrel{\mathsf{full\_rem}}}
+\renewcommand{\gcd}{\mathop{\mathrm{gcd}}}
+\renewcommand{\deg}{\mathop{\mathrm{deg}}}
+\newcommand{\ord}{\mathop{\mathrm{ord}}}
+\newcommand{\pairs}{\mathop{\mathrm{pairs}}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ideal}[1]{(#1)}
+\newcommand{\cont}{\mathop{\mathrm{contenu}}}
+\newcommand{\pp}{\mathop{\mathrm{partie\_primitive}}}
+\newcommand{\init}{\mathop{\mathrm{coefficient\_dominant}}}
+\newcommand{\pgcd}{\mathop{\mathrm{pgcd}}}
+\newcommand{\ppmc}{\mathop{\mathrm{ppcm}}}
+\newcommand{\NF}{\mathop{\mathrm{NF}}}
+\newcommand{\rang}{\mathop{\mathrm{rang}}}
+\newcommand{\card}{\mathop{\mbox{card}}}
+
+%% Ensembles mathématiques
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\emptyset}{\varnothing}
+
+%% Réécriture
+
+\newcommand{\egaldef}{\mathop{\underset{\mathrm{def}}{=}}}
+\newcommand{\fleche}{\hbox to 1cm {\rightarrowfill}}
+\newcommand{\chefle}{\hbox to 1cm {\leftarrowfill}}
+\newcommand{\mafleche}{\mathrel{\fleche}}
+\newcommand{\machefle}{\mathrel{\chefle}}
+\def\build#1_#2^#3{\mathrel{\mathop{\kern 0pt#1}\limits_{#2}^{#3}}}
+
+%% Saturations
+
+\newbox\deuxpoints
+\setbox\deuxpoints=\hbox{:}
+\def\dv{\mathbin{\raisebox{1pt}{\copy\deuxpoints}}}
+\newbox\infini
+\setbox\infini=\hbox{\footnotesize $\infty$}
+\def\sat#1{#1^{\copy\infini}}
+\def\H#1{H_{\!{#1}}}
+\def\S#1{S_{\!{#1}}}
+\def\HH#1{\sat{\H{#1}}}
+\def\SS#1{\sat{\S{#1}}}
+
+%% \question -> numérote les question
+%% \Question{k} -> indique en plus que la question vaut k points
+%% \Section{intitulé} -> rajoute à l'intitulé la somme des points des 
+%%    questions qui figurent dans la section (faire deux compilations).
+
+\newcounter{question_counter}
+\setcounter{question_counter}{0}
+\newcommand{\question}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter}.}}
+\newcommand{\questiondiff}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter} (plus difficile).}}
+
+\newcounter{points_counter}
+\newcounter{section_points_counter}
+\newcommand{\Question}[1]{\addtocounter{question_counter}1 %
+    \addtocounter{points_counter}{#1} %
+    \addtocounter{section_points_counter}{#1} %
+    \typeout{Question \arabic{question_counter}. Total des points \arabic{points_counter}} %
+    \typeout{points_counter_\Alph{section} \arabic{section_points_counter}} %
+    \paragraph{\bf Question \arabic{question_counter}}{[#1\,\ifnum #1 = 1 pt\else pts\fi]}.}
+
+\newcommand{\Section}[1]{\setcounter{section_points_counter}0 %
+    \section{{#1} (\ref{points_counter_\Alph{section}} points)}}
+
+%% \solution{...}
+%% \progsol{fichier_source}
+
+% \newboolean{corrige}
+% \setboolean{corrige}{false}
+% \newcommand{\solution}[1]{%
+% \ifthenelse{\boolean{corrige}}%
+% {\small\begin{quote}{\sc Solution. }#1\end{quote}\normalsize}{}}
+% \newcommand{\progsol}[1]{%
+% \ifthenelse{\boolean{corrige}}%
+% {\small\begin{quote}{\sc Solution. }\footnotesize\verbatiminput{#1}\end{quote}\normalsize}{}}
+
+%% Fait en sorte que la font verbatim soit \footnotesize
+
+\makeatletter %
+\renewcommand{\verbatim@font}{ %
+    \ttfamily\footnotesize\catcode`\<=\active\catcode`\>=\active %
+}
+\makeatother
+
+\begin{document}
+\begin{center}
+{\bf Polytech'Lille --- GIS 3 --- Structures de Données --- Feuille de TP numéro 1}
+ 
+\end{center}
+\medskip
+\hrule
+ 
+\bigskip
+
+Ce TP se déroule sur deux séances (quatre heures). Les étudiants qui se
+sentent en difficulté devraient réaliser la section~1, uniquement. 
+Le contenu de la section~2, réservé aux étudiants plus à l'aise, 
+n'est pas au programme de l'examen. 
+
+\section{Réalisation d'un type de chaînes de caractères}
+
+Cette partie est l'occasion d'introduire des outils importants tels 
+que {\tt valgrind}, {\tt gdb} et les {\em makefiles} (voir le support
+de cours). 
+
+\question
+Le programme C suivant lit une chaîne de caractères au clavier
+et l'imprime sur la sortie standard.
+\begin{verbatim}
+#include <stdio.h>
+#include <ctype.h>
+
+int main ()
+{   int c;
+
+    c = getchar ();
+    while (! isspace (c))
+    {   putchar (c);
+        c = getchar ();
+    }
+    putchar ('\n');
+    return 0;
+}
+\end{verbatim}
+Modifier ce programme de telle sorte que tous les caractères lus soient
+stockés dans une variable \texttt{s}, de type \texttt{char*}, avant d'être imprimés.
+La variable \texttt{s} doit pointer vers une zone allouée dynamiquement, 
+redimensionnée dès qu'elle est pleine (par exemple, en lui rajoutant huit
+caractères). À l'exécution, on ne veut ni débordement de tableau, ni 
+fuite mémoire (tester avec \texttt{valgrind}).
+
+\question
+Reprendre l'exercice précédent, en appliquant une méthode de programmation
+modulaire. Réaliser un module \texttt{chaine} au moyen de deux fichiers
+(\texttt{chaine.c} et \texttt{chaine.h}) ainsi qu'un fichier \texttt{main.c}
+contenant votre programme principal. À l'exécution, on ne veut ni 
+débordement de tableau, ni fuite mémoire (tester avec \texttt{valgrind})
+Consignes~:
+\begin{enumerate}
+\item	Le type doit s'appeler \texttt{struct chaine}. Cette structure
+	doit comporter un champ de type \texttt{char*} pointant vers
+	une zone allouée dynamiquement (plus d'autres champs éventuels).
+\item	Faites le minimum~: un constructeur, un destructeur, une
+	action qui ajoute un caractère à la fin d'une chaîne existante,
+	et une action pour imprimer la chaîne.
+\item	Dans le fichier d'entête, spécifier la structure. Attention,
+	c'est plus subtil qu'on ne le croit. Faites attention à la
+	chaîne vide.
+\item	Utiliser les options de
+        compilation \texttt{-Wall} et \texttt{-Wmissing-prototypes}.
+	Compiler les fichiers séparément. 
+\item	Le programme principal ne doit comporter que deux variables~:
+	{\tt s}, de type \texttt{struct chaine} et {\tt c}, de type
+	\texttt{int}.
+\end{enumerate}
+
+\question
+Reprendre l'exercice précédent en changeant l'implantation du 
+type \texttt{struct chaine} en une liste de caractères. 
+Partir de l'implantation des listes de {\tt double} 
+accessibles\footnote{Ou avec un navigateur web, à partir de
+\url{www.lifl.fr/~boulier}.} par~:
+\begin{verbatim}
+$ wget --no-cache http://www.lifl.fr/~boulier/polycopies/SD/liste_double.tgz
+$ tar xzf liste_double.tgz
+\end{verbatim}
+Réaliser un module \texttt{liste\_char} au moyen de deux fichiers
+(\texttt{liste\_char.c} et \texttt{liste\_char.h}).
+Modifier l'implantation du module \texttt{chaine}, pas les entêtes des
+fonctions. À l'exécution, on ne veut ni débordement de tableau, ni fuite 
+mémoire (tester avec \texttt{valgrind}). Consignes~:
+\begin{enumerate}
+\item	Le type \texttt{struct chaine} doit comporter un unique champ~:
+\begin{verbatim}
+struct chaine 
+{   struct liste_char L;
+};
+\end{verbatim}
+\item	Faut-il ajouter une directive \texttt{\#include} dans \texttt{chaine.h}~?
+\item	Quelle implantation des listes convient le mieux à cette question~?
+\item	Utiliser les options de
+        compilation \texttt{-Wall} et \texttt{-Wmissing-prototypes}.
+	Compiler les fichiers séparément. 
+\item	Construire un {\em makefile} en utilisant la méthode décrite
+	dans le support de cours.
+\end{enumerate}
+
+% \bigskip
+% 
+% \centerline{\raisebox{-2pt}{$\ast$}\raisebox{2pt}{$\ast$}\raisebox{-2pt}{$\ast$}}
+% 
+% \bigskip
+
+\section{Le codage UTF-8}
+
+Les caractères non ASCII (les caractères accentués, en particulier), sont
+fréquemment une source de problèmes en informatique. En France, on
+utilise couramment deux codages différents pour les représenter~: 
+le codage ISO 8859-1 (appelé aussi Latin-1) et le codage UTF-8. 
+Ce dernier prend de plus en plus d'importance, avec le développement
+d'internet, puisqu'il permet de coder des textes écrits dans toutes 
+les langues terrestres\footnote{Plus quelques autres, comme le Klingon.}.
+
+\question
+Dans cette question ouverte, on vous demande de réfléchir à la
+conception d'un module qui aide à résoudre ce problème de cohabitation
+de différents formats. 
+
+Le module doit permettre de stocker, dans des variables, des chaînes 
+passées en paramètre suivant les deux formats (UTF-8 et Latin-1),
+de les afficher suivant les deux formats,
+de déterminer le nombre d'octets\footnote{Dans tout ce qui suit, on prend
+bien soin de distinguer les {\em caractères} des {\em octets}.} 
+nécessaires à la représentation des chaînes sous la forme d'un tableau, 
+ainsi que le nombre de caractères de la chaîne.
+Bien qu'on ne gère que deux formats, on vous demande de réfléchir à une
+solution facilement extensible.
+
+Vous n'aurez probablement pas le temps de réaliser ce module
+intégralement. On vous demande de réaliser au moins les fichiers d'entêtes
+(implantation, prototype des fonctions globales, spécifications des
+structures de données et des fonctions). Si vous tentez de réaliser
+le code, supposez, dans un premier temps, que les chaînes de caractères
+sont correctement codées (ne vérifiez pas la validité des formats).
+
+\subsubsection*{Une introduction aux codages des caractères}
+
+\paragraph{ASCII.} Un code ASCII est un entier codé sur~$7$ bits, dans
+	l'intervalle $[\mbox{\tt 0},\, \mbox{\tt 0x7f} = 127]$. 
+Parmi les caractères représentables
+en ASCII, on trouve~: les chiffres, les lettres (non accentuées) minuscules
+et majuscules, des signes de ponctuations. Habituellement, un code ASCII
+est codé sur un octet (le bit de poids fort valant~$0$).
+\paragraph{Latin-1.} C'est le jeu de caractères par défaut sous Linux.
+C'est une extension de l'ASCII~: tous les codes ASCII sont aussi
+des codes Latin-1 mais des codes supplémentaires (comportant toutes
+les lettres accentuées de la langue française) sont définis. Ces codes
+supplémentaires sont des entiers de l'intervalle\footnote{Ceci
+explique que la fonction {\tt getchar} retourne un {\tt int}
+et pas un {\tt char}. Si elle retournait un {\tt char}, on ne pourrait
+pas distinguer le caractère {\tt 0xff} de l'entier $-1$, qui code {\tt EOF}.
+On rencontrerait alors des fins de fichiers prématurées sur certains
+fichiers non ASCII.
+Comme elle retourne un {\tt int}, le caractère {\tt 0xff} est retourné
+sous la forme {\tt 0x00ff}, qui ne peut pas être confondu avec {\tt EOF},
+codé par {\tt 0xffff}.}
+$[\mbox{\tt 0xa0},\, \mbox{\tt 0xff}]$ (les entiers de l'intervalle 
+$[\mbox{\tt 0x80},\, \mbox{\tt 0x9f}]$ ne correspondent à aucun
+code Latin-1). Habituellement, un code Latin-1 est codé sur un octet.
+\paragraph{UTF-8.} C'est un des codages possibles du jeu de caractères
+UNICODE. En UTF-8, un caractère est codé sur~$1$,~$2$,~$3$ ou~$4$
+octets. Il a une {\em valeur}\footnote{En ASCII ou en Latin-1, il est
+naturel de confondre la valeur (par exemple, $\mbox{\tt 0x41} = 65$
+pour le {\tt 'A'}) et le codage (le nombre {\tt 0x41}, codé sur un octet).
+En UTF-8, le codage d'un caractère, à partir de sa valeur, est plus compliqué,
+ce qui pousse à distinguer les deux notions. Pour être vraiment précis,
+UNICODE est l'ensemble des valeurs possibles. UTF-8 est un codage
+particulier d'UNICODE (le plus populaire), mais il en existe d'autres, 
+comme UTF-16 et UTF-32. Ça vous paraît compliqué~? Si on veut vraiment
+creuser les choses, ça le devient encore bien davantage et on finit par
+se demander~: «~mais qu'est-ce que c'est, un caractère~?~». Aux personnes
+intéressées, on conseille la lecture (passionnante) de \cite{Korpela01}.} 
+dans l'intervalle $[0,\, \mbox{\tt 0x10ffff}]$.
+Un caractère codé sur~$1$ octet est un code ASCII. Sa valeur
+appartient donc à l'intervalle $[\mbox{\tt 0},\, \mbox{\tt 0x7f} = 127]$.
+
+Si un caractère est codé sur $2$, $3$ ou $4$ octets, alors chaque
+octet est composé d'une suite de bits de contrôle, puis de
+bits destinés à former la valeur du caractère, comme on l'explique
+ci-dessous.
+
+Soit un caractère codé par $n$ octets ($2 \leq n \leq 4$).
+Le premier octet commence par $n$ bits à $1$, suivi d'un bit à $0$,
+suivi de $7-n$ bits de valeur. Les autres octets commencent par les deux
+bits $10$, suivi de $6$ bits de valeur.
+La valeur du caractère s'obtient en concaténant les bits de valeur.
+Exemple~:
+
+\smallskip
+
+\begin{tabular}{lllr}
+$2$ octets. & Codage & : & {\tt 110xxxxx 10yyyyyy}\\ 
+	    & Valeur & : & {\tt xxx xxyyyyyy} \\
+$3$ octets. & Codage & : & {\tt 1110xxxx 10yyyyyy 10zzzzzz} \\
+            & Valeur & : & {\tt xxxxyyyy yyzzzzzz} \\
+$4$ octets. & Codage & : & {\tt 11110xxx 10yyyyyy 10zzzzzz 10wwwwww} \\
+            & Valeur & : & {\tt xxxyy yyyyzzzz zzwwwwww}
+\end{tabular}
+
+\smallskip
+
+\noindent
+Certains codages sont interdits:
+\begin{itemize}
+\item
+le codage d'une valeur doit se faire sur un nombre minimal d'octets~:
+\begin{enumerate}
+\item
+les premiers octets {\tt 0xc0} et {\tt 0xc1} sont interdits (ils
+        donneraient lieu à un code ASCII sur deux octets)~;
+\item
+si le premier octet est {\tt 0xe0}, la valeur finale doit être
+supérieure ou égale à {\tt 0x800}~;
+\item
+si le premier octet est {\tt 0xf0}, la valeur finale doit être
+supérieure ou égale à {\tt 0x10000}.
+\end{enumerate}
+\item
+la valeur ne doit pas dépasser {\tt 0x10ffff}~;
+\item
+les valeurs dans l'intervalle $[\mbox{\tt 0xd800},\, \mbox{\tt 0xdfff}]$ 
+sont réservées pour coder de l'UTF-16 et ne correspondent à aucun 
+caractère UTF-8~;
+\item
+il existe $66$ valeurs pour des «~non-caractères~»~: les valeurs
+comprises entre {\tt 0xfdd0} et {\tt 0xfdef} ainsi que les $34$
+valeurs terminant par {\tt 0xfffe} et {\tt 0xffff} (de
+{\tt 0xfffe}, {\tt 0xffff} à {\tt 0x10fffe}, {\tt 0x10fff}).
+\end{itemize}
+La conversion entre ASCII et UTF-8 est immédiate, puisque 
+tout document ASCII est un cas particulier de document UTF-8.
+La conversion entre Latin-1 et UTF-8 n'est pas bien compliquée
+non plus~: les codes ASCII sont inchangés~; les codages UTF-8 de
+valeur appartenant à $[\mbox{\tt 0xa0},\, \mbox{\tt 0xff}]$ correspondent
+aux codages Latin-1 appartenant à ce même intervalle.
+
+Le symbole «~€~» (qui ne fait pas partie du jeu de caractères Latin-1),
+est codé sur~$3$~octets~: {\tt 0xe2}, {\tt 0x82} et {\tt 0xac}. Sa
+valeur est {\tt 0x20ac}. Certaines lettres, utiles en Français, n'existent
+pas en Latin-1\footnote{Mais elles existent en ISO 8859-15, appelé
+aussi~: Latin-9.}, comme «~œ,~Œ~» et même, pour certains noms 
+propres, «~ÿ~». En UTF-8, elles sont toutes codées sur deux octets.
+
+Le {\em replacement character}, qui apparaît souvent sous la forme
+d'un point d'interrogation blanc sur fond noir, est utilisé par
+les routines d'impression UTF-8, pour désigner un codage non reconnu.
+Il est codé sur~$3$~octets~: {\tt 0xef}, {\tt 0xbf} et {\tt 0xbd}.
+Sa valeur est {\tt 0xfffd}.
+
+\subsubsection*{Quelques commandes utiles}
+
+La commande {\tt od} imprime les valeurs des octets d'un fichier.
+La commande {\tt file} fournit le codage d'un fichier texte.
+La commande {\tt iconv} convertit un fichier d'un codage dans un autre.
+
+\begin{verbatim}
+$ cat fichier.txt 
+Lætitia, François, à table !
+$ od -t x1 -c fichier.txt 
+0000000  4c  c3  a6  74  69  74  69  61  2c  20  46  72  61  6e  c3  a7
+          L 303 246   t   i   t   i   a   ,       F   r   a   n 303 247
+0000020  6f  69  73  2c  20  c3  a0  20  74  61  62  6c  65  20  21  0a
+          o   i   s   ,     303 240       t   a   b   l   e       !  \n
+$ file -i fichier.txt
+fichier.txt: text/plain; charset=utf-8
+$ iconv --from utf-8 --to iso8859-1 < fichier.txt > fichier2.txt
+$ cat fichier2.txt 
+L�titia, Fran�ois, � table !
+$ od -t x1 -c fichier2.txt 
+0000000  4c  e6  74  69  74  69  61  2c  20  46  72  61  6e  e7  6f  69
+          L 346   t   i   t   i   a   ,       F   r   a   n 347   o   i
+0000020  73  2c  20  e0  20  74  61  62  6c  65  20  21  0a
+          s   ,     340       t   a   b   l   e       !  \n
+0000035
+$ file -i fichier2.txt
+fichier2.txt: text/plain; charset=iso-8859-1
+\end{verbatim}
+
+\paragraph{Exercice.} Les commandes ci-dessus ont été exécutées dans
+un terminal, qui attend des chaînes de caractères suivant un certain
+format. À votre avis, lequel~?
+
+\subsubsection*{Manipulations de bits en C}
+
+Des opérateurs utiles sont~: {\tt \&} (le «~et~» bit à bit),\verb+|+ 
+(le «~ou inclusif~» bit à bit),\verb+^+ (le «~ou exclusif~» bit à bit). 
+On peut leur ajouter les opérateurs\verb+<<+ (décalage des bits à gauche, d'un
+certain nombre de positions) et\verb+>>+ (décalage à droite), dont on 
+pourrait se passer, puisqu'ils peuvent se traduire par des multiplications
+et des divisions par des puissances de~$2$. 
+
+Attention au fait qu'un {\tt char}, en C, est en réalité, le type «~entier
+signé sur~$8$ bits~» (dans l'intervalle $[-128,\, 127]$, donc). 
+Lorsqu'on manipule des caractères non ASCII, il est souvent préférable 
+d'utiliser le type {\tt unsigned char} du C, dont les valeurs appartiennent
+à~$[0,\,255]$. Lors des fréquentes conversions en {\tt int}, on évite
+ainsi la propagation du bit de signe (bit numéro~$7$) sur les octets 
+de poids fort.
+
+L'action suivante analyse et décompose le premier octet d'un caractère
+UTF-8. 
+\begin{verbatim}
+/*
+ * Décompose l'octet c (censé être le premier octet d'une séquence UTF-8).
+ * L'entier *counter reçoit le nombre de bits de contrôle à 1
+ * Le long *code reçoit les bits de valeur.
+ *
+ * Par exemple, si c = 110xxxxx alors *counter = 2 et *code = xxxxx.
+ * Si c = 0xxxxxxx (code ASCII) alors *counter = 0 et *code = c.
+ */
+
+static void analyse_premier_octet (int* counter, long* code, unsigned char c)
+{   int cpt, bits, mask;
+
+    cpt = 0;
+    bits = c;
+    mask = 0x80;                /* 1000 0000 binaire */
+/* 
+ * Invariants de boucle : 
+ * - mask comporte un seul bit à 1
+ * - bits est égal à c, sans les bits à 1, situés plus à gauche que mask
+ * - cpt est égal au nombre de bits à 1 de c, situés plus à gauche que mask
+ */
+    while ((bits & mask) != 0)  /* tq bits comporte un bit à 1 face à mask */
+    {   bits ^= mask;           /* effacer ce bit */
+        cpt += 1;
+        mask >>= 1;             /* décaler d'une position vers la droite
+                                   l'unique bit à 1 de mask */
+    }
+    *counter = cpt;
+    *code = (long)bits;
+}
+\end{verbatim}
+
+% Les exercices qui suivent peuvent vous aider à réaliser le module demandé.
+% 
+% \paragraph{Exercice.} Écrire une fonction {\tt ajoute\_6bits}, 
+% paramétrée par une valeur
+% (de type {\tt long}) et un octet, qui retourne la valeur, décalée de~$6$
+% positions vers la gauche, plus les~$6$ bits de poids faible de l'octet.
+% Comment utiliser cette fonction pour reconstituer la valeur
+% d'un caractère à partir de son codage UTF-8~?
+% 
+% \paragraph{Exercice.} Écrire une fonction, paramétrée par une chaîne
+% de caractères~{\tt s} (de type {\tt char*}), qui retourne {\tt true} si~{\tt s}
+% pourrait être une chaîne au format Latin-1.
+% 
+% \paragraph{Exercice.} Même question pour le format UTF-8.
+
+\bibliographystyle{plain}
+\bibliography{reecriture}
+\end{document}
+
+

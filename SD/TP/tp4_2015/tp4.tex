@@ -1,0 +1,468 @@
+% xelatex tp4
+
+\documentclass[11pt]{article}
+\usepackage{xunicode}
+\DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ } 
+\usepackage{fontspec}
+\usepackage{xltxtra}
+\usepackage{url}
+\usepackage[francais]{babel}
+\usepackage{fullpage}
+\usepackage{fancyvrb}
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{wrapfig}
+
+%% Environnements
+
+%% Algorithmes
+
+\newcommand{\PROCEDURE}{{\sffamily procedure}}
+\newcommand{\FUNCTION}{{\sffamily function}}
+\newcommand{\LOCAL}{{\sffamily local variables}}
+\newcommand{\BEGIN}{{\sffamily begin}}
+\newcommand{\END}{{\sffamily end}}
+\newcommand{\IF}{{\sffamily if}}
+\newcommand{\THEN}{{\sffamily then}}
+\newcommand{\ELSE}{{\sffamily else}}
+\newcommand{\ELIF}{{\sffamily elif}}
+\newcommand{\FI}{{\sffamily end if}}
+\newcommand{\ENDIF}{{\sffamily end if}}
+\newcommand{\WHILE}{{\sffamily while}}
+\newcommand{\FOR}{{\sffamily for}}
+\newcommand{\DO}{{\sffamily do}}
+\newcommand{\OD}{{\sffamily end do}}
+\newcommand{\ENDDO}{{\sffamily end do}}
+\newcommand{\ENDWHILE}{{\sffamily end while}}
+\newcommand{\TRY}{{\sffamily try}}
+\newcommand{\CATCH}{{\sffamily catch}}
+\newcommand{\ENDTRY}{{\sffamily end try}}
+\newcommand{\RAISE}{{\sffamily raise exception}}
+\newcommand{\RETURN}{{\sffamily return}}
+\newcommand{\ERROR}{{\sffamily error}}
+\newcommand{\INDENTER}{{\sffamily si} \=\+\kill}
+\newcommand{\NIL}{{\sffamily NIL}}
+
+%% Opérateurs
+
+%% Ensembles mathématiques
+
+%% Réécriture
+
+%% Saturations
+
+%% \question -> numérote les question
+%% \Question{k} -> indique en plus que la question vaut k points
+%% \Section{intitulé} -> rajoute à l'intitulé la somme des points des 
+%%    questions qui figurent dans la section (faire deux compilations).
+
+\newcounter{question_counter}
+\setcounter{question_counter}{0}
+\newcommand{\question}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter}.}}
+\newcommand{\questiondiff}{\addtocounter{question_counter}1 %
+    \paragraph{\bf Question \arabic{question_counter} (plus difficile).}}
+
+\newcounter{points_counter}
+\newcounter{section_points_counter}
+\newcommand{\Question}[1]{\addtocounter{question_counter}1 %
+    \addtocounter{points_counter}{#1} %
+    \addtocounter{section_points_counter}{#1} %
+    \typeout{Question \arabic{question_counter}. Total des points \arabic{points_counter}} %
+    \typeout{points_counter_\Alph{section} \arabic{section_points_counter}} %
+    \paragraph{\bf Question \arabic{question_counter}}{[#1\,\ifnum #1 = 1 pt\else pts\fi]}.}
+
+\newcommand{\Section}[1]{\setcounter{section_points_counter}0 %
+    \section{{#1} (\ref{points_counter_\Alph{section}} points)}}
+
+%% Fait en sorte que la font Verbatim soit \footnotesize
+
+\makeatletter %
+\renewcommand{\verbatim@font}{ %
+    \ttfamily\footnotesize\catcode`\<=\active\catcode`\>=\active %
+}
+\makeatother
+
+\begin{document}
+\begin{center}
+{\bf Polytech'Lille --- GIS 3 --- Structures de Données --- Feuille de TP numéro 4}
+ 
+\end{center}
+\medskip
+\hrule
+ 
+\section{Préliminaires}
+
+\subsection{Orientation dans le plan}
+
+Soient $\vec u$ et $\vec v$ deux vecteurs 
+dans le plan, de coordonnées
+$$\vec u = \left(\begin{array}{c} x_u \\ y_u\end{array}\right)\,,\quad
+  \vec v = \left(\begin{array}{c} x_v \\ y_v\end{array}\right)\,.$$
+\begin{wrapfigure}{r}{0.3\linewidth}
+\centerline{
+\begin{tikzpicture}
+\draw [->] (0,0) -- (2,1) ;
+\draw (1.5,0.5) node {$\vec u$} ;
+\draw [->] (0,0) -- (1,2.5) ;
+\draw (.5,2) node {$\vec v$} ;
+\draw [->] (1,0.5) arc (26.565:68.199:1) ;
+\draw (1.2,1.1) node {\small $\theta > 0$} ;
+\end{tikzpicture}}
+\end{wrapfigure}
+Supposons qu'on veuille superposer~$\vec u$ sur~$\vec v$ (voir figure
+de droite).
+Faut-il tourner dans le sens trigonométrique ou dans le sens inverse~?
+Il suffit de tester le signe de l'angle orienté~$\theta$~: il faut
+tourner dans le sens trigonométrique si le signe est positif, dans
+le sens inverse s'il est négatif. Ce signe s'obtient par un simple
+calcul de déterminant~:
+
+$$\mathop{\mbox{\rm signe}}(\theta) =
+  \mathop{\mbox{\rm signe}} \left|\begin{array}{cc} x_u & x_v \\ y_u & y_v 
+                                \end{array}\right|\,.$$
+
+\question
+Pour superposer~$\vec u$ sur~$\vec v$, faut-il tourner dans le
+sens trigonométrique ou dans le sens inverse~?
+$$\vec u = \left(\begin{array}{c} 2 \\ 1\end{array}\right)\,,\quad
+  \vec v = \left(\begin{array}{c} 3 \\ 1\end{array}\right)\,.$$
+
+\begin{wrapfigure}{r}{0.3\linewidth}
+\centerline{
+\begin{tikzpicture}
+\draw (4,1) -- (3,2) -- (0,0) ;
+\draw (4.2,.8) node {$A$} ;
+\draw (3,2.2) node {$B$} ;
+\draw (-.2,-.2) node {$C$} ;
+\end{tikzpicture}} 
+\centerline{
+\begin{tikzpicture}
+\draw (.2,-.2) node {$A$} ;
+\draw (-1,1.2) node {$B$} ;
+\draw (-4.2,-1.2) node {$C$} ; 
+\draw [->] (0,0) -- (-1,1) ;
+\draw (-.4,.8) node {$\vec u$} ;
+\draw [->] (0,0) -- (-4,-1) ;
+\draw (-1.9,-.7) node {$\vec v$} ;
+\draw [->] (-.7,.7) arc (135:190:1) ;
+\draw (-1.6,0.2) node {\small $\theta > 0$} ;
+\end{tikzpicture}}
+\end{wrapfigure}
+Considérons maintenant trois sommets consécutifs 
+$$A = \left(\begin{array}{c} x_A \\ y_A\end{array}\right)\,,\quad
+  B = \left(\begin{array}{c} x_B \\ y_B\end{array}\right)\,,\quad
+  C = \left(\begin{array}{c} x_C \\ y_C\end{array}\right)$$
+d'un polygone (figure de droite, en haut) et imaginons qu'on se déplace de~$A$ vers~$C$.
+Arrivé en~$B$, tourne-t-on vers la gauche ou vers la droite~?
+Réponse~: on tourne à gauche si l'angle~$\theta$ entre~$\vec u$ et
+$\vec v$ est positif (figure de droite, en bas), où
+$\vec u = B - A$ désigne le vecteur de~$A$ vers~$B$ et 
+$\vec v = C - A$ désigne le vecteur de~$A$ vers~$C$ (cela revient 
+à appliquer la méthode décrite plus haut en prenant~$A$ comme origine).
+
+$$\mathop{\mbox{\rm signe}}(\theta) =
+  \mathop{\mbox{\rm signe}} \left|\begin{array}{cc} 
+        x_B - x_A & x_C - x_A \\ 
+        y_B - y_A & y_C - y_A 
+                            \end{array}\right|\,.$$
+
+\question
+Lorsqu'on se déplace de~$A$ vers~$C$ (en passant par~$B$),
+tourne-t-on vers la gauche ou vers la droite~? Même question
+si on se déplace de~$C$ vers~$A$.
+$$A = \left(\begin{array}{c} 4 \\ 1\end{array}\right)\,,\quad
+  B = \left(\begin{array}{c} 3 \\ 2\end{array}\right)\,,\quad
+  C = \left(\begin{array}{c} 0 \\ 0\end{array}\right)\,.$$
+
+\subsection{Trier un tableau en C}
+
+La fonction \texttt{qsort}, de la bibliothèque standard du langage C,
+permet de trier des tableaux d'éléments d'un type quelconque, suivant
+une relation d'ordre quelconque. Prenons l'exemple d'un tableau~$T$ de~$n$
+doubles, qu'on souhaite trier par ordre croissant. Il suffit d'écrire 
+une fonction de comparaison, paramétrée par les adresses~$p$ et~$q$ 
+de deux éléments de~$T$, qui retourne~$-1$,~$0$ ou~$1$, suivant que 
+le double désigné par~$p$ est inférieur, inférieur ou égal ou supérieur au
+double désigné par~$q$. Pour des raisons de généricité, les adresses
+passées en paramètre sont de type \texttt{const void*}. Il suffit
+d'effectuer une conversion de pointeurs en début de fonction pour
+se ramener au type \texttt{double*}.
+
+\begin{Verbatim}[fontsize=\small]
+int compare_doubles (const void* p0, const void* q0)
+{   double* p = (double*)p0;
+    double* q = (double*)q0;
+    if (*p < *q)
+        return -1;
+    else if (*p == *q)
+        return 0;
+    else
+        return 1;
+}
+\end{Verbatim}
+
+\begin{wrapfigure}{r}{.3\linewidth}
+\begin{tikzpicture}
+\draw (0,0) -- (6,0) ;
+\draw (3,2) node {$\circ$} ;
+\draw [style=dotted] (0,0) -- (4.5,3) ;
+\draw (2.8,2.3) node {$A$} ;
+\draw (5,1) node {$\circ$} ;
+\draw [style=dotted] (0,0) -- (6,1.2) ;
+\draw [->] (2.157,0.431) arc (11.31:33.69:2.2);
+\draw (5,1.3) node {$B$} ;
+\draw [->] (2,0) arc (0:11.30:2) ;
+\draw (1,3) node {$\circ$} ;
+\draw [style=dotted] (0,0) -- (1.5,4.5) ;
+\draw (.7,3.1) node {$C$} ;
+\draw [->] (1.997,1.331) arc (33.69:45:2.4) ;
+\draw (4,4) node {$\circ$} ;
+\draw [style=dotted] (0,0) -- (5,5) ;
+\draw (3.7,4.2) node {$D$} ;
+\draw [->] (1.838,1.838) arc (45:71.565:2.6) ;
+\end{tikzpicture}
+\end{wrapfigure}
+
+Dans la fonction qui doit trier~$T$, l'appel à \texttt{qsort} peut alors
+s'écrire~:
+\begin{Verbatim}[fontsize=\small]
+    double T [n];
+    ...
+    qsort (T, n, sizeof (double), &compare_doubles);
+\end{Verbatim}
+
+\question
+Supposons que~$T$ soit un tableau de~$n$ éléments de 
+type \texttt{struct point} (voir déclaration ci-dessous).
+Écrire une fonction de comparaison \texttt{compare\_points}
+et un appel à \texttt{qsort} qui
+permette de trier~$T$ par angle croissant (sur la figure
+de droite, par angle croissant, les quatre points sont
+$B$, $A$, $D$ et~$C$).
+\begin{Verbatim}[fontsize=\small]
+    struct point {
+        double x;     /* abscisse */
+        double y;     /* ordonnée */
+        char ident;   /* identificateur */
+    };
+\end{Verbatim}
+
+\question
+Écrire une fonction \texttt{tourne\_a\_gauche}, paramétrée
+par trois points~$A$, $B$ et~$C$, qui retourne \texttt{true}
+si le chemin de~$A$ vers~$C$ tourne à gauche en~$B$, et
+\texttt{false} sinon.
+
+\section{L'algorithme de Graham}
+
+L'algorithme de Graham calcule l'enveloppe convexe d'un ensemble
+de~$n$ points du plan (voir Figure~\ref{fig-enveloppe}) avec une
+complexité en $\Theta (n\,\log(n))$. 
+Un pseudo-code est donné Figure~\ref{algo-Graham}.
+Voir aussi \cite[section 33.3]{CLRS02}.
+
+\begin{figure}[ht]
+\centerline{\begin{tikzpicture}[scale=.09]
+\draw (-2,-2)  node {$A$} ;
+\draw (0.000000,0.000000) node {$\circ$} ;
+\draw (38.300775,81.387560) node {$B$} ;
+\draw (40.300775,79.387560) node {$\circ$} ;
+\draw (85.307519,4.746114) node {$C$} ;
+\draw (82.307519,4.746114) node {$\circ$} ;
+\draw (38.844346,64.690464) node {$D$} ;
+\draw (35.844346,64.690464) node {$\circ$} ;
+\draw (16.232867,24.879141) node {$E$} ;
+\draw (13.232867,24.879141) node {$\circ$} ;
+\draw (8.797636,10.095421) node {$F$} ;
+\draw (5.797636,10.095421) node {$\circ$} ;
+\draw (16.519759,56.930767) node {$G$} ;
+\draw (18.519759,54.930767) node {$\circ$} ;
+\draw (68.672118,24.024093) node {$H$} ;
+\draw (65.672118,24.024093) node {$\circ$} ;
+\draw (83.232410,92.516572) node {$I$} ;
+\draw (81.232410,90.516572) node {$\circ$} ;
+\draw (59.019427,90.984004) node {$J$} ;
+\draw (59.019427,87.984004) node {$\circ$} ;
+\draw [style=dotted] (0.000000,0.000000) -- (18.519759,54.930767) -- (40.300775,79.387560) -- (59.019427,87.984004) -- (81.232410,90.516572) -- (82.307519,4.746114) -- (0.000000,0.000000) ;
+\end{tikzpicture}}
+\caption{Enveloppe convexe d'un ensemble de points. Supposons que
+l'origine soit en~$A$ et énumérons les autres les sommets de l'enveloppe
+convexe par angle croissant~: $C$, $I$, $J$, $B$, $G$. On remarque
+une propriété, exploitée par l'algorithme de Graham~: à chaque point
+rencontré, on tourne à gauche.}
+\label{fig-enveloppe}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{tabbing}
+\PROCEDURE\ {\sffamily Graham} ($T$)\\
+\INDENTER
+{\em $T[0,1,\ldots,n-1]$ est un tableau de~$n$ points ($n \geq 3$). 
+L'origine est en $T_0$.} \\
+\quad
+{\em Les autres points ont des coordonnées strictement positives.} \\
+\BEGIN \\
+\INDENTER
+    Trier~$T [1, \ldots, n-1]$ par angle croissant \\
+    Initialiser une pile de points à vide \\
+    Empiler $T_0$, puis~$T_1$ \\
+\< {\em La pile contient toujours au moins deux points } \\
+    $i$ := $2$ \\
+    \WHILE\ $i < n$ \DO \\
+    \INDENTER
+        $\mbox{\em cour}$ := le point en sommet de pile \\
+        $\mbox{\em prec}$ := le point encore en-dessous \\
+        On considère le chemin défini par les trois points
+                $\mbox{\em prec}$, $\mbox{\em cour}$ et~$T_i$ \\
+        \IF\ ce chemin tourne à gauche en $\mbox{\em cour}$ \THEN \\
+        \INDENTER
+            Empiler $T_i$ \\
+            $i$ := $i+1$ \\
+        \< \ELSE \\
+            Dépiler un point \-\\
+        \ENDIF \-\\
+    \ENDDO \\
+    Le contenu de la pile constitue l'enveloppe convexe de~$T$.
+    Afficher ce contenu \-\\
+\END
+\end{tabbing}
+\caption{L'algorithme de Graham. Cet algorithme utilise une pile
+de points. On peut montrer qu'à chaque itération, cette pile
+contient au moins deux éléments.}
+\label{algo-Graham}
+\end{figure}
+
+Appliquons le pseudo-code de la Figure~\ref{algo-Graham}
+sur l'exemple de la Figure~~\ref{fig-enveloppe}.
+Après le tri initial, le tableau~$T$ contient
+$$A,\, C,\, H,\, I,\, J,\, F,\, D,\, E,\, B,\, G\,.$$
+Les valeurs successives de la pile sont~:
+$$\begin{array}{l}
+A,\,C \\
+A,\, C,\, H \\
+A,\, C,\, I \\
+A,\, C,\, I,\,J \\
+A,\, C,\, I,\,J,\,F \\
+A,\, C,\, I,\,J,\,D \\
+A,\, C,\, I,\,J,\,D,\,E \\
+A,\, C,\, I,\,J,\,B \\
+A,\, C,\, I,\,J,\,B,\,G
+\end{array}$$
+
+\section{Réalisation}
+
+\question
+Coder le fichier \texttt{point.c} dont le fichier d'entête est 
+ci-dessous (voir questions 3 et~4).
+\begin{Verbatim}[fontsize=\small,samepage=true]
+/* point.h */
+
+#include <stdbool.h>
+
+struct point {
+    double x;   /* abscisse */
+    double y;   /* ordonnée */
+    char c;     /* identificateur */
+};
+
+extern void init_point (struct point*, double, double, char);
+extern int compare_points (const void*, const void*);
+extern bool tourne_a_gauche (struct point*, struct point*, struct point*);
+\end{Verbatim}
+
+\question
+On souhaite implanter la pile de points de l'algorithme de Graham
+au moyen d'une liste chaînée. 
+Adapter le module \texttt{liste\_double} en un module \texttt{liste\_point}
+qui permette de coder naturellement l'algorithme de Graham.
+Faut-il ajouter des fonctions à ce module~?
+\begin{Verbatim}[fontsize=\small,samepage=true]
+/* liste_double.h */
+
+struct maillon_double
+{   double value;
+    struct maillon_double* next;
+};
+
+struct liste_double
+{   struct maillon_double* tete;
+    int nbelem;
+};
+
+extern void init_liste_double (struct liste_double*);
+extern void clear_liste_double (struct liste_double*);
+extern void ajouter_en_tete_liste_double (struct liste_double*, double);
+extern void extraire_tete_liste_double (double* d, struct liste_double* L);
+\end{Verbatim}
+
+\question
+Compléter le code C ci-dessous afin d'implanter l'algorithme
+de la Figure~\ref{algo-Graham}.
+\begin{figure}
+\begin{Verbatim}[fontsize=\small,samepage=true]
+/* Graham.c */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include "liste_point.h"
+
+#define N 10
+#define MAX_COORDINATES 100
+#define SCENARIO 78738
+
+int main ()
+{   struct point T[N];
+    struct liste_point L;
+    FILE* f;
+    int i;
+
+    srand48 (SCENARIO);
+/* 
+ * On crée N points. Le point A est en (0,0).
+ * On les enregistre dans "points.dat"
+ */
+    init_point (&T[0], 0, 0, 'A');
+    for (i = 1; i < N; i++)
+        init_point (&T[i], drand48 () * MAX_COORDINATES,
+                           drand48 () * MAX_COORDINATES, 'A' + i);
+    f = fopen ("points.dat", "w");
+    assert (f != NULL);
+    for (i = 0; i < N; i++)
+        fprintf (f, "%f %f %c\n", T[i].x, T[i].y, T[i].c);
+    fclose (f);
+/* 
+ * On trie T [1 .. N-1] par angle croissant.
+ * On s'assure qu'il n'y a pas deux points alignés.
+ */
+    qsort (T+1, N-1, sizeof (struct point), &compare_points);
+    for (i = 1; i < N-1; i++)
+        assert (compare_points (&T[i], &T[i+1]) != 0);
+/*
+ * À FAIRE : BOUCLE PRINCIPALE DE L'ALGORITHME DE GRAHAM.
+ *           UTILISER L POUR LA PILE DE POINTS.
+ */
+    f = fopen ("enveloppe.dat", "w");
+    assert (f != NULL);
+    fprintf (f, "%f %f\n", T[0].x, T[0].y);
+/*
+ * À FAIRE : IMPRIMER TOUS LES POINTS DE L DANS "enveloppe.dat"
+ */
+    fclose (f);
+/* 
+ * plot [-10:100][-10:100] "points.dat" with labels, "enveloppe.dat" with lines
+ */
+    clear_liste_point (&L);
+    return 0;
+}
+\end{Verbatim}
+\end{figure}
+
+\bibliographystyle{plain}
+\bibliography{tp4}
+\end{document}
+
+
+
